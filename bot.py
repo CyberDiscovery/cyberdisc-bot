@@ -15,11 +15,11 @@ async def on_ready():
 
 
 ##CONTROVERSIAL FILTER
-contrv = [listofbadwordsthativeremoved]
+contrv = [swears]
 @bot.listen()
 async def on_message(message):
     text = message.content
-    if (any(x in text.lower() for x in contrv)) and (str(message.author) != "Cyber Discovery Bot#7995"):
+    if (any(x in text.lower() for x in contrv)) and (str(message.author) != "cyberdiscovery-bot#8010"):
         await bot.send_message(message.channel, message.author.mention+"  |  *Please refrian from discussing controversial topics in this discord, **as mentioned in rule 2**.\nThis includes discussion of race, religion, politics, gender and sexuality.*")
 
 
@@ -53,12 +53,12 @@ async def on_message(message):
 @bot.listen()
 async def on_message(message):
     text = (message.content).lower()
-    if message.content.startswith('.react'):
+    if message.content.startswith(':react'):
         text = text.split(" ")
         try:
             num = int(text[1])
         except ValueError:
-            await bot.send_message(message.channel,str(message.author.mention)+"  |  Correct syntax: `.react <number of messages up to react to> <text>` (e.g. `.react 1 abc`).")
+            await bot.send_message(message.channel,str(message.author.mention)+"  |  Correct syntax: `.react <number of messages up to react to> <text>` (e.g. `:react 1 abc`).")
             return ""
         mgs = []
         async for x in bot.logs_from(message.channel,limit = num+1):
@@ -87,8 +87,8 @@ async def on_message(message):
 
 @bot.listen()
 async def on_message(message):
-    text = (message.content).lower().replace(":","")
-    if message.content.startswith(':'):
+    if message.content.startswith(':l'):
+        text = (message.content).lower().replace(":","")
         inp = text.split("c")
         for count,x in enumerate(inp): inp[count] = int(x.replace("l",""))-1
         with open('/home/main/headquarters.txt') as f:
@@ -107,9 +107,21 @@ async def on_message(message):
     url = "https://haveibeenpwned.com/api/v2/breachedaccount/"
     if message.content.startswith(":haveibeenpwned"):
         text = (message.content).replace(":haveibeenpwned ","")
-        r = rq.get(url+text)
-        await bot.send_message(message.channel,r.text)
-
+        r = (rq.get(url+text)).json()
+        writing = str(message.author.mention)+"  |  Info from `https://haveibeenpwned.com/`:"
+        await bot.send_message(message.channel,writing)
+        for i in r:
+            writing ="```Title: "+i['Title']+"\nName: "+i['Name']+"\nBreach date: "+i['BreachDate']+"\nPwnCount"+str(i['PwnCount'])+"\nDescription: "+(i['Description']).replace("<a href=\"","").replace("\" target=\"_blank\" rel=\"noopener\">","").replace("</a>","")
+            writing += "\nLost data: "+'/'.join(i['DataClasses'])+"\nCurrently active: "+str(i['IsActive'])+"```"
+            await bot.send_message(message.channel,writing)
+    elif message.content.startswith(":hasitbeenpwned"):
+        url = "https://api.pwnedpasswords.com/pwnedpassword/"
+        text = (message.content).replace(":hasitbeenpwned ","")
+        try:
+            text = str((rq.get(url+text)).json())
+            await bot.send_message(message.channel,str(message.author.mention)+"  |  This password has been uncovered "+text+" times.")
+        except:
+            await bot.send_message(message.channel,str(message.author.mention)+"  |  This password has never been uncovered :)")
 
 
 
