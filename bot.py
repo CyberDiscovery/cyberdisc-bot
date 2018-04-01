@@ -1,6 +1,7 @@
 import discord
 import urllib.parse
 from discord.ext import commands
+import asyncio
 import requests as rq
 desc = "test"
 bot = commands.Bot(command_prefix='...', description=desc)
@@ -15,13 +16,24 @@ async def on_ready():
 
 
 ##CONTROVERSIAL FILTER
-contrv = [swears]
+contrv = [a list of controversial words]
 @bot.listen()
 async def on_message(message):
     text = message.content
     if (any(x in text.lower() for x in contrv)) and (str(message.author) != "cyberdiscovery-bot#8010"):
-        await bot.send_message(message.channel, message.author.mention+"  |  *Please refrian from discussing controversial topics in this discord, **as mentioned in rule 2**.\nThis includes discussion of race, religion, politics, gender and sexuality.*")
+        msg = await bot.send_message(message.channel, message.author.mention+"  |  *Please refrian from discussing controversial topics in this discord, **as mentioned in rule 2**.\nThis includes discussion of race, religion, politics, gender and sexuality.*")
+        await asyncio.sleep(5)
+        await bot.delete_message(msg)
+    elif "@someone" in text.lower():
+        await bot.delete_message(message)
 
+
+##Help
+@bot.listen()
+async def on_message(message):
+    if message.content.startswith(":help"):
+        hp = "View challenges: `:lxcx` (`l2x3`)\nAdd reactions: `:react x abc` (`:react 1 hi`)\nLMGTFY link: `:lmgtfy (optional:@user) how to do xyz`  |  (`:lmgtfy @Georgee1991 how to loop in python`)\nHaveibeenpwned Search: `:haveibeenpwned user@email.com`  |  (`:haveibeenpwned george@gmail.com`)\nHaveibeenpwned password search: `:hasitbeenpwned password`  |  (`:hasitbeenpwed password1234`)"
+        await bot.send_message(message.channel,hp)
 
 
 ##WHOPINGED/debato
@@ -38,7 +50,11 @@ async def on_message(message):
 @bot.listen()
 async def on_message(message):
     text = message.content
-    if text.startswith('.lmgtfy'):
+    delete = False
+    if "-delete" in text.lower():
+        text = text.replace("-delete","")
+        delete = True
+    if text.startswith(':lmgtfy'):
         if message.mentions:
             for x in message.mentions: text = text.replace(str(x.mention),"")
             url = "https://lmgtfy.com/?q="+urllib.parse.quote_plus(text[9:])
@@ -48,6 +64,8 @@ async def on_message(message):
             url = "https://lmgtfy.com/?q="+urllib.parse.quote_plus(text[8:])
             url = rq.get("http://tinyurl.com/api-create.php?url="+url).text
             await bot.send_message(message.channel,url)
+        if delete == True:
+            await bot.delete_message(message)
 
 ###ADD CUSTOM ReACTIONS
 @bot.listen()
@@ -58,7 +76,7 @@ async def on_message(message):
         try:
             num = int(text[1])
         except ValueError:
-            await bot.send_message(message.channel,str(message.author.mention)+"  |  Correct syntax: `.react <number of messages up to react to> <text>` (e.g. `:react 1 abc`).")
+            await bot.send_message(message.channel,str(message.author.mention)+"  |  Correct syntax: `:react <number of messages up to react to> <text>` (e.g. `:react 1 abc`).")
             return ""
         mgs = []
         async for x in bot.logs_from(message.channel,limit = num+1):
@@ -66,7 +84,7 @@ async def on_message(message):
         foundmessage = mgs[num]
         actual_text = ' '.join(text[2:])
         regional_chars = "🇦 🇧 🇨 🇩 🇪 🇫 🇬 🇭 🇮 🇯 🇰 🇱 🇲 🇳 🇴 🇵 🇶 🇷 🇸 🇹 🇺 🇻 🇼 🇽 🇾 🇿 ◽".split(" ")
-        repeat_chars = "🅰 🅱 © 🇩 🇪 🇫 🇬 🇭 ℹ 🗾 🇰 🇱 Ⓜ ♑ 🅾 🅿 🇶 ® 🇸 🇹 ♉ 🇻 🇼 ✖️ 🇾 💤 ⚪".split(" ")
+        repeat_chars = "🅰 🅱 © 🇩 🇪 🇫 🇬 🇭 ℹ 🗾 🇰 🇱 Ⓜ ♑ 🅾 🅿 🇶 ® 🇸 🇹 ♉ ♈ 🇼 ✖️ 🇾 💤 ⚪".split(" ")
         numbers = "0⃣ 1⃣ 2⃣ 3⃣ 4⃣ 5⃣ 6⃣ 7⃣ 8⃣ 9⃣ 🔟".split(" ")
         empt = ""
         for char in actual_text:
@@ -88,9 +106,19 @@ async def on_message(message):
 @bot.listen()
 async def on_message(message):
     if message.content.startswith(':l'):
-        text = (message.content).lower().replace(":","")
-        inp = text.split("c")
-        for count,x in enumerate(inp): inp[count] = int(x.replace("l",""))-1
+        text = ((message.content).split(" "))[0]
+        text = (text).lower().replace(":","")
+        try:
+            inp = text.split("c")
+            for count,x in enumerate(inp): inp[count] = int(x.replace("l",""))-1
+        except ValueError:
+            await bot.send_message(message.channel,str(message.author.mention)+"  |  Correct syntax: `:lxcx` where x is the level/challenge number (e.g. `:l5c6`).")
+            return ""
+        if (inp[0]+1 not in range(1,14)) or (inp[1]+1 not in range(1,13)):
+            msg = await bot.send_message(message.channel,str(message.author.mention)+"  |  Challenge not in range!")
+            await asyncio.sleep(5)
+            await bot.delete_message(msg)
+            return ""
         with open('/home/main/headquarters.txt') as f:
             text = (f.read()).split(";;;;;;")
         text = text[inp[0]]
@@ -108,9 +136,9 @@ async def on_message(message):
     if message.content.startswith(":haveibeenpwned"):
         text = (message.content).replace(":haveibeenpwned ","")
         r = (rq.get(url+text)).json()
-        writing = str(message.author.mention)+"  |  Info from `https://haveibeenpwned.com/`:"
+        writing = str(message.author.mention)+"  |  Info from `https://haveibeenpwned.com/`. Showing up to **5** breaches (Total: "+str(len(r))+")"
         await bot.send_message(message.channel,writing)
-        for i in r:
+        for i in r[:5]:
             writing ="```Title: "+i['Title']+"\nName: "+i['Name']+"\nBreach date: "+i['BreachDate']+"\nPwnCount"+str(i['PwnCount'])+"\nDescription: "+(i['Description']).replace("<a href=\"","").replace("\" target=\"_blank\" rel=\"noopener\">","").replace("</a>","")
             writing += "\nLost data: "+'/'.join(i['DataClasses'])+"\nCurrently active: "+str(i['IsActive'])+"```"
             await bot.send_message(message.channel,writing)
