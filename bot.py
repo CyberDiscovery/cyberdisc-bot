@@ -4,6 +4,7 @@ from discord.ext import commands
 import asyncio
 import requests as rq
 desc = "test"
+#contrv = [some "not very nice" words]
 bot = commands.Bot(command_prefix='...', description=desc)
 
 ##TELLS ME I'VE LOGGED IN
@@ -16,7 +17,6 @@ async def on_ready():
 
 
 ##CONTROVERSIAL FILTER
-contrv = [a list of controversial words]
 @bot.listen()
 async def on_message(message):
     text = message.content
@@ -71,7 +71,7 @@ async def on_message(message):
 @bot.listen()
 async def on_message(message):
     text = (message.content).lower()
-    if message.content.startswith(':react'):
+    if message.content.startswith(':react') and any(x in text for x in contrv) == False:
         text = text.split(" ")
         try:
             num = int(text[1])
@@ -84,13 +84,19 @@ async def on_message(message):
         foundmessage = mgs[num]
         actual_text = ' '.join(text[2:])
         regional_chars = "🇦 🇧 🇨 🇩 🇪 🇫 🇬 🇭 🇮 🇯 🇰 🇱 🇲 🇳 🇴 🇵 🇶 🇷 🇸 🇹 🇺 🇻 🇼 🇽 🇾 🇿 ◽".split(" ")
-        repeat_chars = "🅰 🅱 © 🇩 🇪 🇫 🇬 🇭 ℹ 🗾 🇰 🇱 Ⓜ ♑ 🅾 🅿 🇶 ® 🇸 🇹 ♉ ♈ 🇼 ✖️ 🇾 💤 ⚪".split(" ")
+        repeat_chars = "🅰 🅱 © ↩ 8⃣ 🇫 🇬 ♓ ℹ 🗾 🇰 🇱 Ⓜ ♑ 🅾 🅿 🇶 ® 💲 ✝️ ⛎ ♈ 🇼 ✖️ 🇾 💤 ⚪".split(" ")
         numbers = "0⃣ 1⃣ 2⃣ 3⃣ 4⃣ 5⃣ 6⃣ 7⃣ 8⃣ 9⃣ 🔟".split(" ")
         empt = ""
         for char in actual_text:
             if char == " ": char = "{"
             if char in "0123456789":
-                await bot.add_reaction(foundmessage,numbers[int(char)])
+                try:
+                    await bot.add_reaction(foundmessage,numbers[int(char)])
+                except discord.errors.Forbidden:
+                    msg = await bot.send_message(message.channel,str(message.author.mention)+"  |  Too many reactions!")
+                    await asyncio.sleep(7)
+                    await bot.delete_message(msg)
+                    break
                 continue
             try: newchar = regional_chars[ord(char)-97]
             except: newchar=regional_chars[26]
@@ -99,13 +105,17 @@ async def on_message(message):
                 except: newchar = repeat_chars[26]
             empt += newchar
             try: await bot.add_reaction(foundmessage,newchar)
-            except discord.errors.Forbidden: await bot.send_message(message.channel,str(message.author.mention)+"  |  Too many reactions!")
+            except discord.errors.Forbidden:
+                msg = await bot.send_message(message.channel,str(message.author.mention)+"  |  Too many reactions!")
+                await asyncio.sleep(20)
+                await bot.delete_message(msg)
+                break
             except discord.errors.HTTPException: pass
         await bot.delete_message(message)
 
 @bot.listen()
 async def on_message(message):
-    if message.content.startswith(':l'):
+    if (message.content.startswith(':l')) and ("lmgtfy" not in str(message.content)):
         text = ((message.content).split(" "))[0]
         text = (text).lower().replace(":","")
         try:
@@ -153,4 +163,4 @@ async def on_message(message):
 
 
 
-bot.run(apikey)
+bot.run('bG9sIHlvdSB0aG91Z2h0IGhh')
