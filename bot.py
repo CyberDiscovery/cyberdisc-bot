@@ -4,7 +4,7 @@ from discord.ext import commands
 import asyncio
 import requests as rq
 desc = "test"
-#contrv = [some "not very nice" words]
+contrv = ["not very nice"]
 bot = commands.Bot(command_prefix='...', description=desc)
 
 ##TELLS ME I'VE LOGGED IN
@@ -113,6 +113,7 @@ async def on_message(message):
             except discord.errors.HTTPException: pass
         await bot.delete_message(message)
 
+#Headquaters
 @bot.listen()
 async def on_message(message):
     if (message.content.startswith(':l')) and ("lmgtfy" not in str(message.content)):
@@ -138,7 +139,12 @@ async def on_message(message):
         except:
             await bot.send_message(message.channel,str(message.author.mention)+"  |  ")
             return ""
-        await bot.send_message(message.channel,text)
+        print ("Starting message printing")
+        em = discord.Embed(title=("Level " + str(inp[0] + 1) + " Challenge " + str(inp[1] - 1)), description=text, colour=0x4262f4)
+        print ("Setting author")
+        em.set_author(name="Cyber Discovery", icon_url="https://pbs.twimg.com/profile_images/921313066515615745/fLEl2Gfa_400x400.jpg")
+        print ("Sending now")
+        await bot.send_message(message.channel, embed=em)
 
 @bot.listen()
 async def on_message(message):
@@ -163,4 +169,4 @@ async def on_message(message):
 
 
 
-bot.run('bG9sIHlvdSB0aG91Z2h0IGhh')
+bot.run('NDI5NjA1MTAxMzAxMjY4NDgw.DaEEeA.a7pCP0TBh-8kHxq-5nhMIraH8FY')
