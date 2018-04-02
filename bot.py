@@ -139,11 +139,11 @@ async def on_message(message):
         except:
             await bot.send_message(message.channel,str(message.author.mention)+"  |  ")
             return ""
-        print ("Starting message printing")
+    #    print ("Starting message printing")
         em = discord.Embed(title=("Level " + str(inp[0] + 1) + " Challenge " + str(inp[1] + 1) + " - " + text.splitlines()[0]), description=text, colour=0x4262f4)
-        print ("Setting author")
+    #    print ("Setting author")
         em.set_author(name="Cyber Discovery", icon_url="https://pbs.twimg.com/profile_images/921313066515615745/fLEl2Gfa_400x400.jpg")
-        print ("Sending now")
+    #    print ("Sending now")
         await bot.send_message(message.channel, embed=em)
 
 @bot.listen()
@@ -169,4 +169,4 @@ async def on_message(message):
 
 
 
-bot.run('')
+bot.run('c29tZXRpbWVzIGl0IHJlYWxseSBkbyBiZSBsaWtlIHRoYXQg')
