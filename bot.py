@@ -140,7 +140,7 @@ async def on_message(message):
             await bot.send_message(message.channel,str(message.author.mention)+"  |  ")
             return ""
         print ("Starting message printing")
-        em = discord.Embed(title=("Level " + str(inp[0] + 1) + " Challenge " + str(inp[1] + 1)), description=text, colour=0x4262f4)
+        em = discord.Embed(title=("Level " + str(inp[0] + 1) + " Challenge " + str(inp[1] + 1) + " - " + text.splitlines()[0]), description=text, colour=0x4262f4)
         print ("Setting author")
         em.set_author(name="Cyber Discovery", icon_url="https://pbs.twimg.com/profile_images/921313066515615745/fLEl2Gfa_400x400.jpg")
         print ("Sending now")
@@ -169,4 +169,4 @@ async def on_message(message):
 
 
 
-bot.run('apikey')
+bot.run('NDI5NzUwNTI5NzM2ODM1MDc0.DaQwMg.0qCVrb-itv1wXUllsRMJSbTVf7Q')
