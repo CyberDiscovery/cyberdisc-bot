@@ -113,7 +113,7 @@ async def on_message(message):
             except discord.errors.HTTPException: pass
         await bot.delete_message(message)
 
-#Headquaters
+#Headquarters
 @bot.listen()
 async def on_message(message):
     if (message.content.startswith(':l')) and ("lmgtfy" not in str(message.content)):
@@ -130,7 +130,7 @@ async def on_message(message):
             await asyncio.sleep(5)
             await bot.delete_message(msg)
             return ""
-        with open('/home/main/headquarters.txt') as f:
+        with open('headquarters.txt','r') as f:
             text = (f.read()).split(";;;;;;")
         text = text[inp[0]]
         text = text.split(":::")
@@ -140,7 +140,7 @@ async def on_message(message):
             await bot.send_message(message.channel,str(message.author.mention)+"  |  ")
             return ""
         print ("Starting message printing")
-        em = discord.Embed(title=("Level " + str(inp[0] + 1) + " Challenge " + str(inp[1] - 1)), description=text, colour=0x4262f4)
+        em = discord.Embed(title=("Level " + str(inp[0] + 1) + " Challenge " + str(inp[1] + 1)), description=text, colour=0x4262f4)
         print ("Setting author")
         em.set_author(name="Cyber Discovery", icon_url="https://pbs.twimg.com/profile_images/921313066515615745/fLEl2Gfa_400x400.jpg")
         print ("Sending now")
@@ -169,4 +169,4 @@ async def on_message(message):
 
 
 
-bot.run('NDI5NjA1MTAxMzAxMjY4NDgw.DaEEeA.a7pCP0TBh-8kHxq-5nhMIraH8FY')
+bot.run('apikey')
