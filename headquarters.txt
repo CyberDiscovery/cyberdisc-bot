@@ -587,6 +587,15 @@ By the way, our intel tells us that there used to actually be a button called "T
 
 Tip: Turn off the alarms to get the flag.
 :::
+Locked Doors
+Recruit, another piece of field work for you.
+
+We want to test the internal door locks on the ship - and how better than to let one of our most promising agents (you!) try and hack into it!
+
+Take a look at this lock. It has some encrypted numbers which you need to decrypt to get in.
+
+Tip: Break through the lock to get the flag.
+:::
 Port Service
 Recruit, another interesting one for you.
 
@@ -603,6 +612,7 @@ See if you can read the barcodes, decode the output and put them in the right or
 
 Tip: The flag is in the decrypted message.
 :::
+
 Filtered Cola
 Hey recruit, back on the previous level you might have been involved with the team that was looking into one of The Chiquitoos' side businesses: the bottling plant. We found their price list request form was vulnerable to command injection and we think the site must also be open to SQL injection.
 
