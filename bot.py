@@ -32,8 +32,9 @@ async def on_message(message):
 @bot.listen()
 async def on_message(message):
     if message.content.startswith(":help"):
-        hp = "View challenges: `:lxcx` (`l2x3`)\nAdd reactions: `:react x abc` (`:react 1 hi`)\nLMGTFY link: `:lmgtfy (optional:@user) how to do xyz`  |  (`:lmgtfy @Georgee1991 how to loop in python`)\nHaveibeenpwned Search: `:haveibeenpwned user@email.com`  |  (`:haveibeenpwned george@gmail.com`)\nHaveibeenpwned password search: `:hasitbeenpwned password`  |  (`:hasitbeenpwed password1234`)"
-        await bot.send_message(message.channel,hp)
+        hp = discord.Embed(title="Bot Help", description="**View challenges:** `:lxcx` (`l2x3`)\n**Add reactions:** `:react x abc` (`:react 1 hi`)\n**LMGTFY link:** `:lmgtfy (optional:@user) how to do xyz`  |  (`:lmgtfy @Georgee1991 how to loop in python`)\n**Haveibeenpwned Search:** `:haveibeenpwned user@email.com`  |  (`:haveibeenpwned george@gmail.com`)\n**Haveibeenpwned password search:** `:hasitbeenpwned password`  |  (`:hasitbeenpwed password1234`)", colour=0xf44256)
+        hp.set_author(name="George's Python :) Bot", icon_url="https://game.joincyberdiscovery.com/assets/images/asset-game-agent-8.png?version=2.0.8")
+        await bot.send_message(message.channel,embed=hp)
 
 
 ##WHOPINGED/debato
@@ -139,6 +140,7 @@ async def on_message(message):
         except:
             await bot.send_message(message.channel,str(message.author.mention)+"  |  ")
             return ""
+        print (text)
     #    print ("Starting message printing")
         em = discord.Embed(title=("Level " + str(inp[0] + 1) + " Challenge " + str(inp[1] + 1) + " - " + text.splitlines()[0]), description=text, colour=0x4262f4)
     #    print ("Setting author")
@@ -163,10 +165,14 @@ async def on_message(message):
         text = (message.content).replace(":hasitbeenpwned ","")
         try:
             text = str((rq.get(url+text)).json())
-            await bot.send_message(message.channel,str(message.author.mention)+"  |  This password has been uncovered "+text+" times.")
+            pwu = discord.Embed(title="Pwned Passwords", description=str(message.author.mention)+"  |  This password has been uncovered "+text+" times.",colour=0x5DBCD2)
+            pwu.set_author(name="have i been pwned?",icon_url="https://upload.wikimedia.org/wikipedia/commons/2/23/Have_I_Been_Pwned_logo.png")
+            await bot.send_message(message.channel,embed=pwu)
         except:
-            await bot.send_message(message.channel,str(message.author.mention)+"  |  This password has never been uncovered :)")
+            pwc = discord.Embed(title="Pwned Passwords", description=str(message.author.mention)+"  |  This password has never been uncovered", colour=0x5DBCD2)
+            pwc.set_author(name="have i been pwned?",icon_url="https://upload.wikimedia.org/wikipedia/commons/2/23/Have_I_Been_Pwned_logo.png")
+            await bot.send_message(message.channel,embed=pwc)
 
 
 
-bot.run('c29tZXRpbWVzIGl0IHJlYWxseSBkbyBiZSBsaWtlIHRoYXQg')
+bot.run('apikey')
