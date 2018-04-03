@@ -1,11 +1,25 @@
+from __future__ import absolute_import, print_function
 import discord
 import urllib.parse
 from discord.ext import commands
 import asyncio
 import requests as rq
+import json
+from tweepy.streaming import StreamListener
+from tweepy import OAuthHandler
+from tweepy import Stream
+global link
+link = ""
 desc = "test"
 contrv = ["not very nice"]
 bot = commands.Bot(command_prefix='...', description=desc)
+
+
+## Authentication Information For Twitter
+consumer_key="9qFvkUhKd4YNwWpDxXcQrVjcO"
+consumer_secret="ZTcXrBQNay7zMhzD2zCJQ7qJHRvl89sMXBtWaMBQXShdW3w8Dg"
+access_token="1146244825-FWIHUhRh4fkkSeeik16JzAv6AX8Lm1DIagvirIF"
+access_token_secret="ZdpzJ43mKBx0uMnIL7vWxXGv8Z0hjWnMABaO6ajXzeOnq"
 
 ##TELLS ME I'VE LOGGED IN
 @bot.event
@@ -14,6 +28,12 @@ async def on_ready():
     print(bot.user.name)
     print(bot.user.id)
     print('------')
+    while True:
+        global link
+        if link != "":
+            await bot.send_message(discord.Object(id="430749373119594496"), link)
+            link = ""
+        asyncio.sleep(60)
 
 
 ##CONTROVERSIAL FILTER
@@ -173,6 +193,29 @@ async def on_message(message):
             pwc.set_author(name="have i been pwned?",icon_url="https://upload.wikimedia.org/wikipedia/commons/2/23/Have_I_Been_Pwned_logo.png")
             await bot.send_message(message.channel,embed=pwc)
 
+# Tweet Monitor
+class StdOutListener(StreamListener):
+    """ A listener handles tweets that are received from the stream.
+    This is a basic listener that just prints received tweets to stdout.
+    """
+
+    def on_data(self, data):
+        niceData = json.loads(data)
+        global link
+        link = ("https://twitter.com/" + (niceData["user"])["screen_name"] + "/status/" + str(niceData["id"]))
+        print(link)
+
+        return True
+
+    def on_error(self, status):
+        print(status)
 
 
-bot.run('apikey')
+l = StdOutListener()
+auth = OAuthHandler(consumer_key, consumer_secret)
+auth.set_access_token(access_token, access_token_secret)
+stream = Stream(auth, l)
+
+stream.filter(follow=['919869122003030016'], async=True)
+
+bot.run('NDI5NzUwNTI5NzM2ODM1MDc0.DaQ1pg.AZkv3BTcOAWHCc_QN0E83bZdXOs')
