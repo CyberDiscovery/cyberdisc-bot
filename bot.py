@@ -8,18 +8,17 @@ import json
 from tweepy.streaming import StreamListener
 from tweepy import OAuthHandler
 from tweepy import Stream
+import keys
+consumer_key=keys.consumer_key
+consumer_secret=keys.consumer_secret
+access_token=keys.access_token
+access_token_secret=keys.access_token_secret
+discord_key=keys.discord_key
 global link
 link = ""
 desc = "test"
-contrv = ["not very nice"]
+contrv = ["not very nice wors54321"]
 bot = commands.Bot(command_prefix='...', description=desc)
-
-
-## Authentication Information For Twitter
-consumer_key="9qFvkUhKd4YNwWpDxXcQrVjcO"
-consumer_secret="ZTcXrBQNay7zMhzD2zCJQ7qJHRvl89sMXBtWaMBQXShdW3w8Dg"
-access_token="1146244825-FWIHUhRh4fkkSeeik16JzAv6AX8Lm1DIagvirIF"
-access_token_secret="ZdpzJ43mKBx0uMnIL7vWxXGv8Z0hjWnMABaO6ajXzeOnq"
 
 ##TELLS ME I'VE LOGGED IN
 @bot.event
@@ -168,6 +167,7 @@ async def on_message(message):
     #    print ("Sending now")
         await bot.send_message(message.channel, embed=em)
 
+#Haveibeenpwned
 @bot.listen()
 async def on_message(message):
     url = "https://haveibeenpwned.com/api/v2/breachedaccount/"
@@ -198,13 +198,11 @@ class StdOutListener(StreamListener):
     """ A listener handles tweets that are received from the stream.
     This is a basic listener that just prints received tweets to stdout.
     """
-
     def on_data(self, data):
         niceData = json.loads(data)
         global link
         link = ("https://twitter.com/" + (niceData["user"])["screen_name"] + "/status/" + str(niceData["id"]))
         print(link)
-
         return True
 
     def on_error(self, status):
@@ -218,4 +216,4 @@ stream = Stream(auth, l)
 
 stream.filter(follow=['919869122003030016'], async=True)
 
-bot.run('NDI5NzUwNTI5NzM2ODM1MDc0.DaQ1pg.AZkv3BTcOAWHCc_QN0E83bZdXOs')
+bot.run(discord_key)
