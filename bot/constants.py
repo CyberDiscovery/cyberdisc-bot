@@ -7,8 +7,8 @@ EVERYONE_REACTIONS = ["🙁","🇼","🇭","🇴","🔵","🇵","🇮","🇳","�
 
 # Lists for administration
 
+ADMIN_ROLES = ("Root", "Sudo")
 BANNED_DOMAINS = ["discord.gg"]
-
 
 # Cyber Constants
 

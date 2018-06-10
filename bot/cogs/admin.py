@@ -1,6 +1,7 @@
-from discord.ext.commands import Bot
+from discord import Member
+from discord.ext.commands import Bot, Context, command, has_any_role
 
-from bot.constants import BANNED_DOMAINS
+from bot.constants import ADMIN_ROLES, BANNED_DOMAINS
 
 
 class Admin:
@@ -11,9 +12,24 @@ class Admin:
     def __init__(self, bot: Bot):
         self.bot = bot
 
-    async def mute_member(self, member, reason="N/A"):
+    async def mute_member(self, member: Member, reason: str="N/A"):
         self.bot.muted.append(member.id)
         print(f"Member {member} ({member.id}) has been muted for reason: {reason}")
+
+    @command()
+    @has_any_role(*ADMIN_ROLES)
+    async def mute(self, ctx: Context, member: Member):
+        if any(role_name in [role.name for role in member.roles] for role_name in ADMIN_ROLES):
+            await ctx.send(f"{ctx.author.mention} | Can't mute an admin!")
+        else:
+            self.bot.muted.append(member.id)
+            await ctx.send(f"{ctx.author.mention} | {member.mention} has been muted.")
+    
+    @command()
+    @has_any_role(*ADMIN_ROLES)
+    async def unmute(self, ctx: Context, member: Member):
+        self.bot.muted.remove(member.id)
+        await ctx.send(f"{ctx.author.mention} | {member.mention} has been unmuted.")
 
     async def on_message(self, message):
         if message.author.id in self.bot.muted:
