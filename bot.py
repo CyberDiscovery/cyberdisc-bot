@@ -4,13 +4,18 @@ from discord.ext import commands
 import asyncio
 import requests as rq
 desc = "test"
-contrv = ["nothingyet5435435435435"]
+muted = []
+admins = []
+
 bot = commands.Bot(command_prefix='...', description=desc)
 chars = {"a":"🇦🅰🔼🖇️","b":"🇧🅱","c":"🇨©☪️","d":"🇩↩🌮","e":"🇪📧3⃣","f":"🇫🎏","g":"🇬6⃣","h":"🇭♓","i":"🇮ℹ📍🎚","j":"🇯🗾🌶️☂️🏑","k":"🇰🎋💃","l":"🇱💪👢1⃣🎚","m":"🇲Ⓜ♏〽️♍","n":"🇳♑📈","o":"🇴🅾⭕💿⚙","p":"🇵🅿🚩","q":"🇶🎯","r":"🇷♌®","s":"🇸💲💰⚡","t":"🇹✝️🌴⛏","u":"🇺⛎♉","v":"🇻♈🔽✔️☑️","w":"🇼〰🌵🐍","x":"🇽✖️","y":"🇾🌱✌️","z":"🇿💤"," ":"⚪▫️◼️🔲🔳","!":"❗❕","?":"❓❔","+":"➕","-":"➖"}
 nums = ["0⃣","⏺️🔘🔄🔵","1⃣","🥇☝️","2⃣","🥈","3⃣","🥉","4⃣","","5⃣","","6⃣","","7⃣","🎰","8⃣","🎱","9⃣ ",""]
 long_chars = {"100":"💯","abc":"🔤","10":"🔟","!?":"⁉️","!!":"‼️","tm":"™","end":"🔚","back":"🔙","on":"🔛","top":"🔝","soon":"🔜","free":"🆓","new":"🆕","cool":"🆒","up":"🆙","ok":"🆗","ng":"🆖","wc":"🚾","atm":"🏧","18":"🔞","sos":"🆘","cl":"🆑","ab":"🆎","vs":"🆚","id":"🆔","31":"📆📅"}
 
-banned_ids = ['']
+banned_ids = []
+
+banned_links = [bannedlinkslist]
+
 
 ##TELLS ME I'VE LOGGED IN
 @bot.event
@@ -22,17 +27,15 @@ async def on_ready():
     print('------')
 
 
-##CONTROVERSIAL FILTER
+
+##Ip grabber blocker:
 @bot.listen()
 async def on_message(message):
     text = message.content
-    if (any(x in text.lower() for x in contrv)) and (str(message.author) != "cyberdiscovery-bot#8010"):
-        msg = await bot.send_message(message.channel, message.author.mention+"  |  *Please refrian from discussing controversial topics in this discord, **as mentioned in rule 2**.\nThis includes discussion of race, religion, politics, gender and sexuality.*")
-        await asyncio.sleep(5)
-        await bot.delete_message(msg)
-    elif "@someone" in text.lower():
-        await bot.delete_message(message)
-
+    if any(x in text.lower() for x in banned_links):
+        await bot.send_message(message.channel, str(message.author.mention)+"  |  IP grabbers are strictly prohibited. You have been muted until a member of staff unmutes you.")
+        muted.append(str(message.author.id))
+        print(str(message.author)+" has been muted for IP logging.")
 
 ##Help
 @bot.listen()
@@ -93,18 +96,13 @@ async def on_message(message):
     if text.startswith(":react"):
         if str(message.author.id) in banned_ids: await bot.send_message(message.channel,message.author.mention+"  is banned from (ab)using this bot.");return ""
         print(str(message.author)+" reacted with: "+text.replace(":react ",""))
-
-###For recording logs
         try:
-            channel = bot.get_channel(str(390209703726022659))
-            await bot.send_message(channel, (str(message.author).replace("@","")) +"reacted with: "+(text.replace(":react ",""))[1:])
+            channel = bot.get_channel(str(450066374824558613))
+            await bot.send_message(channel, (str(message.author).replace("@","")) +" reacted with: "+(text.replace(":react ",""))[1:])
         except:
             pass
-###
-
         chan = message.channel; auth = str(message.author.mention)
         text = text.split(" ")
-#marked out becos collm is a collosal bellend <3
         try: await bot.delete_message(message)
         except: pass
         try: num = int(text[1])-1;actual_text = ' '.join(text[2:])
@@ -169,11 +167,8 @@ async def on_message(message):
         except:
             await bot.send_message(message.channel,str(message.author.mention)+"  |  ")
             return ""
-    #    print ("Starting message printing")
         em = discord.Embed(title=("Level " + str(inp[0] + 1) + " Challenge " + str(inp[1] + 1) + " - " + text.splitlines()[0]), description=text, colour=0x4262f4)
-    #    print ("Setting author")
         em.set_author(name="Cyber Discovery", icon_url="https://pbs.twimg.com/profile_images/921313066515615745/fLEl2Gfa_400x400.jpg")
-    #    print ("Sending now")
         await bot.send_message(message.channel, embed=em)
 
 #haveibeenpwned
@@ -207,54 +202,47 @@ async def on_message(message):
             pwc.set_author(name="have i been pwned?",icon_url="https://upload.wikimedia.org/wikipedia/commons/2/23/Have_I_Been_Pwned_logo.png")
             await bot.send_message(message.channel,embed=pwc)
 
-
-#joke tings
+##CMA:
 @bot.listen()
 async def on_message(message):
-    text = (message.content).lower()
-    if "13" in text:
-#        ogtext = text
-        text = str((message.clean_content))
-#        if message.raw_mentions:
-#            for x in message.raw_mentions: text = text.replace(str(x),"")
-#        if message.raw_channel_mentions:
-#            for x in message.raw_channel_mentions: text = text.replace(str(x),"")
-        if "13" not in text: return ""
-        try: text = text.split("13")[1]
-        except: text = text.replace("13","",1)
-        if ("1" in text  or "one" in text.lower()) and ("11" not in text) and ("12" not in text) and str(message.author) != "cyberdiscovery-bot#8010":
-            msg = await bot.send_message(message.channel,str(message.author.mention)+"  |  13.1 is a no-hint zone. 🚫 ⛔ 🙅")
-            print(str(message.author)+" said the cursed phrase:"+text)
-            if "keep" not in text:
-                await asyncio.sleep(4)
-                await bot.delete_message(msg)
-    elif "thirteen" in text.lower():
-        text = str((message.clean_content))
-#        if message.raw_mentions:
-#            for x in message.raw_mentions: text = text.replace(str(x),"")
-#        if message.raw_channel_mentions:
-#            for x in message.raw_channel_mentions: text = text.replace(str(x),"")
-        text = (text.lower()).split("thirteen")[1]
-        if "one" in text.lower() or "1" in text.lower() and ("11" not in text) and ("12" not in text):
-            msg = await bot.send_message(message.channel,str(message.author.mention)+"  |  13.1 is a no-hint zone. 🚫 ⛔ 🙅")
-            print(str(message.author)+" said the cursed phrase:"+text.replace(".1",""))
-            if "keep" not in text:
-                await asyncio.sleep(4)
-                await bot.delete_message(msg)
-    text = text.split(" ")
-    if len(text) == 2 and ((text[0]).lower() == "git"):
-        if not any(x in text[1].lower() for x in ['blame','branch','status','add','commit','rm','push','checkout','merge','stash','pull','remote','log','diff']):
-            takenmessage = str(text[1]).replace("`","")
-            gitmsg = """```ruby
-git: '"""+takenmessage+"""' is not a git command. Did you mean 'git push'?```"""
-            await bot.send_message(message.channel,gitmsg)
+    if str(message.content.startswith(":cma")):
+        if str(message.author.id) in banned_ids: await bot.send_message(message.channel,message.author.mention+"  is banned from (ab)using this bot.");return ""
+    if str(message.content) == (":cma"):
+        await bot.send_message(message.channel, "Please specify **1**, **2**, **3** or **general**.")
+    elif str(message.content) == (":cma 1"):
+        with open('cma1.png', 'rb') as f:
+            await bot.send_file(message.channel, f)
+    elif str(message.content) == (":cma 2"):
+        with open('cma2.png', 'rb') as f:
+            await bot.send_file(message.channel, f)
+    elif str(message.content) == (":cma 3"):
+        with open('cma3.png', 'rb') as f:
+            await bot.send_file(message.channel, f)
+    elif str(message.content) == (":cma general"):
+        with open('cma-general.png', 'rb') as f:
+            await bot.send_file(message.channel, f)
+
+##MUTE:
+@bot.listen()
+async def on_message(message):
+    if str(message.author.id) in muted:
+        await bot.delete_message(message)
+    if (str(message.author.id) in admins) and (":mute" in str(message.content)):
+        for x in message.mentions:
+            muted.append(str(x.id))
+            await bot.send_message(message.channel, "Muted "+str(x.mention)+".")
+    elif (str(message.author.id) in admins) and (":unmute" in str(message.content)):
+        for x in message.mentions:
+            muted.remove(str(x.id))
+            await bot.send_message(message.channel, "Unmuted "+str(x.mention)+".")
+
 
 #Helping with common questions
 @bot.listen()
 async def on_message(message):
     text = (message.content).lower()
-    if all(x in text for x in ['when','game']) and any(i in text for i in ['did']) and any(n in text for n in ['end','finish','close']):
-        await bot.send_message(message.channel,str(message.author.mention)+"  |  Cyberstart Game ended on the 29th May.")
+    if all(x in text for x in ['when','game']) and any(i in text for i in ['does','will']) and any(n in text for n in ['end','finish','close']):
+        await bot.send_message(message.channel,str(message.author.mention)+"  |  Cyberstart Game ends on the 29th May.")
     elif all(x in text for x in ['when','essentials']) and any(i in text for i in ['?','does','will']) and any(n in text for n in ['end','finish','close']):
         await bot.send_message(message.channel,str(message.author.mention)+"  |  Cyberstart Essentials ends on the 18th June.")
     elif all(x in text for x in ['how','elite','get','to']):
@@ -262,4 +250,4 @@ async def on_message(message):
 
 
 
-bot.run('APIKEY')
+bot.run('V1cweFIySXdiRWhOVjJoclVqRlZPUT09')
