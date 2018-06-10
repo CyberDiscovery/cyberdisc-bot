@@ -1,2 +1,2 @@
 # cyberdisc-bot
-An attempted bot for the CyberDiscovery dicord server.
+An attempted bot for the CyberDiscovery discord server.
