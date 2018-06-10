@@ -16,15 +16,22 @@ bot = Bot(
     )
 )
 
-banned_ids = []
+bot.muted = []
+
+bot.banned_ids = []
 
 @bot.check
 async def block_banned_ids(ctx):
-    return str(ctx.author.id) not in banned_ids
+    return ctx.author.id not in bot.banned_ids
+
+@bot.check
+async def block_muted(ctx):
+    return ctx.author.id not in bot.muted
 
 
 bot.load_extension("bot.cogs.admin")
 bot.load_extension("bot.cogs.general")
+bot.load_extension("bot.cogs.cyber")
 bot.load_extension("bot.cogs.fun")
 
 

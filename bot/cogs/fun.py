@@ -22,7 +22,7 @@ class Fun:
         if "dabato" in message.content:
             await message.add_reaction("🤔")
 
-    @command(aliases=["l"])
+    @command()
     async def lmgtfy(self, ctx: Context, search_text: str, *args):
         """
         Lets the bot google that for you.

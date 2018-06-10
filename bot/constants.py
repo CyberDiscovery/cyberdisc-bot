@@ -8,3 +8,8 @@ EVERYONE_REACTIONS = ["🙁","🇼","🇭","🇴","🔵","🇵","🇮","🇳","�
 # Lists for administration
 
 BANNED_DOMAINS = ["discord.gg"]
+
+
+# Cyber Discovery Constants
+
+CYBERDISC_ICON_URL = "https://pbs.twimg.com/profile_images/921313066515615745/fLEl2Gfa_400x400.jpg"

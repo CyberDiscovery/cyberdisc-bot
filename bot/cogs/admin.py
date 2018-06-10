@@ -11,14 +11,12 @@ class Admin:
     def __init__(self, bot: Bot):
         self.bot = bot
 
-        self.muted = []
-
     async def mute_member(self, member, reason="N/A"):
-        self.muted.append(member.id)
+        self.bot.muted.append(member.id)
         print(f"Member {member} ({member.id}) has been muted for reason: {reason}")
 
     async def on_message(self, message):
-        if message.author.id in self.muted:
+        if message.author.id in self.bot.muted:
             await message.delete()
             await message.author.send("You are muted!")
         
