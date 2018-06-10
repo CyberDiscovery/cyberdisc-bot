@@ -1,93 +1,40 @@
-import discord
-import urllib.parse
-from discord.ext import commands
-import asyncio
-import requests as rq
-desc = "test"
+from discord.ext.commands import Bot, when_mentioned_or
+from discord import Game
+
+from os import environ
+
+
 muted = []
 admins = []
 
-bot = commands.Bot(command_prefix='...', description=desc)
-chars = {"a":"🇦🅰🔼🖇️","b":"🇧🅱","c":"🇨©☪️","d":"🇩↩🌮","e":"🇪📧3⃣","f":"🇫🎏","g":"🇬6⃣","h":"🇭♓","i":"🇮ℹ📍🎚","j":"🇯🗾🌶️☂️🏑","k":"🇰🎋💃","l":"🇱💪👢1⃣🎚","m":"🇲Ⓜ♏〽️♍","n":"🇳♑📈","o":"🇴🅾⭕💿⚙","p":"🇵🅿🚩","q":"🇶🎯","r":"🇷♌®","s":"🇸💲💰⚡","t":"🇹✝️🌴⛏","u":"🇺⛎♉","v":"🇻♈🔽✔️☑️","w":"🇼〰🌵🐍","x":"🇽✖️","y":"🇾🌱✌️","z":"🇿💤"," ":"⚪▫️◼️🔲🔳","!":"❗❕","?":"❓❔","+":"➕","-":"➖"}
-nums = ["0⃣","⏺️🔘🔄🔵","1⃣","🥇☝️","2⃣","🥈","3⃣","🥉","4⃣","","5⃣","","6⃣","","7⃣","🎰","8⃣","🎱","9⃣ ",""]
-long_chars = {"100":"💯","abc":"🔤","10":"🔟","!?":"⁉️","!!":"‼️","tm":"™","end":"🔚","back":"🔙","on":"🔛","top":"🔝","soon":"🔜","free":"🆓","new":"🆕","cool":"🆒","up":"🆙","ok":"🆗","ng":"🆖","wc":"🚾","atm":"🏧","18":"🔞","sos":"🆘","cl":"🆑","ab":"🆎","vs":"🆚","id":"🆔","31":"📆📅"}
+bot = Bot(
+    command_prefix=when_mentioned_or(
+        "...", ":"
+    ),
+    activity=Game(
+        name=":help"
+    )
+)
 
 banned_ids = []
 
-banned_links = [bannedlinkslist]
+@bot.check
+async def block_banned_ids(ctx):
+    return str(ctx.author.id) not in banned_ids
 
 
-##TELLS ME I'VE LOGGED IN
-@bot.event
-async def on_ready():
-    print('Logged in as')
-    print(bot.user.name)
-    print(bot.user.id)
-    await bot.change_presence(game=discord.Game(name=":help"))
-    print('------')
+bot.load_extension("bot.cogs.admin")
+bot.load_extension("bot.cogs.general")
+bot.load_extension("bot.cogs.fun")
 
 
+bot.run(environ.get("BOT_TOKEN"))
 
-##Ip grabber blocker:
-@bot.listen()
-async def on_message(message):
-    text = message.content
-    if any(x in text.lower() for x in banned_links):
-        await bot.send_message(message.channel, str(message.author.mention)+"  |  IP grabbers are strictly prohibited. You have been muted until a member of staff unmutes you.")
-        muted.append(str(message.author.id))
-        print(str(message.author)+" has been muted for IP logging.")
+####### ------------------------------------
 
-##Help
-@bot.listen()
-async def on_message(message):
-    if message.content.startswith(":help"):
-        if str(message.author.id) in banned_ids: await bot.send_message(message.channel,message.author.mention+"  is banned from (ab)using this bot.");return ""
-        hp = discord.Embed(title="Bot Help", description="**View challenges:** `:lxcx` (`l2x3`)\n**Add reactions:** `:react x abc` (`:react 1 hi`)\n**LMGTFY link:** `:lmgtfy (optional:@user) how to do xyz`  |  (`:lmgtfy @Georgee1991 how to loop in python`)\n**Haveibeenpwned Search:** `:haveibeenpwned user@email.com`  |  (`:haveibeenpwned george@gmail.com`)\n**Haveibeenpwned password search:** `:hasitbeenpwned password`  |  (`:hasitbeenpwed password1234`)", colour=0xf44256)
-        hp.set_author(name="George's Python :) Bot", icon_url="https://game.joincyberdiscovery.com/assets/images/asset-game-agent-8.png?version=2.0.8")
-        await bot.send_message(message.channel,embed=hp)
+####### ------------------------------------
 
-
-##WHOPINGED/debato
-@bot.listen()
-async def on_message(message):
-    text = message.content
-    if ("@everyone" in text.lower()) or ("@here" in text.lower()):
-        if str(message.author.id) in banned_ids: return ""
-        reaction_list = ["🙁","🇼","🇭","🇴","🔵","🇵","🇮","🇳","🇬","🇪","🇩"]
-        for x in reaction_list: await bot.add_reaction(message,x)
-    elif "dabato" in text.lower():
-        if str(message.author.id) in banned_ids: return ""
-        await bot.add_reaction(message,"🤔")
-
-##LMGTFY
-@bot.listen()
-async def on_message(message):
-    text = message.content
-    if text.startswith(':lmgtfy'):
-        if str(message.author.id) in banned_ids: await bot.send_message(message.channel,message.author.mention+"  is banned from (ab)using this bot.");return ""
-        delete = False
-        explainer = False
-        if "-delete" in text.lower():
-            text = text.replace("-delete","")
-            delete = True
-        if "-ie" in text.lower():
-            text = text.replace("-ie","")
-            explainer = True
-        messagetext = text[9:].rstrip()
-        if message.mentions:
-            for x in message.mentions: text = text.replace(str(x.mention),"")
-            url = "https://lmgtfy.com/?q="+urllib.parse.quote_plus(messagetext)
-            if explainer == True: url += "&iie=1"
-            url = "  |  " +rq.get("http://tinyurl.com/api-create.php?url="+url).text
-            await bot.send_message(message.channel,message.mentions[0].mention+url)
-        else:
-            url = "https://lmgtfy.com/?q="+urllib.parse.quote_plus(messagetext)
-            if explainer == True: url += "&iie=1"
-            url = rq.get("http://tinyurl.com/api-create.php?url="+url).text
-            await bot.send_message(message.channel,url)
-        if delete == True:
-            await bot.delete_message(message)
-
+"""
 ##REACT STUFF V2:
 ###ADD CUSTOM ReACTIONS
 @bot.listen()
@@ -114,21 +61,21 @@ async def on_message(message):
             msg = await bot.send_message(chan,auth+"  |  Maximum reactions added (**20**)!")
             await asyncio.sleep(4)
             await bot.delete_message(msg)
-        for long in long_chars:
-            if (long in actual_text): actual_text = actual_text.replace(long,long_chars[long],1)
+        for long in LONG_CHARS:
+            if (long in actual_text): actual_text = actual_text.replace(long,LONG_CHARS[long],1)
         used = ""
         for char in actual_text:
-            if char in chars:
+            if char in CHARS:
                 try:
-                    actual_text = actual_text.replace(char,chars[char][used.count(char)],1)
+                    actual_text = actual_text.replace(char,CHARS[char][used.count(char)],1)
                 except IndexError:
                     pass
                 used += char
         used = ""
         for char in actual_text:
             try:
-                if (char not in used) and (char in "0123456789"): await bot.add_reaction(foundmessage,nums[int(char)*2]);used += char
-                elif (char in used) and (char in "0123456789"): await bot.add_reaction(foundmessage,nums[(int(char)*2)+1][used.count(char)-1]);used += char
+                if (char not in used) and (char in "0123456789"): await bot.add_reaction(foundmessage,NUMS[int(char)*2]);used += char
+                elif (char in used) and (char in "0123456789"): await bot.add_reaction(foundmessage,NUMS[(int(char)*2)+1][used.count(char)-1]);used += char
                 else: await bot.add_reaction(foundmessage,char)
             except discord.errors.HTTPException as ex:
                 if "Unknown Emoji" in str(ex):
@@ -248,6 +195,4 @@ async def on_message(message):
     elif all(x in text for x in ['how','elite','get','to']):
         await bot.send_message(message.channel,str(message.author.mention)+"  |  **Quote from the @CyberDiscUK Twitter: **Selection for CyberStart Elite will be based on a combination of Game and Essentials results.")
 
-
-
-bot.run('V1cweFIySXdiRWhOVjJoclVqRlZPUT09')
+"""
