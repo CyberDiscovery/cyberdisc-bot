@@ -94,36 +94,6 @@ async def on_message(message):
                     break
                 else: print(ex)
 
-#Headquarters
-@bot.listen()
-async def on_message(message):
-    if (message.content.startswith(':l')) and ("lmgtfy" not in str(message.content)):
-        if str(message.author.id) in banned_ids: await bot.send_message(message.channel,message.author.mention+"  is banned from (ab)using this bot.");return ""
-        text = ((message.content).split(" "))[0]
-        text = (text).lower().replace(":","")
-        try:
-            inp = text.split("c")
-            for count,x in enumerate(inp): inp[count] = int(x.replace("l",""))-1
-        except ValueError:
-            await bot.send_message(message.channel,str(message.author.mention)+"  |  Correct syntax: `:lxcx` where x is the level/challenge number (e.g. `:l5c6`).")
-            return ""
-        if (inp[0]+1 not in range(1,14)) or (inp[1]+1 not in range(1,13)):
-            msg = await bot.send_message(message.channel,str(message.author.mention)+"  |  Challenge not in range!")
-            await asyncio.sleep(5)
-            await bot.delete_message(msg)
-            return ""
-        with open('headquarters.txt','r') as f:
-            text = (f.read()).split(";;;;;;")
-        text = text[inp[0]]
-        text = text.split(":::")
-        try:
-            text = text[inp[1]]
-        except:
-            await bot.send_message(message.channel,str(message.author.mention)+"  |  ")
-            return ""
-        em = discord.Embed(title=("Level " + str(inp[0] + 1) + " Challenge " + str(inp[1] + 1) + " - " + text.splitlines()[0]), description=text, colour=0x4262f4)
-        em.set_author(name="Cyber Discovery", icon_url="https://pbs.twimg.com/profile_images/921313066515615745/fLEl2Gfa_400x400.jpg")
-        await bot.send_message(message.channel, embed=em)
 
 #haveibeenpwned
 @bot.listen()
