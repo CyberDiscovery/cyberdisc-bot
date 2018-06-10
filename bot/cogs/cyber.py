@@ -1,5 +1,7 @@
+from typing import Iterable
+
 from aiohttp import ClientSession
-from discord import Embed
+from discord import Embed, Message
 from discord.ext.commands import Bot, Context, command
 
 from bot.constants import CYBERDISC_ICON_URL, PWNED_ICON_URL
@@ -13,6 +15,17 @@ class Cyber:
     def __init__(self, bot: Bot):
         self.bot = Bot
 
+    def all_words_in_text(self, text: str, words: Iterable[str]):
+        return all(word in text for word in words)
+
+    def any_words_in_text(self, text: str, words: Iterable[str]):
+        return any(word in text for word in words)
+
+    def contains_words(self, text: str, all_words: Iterable[str], *any_words: Iterable[Iterable[str]]):
+        all_words_check = self.all_words_in_text(text, all_words)
+        any_words_check = all(self.any_words_in_text(text, words) for words in any_words)
+        return all_words_check and any_words_check
+    
     @command(aliases=["l", "lc"])
     async def level(self, ctx: Context, level_num: int, challenge_num: int):
         with open('headquarters.txt','r') as f:
@@ -70,7 +83,7 @@ class Cyber:
                 output += f"Description: {desc}\n"
 
                 output += "Lost data: " + "/".join(i['DataClasses']) + "\n"
-                output += "Currently active: "+str(i['IsActive'])
+                output += f"Currently active: {i['IsActive']}\n"
                 output += "```"
                 await ctx.send(output)
 
@@ -104,6 +117,15 @@ class Cyber:
             embed.description += f"has never been uncovered."
         
         await ctx.send(embed=embed)
+
+    async def on_message(self, message: Message):
+        text = (message.content).lower()
+        if self.contains_words(text, ["when", "game"], ["does", "will"], ["end", "finish", "close"]):
+            await message.channel.send(f"{message.author.mention}  |  Cyberstart Game ends on the 29th May.")
+        elif self.contains_words(text, ["when", "essentials"], ["?", "does", "will"], ["end", "finish", "close"]):
+            await message.channel.send(f"{message.author.mention}  |  Cyberstart Essentials ends on the 18th June.")
+        elif self.contains_words(text, ['how','elite','get','to']):
+            await message.channel.send(f"{message.author.mention}  |  **Quote from the @CyberDiscUK Twitter: **Selection for CyberStart Elite will be based on a combination of Game and Essentials results.")
 
 def setup(bot):
     bot.add_cog(Cyber(bot))

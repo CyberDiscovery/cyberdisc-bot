@@ -96,15 +96,5 @@ async def on_message(message):
 
 
 
-#Helping with common questions
-@bot.listen()
-async def on_message(message):
-    text = (message.content).lower()
-    if all(x in text for x in ['when','game']) and any(i in text for i in ['does','will']) and any(n in text for n in ['end','finish','close']):
-        await bot.send_message(message.channel,str(message.author.mention)+"  |  Cyberstart Game ends on the 29th May.")
-    elif all(x in text for x in ['when','essentials']) and any(i in text for i in ['?','does','will']) and any(n in text for n in ['end','finish','close']):
-        await bot.send_message(message.channel,str(message.author.mention)+"  |  Cyberstart Essentials ends on the 18th June.")
-    elif all(x in text for x in ['how','elite','get','to']):
-        await bot.send_message(message.channel,str(message.author.mention)+"  |  **Quote from the @CyberDiscUK Twitter: **Selection for CyberStart Elite will be based on a combination of Game and Essentials results.")
 
 """
