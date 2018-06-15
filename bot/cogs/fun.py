@@ -1,10 +1,10 @@
 from urllib.parse import urlencode
 
-from bot.constants import EVERYONE_REACTIONS
-
 from discord import Message
 from discord.ext.commands import (BadArgument, Bot, Context, EmojiConverter,
                                   command)
+
+from bot.constants import EVERYONE_REACTIONS
 
 
 class Fun:
@@ -17,7 +17,7 @@ class Fun:
 
     async def on_message(self, message: Message):
         # React if a message contains an @here or @everyone mention.
-        if any(ping in message.content for ping in ("@here", "@everyone")):
+        if any(mention in message.content for mention in ("@here", "@everyone")):
             for emoji in EVERYONE_REACTIONS:
                 await message.add_reaction(emoji)
 
