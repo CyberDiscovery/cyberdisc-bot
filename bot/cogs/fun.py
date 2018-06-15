@@ -63,6 +63,8 @@ class Fun:
         msg_num = 1
         if reactions[0].isdigit():
             msg_num += int(reactions.pop(0))
+        else:
+            msg_num += 1
 
         # Getting the message to react to.
         message = await ctx.channel.history(limit=msg_num, reverse=True).next()
