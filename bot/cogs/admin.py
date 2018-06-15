@@ -14,11 +14,15 @@ class Admin:
 
     async def mute_member(self, member: Member, reason: str="N/A"):
         self.bot.muted.append(member.id)
-        print(f"Member {member} ({member.id}) has been muted: {reason}")
+        print(f"Member {member} ({member.id}) has been muted for reason: {reason}")
+
+    async def unmute_member(self, member: Member, reason: str="N/A"):
+        self.bot.muted.remove(member.id)
+        print(f"Member {member} ({member.id}) has been unmuted for reason: {reason}")
 
     @command()
     @has_any_role(*ADMIN_ROLES)
-    async def mute(self, ctx: Context, member: Member):
+    async def mute(self, ctx: Context, member: Member, reason: str="N/A"):
         """
         Command to mute people.
         """
@@ -28,17 +32,17 @@ class Admin:
             await ctx.send(f"{ctx.author.mention} | Can't mute an admin!")
 
         else:
-            self.bot.muted.append(member.id)
+            await self.mute_member(member, reason=reason)
             await ctx.send(f"{ctx.author.mention} | {member.mention} has been muted.")
 
     @command()
     @has_any_role(*ADMIN_ROLES)
-    async def unmute(self, ctx: Context, member: Member):
+    async def unmute(self, ctx: Context, member: Member, reason: str="N/A"):
         """
         Command to unmute people.
         """
 
-        self.bot.muted.remove(member.id)
+        await self.unmute_member(member, reason=reason)
         await ctx.send(f"{ctx.author.mention} | {member.mention} has been unmuted.")
 
     async def on_message(self, message):
