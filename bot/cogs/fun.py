@@ -7,7 +7,8 @@ from discord.ext.commands import (BadArgument, Bot, Context, EmojiConverter,
 from bot.constants import EVERYONE_REACTIONS
 
 from requests import get
-from json import load
+
+import ipdb
 
 
 class Fun:
@@ -101,23 +102,22 @@ class Fun:
         else:
             endpoint = f"https://xkcd.com/{number}/info.0.json"
 
-        # Fetches JSON data from endpoint and parses it
-        json_data = get(endpoint).json()
-        data = load(json_data)
-
+        # Fetches JSON data from endpoint
+        data = get(endpoint).json()
+        ipdb.set_trace()
         # Updates comic number
         number = data["num"]
 
         # Creates Rich Embed and populates it with JSON data
+
         comic = Embed()
         comic.title = data["safe_title"]
         comic.description = data["alt"]
-        comic.set_image(data["img"])
+        comic.image.url = data["img"]
         comic.url = f"https://xkcd.com/{number}"
-        comic.set_author(
-            "xkcd",
-            url="https://xkcd.com/",
-            icon_url="https://xkcd.com/favicon.ico")
+        comic.author.name = "xkcd"
+        comic.author.url = "https://xkcd.com/"
+        comic.author.icon_url = "https://xkcd.com/favicon.ico"
 
         # Sends Embed
         await ctx.send(embed=comic)
