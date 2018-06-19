@@ -117,7 +117,7 @@ class Fun:
         # Creates date object (Sorry, but I'm too tired to use datetime.)
         date = f"{data['day']}/{data['month']}/{data['year']}"
 
-        # Creates Rich Embed and populates it with JSON data
+        # Creates Rich Embed, populates it with JSON data and sends it.
         comic = Embed()
         comic.title = data["safe_title"]
         comic.set_footer(text=data["alt"])
@@ -132,7 +132,6 @@ class Fun:
         comic.add_field(
             name="Explanation:", value=f"https://explainxkcd.com/{number}")
 
-        # Sends Embed
         await ctx.send(embed=comic)
 
 
