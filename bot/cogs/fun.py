@@ -7,6 +7,7 @@ from discord.ext.commands import (BadArgument, Bot, Context, EmojiConverter,
 from bot.constants import EVERYONE_REACTIONS
 
 from requests import get
+from random import randint
 
 
 class Fun:
@@ -91,11 +92,13 @@ class Fun:
     @command()
     async def xkcd(self, ctx: Context, number=None):
         """
-        Fetches the latest XKCD comic, or one requested by the user.
+        Fetches xkcd comics.
+        If number is left blank, automatically fetches the latest comic.
+        If number is set to '?', a random comic is fetched.
         """
 
         # Creates endpoint URI
-        if number is None:
+        if number is None or number == "?":
             endpoint = "https://xkcd.com/info.0.json"
         else:
             endpoint = f"https://xkcd.com/{number}/info.0.json"
@@ -103,7 +106,12 @@ class Fun:
         # Fetches JSON data from endpoint
         data = get(endpoint).json()
         # Updates comic number
-        number = data["num"]
+        if number == "?":
+            number = randint(1, int(data["num"]))
+            endpoint = f"https://xkcd.com/{number}/info.0.json"
+            data = get(endpoint).json()
+        else:
+            number = data["num"]
 
         # Creates Rich Embed and populates it with JSON data
 
