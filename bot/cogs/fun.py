@@ -105,6 +105,7 @@ class Fun:
 
         # Fetches JSON data from endpoint
         data = get(endpoint).json()
+
         # Updates comic number
         if number == "?":
             number = randint(1, int(data["num"]))
@@ -113,17 +114,23 @@ class Fun:
         else:
             number = data["num"]
 
-        # Creates Rich Embed and populates it with JSON data
+        # Creates date object (Sorry, but I'm too tired to use datetime.)
+        date = f"{data['day']}/{data['month']}/{data['year']}"
 
+        # Creates Rich Embed and populates it with JSON data
         comic = Embed()
         comic.title = data["safe_title"]
-        comic.description = data["alt"]
+        comic.set_footer(text=data["alt"])
         comic.set_image(url=data["img"])
         comic.url = f"https://xkcd.com/{number}"
         comic.set_author(
             name="xkcd",
             url="https://xkcd.com/",
             icon_url="https://xkcd.com/s/0b7742.png")
+        comic.add_field(name="Number:", value=number)
+        comic.add_field(name="Date:", value=date)
+        comic.add_field(
+            name="Explanation:", value=f"https://explainxkcd.com/{number}")
 
         # Sends Embed
         await ctx.send(embed=comic)
