@@ -8,8 +8,6 @@ from bot.constants import EVERYONE_REACTIONS
 
 from requests import get
 
-import ipdb
-
 
 class Fun:
     """
@@ -104,7 +102,6 @@ class Fun:
 
         # Fetches JSON data from endpoint
         data = get(endpoint).json()
-        ipdb.set_trace()
         # Updates comic number
         number = data["num"]
 
@@ -113,11 +110,12 @@ class Fun:
         comic = Embed()
         comic.title = data["safe_title"]
         comic.description = data["alt"]
-        comic.image.url = data["img"]
+        comic.set_image(url=data["img"])
         comic.url = f"https://xkcd.com/{number}"
-        comic.author.name = "xkcd"
-        comic.author.url = "https://xkcd.com/"
-        comic.author.icon_url = "https://xkcd.com/favicon.ico"
+        comic.set_author(
+            name="xkcd",
+            url="https://xkcd.com/",
+            icon_url="https://xkcd.com/s/0b7742.png")
 
         # Sends Embed
         await ctx.send(embed=comic)
