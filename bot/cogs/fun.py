@@ -1,10 +1,13 @@
 from urllib.parse import urlencode
 
-from discord import Message
+from discord import Message, Embed
 from discord.ext.commands import (BadArgument, Bot, Context, EmojiConverter,
                                   command)
 
 from bot.constants import EVERYONE_REACTIONS
+
+from requests import get
+from json import load
 
 
 class Fun:
@@ -17,7 +20,9 @@ class Fun:
 
     async def on_message(self, message: Message):
         # React if a message contains an @here or @everyone mention.
-        if any(mention in message.content for mention in ("@here", "@everyone")):
+        if any(
+                mention in message.content
+                for mention in ("@here", "@everyone")):
             for emoji in EVERYONE_REACTIONS:
                 await message.add_reaction(emoji)
 
@@ -26,9 +31,9 @@ class Fun:
             await message.add_reaction("🤔")
 
     @command()
-    async def lmgtfy(self, ctx: Context, search_text: str, *args):
+    async def lmgtfy(search_text: str, *args):
         """
-        Lets the bot google that for you.
+        Lets the bot google tself, ctx: Context,hat for you.
         """
 
         # Flag checking.
@@ -40,10 +45,7 @@ class Fun:
             ie = True
 
         # Creates a lmgtfy.com url for the given query.
-        request_data = {
-            "q": search_text,
-            "ie": int(ie)
-        }
+        request_data = {"q": search_text, "ie": int(ie)}
         url = "https://lmgtfy.com/?" + urlencode(request_data)
 
         await ctx.send(url)
@@ -86,6 +88,39 @@ class Fun:
         if unknown_emojis:
             emoji_string = ", ".join(unknown_emojis)
             await ctx.send(f"Unknown emojis: {emoji_string}")
+
+    @command()
+    async def xkcd(self, ctx: Context, number=None):
+        """
+        Fetches the latest XKCD comic, or one requested by the user.
+        """
+
+        # Creates endpoint URI
+        if number is None:
+            endpoint = "https://xkcd.com/info.0.json"
+        else:
+            endpoint = f"https://xkcd.com/{number}/info.0.json"
+
+        # Fetches JSON data from endpoint and parses it
+        json_data = get(endpoint).json()
+        data = load(json_data)
+
+        # Updates comic number
+        number = data["num"]
+
+        # Creates Rich Embed and populates it with JSON data
+        comic = Embed()
+        comic.title = data["safe_title"]
+        comic.description = data["alt"]
+        comic.set_image(data["img"])
+        comic.url = f"https://xkcd.com/{number}"
+        comic.set_author(
+            "xkcd",
+            url="https://xkcd.com/",
+            icon_url="https://xkcd.com/favicon.ico")
+
+        # Sends Embed
+        await ctx.send(embed=comic)
 
 
 def setup(bot):
