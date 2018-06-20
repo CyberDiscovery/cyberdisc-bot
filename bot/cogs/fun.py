@@ -5,7 +5,7 @@ Set of bot commands designed for general leisure.
 from random import randint
 from urllib.parse import urlencode
 
-from requests import get
+from aiohttp import ClientSession
 from discord import Message, Embed
 from discord.ext.commands import (BadArgument, Bot, Context, EmojiConverter,
                                   command)
@@ -110,13 +110,17 @@ class Fun:
             endpoint = f"https://xkcd.com/{number}/info.0.json"
 
         # Fetches JSON data from endpoint
-        data = get(endpoint).json()
+        async with ClientSession() as session:
+            async with session.get(endpoint) as response:
+                data = await response.json()
 
         # Updates comic number
         if number == "?":
             number = randint(1, int(data["num"]))
             endpoint = f"https://xkcd.com/{number}/info.0.json"
-            data = get(endpoint).json()
+            async with ClientSession() as session:
+                async with session.get(endpoint) as response:
+                    data = await response.json()
         else:
             number = data["num"]
 
