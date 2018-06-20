@@ -97,8 +97,27 @@ venv.bak/
 # Rope project settings
 .ropeproject
 
+# Sublime Text project settings
+*.sublime-project
+
 # mkdocs documentation
 /site
 
 # mypy
 .mypy_cache/
+
+# Virtualenv
+.Python
+[Bb]in
+[Ii]nclude
+[Ll]ib
+[Ll]ib64
+[Ll]ocal
+[Ss]cripts
+pyvenv.cfg
+.venv
+pip-selfcheck.json
+tcl
+share
+
+
