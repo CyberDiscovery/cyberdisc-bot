@@ -140,7 +140,8 @@ class Fun:
         comic.add_field(name="Number:", value=number)
         comic.add_field(name="Date:", value=date)
         comic.add_field(
-            name="Explanation:", value=f"https://explainxkcd.com/{number}")
+            name="Explanation:",
+            value=f"https://explainxkcd.com/{number}")
 
         await ctx.send(embed=comic)
 
