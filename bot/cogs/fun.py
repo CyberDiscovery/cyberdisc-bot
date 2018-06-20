@@ -1,4 +1,4 @@
-# pylint: disable=import-error
+# pylint: disable=import-error,C0330
 """
 Set of bot commands designed for general leisure.
 """
@@ -26,8 +26,7 @@ class Fun:
         React based on the contents of a message.
         """
         # React if a message contains an @here or @everyone mention.
-        if any(
-                mention in message.content
+        if any(mention in message.content
                 for mention in ("@here", "@everyone")):
             for emoji in EVERYONE_REACTIONS:
                 await message.add_reaction(emoji)
@@ -51,7 +50,10 @@ class Fun:
             ie_flag = True
 
         # Creates a lmgtfy.com url for the given query.
-        request_data = {"q": search_text, "ie": int(ie_flag)}
+        request_data = {
+            "q": search_text,
+            "ie": int(ie_flag)
+        }
         url = "https://lmgtfy.com/?" + urlencode(request_data)
 
         await ctx.send(url)
