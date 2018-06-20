@@ -1,13 +1,16 @@
+# pylint: disable=import-error
+"""
+Set of bot commands designed for general leisure.
+"""
+from random import randint
 from urllib.parse import urlencode
 
+from requests import get
 from discord import Message, Embed
 from discord.ext.commands import (BadArgument, Bot, Context, EmojiConverter,
                                   command)
 
 from bot.constants import EVERYONE_REACTIONS
-
-from requests import get
-from random import randint
 
 
 class Fun:
@@ -19,6 +22,9 @@ class Fun:
         self.bot = bot
 
     async def on_message(self, message: Message):
+        """
+        React based on the contents of a message.
+        """
         # React if a message contains an @here or @everyone mention.
         if any(
                 mention in message.content
@@ -31,21 +37,21 @@ class Fun:
             await message.add_reaction("🤔")
 
     @command()
-    async def lmgtfy(search_text: str, *args):
+    async def lmgtfy(self, ctx: Context, search_text: str, *args):
         """
-        Lets the bot google tself, ctx: Context,hat for you.
+        Returns a LMGTFY URL for a given user argument.
         """
 
         # Flag checking.
         delete = False
-        ie = False
+        ie_flag = False
         if "-d" in args:
             delete = True
         if "-ie" in args:
-            ie = True
+            ie_flag = True
 
         # Creates a lmgtfy.com url for the given query.
-        request_data = {"q": search_text, "ie": int(ie)}
+        request_data = {"q": search_text, "ie": int(ie_flag)}
         url = "https://lmgtfy.com/?" + urlencode(request_data)
 
         await ctx.send(url)
@@ -136,4 +142,7 @@ class Fun:
 
 
 def setup(bot):
+    """
+    Required boilerplate for adding functionality of cog to bot.
+    """
     bot.add_cog(Fun(bot))
