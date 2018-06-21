@@ -98,7 +98,7 @@ class Fun:
             await ctx.send(f"Unknown emojis: {emoji_string}")
 
     @command()
-    async def xkcd(self, ctx: Context, number=None):
+    async def xkcd(self, ctx: Context, number: str = None):
         """
         Fetches xkcd comics.
         If number is left blank, automatically fetches the latest comic.
