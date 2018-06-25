@@ -1,0 +1,16 @@
+language: python
+python:
+  - "3.6"
+
+branches:
+  only:
+    - "master"
+
+install:
+  - pip install -r requirements.txt
+  - pip install -r requirements-ci.txt
+
+script:
+  - flake8 --ignore=B305,S311
+
+cache: pip

@@ -81,7 +81,7 @@ class Cyber:
         # If the page doesn't return 200, it will assume there are no breached accounts of that name.
         if data:
             info_string = "Info from `https://haveibeenpwned.com/`. Showing up to **5** breaches"
-            info_string += " (Total: "+str(len(data))
+            info_string += " (Total: " + str(len(data))
             await ctx.send(f"{ctx.author.mention}  |  {info_string}")
             for i in data[:5]:
                 output = "```"
