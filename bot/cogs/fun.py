@@ -1,4 +1,3 @@
-# pylint: disable=import-error,C0330
 """
 Set of bot commands designed for general leisure.
 """
