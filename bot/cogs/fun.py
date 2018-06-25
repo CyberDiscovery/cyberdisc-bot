@@ -6,7 +6,7 @@ from random import randint
 from urllib.parse import urlencode
 
 from aiohttp import ClientSession
-from discord import Message, Embed
+from discord import Embed, Message
 from discord.ext.commands import (BadArgument, Bot, Context, EmojiConverter,
                                   command)
 
