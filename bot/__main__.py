@@ -35,6 +35,7 @@ bot.load_extension("bot.cogs.admin")
 bot.load_extension("bot.cogs.general")
 bot.load_extension("bot.cogs.cyber")
 bot.load_extension("bot.cogs.fun")
+bot.load_extension("bot.cogs.voting")
 
 if __name__ == "__main__":
     bot.run(environ.get("BOT_TOKEN"))
