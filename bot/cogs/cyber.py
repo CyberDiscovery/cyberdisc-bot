@@ -146,9 +146,9 @@ class Cyber:
         if self.contains_words(text, ["when", "game"], ["does", "will", "did"], ["end", "finish", "close"]):
             await message.channel.send(f"{message.author.mention}  |  Cyberstart Game ended on the 29th May.")
 
-        # CyberStart Essentials Dates.
+        # CyberStart  Dates.
         elif self.contains_words(text, ["when", "essentials"], ["?", "does", "will"], ["end", "finish", "close"]):
-            await message.channel.send(f"{message.author.mention}  |  Cyberstart Essentials ends on the 18th June.")
+            await message.channel.send(f"{message.author.mention}  |  Cyberstart Essentials ends on the 30th June.")
 
         # CyberStart Elite qualification requirements.
         elif self.contains_words(text, ["how", "elite", "get", "to"]):
