@@ -162,7 +162,7 @@ class Cyber:
         
         # CyberStart Elite email.
         elif self.contains_words(text, ["havent", "haven't", "elite", "email", "got"]):
-            text = f"{message.author.mention}  |  **Quote from the Elite team:**"
+            text = f"{message.author.mention}  |  **Quote from the Cyber Discovery Elite team:**"
             text += "We’re currently allocating students to their preferred locations so it’s an ongoing process! We’ll send out details of your location as soon as we can. It shouldn’t be too long!"
             await message.channel.send(text)
 
