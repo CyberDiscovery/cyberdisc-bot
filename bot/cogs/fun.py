@@ -1,4 +1,3 @@
-# pylint: disable=import-error,C0330
 """
 Set of bot commands designed for general leisure.
 """
@@ -6,7 +5,7 @@ from random import randint
 from urllib.parse import urlencode
 
 from aiohttp import ClientSession
-from discord import Message, Embed
+from discord import Embed, Message
 from discord.ext.commands import (BadArgument, Bot, Context, EmojiConverter,
                                   command)
 
@@ -98,7 +97,7 @@ class Fun:
             await ctx.send(f"Unknown emojis: {emoji_string}")
 
     @command()
-    async def xkcd(self, ctx: Context, number: str = None):
+    async def xkcd(self, ctx: Context, number: str=None):
         """
         Fetches xkcd comics.
         If number is left blank, automatically fetches the latest comic.
@@ -118,7 +117,7 @@ class Fun:
 
         # Updates comic number
         if number == "?":
-            number = randint(1, int(data["num"]))
+            number = randint(1, int(data["num"]))  # noqa: B311
             endpoint = f"https://xkcd.com/{number}/info.0.json"
             async with ClientSession() as session:
                 async with session.get(endpoint) as response:
