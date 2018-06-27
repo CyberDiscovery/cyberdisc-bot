@@ -152,18 +152,21 @@ class Cyber:
 
         # CyberStart Elite qualification requirements.
         elif self.contains_words(text, ["how", "elite", "get", "to"]):
-            text = f"{message.author.mention}  |  **Quote from the @CyberDiscUK Twitter:**"
+            text = f"{message.author.mention}  |  **Quote from the @CyberDiscUK Twitter: **"
             text += "Selection for CyberStart Elite will be based on a combination of Game and Essentials results."
             await message.channel.send(text)
-            
+
         # CyberStart Elite Dates.
         elif self.contains_words(text, ["when", "elite"], ["?", "does", "will"], ["start", "begin", "end", "run"]):
-            await message.channel.send(f"{message.author.mention}  |  Cyberstart Elite dates: London - 4th and 5th August, Bristol - 28th and 29th July, Manchester - 21st and 22nd July")    
-        
+            text = f"{message.author.mention}  |  Cyberstart Elite dates: London - 4th and 5th August,"
+            text += " Bristol - 28th and 29th July, Manchester - 21st and 22nd July"
+            await message.channel.send(text)
+
         # CyberStart Elite email.
-        elif self.contains_words(text, ["havent", "haven't", "elite", "email", "got"]):
-            text = f"{message.author.mention}  |  **Quote from the Cyber Discovery Elite team:**"
-            text += "We’re currently allocating students to their preferred locations so it’s an ongoing process! We’ll send out details of your location as soon as we can. It shouldn’t be too long!"
+        elif self.contains_words(text, ["havent", "haven't"], ["got", "received"], ["email", "elite"]):
+            text = f"{message.author.mention}  |  **Quote from the Cyber Discovery Elite team: **"
+            text += "We’re currently allocating students to their preferred locations so it’s an ongoing process!"
+            text += " We’ll send out details of your location as soon as we can. It shouldn’t be too long!"
             await message.channel.send(text)
 
 
