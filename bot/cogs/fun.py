@@ -97,7 +97,7 @@ class Fun:
             await ctx.send(f"Unknown emojis: {emoji_string}")
 
     @command()
-    async def xkcd(self, ctx: Context, number=None):
+    async def xkcd(self, ctx: Context, number: str=None):
         """
         Fetches xkcd comics.
         If number is left blank, automatically fetches the latest comic.
@@ -117,7 +117,7 @@ class Fun:
 
         # Updates comic number
         if number == "?":
-            number = randint(1, int(data["num"]))
+            number = randint(1, int(data["num"]))  # noqa: B311
             endpoint = f"https://xkcd.com/{number}/info.0.json"
             async with ClientSession() as session:
                 async with session.get(endpoint) as response:
