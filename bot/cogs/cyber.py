@@ -1,3 +1,4 @@
+from json import load
 from typing import Iterable
 
 from aiohttp import ClientSession
@@ -34,21 +35,21 @@ class Cyber:
         """
 
         # Gather HQ data from CyberStart Game.
-        with open("headquarters.txt", "r") as f:
-            game_docs = [level.split(":::\n") for level in f.read().split(";;;;;;\n")]
+        with open("headquarters.json", "r") as f:
+            game_docs = load(f)
 
-        if level_num not in range(len(game_docs)):
+        if level_num not in range(len(game_docs) + 1):
             await ctx.send("Invalid level number!")
 
-        elif challenge_num not in range(len(game_docs[level_num])):
+        elif challenge_num not in range(len(game_docs["L" + str(level_num)]) + 1):
             await ctx.send("Invalid challenge number!")
 
         else:
-            # Format the embed appropriately.
-            challenge_raw = game_docs[level_num][challenge_num].splitlines()
-            challenge_title = challenge_raw.pop(0)
-            challenge_tip = challenge_raw.pop(-1)
-            challenge_text = "\n".join(challenge_raw)
+            # Select the needed challenge
+            challenge_raw = game_docs["L{0}".format(level_num)]["C{0}".format(challenge_num)]
+            challenge_title = challenge_raw["title"]
+            challenge_tip = challenge_raw["tips"]
+            challenge_text = challenge_raw["description"]
             embed = Embed(
                 title=(f"Level {level_num} Challenge {challenge_num} - {challenge_title}"),
                 description=challenge_text,
@@ -58,7 +59,7 @@ class Cyber:
                 name="Cyber Discovery",
                 icon_url=CYBERDISC_ICON_URL
             )
-            embed.set_footer(text=challenge_tip)
+            embed.set_footer(text="  |  ".join(challenge_tip))
 
             await ctx.send(embed=embed)
 
