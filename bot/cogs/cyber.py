@@ -35,18 +35,18 @@ class Cyber:
         """
 
         # Gather HQ data from CyberStart Game.
-        with open("headquarters.json", "r") as f:
+        with open("headquarters.json") as f:
             game_docs = load(f)
 
         if level_num not in range(len(game_docs) + 1):
             await ctx.send("Invalid level number!")
 
-        elif challenge_num not in range(len(game_docs["L" + str(level_num)]) + 1):
+        elif challenge_num not in range(len(game_docs[f"L{level_num}"]) + 1):
             await ctx.send("Invalid challenge number!")
 
         else:
             # Select the needed challenge
-            challenge_raw = game_docs["L{0}".format(level_num)]["C{0}".format(challenge_num)]
+            challenge_raw = game_docs[f"L{level_num}"][f"C{challenge_num}"]
             challenge_title = challenge_raw["title"]
             challenge_tip = challenge_raw["tips"]
             challenge_text = challenge_raw["description"]
