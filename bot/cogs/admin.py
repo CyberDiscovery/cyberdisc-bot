@@ -52,7 +52,7 @@ class Admin:
             await message.author.send("You are muted!")
 
         # Check if message contains a banned domain
-        elif any(domain in message.content.lower() for domain in BANNED_DOMAINS):
+        elif any(domain in message.content.lower() for domain in BANNED_DOMAINS) and not message.author.bot:
             await message.delete()
             await message.channel.send(f"{message.author.mention} | That domain is banned! You have been muted.")
             await self.mute_member(message.author, "Message contains banned domain")
