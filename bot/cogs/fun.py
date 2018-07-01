@@ -35,7 +35,7 @@ class Fun:
             await message.add_reaction("🤔")
 
     @command()
-    async def lmgtfy(self, ctx: Context, search_text: str, *args):
+    async def lmgtfy(self, ctx: Context, *args: str):
         """
         Returns a LMGTFY URL for a given user argument.
         """
@@ -50,7 +50,7 @@ class Fun:
 
         # Creates a lmgtfy.com url for the given query.
         request_data = {
-            "q": search_text,
+            "q": " ".join(arg for arg in args if not arg.startswith("-")),
             "ie": int(ie_flag)
         }
         url = "https://lmgtfy.com/?" + urlencode(request_data)
