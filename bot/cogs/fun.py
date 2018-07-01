@@ -60,44 +60,6 @@ class Fun:
         if delete:
             await ctx.message.delete()
 
-    '''
-    @command()
-    async def react(self, ctx: Context, *reactions: str):
-        """
-        Reacts to the previous message with the given space-separated emojis.
-        """
-        # Added mutability
-        reactions = list(reactions)
-
-        # Detect if message number is present in the invocation arguments.
-        msg_num = 1
-        if reactions[0].isdigit():
-            msg_num += int(reactions.pop(0))
-        else:
-            msg_num += 1
-
-        # Getting the message to react to.
-        message = await ctx.channel.history(limit=msg_num, reverse=True).next()
-        await ctx.message.delete()
-
-        unknown_emojis = []
-
-        # Reacts to the message.
-        for reaction in reactions:
-            if len(reaction) > 1:
-                try:
-                    reaction = await EmojiConverter().convert(ctx, reaction)
-                except BadArgument:
-                    unknown_emojis.append(reaction)
-                    continue
-            await message.add_reaction(reaction)
-
-        # Informs the user of unknown emojis.
-        if unknown_emojis:
-            emoji_string = ", ".join(unknown_emojis)
-            await ctx.send(f"Unknown emojis: {emoji_string}")
-    '''
-
     @command()
     async def xkcd(self, ctx: Context, number: str=None):
         """
