@@ -60,7 +60,7 @@ class Fun:
         if delete:
             await ctx.message.delete()
 
-'''
+    '''
     @command()
     async def react(self, ctx: Context, *reactions: str):
         """
@@ -96,7 +96,7 @@ class Fun:
         if unknown_emojis:
             emoji_string = ", ".join(unknown_emojis)
             await ctx.send(f"Unknown emojis: {emoji_string}")
-'''
+    '''
 
     @command()
     async def xkcd(self, ctx: Context, number: str=None):
