@@ -6,9 +6,8 @@ from urllib.parse import urlencode
 
 from aiohttp import ClientSession
 from discord import Embed, Member, Message
-from discord.ext.commands import (BadArgument, Bot, Context, EmojiConverter, MemberConverter,
+from discord.ext.commands import (BadArgument, Bot, Context, EmojiConverter,
                                   command)
-from discord.utils import get
 
 from bot.constants import EVERYONE_REACTIONS, QUOTE_CHANNEL_ID
 
