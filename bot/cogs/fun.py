@@ -147,7 +147,7 @@ class Fun:
         await ctx.send(embed=comic)
 
     @command()
-    async def qotd(self, ctx: Context):
+    async def quotes(self, ctx: Context):
         """
         Returns a random quotation from the #quotes channel.
         A channel ID must be specified in QUOTE_CHANNEL_ID for the bot to retrieve the quotations successfully.
