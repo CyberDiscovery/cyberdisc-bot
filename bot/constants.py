@@ -1,6 +1,7 @@
 # Fun constants
 
 EVERYONE_REACTIONS = ["🙁", "🇼", "🇭", "🇴", "🔵", "🇵", "🇮", "🇳", "🇬", "🇪", "🇩"]
+QUOTE_CHANNEL_ID = 467704636183281694
 
 # Lists for administration
 
