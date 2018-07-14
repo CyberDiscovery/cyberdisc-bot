@@ -1,7 +1,7 @@
 """
 Set of bot commands designed for general leisure.
 """
-from random import randint, choice
+from random import choice, randint
 from urllib.parse import urlencode
 
 from aiohttp import ClientSession
@@ -157,7 +157,6 @@ class Fun:
         quotation = choice(quotations)
         embed_quotation = quotation.embeds[0]
         await ctx.send(embed=embed_quotation)
-
 
 
 def setup(bot):
