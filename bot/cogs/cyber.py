@@ -1,5 +1,6 @@
+import re
+
 from json import load
-from typing import Iterable
 
 from aiohttp import ClientSession
 from discord import Embed, Message
@@ -7,7 +8,6 @@ from discord.ext.commands import Bot, Context, command
 
 from bot.constants import CYBERDISC_ICON_URL, PWNED_ICON_URL
 
-import re
 
 class Cyber:
     """
