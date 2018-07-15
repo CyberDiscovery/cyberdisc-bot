@@ -1,5 +1,4 @@
 import re
-
 from json import load
 
 from aiohttp import ClientSession
