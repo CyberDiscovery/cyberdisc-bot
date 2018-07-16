@@ -1,15 +1,15 @@
 """
 Set of bot commands designed for general leisure.
 """
-from random import randint
+from random import choice, randint
 from urllib.parse import urlencode
 
 from aiohttp import ClientSession
-from discord import Embed, Message
+from discord import Embed, Member, Message
 from discord.ext.commands import (BadArgument, Bot, Context, EmojiConverter,
                                   command)
 
-from bot.constants import EVERYONE_REACTIONS
+from bot.constants import EVERYONE_REACTIONS, QUOTE_CHANNEL_ID
 
 
 class Fun:
@@ -147,6 +147,29 @@ class Fun:
             value=f"https://explainxkcd.com/{number}")
 
         await ctx.send(embed=comic)
+
+    @command()
+    async def quotes(self, ctx: Context, member: Member=None):
+        """
+        Returns a random quotation from the #quotes channel.
+        A user can be specified to return a random quotation from that user.
+        A channel ID must be specified in QUOTE_CHANNEL_ID for the bot to retrieve the quotations successfully.
+        """
+        quotation_channel = self.bot.get_channel(QUOTE_CHANNEL_ID)
+        if member is not None:
+            all_quotations = await quotation_channel.history(limit=None).flatten()
+            quotations = []
+            for quotation in all_quotations:
+                embed = quotation.embeds[0]
+                author_name = embed.author.name
+                author = ctx.message.guild.get_member_named(author_name)
+                if author == member:
+                    quotations.append(quotation)
+        else:
+            quotations = await quotation_channel.history(limit=None).flatten()
+        quotation = choice(quotations)
+        embed_quotation = quotation.embeds[0]
+        await ctx.send(embed=embed_quotation)
 
 
 def setup(bot):
