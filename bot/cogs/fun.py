@@ -94,6 +94,8 @@ class Fun:
         # Informs the user of unknown emojis.
         if unknown_emojis:
             emoji_string = ", ".join(unknown_emojis)
+            # Inserts an invisible character to render mass mentions ineffective.
+            emoji_string = emoji_string.replace("@here", "@\xadhere").replace("@everyone", "@\xadeveryone")
             await ctx.send(f"Unknown emojis: {emoji_string}")
 
     @command()
