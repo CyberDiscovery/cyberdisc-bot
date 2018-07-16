@@ -11,6 +11,6 @@ install:
   - pip install -r requirements-ci.txt
 
 script:
-  - flake8 --ignore=B305,S311
+  - flake8
 
 cache: pip
