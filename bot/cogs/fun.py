@@ -33,6 +33,10 @@ class Fun:
         # React if message contains dabato.
         if "dabato" in message.content:
             await message.add_reaction("🤔")
+            
+        # React if message contains kali.
+        if "kali" in message.content.lower():
+            await message.add_reaction("🚔")
 
     @command()
     async def lmgtfy(self, ctx: Context, *args: str):
