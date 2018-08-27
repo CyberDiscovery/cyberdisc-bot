@@ -4,7 +4,6 @@ Set of bot commands designed for general leisure.
 import textwrap
 from random import choice, randint
 from urllib.parse import urlencode
-from os import getcwd
 
 from aiohttp import ClientSession
 from discord import Embed, File, Member, Message
@@ -29,8 +28,7 @@ class Fun:
         React based on the contents of a message.
         """
         # React if a message contains an @here or @everyone mention.
-        if any(mention in message.content
-                for mention in ("@here", "@everyone")):
+        if any(mention in message.content for mention in ("@here", "@everyone")):
             for emoji in EVERYONE_REACTIONS:
                 await message.add_reaction(emoji)
 
@@ -108,7 +106,7 @@ class Fun:
             await ctx.send(f"Unknown emojis: {emoji_string}")
 
     @command()
-    async def xkcd(self, ctx: Context, number: str=None):
+    async def xkcd(self, ctx: Context, number: str = None):
         """
         Fetches xkcd comics.
         If number is left blank, automatically fetches the latest comic.
@@ -158,11 +156,12 @@ class Fun:
         await ctx.send(embed=comic)
 
     @command()
-    async def quotes(self, ctx: Context, member: Member=None):
+    async def quotes(self, ctx: Context, member: Member = None):
         """
         Returns a random quotation from the #quotes channel.
         A user can be specified to return a random quotation from that user.
-        A channel ID must be specified in QUOTE_CHANNEL_ID for the bot to retrieve the quotations successfully.
+        A channel ID must be specified in QUOTE_CHANNEL_ID for the bot to
+        retrieve the quotations successfully.
         """
         quotation_channel = self.bot.get_channel(QUOTE_CHANNEL_ID)
         if member is not None:
