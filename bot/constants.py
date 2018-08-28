@@ -1,3 +1,6 @@
+"""
+A list of constants.
+"""
 # Fun constants
 
 EVERYONE_REACTIONS = ["🙁", "🇼", "🇭", "🇴", "🔵", "🇵", "🇮", "🇳", "🇬", "🇪", "🇩"]
