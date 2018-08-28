@@ -6,7 +6,7 @@ from secrets import choice
 from urllib.parse import urlencode
 
 from aiohttp import ClientSession
-from discord import Embed, Member, Message
+from discord import Embed, Message
 from discord.ext.commands import (BadArgument, Bot, Context, EmojiConverter,
                                   command, TextChannelConverter, MemberConverter)
 
