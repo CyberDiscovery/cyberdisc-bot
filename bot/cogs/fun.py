@@ -1,7 +1,8 @@
 """
 Set of bot commands designed for general leisure.
 """
-from random import choice, randint
+from random import randint
+from secrets import choice
 from urllib.parse import urlencode
 
 from aiohttp import ClientSession
