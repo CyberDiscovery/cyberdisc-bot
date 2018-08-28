@@ -8,7 +8,7 @@ from urllib.parse import urlencode
 from aiohttp import ClientSession
 from discord import Embed, Message
 from discord.ext.commands import (BadArgument, Bot, Context, EmojiConverter,
-                                  command, TextChannelConverter, MemberConverter)
+                                  TextChannelConverter, MemberConverter, command)
 
 from bot.constants import EVERYONE_REACTIONS
 
