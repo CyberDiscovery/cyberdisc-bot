@@ -1,16 +1,16 @@
 """
 Set of bot commands designed for general leisure.
 """
-from random import randint
-from secrets import choice
+from random import randint, choice
 from urllib.parse import urlencode
 
 from aiohttp import ClientSession
 from discord import Embed, Message
-from discord.ext.commands import (BadArgument, Bot, Context, EmojiConverter,
-                                  command, TextChannelConverter, MemberConverter)
+from discord.ext.commands import (
+    BadArgument, Bot, Context, EmojiConverter,
+    TextChannelConverter, MemberConverter, command, has_any_role)
 
-from bot.constants import EVERYONE_REACTIONS
+from bot.constants import ADMIN_ROLES, EVERYONE_REACTIONS
 
 
 class Fun:
@@ -181,6 +181,7 @@ class Fun:
         await ctx.send(embed=embed_quotation)
 
     @command()
+    @has_any_role(*ADMIN_ROLES)
     async def set_quote_channel(self, ctx: Context, channel: TextChannelConverter()):
         """
         Sets the quotes channel.
