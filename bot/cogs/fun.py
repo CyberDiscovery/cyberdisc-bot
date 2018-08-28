@@ -6,14 +6,9 @@ from urllib.parse import urlencode
 
 from aiohttp import ClientSession
 from discord import Embed, Message
-<<<<<<< HEAD
 from discord.ext.commands import (
     BadArgument, Bot, Context, EmojiConverter,
     TextChannelConverter, MemberConverter, command, has_any_role)
-=======
-from discord.ext.commands import (BadArgument, Bot, Context, EmojiConverter,
-                                  TextChannelConverter, MemberConverter, command)
->>>>>>> 375d7d27dc625c499aeaa04d0cfdc18686376632
 
 from bot.constants import ADMIN_ROLES, EVERYONE_REACTIONS
 
