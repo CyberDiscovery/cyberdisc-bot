@@ -7,9 +7,9 @@ from urllib.parse import urlencode
 from aiohttp import ClientSession
 from discord import Embed, Member, Message
 from discord.ext.commands import (BadArgument, Bot, Context, EmojiConverter,
-                                  command)
+                                  command, TextChannelConverter)
 
-from bot.constants import EVERYONE_REACTIONS, QUOTE_CHANNEL_ID
+from bot.constants import EVERYONE_REACTIONS
 
 
 class Fun:
@@ -19,6 +19,7 @@ class Fun:
 
     def __init__(self, bot: Bot):
         self.bot = bot
+        self.quote_channel = None
 
     async def on_message(self, message: Message):
         """
@@ -157,9 +158,12 @@ class Fun:
         """
         Returns a random quotation from the #quotes channel.
         A user can be specified to return a random quotation from that user.
-        A channel ID must be specified in QUOTE_CHANNEL_ID for the bot to retrieve the quotations successfully.
+        A #quotes channel must be set using the set_quote_channel command in order for this command to work.
         """
-        quotation_channel = self.bot.get_channel(QUOTE_CHANNEL_ID)
+        if self.quote_channel is None:
+            await ctx.send("Please set the quotes channel.")
+            return
+        quotation_channel = self.quote_channel
         if member is not None:
             all_quotations = await quotation_channel.history(limit=None).flatten()
             quotations = []
@@ -174,6 +178,14 @@ class Fun:
         quotation = choice(quotations)
         embed_quotation = quotation.embeds[0]
         await ctx.send(embed=embed_quotation)
+
+    @command()
+    async def set_quote_channel(self, ctx: Context, channel: TextChannelConverter()):
+        """
+        Sets the quotes channel.
+        """
+        self.quote_channel = channel
+        await ctx.send("Quotes channel successfully set.")
 
 
 def setup(bot):
