@@ -7,7 +7,7 @@ from urllib.parse import urlencode
 from aiohttp import ClientSession
 from discord import Embed, Member, Message
 from discord.ext.commands import (BadArgument, Bot, Context, EmojiConverter,
-                                  command, TextChannelConverter)
+                                  command, TextChannelConverter, MemberConverter)
 
 from bot.constants import EVERYONE_REACTIONS
 
@@ -154,7 +154,7 @@ class Fun:
         await ctx.send(embed=comic)
 
     @command()
-    async def quotes(self, ctx: Context, member: Member=None):
+    async def quotes(self, ctx: Context, member: MemberConverter=None):
         """
         Returns a random quotation from the #quotes channel.
         A user can be specified to return a random quotation from that user.
