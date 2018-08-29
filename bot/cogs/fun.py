@@ -1,14 +1,18 @@
 """
 Set of bot commands designed for general leisure.
 """
+import textwrap
 from random import choice, randint
 from urllib.parse import urlencode
 
 from aiohttp import ClientSession
-from discord import Embed, Message
+from discord import Embed, File, Message
 from discord.ext.commands import (
     BadArgument, Bot, Context, EmojiConverter,
     MemberConverter, TextChannelConverter, command, has_any_role)
+from wand.drawing import Drawing
+from wand.image import Image
+
 
 from bot.constants import ADMIN_ROLES, EVERYONE_REACTIONS
 
@@ -27,8 +31,7 @@ class Fun:
         React based on the contents of a message.
         """
         # React if a message contains an @here or @everyone mention.
-        if any(mention in message.content
-                for mention in ("@here", "@everyone")):
+        if any(mention in message.content for mention in ("@here", "@everyone")):
             for emoji in EVERYONE_REACTIONS:
                 await message.add_reaction(emoji)
 
@@ -101,11 +104,12 @@ class Fun:
         if unknown_emojis:
             emoji_string = ", ".join(unknown_emojis)
             # Inserts an invisible character to render mass mentions ineffective.
-            emoji_string = emoji_string.replace("@here", "@\xadhere").replace("@everyone", "@\xadeveryone")
+            emoji_string = emoji_string.replace(
+                "@here", "@\xadhere").replace("@everyone", "@\xadeveryone")
             await ctx.send(f"Unknown emojis: {emoji_string}")
 
     @command()
-    async def xkcd(self, ctx: Context, number: str=None):
+    async def xkcd(self, ctx: Context, number: str = None):
         """
         Fetches xkcd comics.
         If number is left blank, automatically fetches the latest comic.
@@ -179,7 +183,7 @@ class Fun:
         quotation = choice(quotations)
         embed_quotation = quotation.embeds[0]
         await ctx.send(embed=embed_quotation)
-
+        
     @command()
     @has_any_role(*ADMIN_ROLES)
     async def set_quote_channel(self, ctx: Context, channel: TextChannelConverter()):
@@ -188,6 +192,38 @@ class Fun:
         """
         self.quote_channel = channel
         await ctx.send("Quotes channel successfully set.")
+
+    async def create_text_image(self, ctx: Context, person: str, text: str):
+        """
+        Creates an image of a given person with the specified text.
+        """
+        lines = textwrap.wrap(text, 15)
+        draw = Drawing()
+        image = Image(filename=f"bot/resources/{person}SaysBlank.png")
+        draw.font = "bot/resources/Dosis-SemiBold.ttf"
+        draw.text_alignment = "center"
+        draw.font_size = 34
+        offset = 45 - 10 * len(lines)
+        for line in lines:
+            draw.text(image.width // 5 + 20, image.height // 5 + offset, line)
+            offset += 35
+        draw(image)
+        image.save(filename=f"bot/resources/{person}Says.png")
+        await ctx.send(file=File(f"bot/resources/{person}Says.png"))
+
+    @command()
+    async def agentj(self, ctx: Context, *, text: str):
+        """
+        Creates an image of Agent J with the specified text.
+        """
+        await self.create_text_image(ctx, "AgentJ", text)
+
+    @command()
+    async def jibhat(self, ctx: Context, *, text: str):
+        """
+        Creates an image of Jibhat with the specified text.
+        """
+        await self.create_text_image(ctx, "Jibhat", text)
 
 
 def setup(bot):

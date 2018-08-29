@@ -15,3 +15,6 @@ The bot for the Cyber Discovery Community Discord Server!
 * **`:react ❓`** - Reacts to the previous message with the space seperated emojis in the requesting message.
 * **`:xkcd [? | 1810]`** - Fetches xkcd comics. If the argument is left blank the latest comic is shown.  A random comic is shown if the argument is a `?`.  Otherwise, a comic number can be used to fetch a specific comic.
 * **`:quotes [@mention]`** - Will return a random quote from the #quotes channel. Adding an username/mention will result in a random quote from that user being selected.
+* **`:agentj text`** - Creates an image of Agent J with the specified text.
+* **`:jibhat text`** - Creates an image of Jibhat with the specified text.
+
