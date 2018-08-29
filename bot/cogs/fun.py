@@ -43,6 +43,7 @@ class Fun:
         if "kali" in message.content.lower():
             await message.add_reaction("🚔")
 
+        # React "NO" if message contains revive.
         if "revive" in message.content.lower():
             await message.add_reaction("🇳")
             await message.add_reaction("🇴")
