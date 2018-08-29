@@ -183,7 +183,7 @@ class Fun:
         quotation = choice(quotations)
         embed_quotation = quotation.embeds[0]
         await ctx.send(embed=embed_quotation)
-        
+
     @command()
     @has_any_role(*ADMIN_ROLES)
     async def set_quote_channel(self, ctx: Context, channel: TextChannelConverter()):
