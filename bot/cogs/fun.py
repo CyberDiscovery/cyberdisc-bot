@@ -43,6 +43,10 @@ class Fun:
         if "kali" in message.content.lower():
             await message.add_reaction("🚔")
 
+        if "revive" in message.content.lower():
+            await message.add_reaction("🇳")
+            await message.add_reaction("🇴")
+
     @command()
     async def lmgtfy(self, ctx: Context, *args: str):
         """
