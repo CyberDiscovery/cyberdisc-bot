@@ -6,11 +6,16 @@ branches:
   only:
     - "master"
 
+services:
+  - docker
+
 install:
-  - pip install -r requirements.txt
+  - docker build -t cd-bot .
+  - docker run -e BOT_TOKEN --name cd-bot cd-bot
   - pip install -r requirements-ci.txt
 
 script:
+  - docker ps | grep cd-bot
   - flake8
 
 cache: pip
