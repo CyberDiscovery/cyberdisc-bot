@@ -11,7 +11,7 @@ services:
 
 install:
   - docker build -t cd-bot .
-  - docker run -e BOT_TOKEN --name cd-bot cd-bot
+  - docker run -d -e BOT_TOKEN --name cd-bot cd-bot
   - pip install -r requirements-ci.txt
 
 script:
