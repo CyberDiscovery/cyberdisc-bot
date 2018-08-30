@@ -11,11 +11,11 @@ services:
 
 install:
   - docker build -t cd-bot .
-  - docker run -d -e BOT_TOKEN --name cd-bot cd-bot
+  - 'if [ "$TRAVIS_PULL_REQUEST" = "false" ]; then docker run -d -e BOT_TOKEN --name cd-bot cd-bot; fi'
   - pip install -r requirements-ci.txt
 
 script:
-  - docker ps | grep cd-bot
+  - 'if [ "$TRAVIS_PULL_REQUEST" = "false" ]; then docker ps | grep cd-bot; fi'
   - flake8
 
 cache: pip
