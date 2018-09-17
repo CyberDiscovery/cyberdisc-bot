@@ -5,6 +5,11 @@ The bot for the Cyber Discovery Community Discord Server!
 ### General Commands:
 * **`:help`** - Displays information about the usage and syntax of the commands
 
+### Admin Commands
+* **`:set_quote_channel [#channel]`** - Set the channel to be used as a source by the `:quotes` command. Note: You will have to do this after every restart of the bot.
+* **`:mute [@mention]`** - Mute the selected user indefinitely.
+* **`:unnmute [@mention]`** - Unmute the selected user.
+
 ### Cyber Security Commands:
 * **`:level 13 1`** - Gets information about a specific CyberStart Game challenge.
 * **`:haveibeenpwned email@exmaple.com`** - Searches haveibeenpwned.com for breached accounts.
@@ -17,4 +22,3 @@ The bot for the Cyber Discovery Community Discord Server!
 * **`:quotes [@mention]`** - Will return a random quote from the #quotes channel. Adding an username/mention will result in a random quote from that user being selected.
 * **`:agentj text`** - Creates an image of Agent J with the specified text.
 * **`:jibhat text`** - Creates an image of Jibhat with the specified text.
-
