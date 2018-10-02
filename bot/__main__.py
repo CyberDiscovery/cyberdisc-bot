@@ -1,12 +1,47 @@
+"""Main script to define bot methods, and start the bot."""
+
 from os import environ
+from typing import List
+from itertools import cycle
+from string import ascii_lowercase
 
 from discord import Game
 from discord.ext.commands import Bot, when_mentioned_or
 
+from constants import EMOJI_LETTERS
+
+
+EMOJI_LETTERS = [
+    cycle(letters) for letters in EMOJI_LETTERS
+]
+
 muted = []
 admins = []
 
-bot = Bot(
+ascii_lowercase += ' '
+
+
+class CustomBot(Bot):
+    """Bot class with custom methods."""
+
+    def emojify(self, message: str) -> List[str]:
+        """Convert a string to a list of emojis, for use in various cogs."""
+        emoji = []
+        # Copy the list so iterators are not affected
+        emoji_trans = EMOJI_LETTERS.copy()
+
+        # Enumerate characters in the message
+        for i, character in enumerate(message):
+            index = ascii_lowercase.find(character)
+            if not index + 1:
+                continue
+            # Append the next iteration of the letter
+            emoji.append(next(emoji_trans[i]))
+
+        return emoji
+
+
+bot = CustomBot(
     command_prefix=when_mentioned_or(
         "...", ":"
     ),
@@ -22,11 +57,13 @@ bot.banned_ids = []
 
 @bot.check
 async def block_banned_ids(ctx):
+    """Check for if a user is banned."""
     return ctx.author.id not in bot.banned_ids
 
 
 @bot.check
 async def block_muted(ctx):
+    """Check for if a user is muted."""
     return ctx.author.id not in bot.muted
 
 
