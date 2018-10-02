@@ -44,6 +44,18 @@ class Admin:
 
         await self.unmute_member(member, reason=reason)
         await ctx.send(f"{ctx.author.mention} | {member.mention} has been unmuted.")
+    
+    @command()
+    @has_any_role(*ADMIN_ROLES)
+    async def purge_from(self, ctx: Context, message: int, limit: int = 1000, reason: str = "N/A"):
+        """
+        Command to purge all messages since a certain message id.
+        """
+
+        # Limit defaults to 1000, can be increased/decreased.
+        # Gets message and deletes all after it within the limits
+        await ctx.channel.purge(limit=limit, after=await ctx.channel.get_message(message))
+        await ctx.send(f"Messages purged since message ID: {message}")
 
     async def on_message(self, message):
         # Check if author is muted
