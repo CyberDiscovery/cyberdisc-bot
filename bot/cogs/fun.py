@@ -46,7 +46,6 @@ class Fun:
             if triggers_list[_] in message.content:
                 for i in range(0, len(react_list) - 1):
                     await message.add_reaction(react_list[i])
-            
 
         # React if message contains Kali.
         if "kali" in message.content.lower():
