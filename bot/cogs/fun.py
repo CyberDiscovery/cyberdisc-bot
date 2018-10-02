@@ -38,10 +38,15 @@ class Fun:
         # React if message contains dabato.
         if "dabato" in message.content:
             await message.add_reaction("🤔")
-        
+
         # React FBI OPEN UP if message contains trigger words.
-        if "child" in message.content or "fbi" in message.content or "loli" in message.content or "hentai" in message.content or "illegal" in message.content or "maltego" in message.content:
-            await message.add_reaction("🇫"); await message.add_reaction("🇧"); await message.add_reaction("🇮"); await message.add_reaction("⚫"); await message.add_reaction("🇴"); await message.add_reaction("🇵"); await message.add_reaction("🇪"); await message.add_reaction("🇳"); await message.add_reaction("⚪"); await message.add_reaction("🇺"); await message.add_reaction("🅿️")
+        triggers_list = ["child", "fbi", "loli", "hentai", "illegal", "maltego"]
+        react_list = ["🇫", "🇧", "🇮", "⚫", "🇴", "🇵", "🇪", "🇳", "⚪", "🇺", "🅿️"]
+        for _ in range(0, len(triggers_list) - 1):
+            if triggers_list[_] in message.content:
+                for i in range(0, len(react_list) - 1):
+                    await message.add_reaction(react_list[i])
+            
 
         # React if message contains Kali.
         if "kali" in message.content.lower():
@@ -49,7 +54,9 @@ class Fun:
 
         # React "NO" if message contains revive.
         if "revive" in message.content.lower():
-            await message.add_reaction("🇳"); await message.add_reaction("🇴"); await message.add_reaction("🇺")
+            await message.add_reaction("🇳")
+            await message.add_reaction("🇴")
+            await message.add_reaction("🇺")
 
     @command()
     async def lmgtfy(self, ctx: Context, *args: str):
