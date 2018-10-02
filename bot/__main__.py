@@ -1,11 +1,10 @@
 """Main script to define bot methods, and start the bot."""
 
-from os import environ
-from itertools import cycle
-from typing import List
-from string import ascii_lowercase
-
 from discord import Game
+from itertools import cycle
+from os import environ
+from string import ascii_lowercase
+from typing import List
 
 from constants import EMOJI_LETTERS
 from discord.ext.commands import Bot, when_mentioned_or
