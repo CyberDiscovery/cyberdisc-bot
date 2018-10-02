@@ -40,7 +40,7 @@ class Fun:
             await message.add_reaction("🤔")
         
         # React FBI OPEN UP if message contains trigger words.
-        if "child" in message.content or "loli" in message.content or "hentai" in message.content or "illegal" in message.content or "maltego" in message.content:
+        if "child" in message.content or "fbi" in message.content or "loli" in message.content or "hentai" in message.content or "illegal" in message.content or "maltego" in message.content:
             await message.add_reaction("🇫"); await message.add_reaction("🇧"); await message.add_reaction("🇮"); await message.add_reaction("⚫"); await message.add_reaction("🇴"); await message.add_reaction("🇵"); await message.add_reaction("🇪"); await message.add_reaction("🇳"); await message.add_reaction("⚪"); await message.add_reaction("🇺"); await message.add_reaction("🅿️")
 
         # React if message contains Kali.
