@@ -40,12 +40,12 @@ class Fun:
             await message.add_reaction("🤔")
 
         # React FBI OPEN UP if message contains trigger words.
-        triggers_list = ["child", "fbi", "loli", "hentai", "illegal", "maltego"]
-        react_list = ["🇫", "🇧", "🇮", "⚫", "🇴", "🅿️", "🇪", "🇳", "⚪", "🇺", "🇵"]
-        for _ in range(0, len(triggers_list) - 1):
-            if triggers_list[_] in message.content:
-                for i in range(0, len(react_list) - 1):
-                    await message.add_reaction(react_list[i])
+        triggers = ["child", "fbi", "loli", "hentai", "illegal", "maltego"]
+        reactions = ["🇫", "🇧", "🇮", "⚫", "🇴", "🅿️", "🇪", "🇳", "⚪", "🇺", "🇵"]
+        for trigger in range(0, len(triggers) - 1):
+            if triggers[trigger] in message.content:
+                for reaction in range(0, len(reactions) - 1):
+                    await message.add_reaction(reactions[reaction])
 
         # React if message contains Kali.
         if "kali" in message.content.lower():
