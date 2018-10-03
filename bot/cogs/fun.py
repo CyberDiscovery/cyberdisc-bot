@@ -42,9 +42,9 @@ class Fun:
         # React FBI OPEN UP if message contains trigger words.
         triggers = ["child", "fbi", "loli", "hentai", "illegal", "maltego"]
         reactions = ["🇫", "🇧", "🇮", "⚫", "🇴", "🅿️", "🇪", "🇳", "⚪", "🇺", "🇵"]
-        for trigger in range(0, len(triggers) - 1):
+        for trigger in triggers:
             if triggers[trigger] in message.content:
-                for reaction in range(0, len(reactions) - 1):
+                for reaction in reactions:
                     await message.add_reaction(reactions[reaction])
 
         # React if message contains Kali.
