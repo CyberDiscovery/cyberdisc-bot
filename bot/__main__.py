@@ -23,7 +23,8 @@ ascii_lowercase += ' '
 class CustomBot(Bot):
     """Bot class with custom methods."""
 
-    def emojify(self, message: str) -> List[str]:
+    @staticmethod
+    def emojify(message: str) -> List[str]:
         """Convert a string to a list of emojis, for use in various cogs."""
         emoji = []
         # Copy the list so iterators are not affected
