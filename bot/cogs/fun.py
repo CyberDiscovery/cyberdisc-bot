@@ -41,7 +41,7 @@ class Fun:
 
         # React FBI OPEN UP if message contains trigger words.
         triggers_list = ["child", "fbi", "loli", "hentai", "illegal", "maltego"]
-        react_list = ["🇫", "🇧", "🇮", "⚫", "🇴", "🇵", "🇪", "🇳", "⚪", "🇺", "🅿️"]
+        react_list = ["🇫", "🇧", "🇮", "⚫", "🇴", "🅿️", "🇪", "🇳", "⚪", "🇺", "🇵"]
         for _ in range(0, len(triggers_list) - 1):
             if triggers_list[_] in message.content:
                 for i in range(0, len(react_list) - 1):
