@@ -2,7 +2,10 @@
 Set of bot commands designed for general leisure.
 """
 import textwrap
+from itertools import cycle
 from random import choice, randint
+from string import ascii_lowercase
+from typing import AsyncGenerator
 from urllib.parse import urlencode
 
 from aiohttp import ClientSession
@@ -14,7 +17,32 @@ from wand.drawing import Drawing
 from wand.image import Image
 
 
-from bot.constants import ADMIN_ROLES, EVERYONE_REACTIONS
+from bot.constants import ADMIN_ROLES, EMOJI_LETTERS
+
+
+EMOJI_LETTERS = [
+    cycle(letters) for letters in EMOJI_LETTERS
+]
+
+ascii_lowercase += ' '
+
+
+async def _convert_emoji(message: str) -> AsyncGenerator[str]:
+    """Convert a string to a list of emojis."""
+    emoji_trans = EMOJI_LETTERS.copy()  # Will not affect iterators
+    # Enumerate characters in the message
+    for i, character in enumerate(message):
+        index = ascii_lowercase.find(character)
+        if not index + 1:
+            continue
+        # Yield the next iteration of the letter
+        yield next(emoji_trans[index])
+
+
+async def emojify(message: Message, string: str):
+    """Convert a string to emojis, and add those emojis to a message."""
+    async for emoji in _convert_emoji(message.content):
+        await message.add_reaction(emoji)
 
 
 class Fun:
@@ -32,8 +60,8 @@ class Fun:
         """
         # React if a message contains an @here or @everyone mention.
         if any(mention in message.content for mention in ("@here", "@everyone")):
-            for emoji in EVERYONE_REACTIONS:
-                await message.add_reaction(emoji)
+            await message.add_reaction("🙁")
+            await emojify(message, "who pinged")
 
         # React if message contains dabato.
         if "dabato" in message.content:
@@ -45,9 +73,7 @@ class Fun:
 
         # React "NO" if message contains revive.
         if "revive" in message.content.lower():
-            await message.add_reaction("🇳")
-            await message.add_reaction("🇴")
-            await message.add_reaction("🇺")
+            await emojify(message, "who pinged")
 
     @command()
     async def lmgtfy(self, ctx: Context, *args: str):

@@ -1,9 +1,5 @@
 """A list of constants."""
 
-# Fun constants
-
-EVERYONE_REACTIONS = ["🙁", "🇼", "🇭", "🇴", "🔵", "🇵", "🇮", "🇳", "🇬", "🇪", "🇩"]
-
 # Lists for administration
 
 ADMIN_ROLES = ("Root", "Sudo")

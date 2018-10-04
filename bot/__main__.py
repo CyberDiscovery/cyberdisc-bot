@@ -10,38 +10,10 @@ from discord import Game
 from discord.ext.commands import Bot, when_mentioned_or
 
 
-EMOJI_LETTERS = [
-    cycle(letters) for letters in EMOJI_LETTERS
-]
-
 muted = []
 admins = []
 
-ascii_lowercase += ' '
-
-
-class CustomBot(Bot):
-    """Bot class with custom methods."""
-
-    @staticmethod
-    def emojify(message: str) -> List[str]:
-        """Convert a string to a list of emojis, for use in various cogs."""
-        emoji = []
-        # Copy the list so iterators are not affected
-        emoji_trans = EMOJI_LETTERS.copy()
-
-        # Enumerate characters in the message
-        for i, character in enumerate(message):
-            index = ascii_lowercase.find(character)
-            if not index + 1:
-                continue
-            # Append the next iteration of the letter
-            emoji.append(next(emoji_trans[i]))
-
-        return emoji
-
-
-bot = CustomBot(
+bot = Bot(
     command_prefix=when_mentioned_or(
         "...", ":"
     ),
