@@ -31,7 +31,7 @@ async def _convert_emoji(message: str) -> AsyncGenerator[str]:
     """Convert a string to a list of emojis."""
     emoji_trans = EMOJI_LETTERS.copy()  # Will not affect iterators
     # Enumerate characters in the message
-    for i, character in enumerate(message):
+    for character in message:
         index = ascii_lowercase.find(character)
         if not index + 1:
             continue
