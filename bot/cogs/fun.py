@@ -73,7 +73,7 @@ class Fun:
 
         # React "NO" if message contains revive.
         if "revive" in message.content.lower():
-            await emojify(message, "who pinged")
+            await emojify(message, "nou")
 
     @command()
     async def lmgtfy(self, ctx: Context, *args: str):
