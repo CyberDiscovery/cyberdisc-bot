@@ -12,17 +12,17 @@ class Admin:
     def __init__(self, bot: Bot):
         self.bot = bot
 
-    async def mute_member(self, member: Member, reason: str="N/A"):
+    async def mute_member(self, member: Member, reason: str = "N/A"):
         self.bot.muted.append(member.id)
         print(f"Member {member} ({member.id}) has been muted for reason: {reason}")
 
-    async def unmute_member(self, member: Member, reason: str="N/A"):
+    async def unmute_member(self, member: Member, reason: str = "N/A"):
         self.bot.muted.remove(member.id)
         print(f"Member {member} ({member.id}) has been unmuted for reason: {reason}")
 
     @command()
     @has_any_role(*ADMIN_ROLES)
-    async def mute(self, ctx: Context, member: Member, reason: str="N/A"):
+    async def mute(self, ctx: Context, member: Member, reason: str = "N/A"):
         """
         Command to mute people.
         """
@@ -37,7 +37,7 @@ class Admin:
 
     @command()
     @has_any_role(*ADMIN_ROLES)
-    async def unmute(self, ctx: Context, member: Member, reason: str="N/A"):
+    async def unmute(self, ctx: Context, member: Member, reason: str = "N/A"):
         """
         Command to unmute people.
         """
