@@ -174,7 +174,7 @@ class Fun:
         await ctx.send(embed=comic)
 
     @command()
-    async def quotes(self, ctx: Context, member: MemberConverter=None):
+    async def quotes(self, ctx: Context, member: MemberConverter = None):
         """
         Returns a random quotation from the #quotes channel.
         A user can be specified to return a random quotation from that user.
@@ -201,7 +201,7 @@ class Fun:
 
     @command()
     @has_any_role(*ADMIN_ROLES)
-    async def set_quote_channel(self, ctx: Context, channel: TextChannelConverter()):
+    async def set_quote_channel(self, ctx: Context, channel: TextChannelConverter):
         """
         Sets the quotes channel.
         """
