@@ -76,6 +76,10 @@ class Fun:
         if "kali" in message.content.lower():
             await message.add_reaction("🚔")
 
+        # React if message contains Duck.
+        if "duck" in message.content.lower():
+            await message.add_reaction("🦆")
+
         # React "NO" if message contains revive.
         if "revive" in message.content.lower():
             await emojify(message, "nou")
