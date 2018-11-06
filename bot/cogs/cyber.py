@@ -65,7 +65,7 @@ class Cyber:
             embed.set_footer(text="  |  ".join(challenge_tip))
 
             await ctx.send(embed=embed)
-            
+
     @command(aliases=["a", "al"])
     async def assess(self, ctx: Context, challenge_num: int):
         """
