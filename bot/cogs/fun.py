@@ -2,19 +2,52 @@
 Set of bot commands designed for general leisure.
 """
 import textwrap
+from itertools import cycle
 from random import choice, randint
+from string import ascii_lowercase
+from typing import AsyncGenerator
 from urllib.parse import urlencode
 
 from aiohttp import ClientSession
 from discord import Embed, File, Message
 from discord.ext.commands import (
-    BadArgument, Bot, Context, EmojiConverter,
-    MemberConverter, TextChannelConverter, command, has_any_role)
+    Bot, Context, MemberConverter, TextChannelConverter, command, has_any_role
+)
 from wand.drawing import Drawing
 from wand.image import Image
 
 
-from bot.constants import ADMIN_ROLES, EVERYONE_REACTIONS
+from bot.constants import ADMIN_ROLES, EMOJI_LETTERS
+
+
+EMOJI_LETTERS = [
+    cycle(letters) for letters in EMOJI_LETTERS
+]
+
+ascii_lowercase += ' '
+
+
+async def _convert_emoji(message: str) -> AsyncGenerator[str, None]:
+    """Convert a string to a list of emojis."""
+    emoji_trans = list(map(iter, EMOJI_LETTERS))
+    # Enumerate characters in the message
+    for character in message:
+        index = ascii_lowercase.find(character)
+        if not index + 1:
+            continue
+        # Yield the next iteration of the letter
+        try:
+            emoji = next(emoji_trans[index])
+        except StopIteration:
+            yield None
+        yield emoji
+
+
+async def emojify(message: Message, string: str):
+    """Convert a string to emojis, and add those emojis to a message."""
+    async for emoji in _convert_emoji(string):
+        if emoji is not None:
+            await message.add_reaction(emoji)
 
 
 class Fun:
@@ -32,8 +65,8 @@ class Fun:
         """
         # React if a message contains an @here or @everyone mention.
         if any(mention in message.content for mention in ("@here", "@everyone")):
-            for emoji in EVERYONE_REACTIONS:
-                await message.add_reaction(emoji)
+            await message.add_reaction("🙁")
+            await emojify(message, "who pinged")
 
         # React if message contains dabato.
         if "dabato" in message.content:
@@ -43,9 +76,13 @@ class Fun:
         if "kali" in message.content.lower():
             await message.add_reaction("🚔")
 
+        # React if message contains Duck.
+        if "duck" in message.content.lower():
+            await message.add_reaction("🦆")
+
+        # React "NO" if message contains revive.
         if "revive" in message.content.lower():
-            await message.add_reaction("🇳")
-            await message.add_reaction("🇴")
+            await emojify(message, "nou")
 
     @command()
     async def lmgtfy(self, ctx: Context, *args: str):
@@ -73,44 +110,22 @@ class Fun:
         if delete:
             await ctx.message.delete()
 
-    @command()
-    async def react(self, ctx: Context, *reactions: str):
+    @command(aliases=['emojify'])
+    async def react(self, ctx, *, message: str):
         """
-        Reacts to the previous message with the given space-separated emojis.
+        Emojifies a given string, and reacts to a previous message
+        with those emojis.
         """
-        # Added mutability
-        reactions = list(reactions)
-
-        # Detect if message number is present in the invocation arguments.
-        msg_num = 1
-        if reactions[0].isdigit():
-            msg_num += int(reactions.pop(0))
+        print(repr(message))
+        limit, _, output = message.partition(' ')
+        if limit.isdigit():
+            limit = int(limit)
         else:
-            msg_num += 1
-
-        # Getting the message to react to.
-        message = await ctx.channel.history(limit=msg_num, reverse=True).next()
-        await ctx.message.delete()
-
-        unknown_emojis = []
-
-        # Reacts to the message.
-        for reaction in reactions:
-            if len(reaction) > 1:
-                try:
-                    reaction = await EmojiConverter().convert(ctx, reaction)
-                except BadArgument:
-                    unknown_emojis.append(reaction)
-                    continue
-            await message.add_reaction(reaction)
-
-        # Informs the user of unknown emojis.
-        if unknown_emojis:
-            emoji_string = ", ".join(unknown_emojis)
-            # Inserts an invisible character to render mass mentions ineffective.
-            emoji_string = emoji_string.replace(
-                "@here", "@\xadhere").replace("@everyone", "@\xadeveryone")
-            await ctx.send(f"Unknown emojis: {emoji_string}")
+            output = message
+            limit = 2
+        async for target in ctx.channel.history(limit=limit):
+            pass
+        await emojify(target, output)
 
     @command()
     async def xkcd(self, ctx: Context, number: str = None):
@@ -163,7 +178,7 @@ class Fun:
         await ctx.send(embed=comic)
 
     @command()
-    async def quotes(self, ctx: Context, member: MemberConverter=None):
+    async def quotes(self, ctx: Context, member: MemberConverter = None):
         """
         Returns a random quotation from the #quotes channel.
         A user can be specified to return a random quotation from that user.
@@ -190,7 +205,7 @@ class Fun:
 
     @command()
     @has_any_role(*ADMIN_ROLES)
-    async def set_quote_channel(self, ctx: Context, channel: TextChannelConverter()):
+    async def set_quote_channel(self, ctx: Context, channel: TextChannelConverter):
         """
         Sets the quotes channel.
         """
