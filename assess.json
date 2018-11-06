@@ -1,7 +1,7 @@
 {
   "_comment": "This file contains the challenge names, descriptions and difficulty levels for the 2018/19 CyberStart Assess Challenges."
   "Assess_Challenges:": {
-    "C1:": {
+    "C1": {
       "title": "Hello World",
       "description": "Below is an 'About Me' page for a well known hacker. Why would a hacker display all this information about himself? Good question! It seems the answer is: it's all a red herring. However, there is one secret real way to contact him that he's managed to inject on the page - a hidden email address. If you can find it, that's the code you need to solve the challenge.",
       "difficulty": "Easy"
