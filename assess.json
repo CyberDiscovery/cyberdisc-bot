@@ -1,0 +1,75 @@
+{
+  "_comment": "This file contains the challenge names, descriptions and difficulty levels for the 2018/19 CyberStart Assess Challenges."
+  "Assess_Challenges:": {
+    "C1:": {
+      "title": "Hello World",
+      "description": "Below is an 'About Me' page for a well known hacker. Why would a hacker display all this information about himself? Good question! It seems the answer is: it's all a red herring. However, there is one secret real way to contact him that he's managed to inject on the page - a hidden email address. If you can find it, that's the code you need to solve the challenge.",
+      "difficulty": "Easy"
+    },
+    "C2:": {
+      "title": "Mixed Up Messages",
+      "description": "We've been tracking a small group of suspicious hackers on social media for a while. Their messages have been getting increasingly cryptic; so much so that all of the posts now look jumbled up and don't seem to make any sense! There is an example below, which we believe contains a secret. Can you figure out what it is?",
+      "difficulty": "Easy"
+    },
+    "C3:": {
+      "title": "Wordsworth",
+      "description": "There's an erudite hacker who goes by the name of 'Wordsworth'. She loves books and riddles, and using them to hide her secrets. She also runs a cool website for finding quotes from famous people, books and movies. We initially thought it was legit, but it seems there's more to it than meets the eye. Can you find the hidden section?",
+      "difficulty": "Medium"
+    },
+    "C4:": {
+      "title": "Look Behind You",
+      "description": "We've had a tip off that the below site, owned by the company 'Barrier Background Checks', has been hacked and a secret message has been placed on it. Can you find it?",
+      "difficulty": "Medium"
+    },
+    "C5:": {
+      "title": "Newbie",
+      "description": "Our team has been working with a business, whose website has been targeted by a series of malicious scripts. It had all the hallmarks of an inexperienced hacker still learning to code and we were easily able to quickly trace it back to their personal website. We want to gain access to gather evidence and see what other scripts they have. Can you do so by taking advantage of the weak code?",
+      "difficulty": "Medium"
+    },
+    "C6:": {
+      "title": "Spinlock",
+      "description": "When one of the world's largest banks refitted all of their vaults with the new SpinLock Extreme II, they were sure that it was impossible to hack. Unfortunately, it seems that's incorrect. The physical vault itself requires a special keycard to be inserted which, after checking the authenticity of the card, re-aligns the circular locking mechanism to unlock it and updates the interface to show that it's unlocked. However, we found that by remote accessing the interface on the vault, we could unlock the vault by doing it in reverse; getting the interface to unlock, which unlocks the vault itself. Can you do the same?",
+      "difficulty": "Medium"
+    },
+    "C7:": {
+      "title": "The Wizard",
+      "description": "We're helping a business to recover from a breach by a cyber criminal who calls himself 'The Wizard'. He's taken over the site and locked it down with a cryptic question. Can you help us get back in? **Make sure your answer speaks the same language as the question!**",
+      "difficulty": "Medium"
+    },
+    "C8:": {
+      "title": "Dippy Donuts",
+      "description": "You wouldn't think a simple shop like Dippy Donuts would be an interesting target for hackers. But look beyond the donuts and you’ll realise that their home delivery site stores the personal information and payment details for hundreds of previous customers. That's why they asked us to review the security on their site, and we found an immediate security hole. Can you find it and sign in to their admin area?",
+      "difficulty": "Medium"
+    },
+    "C9:": {
+      "title": "Whereabouts",
+      "description": "We're helping the police to track a cyber criminal called Greg Lavano by exploiting vulnerabilities in a location check-in app that he uses. We've found his profile and followed him, but his check-ins are private unless he follows us back. Below we're signed in to the profile page for our account. Can you see any weaknesses in the site that would allow us to gain access to his profile directly? If you can, then could you help the police find the name of the city where Greg last checked in?",
+      "difficulty": "Medium"
+    },
+    "C10:": {
+      "title": "Maths at light speed",
+      "description": "Do you know how to use a calculator? Of course you do. So, in theory you should be able to bypass this security gateway by simply answering the maths question, right? Well, no. It was created by a security expert who loves doing everything super fast, so you only get 0.1 seconds to answer the question. Luckily, we managed to find a way to get around it. Can you do the same?",
+      "difficulty": "Hard"
+    },
+    "C11:": {
+      "title": "Easy access",
+      "description": "We're helping a scientific research company test a new access system that they have built. It works by detecting a chip in your ID card, which then deobfuscates a code and passes it to a function. They want to see how easy it would be to get around if you didn't have an ID card and could access the code somehow. We've replicated it below; can you gain access?",
+      "difficulty": "Hard"
+    },
+    "C12:": {
+      "title": "Secure site",
+      "description": "We've been working alongside a well known international business to help make their new manufacturing facilities really secure, both physically and digitally. We've written some software, which loops through a series of security checks, but it seems to have a bug. Can you fix it and get the tests to pass? We think it perhaps just needs a single character removing.",
+      "difficulty": "Hard"
+    },
+    "C13:": {
+      "title": "The runaround",
+      "description": "Recently we've been investigating a rather elusive hacker, who seems very hard to pin down. We got as far as finding his well-hidden website, but even that is giving us the run around. Can you figure out how to get in?",
+      "difficulty": "Extreme"
+    },
+    "C14:": {
+      "title": "Choppy waters",
+      "description": "Functioning utilities are a vital part of any country's infrastructure, and they are therefore a tempting target for hackers. Our team has been tasked with reviewing the security for a water treatment company; in particular whether it's possible to disrupt their systems. Can you find a way to do so?",
+      "difficulty": "Extreme"
+    }
+  }
+}
