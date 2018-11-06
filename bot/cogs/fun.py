@@ -71,7 +71,7 @@ class Fun:
         # React if message contains dabato.
         if "dabato" in message.content:
             await message.add_reaction("🤔")
- 
+
         # React FBI OPEN UP if message contains trigger words.
         triggers = ["child", "fbi", "loli", "hentai", "illegal", "maltego"]
         if any(trigger in message.content.lower() for trigger in triggers):
