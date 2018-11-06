@@ -16,16 +16,16 @@ class Cyber:
     def __init__(self, bot: Bot):
         self.bot = Bot
         self.game_regex = re.compile(
-            "^(?=.*\bgame\b)(?=.*\bwhen\b)(?=.*\b(does|will|did|\?)\b)(?=.*\b(end|finish|close)\b).*$",
+            "^(?=.*\bgame\b)(?=.*\bwhen\b)(?=.*\b(does|will|did|?)\b)(?=.*\b(end|finish|close)\b).*$",
             re.IGNORECASE)
         self.essentials_regex = re.compile(
-            "^(?=.*\bessentials\b)(?=.*\bwhen\b)(?=.*\b(does|will|did|\?)\b)(?=.*\b(end|finish|close)\b).*$",
+            "^(?=.*\bessentials\b)(?=.*\bwhen\b)(?=.*\b(does|will|did|?)\b)(?=.*\b(end|finish|close)\b).*$",
             re.IGNORECASE)
         self.elite_qualification_regex = re.compile(
             "^(?=.*\bhow\b)(?=.*\belite\b)(?=.*\bget\b)(?=.*\bto\b).*$",
             re.IGNORECASE)
         self.elite_dates_regex = re.compile(
-            "^(?=.*\belite\b)(?=.*\bwhen\b)(?=.*\b(does|will|did|\?)\b)(?=.*\b(start|begin|run|end)\b).*$",
+            "^(?=.*\belite\b)(?=.*\bwhen\b)(?=.*\b(does|will|did|?)\b)(?=.*\b(start|begin|run|end)\b).*$",
             re.IGNORECASE)
         self.elite_email_regex = re.compile(
             "^(?=.*\belite\b)(?=.*\bemail\b)(?=.*\bhave(?:n(?:[o'])?t)?\b)(?=.*\b(got|received|)\b).*$",
@@ -63,6 +63,38 @@ class Cyber:
                 icon_url=CYBERDISC_ICON_URL
             )
             embed.set_footer(text="  |  ".join(challenge_tip))
+
+            await ctx.send(embed=embed)
+
+    @command(aliases=["a", "al"])
+    async def assess(self, ctx: Context, challenge_num: int):
+        """
+        Gets information about a specific CyberStart Assess level and challenge.
+        """
+
+        # Gather Assess data from JSON file.
+        with open("assess.json") as f:
+            assess_docs = load(f)
+
+        if challenge_num not in range(len(assess_docs) + 1):
+            await ctx.send("Invalid challenge number!")
+
+        else:
+            # Select the needed challenge
+            challenge_raw = assess_docs[challenge_num - 1]
+            challenge_title = challenge_raw["title"]
+            challenge_difficulty = challenge_raw["difficulty"]
+            challenge_text = challenge_raw["description"]
+            embed = Embed(
+                title=(f"CyberStart Assess Challenge {challenge_num} - {challenge_title}"),
+                description=challenge_text,
+                colour=0x4262f4
+            )
+            embed.set_author(
+                name="Cyber Discovery",
+                icon_url=CYBERDISC_ICON_URL
+            )
+            embed.set_footer(text=f"Difficulty: {challenge_difficulty}")
 
             await ctx.send(embed=embed)
 

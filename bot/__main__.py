@@ -1,7 +1,10 @@
+"""Main script to define bot methods, and start the bot."""
+
 from os import environ
 
 from discord import Game
 from discord.ext.commands import Bot, when_mentioned_or
+
 
 muted = []
 admins = []
@@ -22,11 +25,13 @@ bot.banned_ids = []
 
 @bot.check
 async def block_banned_ids(ctx):
+    """Check for if a user is banned."""
     return ctx.author.id not in bot.banned_ids
 
 
 @bot.check
 async def block_muted(ctx):
+    """Check for if a user is muted."""
     return ctx.author.id not in bot.muted
 
 
