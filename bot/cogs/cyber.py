@@ -66,6 +66,38 @@ class Cyber:
 
             await ctx.send(embed=embed)
 
+    @command(aliases=["a", "al"])
+    async def assess(self, ctx: Context, challenge_num: int):
+        """
+        Gets information about a specific CyberStart Assess level and challenge.
+        """
+
+        # Gather Assess data from JSON file.
+        with open("assess.json") as f:
+            assess_docs = load(f)
+
+        if challenge_num not in range(len(assess_docs) + 1):
+            await ctx.send("Invalid challenge number!")
+
+        else:
+            # Select the needed challenge
+            challenge_raw = assess_docs[challenge_num - 1]
+            challenge_title = challenge_raw["title"]
+            challenge_difficulty = challenge_raw["difficulty"]
+            challenge_text = challenge_raw["description"]
+            embed = Embed(
+                title=(f"CyberStart Assess Challenge {challenge_num} - {challenge_title}"),
+                description=challenge_text,
+                colour=0x4262f4
+            )
+            embed.set_author(
+                name="Cyber Discovery",
+                icon_url=CYBERDISC_ICON_URL
+            )
+            embed.set_footer(text=f"Difficulty: {challenge_difficulty}")
+
+            await ctx.send(embed=embed)
+
     @command()
     async def haveibeenpwned(self, ctx: Context, account: str):
         """
