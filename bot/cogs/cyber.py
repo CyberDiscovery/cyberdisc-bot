@@ -76,12 +76,12 @@ class Cyber:
         with open("assess.json") as f:
             assess_docs = load(f)
 
-        if challenge_num not in range(len(assess_docs["Assess_Challenges"][f"C{challenge_num}"]) + 1):
+        if challenge_num not in range(len(assess_docs) + 1):
             await ctx.send("Invalid challenge number!")
 
         else:
             # Select the needed challenge
-            challenge_raw = assess_docs[f"C{challenge_num}"]
+            challenge_raw = assess_docs[challenge_num - 1]
             challenge_title = challenge_raw["title"]
             challenge_difficulty = challenge_raw["difficulty"]
             challenge_text = challenge_raw["description"]
