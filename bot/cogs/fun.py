@@ -72,9 +72,18 @@ class Fun:
         if "dabato" in message.content:
             await message.add_reaction("🤔")
 
+        # React FBI OPEN UP if message contains trigger words.
+        triggers = ["child", "fbi", "loli", "hentai", "illegal", "maltego"]
+        if any(trigger in message.content.lower() for trigger in triggers):
+            await emojify(message, "fbi open up")
+
         # React if message contains Kali.
         if "kali" in message.content.lower():
             await message.add_reaction("🚔")
+
+        # React if message contains Duck.
+        if "duck" in message.content.lower():
+            await message.add_reaction("🦆")
 
         # React "NO" if message contains revive.
         if "revive" in message.content.lower():
