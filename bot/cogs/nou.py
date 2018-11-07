@@ -11,7 +11,7 @@ class NoU:
         if msg.guild:
             me = msg.guild.me
             if me in msg.mentions:
-                emoji = find(lambda e: e.name.lower() == "nou", msg.guild.emojis,)
+                emoji = find(lambda e: e.name.lower() == "nou", msg.guild.emojis)
                 await msg.add_reaction(emoji)
 
 
