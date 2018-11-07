@@ -2,6 +2,7 @@
 
 from discord.utils import find
 
+
 class NoU:
     def __init__(self, bot):
         self.bot = bot
@@ -12,6 +13,7 @@ class NoU:
             if me in msg.mentions:
                 emoji = find(lambda e: e.name.lower() == "nou", msg.guild.emojis,)
                 await msg.add_reaction(emoji)
+
 
 def setup(bot):
     bot.add_cog(NoU(bot))
