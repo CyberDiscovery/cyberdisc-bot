@@ -6,11 +6,11 @@ class NoU:
     def __init__(self, bot):
         self.bot = bot
 
-    async def on_message(msg):
+    async def on_message(self, msg):
         if msg.guild:
             me = msg.guild.me
             if me in msg.mentions:
-                emoji = find(msg.guild.emojis, lambda e: e.name.lower() == "nou")
+                emoji = find(lambda e: e.name.lower() == "nou", msg.guild.emojis,)
                 await msg.add_reaction(emoji)
 
 def setup(bot):
