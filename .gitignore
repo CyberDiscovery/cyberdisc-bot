@@ -182,3 +182,5 @@ fabric.properties
 # Editor-based Rest Client
 .idea/httpRequests
 
+# VSCode
+.vscode/
