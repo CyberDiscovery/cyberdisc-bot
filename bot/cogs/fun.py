@@ -45,7 +45,7 @@ async def _convert_emoji(message: str) -> AsyncGenerator[str, None]:
 
 async def emojify(message: Message, string: str):
     """Convert a string to emojis, and add those emojis to a message."""
-    async for emoji in _convert_emoji(string):
+    async for emoji in _convert_emoji(string.lower()):
         if emoji is not None:
             await message.add_reaction(emoji)
 
