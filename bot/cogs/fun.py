@@ -89,6 +89,11 @@ class Fun:
         if "revive" in message.content.lower():
             await emojify(message, "nou")
 
+        # Stop the staff from hating us.
+        if "@Official Cyber Discovery Staff" in message.content:
+            await message("Have you tried emailing support@joincyberdiscovery.com? Please make sure to do that before unnecessarily pinging the staff!")
+
+
     @command()
     async def lmgtfy(self, ctx: Context, *args: str):
         """
