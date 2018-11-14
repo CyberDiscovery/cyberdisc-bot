@@ -14,22 +14,27 @@ class Cyber:
     """
 
     def __init__(self, bot: Bot):
-        self.bot = Bot
+        self.bot = bot
         self.game_regex = re.compile(
-            "^(?=.*\bgame\b)(?=.*\bwhen\b)(?=.*\b(does|will|did|?)\b)(?=.*\b(end|finish|close)\b).*$",
-            re.IGNORECASE)
+            r"^.*\bgame\b.*(end|finish|close)\b.*$",
+            re.IGNORECASE
+        )
         self.essentials_regex = re.compile(
-            "^(?=.*\bessentials\b)(?=.*\bwhen\b)(?=.*\b(does|will|did|?)\b)(?=.*\b(end|finish|close)\b).*$",
-            re.IGNORECASE)
+            r"^.*\bessentials\b.*(end|finish|close)\b.*$",
+            re.IGNORECASE
+        )
         self.elite_qualification_regex = re.compile(
-            "^(?=.*\bhow\b)(?=.*\belite\b)(?=.*\bget\b)(?=.*\bto\b).*$",
-            re.IGNORECASE)
+            r"^.*\bhow\b.*\bget\b.*\belite\b.*$",
+            re.IGNORECASE
+        )
         self.elite_dates_regex = re.compile(
-            "^(?=.*\belite\b)(?=.*\bwhen\b)(?=.*\b(does|will|did|?)\b)(?=.*\b(start|begin|run|end)\b).*$",
-            re.IGNORECASE)
+            r"^.*\belite\b.*\bstart\b.*$",
+            re.IGNORECASE
+        )
         self.elite_email_regex = re.compile(
-            "^(?=.*\belite\b)(?=.*\bemail\b)(?=.*\bhave(?:n(?:[o'])?t)?\b)(?=.*\b(got|received|)\b).*$",
-            re.IGNORECASE)
+            r"^.*\bwhat\b.*\belite\b.*\bemail\b.*$",
+            re.IGNORECASE
+        )
 
     @command(aliases=["l", "lc"])
     async def level(self, ctx: Context, level_num: int, challenge_num: int):
