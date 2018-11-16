@@ -36,7 +36,6 @@ async def block_muted(ctx):
 
 
 # Load cogs
-bot.load_extension("bot.cogs.admin")
 bot.load_extension("bot.cogs.general")
 bot.load_extension("bot.cogs.cyber")
 bot.load_extension("bot.cogs.fun")
