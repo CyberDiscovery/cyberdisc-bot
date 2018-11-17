@@ -6,11 +6,16 @@ branches:
   only:
     - "master"
 
+services:
+  - docker
+
 install:
-  - pip install -r requirements.txt
+  - docker build -t cd-bot .
+  - 'if [ "$TRAVIS_PULL_REQUEST" = "false" ]; then docker run -d -e BOT_TOKEN --name cd-bot cd-bot; fi'
   - pip install -r requirements-ci.txt
 
 script:
+  - 'if [ "$TRAVIS_PULL_REQUEST" = "false" ]; then docker ps | grep cd-bot; fi'
   - flake8
 
 cache: pip
