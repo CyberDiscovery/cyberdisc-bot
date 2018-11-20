@@ -81,7 +81,7 @@ class Cyber:
         with open("assess.json") as f:
             assess_docs = load(f)
 
-        if challenge_num not in range(len(assess_docs) + 1) and challenge_num != 0:
+        if challenge_num not in range(1, len(assess_docs) + 1):
             await ctx.send("Invalid challenge number!")
 
         else:
