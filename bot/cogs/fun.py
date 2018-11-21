@@ -17,7 +17,7 @@ from wand.drawing import Drawing
 from wand.image import Image
 
 
-from bot.constants import ADMIN_ROLES, EMOJI_LETTERS
+from bot.constants import ADMIN_ROLES, EMOJI_LETTERS, QUOTES_CHANNEL_ID
 
 
 EMOJI_LETTERS = [
@@ -190,23 +190,32 @@ class Fun:
         A #quotes channel must be set using the set_quote_channel command in order for this command to work.
         """
         if self.quote_channel is None:
-            await ctx.send("Please set the quotes channel.")
-            return
+            self.quote_channel = self.bot.get_channel(QUOTES_CHANNEL_ID)
         quotation_channel = self.quote_channel
         if member is not None:
-            all_quotations = await quotation_channel.history(limit=None).flatten()
             quotations = []
-            for quotation in all_quotations:
-                embed = quotation.embeds[0]
-                author_name = embed.author.name
-                author = ctx.message.guild.get_member_named(author_name)
-                if author == member:
+            async for quotation in quotation_channel.history(limit=None):
+                if len(quotation.embeds) > 0:
+                    embed = quotation.embeds[0]
+                    author_name = embed.author.name
+                    author = ctx.message.guild.get_member_named(author_name)
+                    if author == member:
+                        quotations.append(quotation)
+                elif member in quotation.mentions:
                     quotations.append(quotation)
         else:
             quotations = await quotation_channel.history(limit=None).flatten()
-        quotation = choice(quotations)
-        embed_quotation = quotation.embeds[0]
-        await ctx.send(embed=embed_quotation)
+        if len(quotations) > 0:
+            quotation = choice(quotations)
+            if len(quotation.embeds) > 0:
+                embed_quotation = quotation.embeds[0]
+                await ctx.send(embed=embed_quotation)
+            # Some quotes don't have embeds, let's try to show those too...
+            else:
+                # Send the quote with mentions removed and channel names parsed.
+                await ctx.send(content=quotation.clean_content)
+        else:
+            await ctx.send(content="No quotes found to display. Why not add some?")
 
     @command()
     @has_any_role(*ADMIN_ROLES)
