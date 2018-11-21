@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # Build and deploy only on master
-if [ $TRAVIS_BRANCH == 'master' ] && [ $TRAVIS_PULL_REQUEST == 'true' ]; then
+if [ $TRAVIS_BRANCH == 'master' ] && [ $TRAVIS_PULL_REQUEST == 'false' ]; then
     echo "Building image..."
     docker build -t cyberdiscovery/cyberdisc-bot:latest .
 
