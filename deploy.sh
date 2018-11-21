@@ -2,6 +2,8 @@
 
 # Build and deploy only on master
 if [ $TRAVIS_BRANCH == 'master' ] && [ $TRAVIS_PULL_REQUEST == 'false' ]; then
+    openssl aes-256-cbc -K $encrypted_6c901f41f0ce_key -iv $encrypted_6c901f41f0ce_iv -in id_rsa.enc -out id_rsa -d
+
     echo "Building image..."
     docker build -t cyberdiscovery/cyberdisc-bot:latest .
 
