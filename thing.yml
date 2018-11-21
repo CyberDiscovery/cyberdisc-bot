@@ -1,0 +1,10 @@
+language: python
+branches:
+  only:
+  - master
+script:
+- bash deploy.sh
+notifications: false
+before_install:
+- openssl aes-256-cbc -K $encrypted_4ec302ec3c1c_key -iv $encrypted_4ec302ec3c1c_iv
+  -in id_rsa.enc -out id_rsa -d
