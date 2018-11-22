@@ -46,7 +46,7 @@ class Cyber:
         with open("headquarters.json") as f:
             game_docs = load(f)
 
-        if level_num not in range(len(game_docs) + 1):
+        if not 0 < level_num <= len(game_docs):
             await ctx.send("Invalid level number!")
 
         elif challenge_num not in range(len(game_docs[f"L{level_num}"]) + 1):
@@ -81,7 +81,7 @@ class Cyber:
         with open("assess.json") as f:
             assess_docs = load(f)
 
-        if 0 < challenge_num <= len(assess_docs):
+        if not 0 < challenge_num <= len(assess_docs):
             await ctx.send("Invalid challenge number!")
 
         else:
