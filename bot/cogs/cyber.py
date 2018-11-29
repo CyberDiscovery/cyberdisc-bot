@@ -196,7 +196,7 @@ class Cyber:
                            "on specific challenges once we update the bot")
             return
         await ctx.send("Cyberstart Game begins on the 15th January 2019")
-        await ctx.send("Thats in %(months) months and %(days) days" % rd.__dict__)
+        await ctx.send("Thats in {} months and {} days".format(rd.__dict__.months, rd.__dict__.days))
 
     async def on_message(self, message: Message):
 
