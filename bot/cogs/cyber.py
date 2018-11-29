@@ -5,10 +5,11 @@ from aiohttp import ClientSession
 from discord import Embed, Message
 from discord.ext.commands import Bot, Context, command
 
-from bot.constants import CYBERDISC_ICON_URL, PWNED_ICON_URL
+import datetime
 
 from dateutil.relativedelta import relativedelta
-import datetime
+
+from bot.constants import CYBERDISC_ICON_URL, PWNED_ICON_URL
 
 
 class Cyber:
@@ -187,20 +188,17 @@ class Cyber:
 
         await ctx.send(embed=embed)
 
-
     @command()
     async def game(self, ctx: Context):
         # Get the current date
         today = datetime.date.today()
         rd = relativedelta(today, datetime.date(2019, 1, 15))
         if today > rd:
-            await ctx.send(
-                    "Cyberstart Game has begun! Use :level base level to get info on specific challenges once we update the bot"
-                    )
+            await ctx.send("Cyberstart Game has begun! Use :level base level to get info"
+                           "on specific challenges once we update the bot")
             return
         await ctx.send("Cyberstart Game begins on the 15th January 2019")
         await ctx.send("Thats in %(months) months and %(days) days" % rd.__dict__)
-        
 
     async def on_message(self, message: Message):
 
@@ -210,7 +208,8 @@ class Cyber:
 
         # CyberStart  Dates.
         elif self.essentials_regex.match(message.content):
-            await message.channel.send(f"{message.author.mention}  |  Cyberstart Essentials begins on the 5 March 2019.")
+            await message.channel.send(f"{message.author.mention}  |"
+                                       "  Cyberstart Essentials begins on the 5 March 2019.")
 
         # CyberStart Elite qualification requirements.
         elif self.elite_qualification_regex.match(message.content):
