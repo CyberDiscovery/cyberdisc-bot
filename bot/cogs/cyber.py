@@ -10,6 +10,7 @@ from bot.constants import CYBERDISC_ICON_URL, PWNED_ICON_URL
 from dateutil.relativedelta import relativedelta
 import datetime
 
+
 class Cyber:
     """
     Cyber Discovery/Security related commands.
@@ -44,7 +45,7 @@ class Cyber:
         Gets information about a specific CyberStart Game level and challenge.
         If the date is before the start date of game (15th January 2019) it will redirect to game() instead
         """
-        
+
         if datetime.date.today() > datetime.date(2019, 1, 15):
             self.game(ctx)
 
@@ -185,18 +186,21 @@ class Cyber:
             embed.description += f"has never been uncovered."
 
         await ctx.send(embed=embed)
-        
+
+
     @command()
     async def game(self, ctx: Context):
-    	# Get the current date
-    	today = datetime.date.today()
-    	rd = relativedelta(today, datetime.date(2019, 1, 15))
+        # Get the current date
+        today = datetime.date.today()
+        rd = relativedelta(today, datetime.date(2019, 1, 15))
         if today > rd:
-            await ctx.send("Cyberstart Game has begun! Use :level base level to get info on specific challenges once we update the bot")
+            await ctx.send(
+                    "Cyberstart Game has begun! Use :level base level to get info on specific challenges once we update the bot"
+                    )
             return
         await ctx.send("Cyberstart Game begins on the 15th January 2019")
-    	await ctx.send("Thats in %(months) months and %(days) days" % rd.__dict__)
-    	
+        await ctx.send("Thats in %(months) months and %(days) days" % rd.__dict__)
+        
 
     async def on_message(self, message: Message):
 
