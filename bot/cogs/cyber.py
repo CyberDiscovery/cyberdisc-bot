@@ -1,13 +1,11 @@
+import datetime
 import re
 from json import load
 
 from aiohttp import ClientSession
+from dateutil.relativedelta import relativedelta
 from discord import Embed, Message
 from discord.ext.commands import Bot, Context, command
-
-import datetime
-
-from dateutil.relativedelta import relativedelta
 
 from bot.constants import CYBERDISC_ICON_URL, PWNED_ICON_URL
 
