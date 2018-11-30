@@ -9,15 +9,14 @@ from typing import AsyncGenerator
 from urllib.parse import urlencode
 
 from aiohttp import ClientSession
-from discord import Embed, File, Message
+from discord import Embed, File, Member, Message
 from discord.ext.commands import (
-    Bot, Context, MemberConverter, TextChannelConverter, command, has_any_role
+    Bot, Context, TextChannelConverter, command, has_any_role
 )
 from wand.drawing import Drawing
 from wand.image import Image
 
-
-from bot.constants import ADMIN_ROLES, EMOJI_LETTERS, FAKE_STAFF_ROLE_ID, QUOTES_CHANNEL_ID, STAFF_ROLE_ID, SERVER_ID
+from bot.constants import ADMIN_ROLES, EMOJI_LETTERS, FAKE_STAFF_ROLE_ID, QUOTES_BOT_ID, QUOTES_CHANNEL_ID, STAFF_ROLE_ID, SERVER_ID
 
 
 EMOJI_LETTERS = [
@@ -61,6 +60,11 @@ class Fun:
         self.staff_role = None
 
     async def on_message(self, message: Message):
+
+        if message.channel.id == QUOTES_CHANNEL_ID and message.author.id == QUOTES_BOT_ID:
+            author = message.embeds[0].title
+            self.bot.quotes[author].append(message.id)
+
         """
         React based on the contents of a message.
         """
@@ -201,39 +205,25 @@ class Fun:
         await ctx.send(embed=comic)
 
     @command()
-    async def quotes(self, ctx: Context, member: MemberConverter = None):
+    async def quotes(self, ctx: Context, member: Member = None):
         """
         Returns a random quotation from the #quotes channel.
         A user can be specified to return a random quotation from that user.
-        A #quotes channel must be set using the set_quote_channel command in order for this command to work.
         """
-        if self.quote_channel is None:
-            self.quote_channel = self.bot.get_channel(QUOTES_CHANNEL_ID)
-        quotation_channel = self.quote_channel
-        if member is not None:
-            quotations = []
-            async for quotation in quotation_channel.history(limit=None):
-                if len(quotation.embeds) > 0:
-                    embed = quotation.embeds[0]
-                    author_name = embed.author.name
-                    author = ctx.message.guild.get_member_named(author_name)
-                    if author == member:
-                        quotations.append(quotation)
-                elif member in quotation.mentions:
-                    quotations.append(quotation)
+        quote_channel = self.bot.get_channel(QUOTES_CHANNEL_ID)
+        quotes = self.bot.quotes
+
+        if member is None:
+            message_id = choice(quotes[choice(list(quotes.keys()))])
         else:
-            quotations = await quotation_channel.history(limit=None).flatten()
-        if len(quotations) > 0:
-            quotation = choice(quotations)
-            if len(quotation.embeds) > 0:
-                embed_quotation = quotation.embeds[0]
-                await ctx.send(embed=embed_quotation)
-            # Some quotes don't have embeds, let's try to show those too...
-            else:
-                # Send the quote with mentions removed and channel names parsed.
-                await ctx.send(content=quotation.clean_content)
-        else:
-            await ctx.send(content="No quotes found to display. Why not add some?")
+            user_quotes = quotes[f'{member.name}#{member.discriminator}']
+            if not user_quotes:
+                await ctx.send("No quotes from that user.")
+                return
+            message_id = choice(user_quotes)
+
+        message = await quote_channel.get_message(message_id)
+        await ctx.send(embed=message.embeds[0])
 
     @command()
     @has_any_role(*ADMIN_ROLES)

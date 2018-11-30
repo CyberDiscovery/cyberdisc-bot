@@ -1,5 +1,6 @@
 """Main script to define bot methods, and start the bot."""
 
+from collections import defaultdict
 from os import environ
 
 from discord import Game
@@ -21,6 +22,8 @@ bot = Bot(
 bot.muted = []
 
 bot.banned_ids = []
+
+bot.quotes = defaultdict(list)
 
 
 @bot.check

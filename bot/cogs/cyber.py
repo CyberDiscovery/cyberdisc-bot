@@ -1,7 +1,9 @@
+import datetime
 import re
 from json import load
 
 from aiohttp import ClientSession
+from dateutil.relativedelta import relativedelta
 from discord import Embed, Message
 from discord.ext.commands import Bot, Context, command
 
@@ -40,7 +42,12 @@ class Cyber:
     async def level(self, ctx: Context, level_num: int, challenge_num: int):
         """
         Gets information about a specific CyberStart Game level and challenge.
+        If the date is before the start date of game (15th January 2019) it will redirect to game() instead
         """
+
+        if datetime.date.today() < datetime.date(2019, 1, 15):
+            await self.game.callback(self, ctx)
+            return
 
         # Gather HQ data from CyberStart Game.
         with open("headquarters.json") as f:
@@ -182,15 +189,29 @@ class Cyber:
 
         await ctx.send(embed=embed)
 
+    @command()
+    async def game(self, ctx: Context):
+        # Get the current date
+        today = datetime.date.today()
+        game_start_date = datetime.date(2019, 1, 15)
+        time_until_game = relativedelta(game_start_date, today)
+        if today > game_start_date:
+            await ctx.send("Cyberstart Game has begun! Use :level base level to get info"
+                           "on specific challenges once we update the bot")
+            return
+        await ctx.send("Cyberstart Game begins on the 15th January 2019.")
+        await ctx.send(f"That's in {time_until_game.months} month(s) and {time_until_game.days} day(s)!")
+
     async def on_message(self, message: Message):
 
         # CyberStart Game Dates.
         if self.game_regex.match(message.content):
-            await message.channel.send(f"{message.author.mention}  |  Cyberstart Game ended on the 29th May.")
+            await message.channel.send(f"{message.author.mention}  |  Cyberstart Game begins on the 15th January 2019.")
 
-        # CyberStart  Dates.
+        # CyberStart Essentials Dates.
         elif self.essentials_regex.match(message.content):
-            await message.channel.send(f"{message.author.mention}  |  Cyberstart Essentials ends on the 30th June.")
+            await message.channel.send(f"{message.author.mention}  |"
+                                       "  Cyberstart Essentials begins on the 5 March 2019.")
 
         # CyberStart Elite qualification requirements.
         elif self.elite_qualification_regex.match(message.content):
