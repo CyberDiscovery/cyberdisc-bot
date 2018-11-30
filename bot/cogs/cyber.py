@@ -193,14 +193,14 @@ class Cyber:
     async def game(self, ctx: Context):
         # Get the current date
         today = datetime.date.today()
-        gameStartDate = datetime.date(2019, 1, 15)
-        timeUntilGame = relativedelta(gameStartDate, today)
-        if today > gameStartDate:
+        game_start_date = datetime.date(2019, 1, 15)
+        time_until_game = relativedelta(game_start_date, today)
+        if today > game_start_date:
             await ctx.send("Cyberstart Game has begun! Use :level base level to get info"
                            "on specific challenges once we update the bot")
             return
         await ctx.send("Cyberstart Game begins on the 15th January 2019.")
-        await ctx.send(f"That's in {timeUntilGame.months} month(s) and {timeUntilGame.days} day(s)!")
+        await ctx.send(f"That's in {time_until_game.months} month(s) and {time_until_game.days} day(s)!")
 
     async def on_message(self, message: Message):
 
