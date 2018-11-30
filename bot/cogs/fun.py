@@ -88,6 +88,12 @@ class Fun:
         # React "NO" if message contains revive.
         if "revive" in message.content.lower():
             await emojify(message, "nou")
+        
+        # Ask if user has contacted support before letting them ping staff
+        staffids = [453547861888598018, 474332857783943169, 499567665774329859, 453547861888598018]
+        for item in staffids:
+            if item in message.raw_mentions:
+                await self.send_message(message.channel, 'Have you tried emailing support@joincyberdiscovery.com? Please make sure to do that before unnecessarily pinging the staff!')
 
     @command()
     async def lmgtfy(self, ctx: Context, *args: str):
