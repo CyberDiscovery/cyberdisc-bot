@@ -3,6 +3,7 @@ A list of constants.
 """
 # Fun constants
 QUOTES_CHANNEL_ID = 463657120441696256
+QUOTES_BOT_ID = 292953664492929025
 
 # Lists for administration
 
