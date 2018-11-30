@@ -16,7 +16,8 @@ from discord.ext.commands import (
 from wand.drawing import Drawing
 from wand.image import Image
 
-from bot.constants import ADMIN_ROLES, EMOJI_LETTERS, FAKE_STAFF_ROLE_ID, QUOTES_BOT_ID, QUOTES_CHANNEL_ID, STAFF_ROLE_ID
+from bot.constants import ADMIN_ROLES, EMOJI_LETTERS, FAKE_STAFF_ROLE_ID, QUOTES_BOT_ID, QUOTES_CHANNEL_ID,\
+    STAFF_ROLE_ID, SERVER_ID
 
 
 EMOJI_LETTERS = [
@@ -93,7 +94,7 @@ class Fun:
         # React "NO" if message contains revive.
         if "revive" in message.content.lower():
             await emojify(message, "nou")
-        
+
         # Ask if user has contacted support before letting them ping staff
         if FAKE_STAFF_ROLE_ID in message.raw_role_mentions and message.author.id != self.bot.user.id:
             msg = await self.bot.send_message(message.channel,
