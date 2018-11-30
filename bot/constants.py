@@ -10,7 +10,6 @@ QUOTES_BOT_ID = 292953664492929025
 ADMIN_ROLES = ("Root", "Sudo")
 BANNED_DOMAINS = ["discord.gg"]
 FAKE_STAFF_ROLE_ID = 'PLACEHOLDER' # need to add new "fake" staff role which no user has as well as keeping original role (must be mentionable)
-SERVER_ID = '409851296116375565'
 STAFF_ROLE_ID = '510507184396959785'
 
 # Cyber Constants
