@@ -24,7 +24,7 @@ class General:
             return message.author.id == QUOTES_BOT_ID
 
         async for quote in quote_channel.history(limit=None).filter(is_quote):
-            if not len(quote.embeds):
+            if not quote.embeds:
                 continue
             author = quote.embeds[0].author.name
             self.bot.quotes[author].append(quote.id)
