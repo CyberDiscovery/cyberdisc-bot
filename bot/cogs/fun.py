@@ -97,7 +97,8 @@ class Fun:
         # Ask if user has contacted support before letting them ping staff
         if FAKE_STAFF_ROLE_ID in message.raw_role_mentions and message.author.id != self.bot.user.id:
             msg = await self.bot.send_message(message.channel,
-                                              'Have you tried emailing support@joincyberdiscovery.com? Please make sure to do that before unnecessarily pinging the staff!')
+                                              'Have you tried emailing support@joincyberdiscovery.com? Please make '
+                                              'sure to do that before unnecessarily pinging the staff!') 
             await self.bot.add_reaction(msg, '👍')
             await self.bot.add_reaction(msg, '👎')
             res = await self.bot.wait_for_reaction(['👍', '👎'], message=msg, user=message.author, timeout=100)
