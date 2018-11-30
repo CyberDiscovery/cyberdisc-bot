@@ -96,6 +96,12 @@ class Fun:
             await emojify(message, "nou")
 
         # Ask if user has contacted support before letting them ping staff
+                if self.staff_role is None:
+            for y in self.bot.get_server(SERVER_ID).roles:
+                if y.id == STAFF_ROLE_ID:
+                    self.staff_role = y
+                    break
+
         if FAKE_STAFF_ROLE_ID in message.raw_role_mentions and message.author.id != self.bot.user.id:
             msg = await self.bot.send_message(message.channel,
                                               'Have you tried emailing support@joincyberdiscovery.com? Please make '
