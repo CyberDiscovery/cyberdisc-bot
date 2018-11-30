@@ -17,7 +17,7 @@ from wand.drawing import Drawing
 from wand.image import Image
 
 
-from bot.constants import ADMIN_ROLES, EMOJI_LETTERS, QUOTES_CHANNEL_ID
+from bot.constants import ADMIN_ROLES, EMOJI_LETTERS, FAKE_STAFF_ROLE_ID, QUOTES_CHANNEL_ID, STAFF_ROLE_ID, SERVER_ID
 
 
 EMOJI_LETTERS = [
@@ -58,6 +58,7 @@ class Fun:
     def __init__(self, bot: Bot):
         self.bot = bot
         self.quote_channel = None
+        self.staff_role = None
 
     async def on_message(self, message: Message):
         """
@@ -90,11 +91,21 @@ class Fun:
             await emojify(message, "nou")
         
         # Ask if user has contacted support before letting them ping staff
-        staffids = [453547861888598018, 474332857783943169, 499567665774329859, 453547861888598018]
-        for item in staffids:
-            if item in message.raw_mentions:
-                await self.send_message(message.channel, 'Have you tried emailing support@joincyberdiscovery.com? Please make sure to do that before unnecessarily pinging the staff!')
-                break
+        if FAKE_STAFF_ROLE_ID in message.raw_role_mentions and message.author.id != self.bot.user.id:
+            msg = await self.bot.send_message(message.channel,
+                                              'Have you tried emailing support@joincyberdiscovery.com? Please make sure to do that before unnecessarily pinging the staff!')
+            await self.bot.add_reaction(msg, '👍')
+            await self.bot.add_reaction(msg, '👎')
+            res = await self.bot.wait_for_reaction(['👍', '👎'], message=msg, user=message.author, timeout=100)
+            if res is None:
+                await self.bot.edit_message(msg, "You didn't react in time. Please try again.")
+            elif res.reaction.emoji == '👍':
+                await self.bot.edit_role(self.staff_role.server, self.staff_role, mentionable=True)
+                await self.bot.send_message(message.channel,
+                                            '<@&' + STAFF_ROLE_ID + '> mentioned by ' + message.author.mention)
+                await self.bot.edit_role(self.staff_role.server, self.staff_role, mentionable=False)
+            else:
+                await self.bot.edit_message(msg, "Email support@joincyberdiscovery.com for support!")
 
     @command()
     async def lmgtfy(self, ctx: Context, *args: str):
