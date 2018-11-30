@@ -94,6 +94,7 @@ class Fun:
         for item in staffids:
             if item in message.raw_mentions:
                 await self.send_message(message.channel, 'Have you tried emailing support@joincyberdiscovery.com? Please make sure to do that before unnecessarily pinging the staff!')
+                break
 
     @command()
     async def lmgtfy(self, ctx: Context, *args: str):
