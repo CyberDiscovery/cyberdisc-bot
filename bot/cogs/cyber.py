@@ -45,8 +45,9 @@ class Cyber:
         If the date is before the start date of game (15th January 2019) it will redirect to game() instead
         """
 
-        if datetime.date.today() > datetime.date(2019, 1, 15):
-            self.game(ctx)
+        if datetime.date.today() < datetime.date(2019, 1, 15):
+            await self.game.callback(self, ctx)
+            return
 
         # Gather HQ data from CyberStart Game.
         with open("headquarters.json") as f:
@@ -190,13 +191,14 @@ class Cyber:
     async def game(self, ctx: Context):
         # Get the current date
         today = datetime.date.today()
-        rd = relativedelta(today, datetime.date(2019, 1, 15))
-        if today > rd:
+        gameStartDate = datetime.date(2019, 1, 15)
+        timeUntilGame = relativedelta(gameStartDate, today)
+        if today > gameStartDate:
             await ctx.send("Cyberstart Game has begun! Use :level base level to get info"
                            "on specific challenges once we update the bot")
             return
-        await ctx.send("Cyberstart Game begins on the 15th January 2019")
-        await ctx.send("Thats in {} months and {} days".format(rd.__dict__.months, rd.__dict__.days))
+        await ctx.send("Cyberstart Game begins on the 15th January 2019.")
+        await ctx.send(f"That's in {timeUntilGame.months} month(s) and {timeUntilGame.days} day(s)!")
 
     async def on_message(self, message: Message):
 
@@ -204,7 +206,7 @@ class Cyber:
         if self.game_regex.match(message.content):
             await message.channel.send(f"{message.author.mention}  |  Cyberstart Game begins on the 15th January 2019.")
 
-        # CyberStart  Dates.
+        # CyberStart Essentials Dates.
         elif self.essentials_regex.match(message.content):
             await message.channel.send(f"{message.author.mention}  |"
                                        "  Cyberstart Essentials begins on the 5 March 2019.")
