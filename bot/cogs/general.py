@@ -26,8 +26,14 @@ class General:
         async for quote in quote_channel.history(limit=None).filter(is_quote):
             if not quote.embeds:
                 continue
-            author = quote.embeds[0].author.name
+            author = quote.embeds[0].author.icon_url
+            if 'avatars' not in author:
+                print('A quote was unable to be loaded due to author having a default avatar.')
+                continue
+
+            author = int(author.split('avatars')[1][1:19])
             self.bot.quotes[author].append(quote.id)
+        print(self.bot.quotes)
 
 
 def setup(bot):

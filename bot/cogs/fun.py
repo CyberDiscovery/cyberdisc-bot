@@ -9,9 +9,9 @@ from typing import AsyncGenerator
 from urllib.parse import urlencode
 
 from aiohttp import ClientSession
-from discord import Embed, File, Member, Message
+from discord import Embed, File, Message
 from discord.ext.commands import (
-    Bot, Context, TextChannelConverter, command, has_any_role
+    Bot, Context, TextChannelConverter, command, has_any_role, UserConverter
 )
 from wand.drawing import Drawing
 from wand.image import Image
@@ -188,7 +188,7 @@ class Fun:
         await ctx.send(embed=comic)
 
     @command()
-    async def quotes(self, ctx: Context, member: Member = None):
+    async def quotes(self, ctx: Context, user: UserConverter = None):
         """
         Returns a random quotation from the #quotes channel.
         A user can be specified to return a random quotation from that user.
@@ -196,10 +196,10 @@ class Fun:
         quote_channel = self.bot.get_channel(QUOTES_CHANNEL_ID)
         quotes = self.bot.quotes
 
-        if member is None:
+        if user is None:
             message_id = choice(quotes[choice(list(quotes.keys()))])
         else:
-            user_quotes = quotes[f'{member.name}#{member.discriminator}']
+            user_quotes = quotes[user.id]
             if not user_quotes:
                 await ctx.send("No quotes from that user.")
                 return
