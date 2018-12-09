@@ -11,7 +11,7 @@ from urllib.parse import urlencode
 from aiohttp import ClientSession
 from discord import Embed, File, Message
 from discord.ext.commands import (
-    Bot, Context, TextChannelConverter, command, has_any_role, UserConverter
+    Bot, Context, TextChannelConverter, UserConverter, command, has_any_role
 )
 from wand.drawing import Drawing
 from wand.image import Image
