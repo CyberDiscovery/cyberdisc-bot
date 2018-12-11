@@ -33,7 +33,6 @@ class General:
 
             author = int(author.split('avatars')[1][1:19])
             self.bot.quotes[author].append(quote.id)
-        print(self.bot.quotes)
 
 
 def setup(bot):
