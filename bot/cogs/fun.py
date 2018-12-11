@@ -62,8 +62,12 @@ class Fun:
     async def on_message(self, message: Message):
 
         if message.channel.id == QUOTES_CHANNEL_ID and message.author.id == QUOTES_BOT_ID:
-            author = message.embeds[0].title
-            self.bot.quotes[author].append(message.id)
+            author = message.embeds[0].author.icon_url
+            if 'avatars' not in author:
+                print('A quote was unable to be cached due to author having a default avatar.')
+            else:
+                author = int(author.split('avatars')[1][1:19])
+                self.bot.quotes[author].append(message.id)
 
         """
         React based on the contents of a message.
