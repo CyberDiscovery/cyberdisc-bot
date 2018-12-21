@@ -163,7 +163,7 @@ class Cyber:
         """
 
         url = "https://api.pwnedpasswords.com/range/"
-        digest = sha1(password.encode()).hexdigest().upper()
+        digest = sha1(password.encode()).hexdigest().upper()  # NOQA
         prefix, digest = digest[:5], digest[5:]
 
         async with ClientSession() as session:
