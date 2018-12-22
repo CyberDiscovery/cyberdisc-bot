@@ -1,5 +1,6 @@
 import datetime
 import re
+from hashlib import sha1
 from json import load
 
 from aiohttp import ClientSession
@@ -119,7 +120,7 @@ class Cyber:
 
         url = "https://haveibeenpwned.com/api/v2/breachedaccount/"
 
-        data = {}
+        data: dict = {}
 
         # GETs the data on the breached account.
         async with ClientSession() as session:
@@ -161,15 +162,19 @@ class Cyber:
         Searches pwnedpasswords.com for breached passwords.
         """
 
-        url = "https://api.pwnedpasswords.com/pwnedpassword/"
+        url = "https://api.pwnedpasswords.com/range/"
+        digest = sha1(password.encode()).hexdigest().upper()  # NOQA
+        prefix, digest = digest[:5], digest[5:]
 
-        # If the page doesn't return 200, it will assume there are no breached accounts of that name.
         async with ClientSession() as session:
-            async with session.get(url + password) as response:
-                if response.status == 200:
-                    data = await response.text()
-                else:
-                    data = ""
+            async with session.get(url + prefix) as response:
+                result = await response.text()
+
+        match = re.search(fr"{digest}:(\d+)", result)
+        if match is not None:
+            count = int(match.group(1))
+        else:
+            count = 0
 
         embed = Embed(
             name="have i been pwned?",
@@ -181,8 +186,8 @@ class Cyber:
             icon_url=PWNED_ICON_URL
         )
 
-        if data:
-            embed.description += f"been uncovered {data} times."
+        if count:
+            embed.description += f"been uncovered {count} times."
         else:
             embed.description += f"has never been uncovered."
 
