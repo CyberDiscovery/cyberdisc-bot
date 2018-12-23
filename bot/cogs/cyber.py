@@ -18,6 +18,10 @@ class Cyber:
 
     def __init__(self, bot: Bot):
         self.bot = bot
+        self.assess_regex = re.compile(
+            r"^.*\assess\b.*(end|finish|close)\b.*$",
+            re.IGNORECASE
+        )
         self.game_regex = re.compile(
             r"^.*\bgame\b.*(end|finish|close)\b.*$",
             re.IGNORECASE
@@ -216,6 +220,10 @@ class Cyber:
         await ctx.send(f"That's in {time_until_game.months} {month_or_s} and {time_until_game.days} {day_or_s}!")
 
     async def on_message(self, message: Message):
+
+        # CyberStart Assess Dates.
+        if self.assess_regex.match(message.content):
+            await message.channel.send(f"{message.author.mention}  |  Cyberstart Assess ends on the 7th January 2019.")
 
         # CyberStart Game Dates.
         if self.game_regex.match(message.content):
