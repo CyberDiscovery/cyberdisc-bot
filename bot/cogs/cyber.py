@@ -209,15 +209,24 @@ class Cyber:
         def suffix_from_number(num):
             return "" if num == 1 else "s"
 
-        month_or_s = "month" + suffix_from_number(time_until_game.months)
-        day_or_s = "day" + suffix_from_number(time_until_game.days)
+        month_or_months = "month" + suffix_from_number(time_until_game.months)
+        day_or_days = "day" + suffix_from_number(time_until_game.days)
+        
+        month_countdown = f"{time_until_game.months} {month_or_months}"
+        day_countdown = f"{time_until_game.days} {day_or_days}"
+
+        # Diable the months component of the countdown when there are no months left
+        if time_until_game.months:
+            month_and_day_countdown = f"{month_countdown} and {day_countdown}"
+        else:
+            month_and_day_countdown = day_countdown
 
         if today > game_start_date:
             await ctx.send("Cyberstart Game has begun! Use :level base level to get info"
                            "on specific challenges once we update the bot")
             return
         await ctx.send("Cyberstart Game begins on the 15th January 2019.")
-        await ctx.send(f"That's in {time_until_game.months} {month_or_s} and {time_until_game.days} {day_or_s}!")
+        await ctx.send(f"That's in {month_and_day_countdown}!")
 
     async def on_message(self, message: Message):
 
