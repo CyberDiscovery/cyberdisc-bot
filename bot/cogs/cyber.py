@@ -211,7 +211,7 @@ class Cyber:
 
         month_or_months = "month" + suffix_from_number(time_until_game.months)
         day_or_days = "day" + suffix_from_number(time_until_game.days)
-        
+
         month_countdown = f"{time_until_game.months} {month_or_months}"
         day_countdown = f"{time_until_game.days} {day_or_days}"
 
