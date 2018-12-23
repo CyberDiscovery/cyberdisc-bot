@@ -215,7 +215,7 @@ class Cyber:
         # CyberStart Assess Dates.
         if self.assess_regex.match(message.content):
             await message.channel.send(f"{message.author.mention}  |  Cyberstart Assess ends on the 7th January 2019.")
-        
+
         # CyberStart Game Dates.
         if self.game_regex.match(message.content):
             await message.channel.send(f"{message.author.mention}  |  Cyberstart Game begins on the 15th January 2019.")
