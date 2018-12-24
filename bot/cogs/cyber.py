@@ -18,12 +18,24 @@ class Cyber:
 
     def __init__(self, bot: Bot):
         self.bot = bot
+        self.assess_start_regex = re.compile(
+            r"^.*\bassess\b.*(start|begin|open)\b.*$",
+            re.IGNORECASE
+        )
         self.assess_end_regex = re.compile(
             r"^.*\bassess\b.*(end|finish|close)\b.*$",
             re.IGNORECASE
         )
+        self.game_start_regex = re.compile(
+            r"^.*\bgame\b.*(start|begin|open)\b.*$",
+            re.IGNORECASE
+        )
         self.game_end_regex = re.compile(
             r"^.*\bgame\b.*(end|finish|close)\b.*$",
+            re.IGNORECASE
+        )
+        self.essentials_start_regex = re.compile(
+            r"^.*\bessentials\b.*(start|begin|open)\b.*$",
             re.IGNORECASE
         )
         self.essentials_end_regex = re.compile(
