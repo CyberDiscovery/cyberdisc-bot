@@ -19,7 +19,7 @@ class Cyber:
     def __init__(self, bot: Bot):
         self.bot = bot
         self.assess_regex = re.compile(
-            r"^.*\assess\b.*(end|finish|close)\b.*$",
+            r"^.*\bassess\b.*(end|finish|close)\b.*$",
             re.IGNORECASE
         )
         self.game_regex = re.compile(
