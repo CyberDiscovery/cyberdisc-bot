@@ -18,15 +18,15 @@ class Cyber:
 
     def __init__(self, bot: Bot):
         self.bot = bot
-        self.assess_regex = re.compile(
+        self.assess_end_regex = re.compile(
             r"^.*\bassess\b.*(end|finish|close)\b.*$",
             re.IGNORECASE
         )
-        self.game_regex = re.compile(
+        self.game_end_regex = re.compile(
             r"^.*\bgame\b.*(end|finish|close)\b.*$",
             re.IGNORECASE
         )
-        self.essentials_regex = re.compile(
+        self.essentials_end_regex = re.compile(
             r"^.*\bessentials\b.*(end|finish|close)\b.*$",
             re.IGNORECASE
         )
@@ -213,15 +213,15 @@ class Cyber:
     async def on_message(self, message: Message):
 
         # CyberStart Assess Dates.
-        if self.assess_regex.match(message.content):
+        if self.assess_end_regex.match(message.content):
             await message.channel.send(f"{message.author.mention}  |  Cyberstart Assess ends on the 7th January 2019.")
 
         # CyberStart Game Dates.
-        if self.game_regex.match(message.content):
+        if self.game_end_regex.match(message.content):
             await message.channel.send(f"{message.author.mention}  |  Cyberstart Game begins on the 15th January 2019.")
 
         # CyberStart Essentials Dates.
-        elif self.essentials_regex.match(message.content):
+        elif self.essentials_end_regex.match(message.content):
             await message.channel.send(f"{message.author.mention}  |"
                                        "  Cyberstart Essentials begins on the 5 March 2019.")
 
