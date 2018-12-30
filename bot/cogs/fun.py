@@ -9,7 +9,7 @@ from typing import AsyncGenerator
 from urllib.parse import urlencode
 
 from aiohttp import ClientSession
-from discord import Embed, File, Member, Message
+from discord import Embed, File, Member, Message, utils
 from discord.ext.commands import (
     Bot, Context, TextChannelConverter, command, has_any_role
 )
@@ -62,7 +62,11 @@ class Fun:
     async def on_message(self, message: Message):
 
         if message.channel.id == QUOTES_CHANNEL_ID and message.author.id == QUOTES_BOT_ID:
-            author = message.embeds[0].title
+            icon_url = message.embeds[0].author.icon_url.split('/')
+            author = int(icon_url[4]) if 'avatars' in icon_url else None
+            if not author:
+                name = message.embeds[0].author.name.split('#')
+                author = utils.get(message.guild.members, name=name[0], discriminator=name[1])
             self.bot.quotes[author].append(message.id)
 
         """

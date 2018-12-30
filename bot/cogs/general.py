@@ -1,6 +1,5 @@
-from discord import Message
+from discord import Message, utils
 from discord.ext.commands import Bot
-from discord.utils import get
 
 from bot.constants import QUOTES_BOT_ID, QUOTES_CHANNEL_ID
 
@@ -31,7 +30,7 @@ class General:
             author = int(icon_url[4]) if 'avatars' in icon_url else None
             if not author:
                 name = quote.embeds[0].author.name.split('#')
-                author = get(quote_channel.guild.members, name=name[0], discriminator=name[1])
+                author = utils.get(quote_channel.guild.members, name=name[0], discriminator=name[1])
                 if not author:
                     print('A quote was unable to be loaded.')
                     continue
