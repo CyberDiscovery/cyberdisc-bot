@@ -1,7 +1,7 @@
 from discord import Message, utils
 from discord.ext.commands import Bot
 
-from bot.constants import QUOTES_BOT_ID, QUOTES_CHANNEL_ID
+from bot.constants import LOG_CHANNEL_ID, QUOTES_BOT_ID, QUOTES_CHANNEL_ID
 
 
 class General:
@@ -19,6 +19,7 @@ class General:
         print('------')
 
         quote_channel = self.bot.get_channel(QUOTES_CHANNEL_ID)
+        log_channel = self.bot.get_channel(LOG_CHANNEL_ID)
 
         def is_quote(message: Message):
             return message.author.id == QUOTES_BOT_ID
@@ -32,7 +33,7 @@ class General:
                 name = quote.embeds[0].author.name.split('#')
                 author = utils.get(quote_channel.guild.members, name=name[0], discriminator=name[1])
                 if not author:
-                    print('A quote was unable to be loaded.')
+                    await log_channel.send("The following quote was unable to be cached: ", embed=quote.embeds[0])
                     continue
             self.bot.quotes[author].append(quote.id)
 
