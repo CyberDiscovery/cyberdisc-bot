@@ -199,7 +199,7 @@ class Fun:
         if member is None:
             message_id = choice(quotes[choice(list(quotes.keys()))])
         else:
-            user_quotes = quotes[f'{member.name}#{member.discriminator}']
+            user_quotes = quotes[member.id]
             if not user_quotes:
                 await ctx.send("No quotes from that user.")
                 return
