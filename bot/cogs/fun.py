@@ -66,7 +66,7 @@ class Fun:
             author = int(icon_url[4]) if 'avatars' in icon_url else None
             if not author:
                 name = message.embeds[0].author.name.split('#')
-                author = utils.get(message.guild.members, name=name[0], discriminator=name[1])
+                author = utils.get(message.guild.members, name=name[0], discriminator=name[1]).id
             self.bot.quotes[author].append(message.id)
 
         """
