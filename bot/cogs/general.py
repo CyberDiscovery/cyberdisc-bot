@@ -25,17 +25,20 @@ class General:
             return message.author.id == QUOTES_BOT_ID
 
         async for quote in quote_channel.history(limit=None).filter(is_quote):
-            if not quote.embeds:
-                continue
-            icon_url = quote.embeds[0].author.icon_url.split('/')
-            author = int(icon_url[4]) if 'avatars' in icon_url else None
-            if not author:
-                name = quote.embeds[0].author.name.split('#')
-                author = utils.get(quote_channel.guild.members, name=name[0], discriminator=name[1])
-                if not author:
-                    await log_channel.send("The following quote was unable to be cached: ", embed=quote.embeds[0])
+            try:
+                if not quote.embeds:
                     continue
-            self.bot.quotes[author].append(quote.id)
+                icon_url = quote.embeds[0].author.icon_url.split('/')
+                author = int(icon_url[4]) if 'avatars' in icon_url else None
+                if not author:
+                    name = quote.embeds[0].author.name.split('#')
+                    author = utils.get(quote_channel.guild.members, name=name[0], discriminator=name[1]).id
+                    if not author:
+                        await log_channel.send("The following quote was unable to be cached: ", embed=quote.embeds[0])
+                        continue
+                self.bot.quotes[author].append(quote.id)
+            except Exception as e:
+                await log_channel.send(content=f"An error occured while caching a quote: ```{e}", embed=quote.embeds[0])
 
 
 def setup(bot):
