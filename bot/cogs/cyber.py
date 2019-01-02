@@ -240,6 +240,36 @@ class Cyber:
         await ctx.send("Cyberstart Game begins on the 15th January 2019.")
         await ctx.send(f"That's in {month_and_day_countdown}!")
 
+    @command()
+    async def essentials(self, ctx: Context):
+        # Get the current date
+        today = datetime.date.today()
+        essentials_start_date = datetime.date(2019, 3, 5)
+        time_until_essentials = relativedelta(essentials_start_date, today)
+
+        # Given a number of items, determine whether it should be pluralised.
+        # Then, return the suffix of 's' if it should be, and '' if it shouldn't.
+        def suffix_from_number(num):
+            return "" if num == 1 else "s"
+
+        month_or_months = "month" + suffix_from_number(time_until_essentials.months)
+        day_or_days = "day" + suffix_from_number(time_until_essentials.days)
+
+        month_countdown = f"{time_until_essentials.months} {month_or_months}"
+        day_countdown = f"{time_until_essentials.days} {day_or_days}"
+
+        # Diable the months component of the countdown when there are no months left
+        if time_until_essentials.months:
+            month_and_day_countdown = f"{month_countdown} and {day_countdown}"
+        else:
+            month_and_day_countdown = day_countdown
+
+        if today > essentials_start_date:
+            await ctx.send("Cyberstart Essentials has begun!")
+            return
+        await ctx.send("Cyberstart Essentials begins on the 5th March 2019.")
+        await ctx.send(f"That's in {month_and_day_countdown}!")
+
     async def on_message(self, message: Message):
 
         # CyberStart Assess Dates.
