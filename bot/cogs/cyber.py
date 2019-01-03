@@ -278,7 +278,7 @@ class Cyber:
                                        "  Cyberstart Assess began on the 6th November 2018.")
 
         if self.assess_end_regex.match(message.content):
-            await message.channel.send(f"{message.author.mention}  |  Cyberstart Assess ends on the 7th January 2019.")
+            await message.channel.send(f"{message.author.mention}  |  Cyberstart Assess ends on the 31st January 2019.")
 
         # CyberStart Game Dates.
         if self.game_start_regex.match(message.content):
