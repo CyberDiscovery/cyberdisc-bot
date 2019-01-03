@@ -277,33 +277,33 @@ class Cyber:
             await message.channel.send(f"{message.author.mention}  |"
                                        "  Cyberstart Assess began on the 6th November 2018.")
 
-        if self.assess_end_regex.match(message.content):
+        elif self.assess_end_regex.match(message.content):
             await message.channel.send(f"{message.author.mention}  |  Cyberstart Assess ends on the 31st January 2019.")
 
         # CyberStart Game Dates.
-        if self.game_start_regex.match(message.content):
+        elif self.game_start_regex.match(message.content):
             await message.channel.send(f"{message.author.mention}  |  Cyberstart Game begins on the 15th January 2019.")
 
-        if self.game_end_regex.match(message.content):
+        elif self.game_end_regex.match(message.content):
             await message.channel.send(f"{message.author.mention}  |  Cyberstart Game ends on the 18th March 2019.")
 
         # CyberStart Essentials Dates.
-        if self.essentials_start_regex.match(message.content):
+        elif self.essentials_start_regex.match(message.content):
             await message.channel.send(f"{message.author.mention}  |"
                                        "  Cyberstart Essentials begins on the 5 March 2019.")
 
-        if self.essentials_end_regex.match(message.content):
+        elif self.essentials_end_regex.match(message.content):
             await message.channel.send(f"{message.author.mention}  |"
                                        "  Cyberstart Essentials ends on the 29th April 2019.")
 
         # CyberStart Elite qualification requirements.
-        if self.elite_qualification_regex.match(message.content):
+        elif self.elite_qualification_regex.match(message.content):
             text = f"{message.author.mention}  |  **Quote from the @CyberDiscUK Twitter: **"
             text += "Selection for CyberStart Elite will be based on a combination of Game and Essentials results."
             await message.channel.send(text)
 
         # CyberStart Elite Dates.
-        if self.elite_dates_regex.match(message.content):
+        elif self.elite_dates_regex.match(message.content):
             text = f"{message.author.mention}  |  Cyberstart Elite dates: London - 4th and 5th August,"
             text += " Bristol - 28th and 29th July, Manchester - 21st and 22nd July"
             await message.channel.send(text)
