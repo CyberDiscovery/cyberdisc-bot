@@ -207,23 +207,27 @@ class Cyber:
         # CyberStart Game Dates.
         if self.game_regex.match(message.content):
             await message.channel.send(f"{message.author.mention}  |  Cyberstart Game begins on the 15th January 2019.")
+            return
 
         # CyberStart Essentials Dates.
         elif self.essentials_regex.match(message.content):
             await message.channel.send(f"{message.author.mention}  |"
                                        "  Cyberstart Essentials begins on the 5 March 2019.")
+            return
 
         # CyberStart Elite qualification requirements.
         elif self.elite_qualification_regex.match(message.content):
             text = f"{message.author.mention}  |  **Quote from the @CyberDiscUK Twitter: **"
             text += "Selection for CyberStart Elite will be based on a combination of Game and Essentials results."
             await message.channel.send(text)
+            return
 
         # CyberStart Elite Dates.
         elif self.elite_dates_regex.match(message.content):
             text = f"{message.author.mention}  |  Cyberstart Elite dates: London - 4th and 5th August,"
             text += " Bristol - 28th and 29th July, Manchester - 21st and 22nd July"
             await message.channel.send(text)
+            return
 
         # CyberStart Elite email.
         elif self.elite_email_regex.match(message.content):
@@ -231,6 +235,7 @@ class Cyber:
             text += "We’re currently allocating students to their preferred locations so it’s an ongoing process!"
             text += " We’ll send out details of your location as soon as we can. It shouldn’t be too long!"
             await message.channel.send(text)
+            return
 
 
 def setup(bot):
