@@ -255,9 +255,8 @@ class Cyber:
                            "on specific challenges once we update the bot")
             return
 
-        await ctx.send("Cyberstart Game begins on the 15th January 2019.")
-        await ctx.send(f"That's in {month_and_day_countdown}!")
- 
+        await ctx.send("Cyberstart Game begins on the 15th January 2019.\n"
+                       f"That's in {month_and_day_countdown}!")
 
     async def on_message(self, message: Message):
 
