@@ -271,7 +271,9 @@ class Cyber:
         await ctx.send(f"That's in {month_and_day_countdown}!")
 
     async def on_message(self, message: Message):
+        # Check the current command context
         ctx = await self.bot.get_context(message)
+        # If message is a command, ignore regex responses.
         if ctx.valid:
             return
 
