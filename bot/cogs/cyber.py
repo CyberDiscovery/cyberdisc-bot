@@ -271,9 +271,6 @@ class Cyber:
         await ctx.send(f"That's in {month_and_day_countdown}!")
 
     async def on_message(self, message: Message):
-        ctx = await self.bot.get_context(message)
-        if ctx.valid:
-            return
 
         # CyberStart Assess Dates.
         if self.assess_start_regex.match(message.content):
