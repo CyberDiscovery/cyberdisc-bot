@@ -1,5 +1,6 @@
 import datetime
 import re
+from hashlib import sha1
 from json import load
 
 from aiohttp import ClientSession
@@ -17,11 +18,27 @@ class Cyber:
 
     def __init__(self, bot: Bot):
         self.bot = bot
-        self.game_regex = re.compile(
+        self.assess_start_regex = re.compile(
+            r"^.*\bassess\b.*(start|begin|open)\b.*$",
+            re.IGNORECASE
+        )
+        self.assess_end_regex = re.compile(
+            r"^.*\bassess\b.*(end|finish|close)\b.*$",
+            re.IGNORECASE
+        )
+        self.game_start_regex = re.compile(
+            r"^.*\bgame\b.*(start|begin|open)\b.*$",
+            re.IGNORECASE
+        )
+        self.game_end_regex = re.compile(
             r"^.*\bgame\b.*(end|finish|close)\b.*$",
             re.IGNORECASE
         )
-        self.essentials_regex = re.compile(
+        self.essentials_start_regex = re.compile(
+            r"^.*\bessentials\b.*(start|begin|open)\b.*$",
+            re.IGNORECASE
+        )
+        self.essentials_end_regex = re.compile(
             r"^.*\bessentials\b.*(end|finish|close)\b.*$",
             re.IGNORECASE
         )
@@ -119,7 +136,7 @@ class Cyber:
 
         url = "https://haveibeenpwned.com/api/v2/breachedaccount/"
 
-        data = {}
+        data: dict = {}
 
         # GETs the data on the breached account.
         async with ClientSession() as session:
@@ -161,15 +178,19 @@ class Cyber:
         Searches pwnedpasswords.com for breached passwords.
         """
 
-        url = "https://api.pwnedpasswords.com/pwnedpassword/"
+        url = "https://api.pwnedpasswords.com/range/"
+        digest = sha1(password.encode()).hexdigest().upper()  # NOQA
+        prefix, digest = digest[:5], digest[5:]
 
-        # If the page doesn't return 200, it will assume there are no breached accounts of that name.
         async with ClientSession() as session:
-            async with session.get(url + password) as response:
-                if response.status == 200:
-                    data = await response.text()
-                else:
-                    data = ""
+            async with session.get(url + prefix) as response:
+                result = await response.text()
+
+        match = re.search(fr"{digest}:(\d+)", result)
+        if match is not None:
+            count = int(match.group(1))
+        else:
+            count = 0
 
         embed = Embed(
             name="have i been pwned?",
@@ -181,8 +202,8 @@ class Cyber:
             icon_url=PWNED_ICON_URL
         )
 
-        if data:
-            embed.description += f"been uncovered {data} times."
+        if count:
+            embed.description += f"been uncovered {count} times."
         else:
             embed.description += f"has never been uncovered."
 
@@ -194,23 +215,86 @@ class Cyber:
         today = datetime.date.today()
         game_start_date = datetime.date(2019, 1, 15)
         time_until_game = relativedelta(game_start_date, today)
+
+        # Given a number of items, determine whether it should be pluralised.
+        # Then, return the suffix of 's' if it should be, and '' if it shouldn't.
+        def suffix_from_number(num):
+            return "" if num == 1 else "s"
+
+        month_or_months = "month" + suffix_from_number(time_until_game.months)
+        day_or_days = "day" + suffix_from_number(time_until_game.days)
+
+        month_countdown = f"{time_until_game.months} {month_or_months}"
+        day_countdown = f"{time_until_game.days} {day_or_days}"
+
+        # Diable the months component of the countdown when there are no months left
+        if time_until_game.months:
+            month_and_day_countdown = f"{month_countdown} and {day_countdown}"
+        else:
+            month_and_day_countdown = day_countdown
+
         if today > game_start_date:
             await ctx.send("Cyberstart Game has begun! Use :level base level to get info"
                            "on specific challenges once we update the bot")
             return
         await ctx.send("Cyberstart Game begins on the 15th January 2019.")
-        await ctx.send(f"That's in {time_until_game.months} month(s) and {time_until_game.days} day(s)!")
+        await ctx.send(f"That's in {month_and_day_countdown}!")
+
+    @command()
+    async def essentials(self, ctx: Context):
+        # Get the current date
+        today = datetime.date.today()
+        essentials_start_date = datetime.date(2019, 3, 5)
+        time_until_essentials = relativedelta(essentials_start_date, today)
+
+        # Given a number of items, determine whether it should be pluralised.
+        # Then, return the suffix of 's' if it should be, and '' if it shouldn't.
+        def suffix_from_number(num):
+            return "" if num == 1 else "s"
+
+        month_or_months = "month" + suffix_from_number(time_until_essentials.months)
+        day_or_days = "day" + suffix_from_number(time_until_essentials.days)
+
+        month_countdown = f"{time_until_essentials.months} {month_or_months}"
+        day_countdown = f"{time_until_essentials.days} {day_or_days}"
+
+        # Diable the months component of the countdown when there are no months left
+        if time_until_essentials.months:
+            month_and_day_countdown = f"{month_countdown} and {day_countdown}"
+        else:
+            month_and_day_countdown = day_countdown
+
+        if today > essentials_start_date:
+            await ctx.send("Cyberstart Essentials has begun!")
+            return
+        await ctx.send("Cyberstart Essentials begins on the 5th March 2019.")
+        await ctx.send(f"That's in {month_and_day_countdown}!")
 
     async def on_message(self, message: Message):
 
+        # CyberStart Assess Dates.
+        if self.assess_start_regex.match(message.content):
+            await message.channel.send(f"{message.author.mention}  |"
+                                       "  Cyberstart Assess began on the 6th November 2018.")
+
+        elif self.assess_end_regex.match(message.content):
+            await message.channel.send(f"{message.author.mention}  |  Cyberstart Assess ends on the 31st January 2019.")
+
         # CyberStart Game Dates.
-        if self.game_regex.match(message.content):
+        elif self.game_start_regex.match(message.content):
             await message.channel.send(f"{message.author.mention}  |  Cyberstart Game begins on the 15th January 2019.")
 
+        elif self.game_end_regex.match(message.content):
+            await message.channel.send(f"{message.author.mention}  |  Cyberstart Game ends on the 18th March 2019.")
+
         # CyberStart Essentials Dates.
-        elif self.essentials_regex.match(message.content):
+        elif self.essentials_start_regex.match(message.content):
             await message.channel.send(f"{message.author.mention}  |"
                                        "  Cyberstart Essentials begins on the 5 March 2019.")
+
+        elif self.essentials_end_regex.match(message.content):
+            await message.channel.send(f"{message.author.mention}  |"
+                                       "  Cyberstart Essentials ends on the 29th April 2019.")
 
         # CyberStart Elite qualification requirements.
         elif self.elite_qualification_regex.match(message.content):
