@@ -212,11 +212,11 @@ class Cyber:
 
     @command()
     async def game(self, ctx: Context):
-      await self.countdown('15th January 2019', 'CyberStart Game', ctx)
+        await self.countdown('15th January 2019', 'CyberStart Game', ctx)
 
     @command()
     async def essentials(self, ctx: Context):
-      await self.countdown('5th March 2019', 'CyberStart Essentials', ctx)
+        await self.countdown('5th March 2019', 'CyberStart Essentials', ctx)
 
     async def countdown(self, countdown_target_str: str, stage_name: str, ctx: Context):
         countdown_target = parse(countdown_target_str).date()
@@ -297,6 +297,7 @@ class Cyber:
             text += "We’re currently allocating students to their preferred locations so it’s an ongoing process!"
             text += " We’ll send out details of your location as soon as we can. It shouldn’t be too long!"
             await message.channel.send(text)
+
 
 def setup(bot):
     bot.add_cog(Cyber(bot))
