@@ -212,7 +212,7 @@ class Cyber:
 
     @command()
     async def game(self, ctx: Context):
-      await self.countdown('15th January 2019', 'CyberStart Essentials', ctx)
+      await self.countdown('15th January 2019', 'CyberStart Game', ctx)
 
     @command()
     async def essentials(self, ctx: Context):
