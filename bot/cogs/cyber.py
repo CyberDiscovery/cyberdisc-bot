@@ -212,10 +212,18 @@ class Cyber:
 
     @command()
     async def game(self, ctx: Context):
+        """
+        Gets the date of, and days and months until, CyberStart Game
+        """
+
         await self.countdown('15th January 2019', 'CyberStart Game', ctx)
 
     @command()
     async def essentials(self, ctx: Context):
+        """
+        Gets the date of, and days and months until, CyberStart Essentials
+        """
+
         await self.countdown('5th March 2019', 'CyberStart Essentials', ctx)
 
     async def countdown(self, countdown_target_str: str, stage_name: str, ctx: Context):
