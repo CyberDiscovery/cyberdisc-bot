@@ -219,7 +219,7 @@ class Cyber:
       await self.countdown('5th March 2019', 'CyberStart Essentials', ctx)
 
     async def countdown(self, countdown_target_str: str, stage_name: str, ctx: Context):
-        countdown_target = parse(countdown_target_str)
+        countdown_target = parse(countdown_target_str).date()
 
         # Get the current date
         today = datetime.date.today()
@@ -245,7 +245,7 @@ class Cyber:
         if today > countdown_target:
             await ctx.send(f"{stage_name} has begun!")
             return
-        await ctx.send(f"{stage_name} begins on the f{countdown_target_str}.")
+        await ctx.send(f"{stage_name} begins on the {countdown_target_str}.")
         await ctx.send(f"That's in {month_and_day_countdown}!")
  
     async def on_message(self, message: Message):
