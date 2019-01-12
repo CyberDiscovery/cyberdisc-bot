@@ -4,6 +4,7 @@ from hashlib import sha1
 from json import load
 
 from aiohttp import ClientSession
+from dateutil.parser import parse
 from dateutil.relativedelta import relativedelta
 from discord import Embed, Message
 from discord.ext.commands import Bot, Context, command
@@ -211,63 +212,48 @@ class Cyber:
 
     @command()
     async def game(self, ctx: Context):
-        # Get the current date
-        today = datetime.date.today()
-        game_start_date = datetime.date(2019, 1, 15)
-        time_until_game = relativedelta(game_start_date, today)
+        """
+        Gets the date of, and days and months until, CyberStart Game
+        """
 
-        # Given a number of items, determine whether it should be pluralised.
-        # Then, return the suffix of 's' if it should be, and '' if it shouldn't.
-        def suffix_from_number(num):
-            return "" if num == 1 else "s"
-
-        month_or_months = "month" + suffix_from_number(time_until_game.months)
-        day_or_days = "day" + suffix_from_number(time_until_game.days)
-
-        month_countdown = f"{time_until_game.months} {month_or_months}"
-        day_countdown = f"{time_until_game.days} {day_or_days}"
-
-        # Diable the months component of the countdown when there are no months left
-        if time_until_game.months:
-            month_and_day_countdown = f"{month_countdown} and {day_countdown}"
-        else:
-            month_and_day_countdown = day_countdown
-
-        if today > game_start_date:
-            await ctx.send("Cyberstart Game has begun! Use :level base level to get info"
-                           "on specific challenges once we update the bot")
-            return
-        await ctx.send("Cyberstart Game begins on the 15th January 2019.")
-        await ctx.send(f"That's in {month_and_day_countdown}!")
+        await self.countdown('15th January 2019', 'CyberStart Game', ctx)
 
     @command()
     async def essentials(self, ctx: Context):
+        """
+        Gets the date of, and days and months until, CyberStart Essentials
+        """
+
+        await self.countdown('5th March 2019', 'CyberStart Essentials', ctx)
+
+    async def countdown(self, countdown_target_str: str, stage_name: str, ctx: Context):
+        countdown_target = parse(countdown_target_str).date()
+
         # Get the current date
         today = datetime.date.today()
-        essentials_start_date = datetime.date(2019, 3, 5)
-        time_until_essentials = relativedelta(essentials_start_date, today)
+        time_until_target = relativedelta(countdown_target, today)
 
         # Given a number of items, determine whether it should be pluralised.
         # Then, return the suffix of 's' if it should be, and '' if it shouldn't.
         def suffix_from_number(num):
             return "" if num == 1 else "s"
 
-        month_or_months = "month" + suffix_from_number(time_until_essentials.months)
-        day_or_days = "day" + suffix_from_number(time_until_essentials.days)
+        month_or_months = "month" + suffix_from_number(time_until_target.months)
+        day_or_days = "day" + suffix_from_number(time_until_target.days)
 
-        month_countdown = f"{time_until_essentials.months} {month_or_months}"
-        day_countdown = f"{time_until_essentials.days} {day_or_days}"
+        month_countdown = f"{time_until_target.months} {month_or_months}"
+        day_countdown = f"{time_until_target.days} {day_or_days}"
 
         # Diable the months component of the countdown when there are no months left
-        if time_until_essentials.months:
+        if time_until_target.months:
             month_and_day_countdown = f"{month_countdown} and {day_countdown}"
         else:
             month_and_day_countdown = day_countdown
 
-        if today > essentials_start_date:
-            await ctx.send("Cyberstart Essentials has begun!")
+        if today > countdown_target:
+            await ctx.send(f"{stage_name} has begun!")
             return
-        await ctx.send("Cyberstart Essentials begins on the 5th March 2019.")
+        await ctx.send(f"{stage_name} begins on the {countdown_target_str}.")
         await ctx.send(f"That's in {month_and_day_countdown}!")
 
     async def on_message(self, message: Message):
