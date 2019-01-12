@@ -247,7 +247,7 @@ class Cyber:
             return
         await ctx.send(f"{stage_name} begins on the {countdown_target_str}.")
         await ctx.send(f"That's in {month_and_day_countdown}!")
- 
+
     async def on_message(self, message: Message):
         # Check the current command context
         ctx = await self.bot.get_context(message)
