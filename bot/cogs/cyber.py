@@ -9,7 +9,7 @@ from dateutil.relativedelta import relativedelta
 from discord import Embed, Message
 from discord.ext.commands import Bot, Context, command
 
-from bot.constants import CYBERDISC_ICON_URL, PWNED_ICON_URL
+from bot.constants import BASE_ALIASES, CYBERDISC_ICON_URL, PWNED_ICON_URL
 
 
 class Cyber:
@@ -57,7 +57,7 @@ class Cyber:
         )
 
     @command(aliases=["l", "lc"])
-    async def level(self, ctx: Context, level_num: int, challenge_num: int):
+    async def level(self, ctx: Context, base: str, level_num: int, challenge_num: int = 0):
         """
         Gets information about a specific CyberStart Game level and challenge.
         If the date is before the start date of game (15th January 2019) it will redirect to game() instead
@@ -67,24 +67,41 @@ class Cyber:
             await self.game.callback(self, ctx)
             return
 
-        # Gather HQ data from CyberStart Game.
-        with open("headquarters.json") as f:
+        # Gather data from CyberStart Game.
+        with open("bot/data/game.json") as f:
             game_docs = load(f)
+        # Temporary change to allow old usage method
+        if base.isnumeric():
+            challenge_num = level_num
+            level_num = int(base)
+            base = "hq"
+        elif challenge_num == 0:
+            await ctx.send("Invalid challenge number!")
+            return
+        # Find out which base the user is refering to.
+        for area in BASE_ALIASES.keys():
+            if base.lower() in BASE_ALIASES[area]:
+                base = area
+                break
+        else:
+            await ctx.send("Unknown base.")
+            return
 
-        if not 0 < level_num <= len(game_docs):
+        # Check to see if that many levels are present
+        if not 0 < level_num <= len(game_docs[base]):
             await ctx.send("Invalid level number!")
-
-        elif challenge_num not in range(len(game_docs[f"L{level_num}"]) + 1):
+        # Then, check to see if the requested challenge is present
+        elif challenge_num not in range(len(game_docs[base][level_num - 1]) + 1):
             await ctx.send("Invalid challenge number!")
 
         else:
             # Select the needed challenge
-            challenge_raw = game_docs[f"L{level_num}"][f"C{challenge_num}"]
+            challenge_raw = game_docs[base][level_num - 1][challenge_num - 1]
             challenge_title = challenge_raw["title"]
             challenge_tip = challenge_raw["tips"]
             challenge_text = challenge_raw["description"]
             embed = Embed(
-                title=(f"Level {level_num} Challenge {challenge_num} - {challenge_title}"),
+                title=(f"{base} - Level {level_num} Challenge {challenge_num} - {challenge_title}"),
                 description=challenge_text,
                 colour=0x4262f4
             )
@@ -103,7 +120,7 @@ class Cyber:
         """
 
         # Gather Assess data from JSON file.
-        with open("assess.json") as f:
+        with open("bot/data/assess.json") as f:
             assess_docs = load(f)
 
         if not 0 < challenge_num <= len(assess_docs):
@@ -253,8 +270,8 @@ class Cyber:
         if today > countdown_target:
             await ctx.send(f"{stage_name} has begun!")
             return
-        await ctx.send(f"{stage_name} begins on the {countdown_target_str}.")
-        await ctx.send(f"That's in {month_and_day_countdown}!")
+        await ctx.send(f"{stage_name} begins on the {countdown_target_str}.\n"
+                       f"That's in {month_and_day_countdown}!")
 
     async def on_message(self, message: Message):
         # Check the current command context
