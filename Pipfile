@@ -13,10 +13,6 @@ flake8-tidy-imports = "==1.1.0"
 flake8-todo = "==0.7"
 safety = "==1.8.4"
 dodgy = "==0.1.9"
-python-language-server = {extras = ["all"]}
-pyls-mypy = "*"
-pyls-isort = "*"
-pyls-black = "*"
 
 [packages]
 python-dateutil = "*"
