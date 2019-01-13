@@ -111,6 +111,8 @@ class Fun:
             res = await self.bot.wait_for_reaction(['👍', '👎'], message=msg, user=message.author, timeout=100)
             if res is None:
                 await self.bot.edit_message(msg, "You didn't react in time. Please try again.")
+                await self.bot.remove_reaction(msg, '👍')
+                await self.bot.remove_reaction(msg, '👎')
             elif res.reaction.emoji == '👍':
                 await self.bot.edit_role(self.staff_role.server, self.staff_role, mentionable=True)
                 await self.bot.send_message(message.channel,
