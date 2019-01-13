@@ -2,11 +2,12 @@
 The bot for the Cyber Discovery Community Discord Server!
 
 ## Installation
-To test the bot, you will need to setup a custom instance of it running locally. First install the dependencies with
+To test the bot, you will need to setup a custom instance of it running locally. First install the dependencies with pipenv:
 ```
-sudo pip3 install -r requirements.txt
-sudo pip3 install -r requirements-ci.txt
+python3 -m pip install pipenv
+pipenv sync --dev
 ```
+If you don't already have the required Python version (currently 3.7.2) installed, install [https://github.com/pyenv/pyenv](pyenv) before running the above commands.
 
 Whilst they are installing, head over to [the Discord Developer Portal](https://discordapp.com/developers/applications/) and create an application.
 It needs a name, then go to the bots tab (on the left) and add a new bot. For testing purposes, it is best to have the bot private, so uncheck that option.
@@ -23,7 +24,7 @@ https://discordapp.com/oauth2/authorize?&client_id=<insert client id here>&scope
 
 Add it to a channel that you will use for testing.
 
-Finally, run the command `python3 -m bot` in the root of the repository to run the bot on your server. To access admin commands of the bot, add a group called `Root` to the server and add yourself to it.
+Finally, run the command `pipenv run bot` in the root of the repository to run the bot on your server. To access admin commands of the bot, add a group called `Root` to the server and add yourself to it.
 
 
 ## Commands
