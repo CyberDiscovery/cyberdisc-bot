@@ -69,8 +69,7 @@ class Fun:
     async def on_message(self, message: Message):
 
         if (
-            message.channel.id == QUOTES_CHANNEL_ID
-            and message.author.id == QUOTES_BOT_ID
+            message.channel.id == QUOTES_CHANNEL_ID and message.author.id == QUOTES_BOT_ID
         ):
             conn = await asyncpg.connect()
             await self.add_quote_to_db(conn, message)
@@ -249,8 +248,7 @@ class Fun:
             except NotFound:
                 author_info = embed.author.split("#")
                 author_id = discord_find(
-                    lambda m: m.name == author_info[0]
-                    or m.discriminator == author_info[1],
+                    lambda m: m.name == author_info[0] or m.discriminator == author_info[1],
                     quote.guild.members,
                 )
         else:
