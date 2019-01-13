@@ -281,7 +281,7 @@ class Fun:
         )
         quote_channel = self.bot.get_channel(QUOTES_CHANNEL_ID)
         async for quote in quote_channel.history(limit=None):
-            await self.add_quote_to_db(ctx, conn, quote)
+            await self.add_quote_to_db(conn, quote)
         await conn.close()
         await ctx.send("done!")
 
