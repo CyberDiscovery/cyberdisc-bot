@@ -119,7 +119,7 @@ class Cyber:
         Gets information about a specific CyberStart Assess level and challenge.
         """
 
-        NO_HINTS_MSG = f"**:warning: Remember, we can't give hints after challenge {HINTS_LIMIT}**"
+        NO_HINTS_MSG = f"**:warning: Remember, other people can't give hints after challenge {HINTS_LIMIT}**"
 
         # Gather Assess data from JSON file.
         with open("bot/data/assess.json") as f:
