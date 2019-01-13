@@ -21,6 +21,13 @@ PWNED_ICON_URL = (
     "/commons/2/23/Have_I_Been_Pwned_logo.png"
 )
 
+
+# Base Aliases
+BASE_ALIASES = {
+    "Headquarters": ["headquarters", "main", "hq"],
+    "Moonbase": ["moonbase", "python", "moon"],
+}
+
 # Emoji Alphabet
 
 EMOJI_LETTERS = [  # Feel free to add to this list
