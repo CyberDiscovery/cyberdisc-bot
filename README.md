@@ -40,6 +40,7 @@ Finally, run the command `python3 -m bot` in the root of the repository to run t
 * **`:haveibeenpwned email@exmaple.com`** - Searches haveibeenpwned.com for breached accounts.
 * **`:hasitbeenpwned password`** - Searches pwnedpasswords.com for breached passwords.
 * **`:game`** - Displays information about CyberStart Game, including start time.
+* **`:assess <level>`** - Displays information about a CyberStart assess level. `<Level>` can be any number from 1-14
 
 ### Commands for Fun:
 * **`:lmgtfy [-d][-ie] Stupid Question?`** - Returns a LMGTFY URL for the given question.  Adding `-d` will delete the message that instigated the command and `-ie` will enable the internet explainer feature on lmgtfy.
