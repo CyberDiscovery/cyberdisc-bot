@@ -3,28 +3,35 @@ Set of bot commands designed for general leisure.
 """
 import textwrap
 from itertools import cycle
-from random import choice, randint
+from random import randint
 from string import ascii_lowercase
 from typing import AsyncGenerator
 from urllib.parse import urlencode
 
+import asyncpg
 from aiohttp import ClientSession
-from discord import Embed, File, Member, Message
+from discord import Embed, File, Member, Message, NotFound
 from discord.ext.commands import (
-    Bot, Context, TextChannelConverter, command, has_any_role
+    Bot,
+    Context,
+    TextChannelConverter,
+    command,
+    has_any_role,
 )
+from discord.utils import find as discord_find
 from wand.drawing import Drawing
 from wand.image import Image
 
+from bot.constants import (
+    ADMIN_ROLES,
+    EMOJI_LETTERS,
+    QUOTES_BOT_ID,
+    QUOTES_CHANNEL_ID,
+)
 
-from bot.constants import ADMIN_ROLES, EMOJI_LETTERS, QUOTES_BOT_ID, QUOTES_CHANNEL_ID
+EMOJI_LETTERS = [cycle(letters) for letters in EMOJI_LETTERS]
 
-
-EMOJI_LETTERS = [
-    cycle(letters) for letters in EMOJI_LETTERS
-]
-
-ascii_lowercase += ' '
+ascii_lowercase += " "
 
 
 async def _convert_emoji(message: str) -> AsyncGenerator[str, None]:
@@ -61,15 +68,22 @@ class Fun:
 
     async def on_message(self, message: Message):
 
-        if message.channel.id == QUOTES_CHANNEL_ID and message.author.id == QUOTES_BOT_ID:
-            author = message.embeds[0].title
-            self.bot.quotes[author].append(message.id)
+        if (
+            message.channel.id == QUOTES_CHANNEL_ID
+            and message.author.id == QUOTES_BOT_ID
+        ):
+            conn = await asyncpg.connect()
+            await self.add_quote_to_db(conn, message)
+            await conn.close()
+            print(f"Message #{message.id} added to database.")
 
         """
         React based on the contents of a message.
         """
         # React if a message contains an @here or @everyone mention.
-        if any(mention in message.content for mention in ("@here", "@everyone")):
+        if any(
+            mention in message.content for mention in ("@here", "@everyone")
+        ):
             await message.add_reaction("🙁")
             await emojify(message, "who pinged")
 
@@ -111,7 +125,7 @@ class Fun:
         # Creates a lmgtfy.com url for the given query.
         request_data = {
             "q": " ".join(arg for arg in args if not arg.startswith("-")),
-            "ie": int(ie_flag)
+            "ie": int(ie_flag),
         }
         url = "https://lmgtfy.com/?" + urlencode(request_data)
 
@@ -120,14 +134,14 @@ class Fun:
         if delete:
             await ctx.message.delete()
 
-    @command(aliases=['emojify'])
+    @command(aliases=["emojify"])
     async def react(self, ctx, *, message: str):
         """
         Emojifies a given string, and reacts to a previous message
         with those emojis.
         """
         print(repr(message))
-        limit, _, output = message.partition(' ')
+        limit, _, output = message.partition(" ")
         if limit.isdigit():
             limit = int(limit)
         else:
@@ -178,12 +192,13 @@ class Fun:
         comic.set_author(
             name="xkcd",
             url="https://xkcd.com/",
-            icon_url="https://xkcd.com/s/0b7742.png")
+            icon_url="https://xkcd.com/s/0b7742.png",
+        )
         comic.add_field(name="Number:", value=number)
         comic.add_field(name="Date:", value=date)
         comic.add_field(
-            name="Explanation:",
-            value=f"https://explainxkcd.com/{number}")
+            name="Explanation:", value=f"https://explainxkcd.com/{number}"
+        )
 
         await ctx.send(embed=comic)
 
@@ -193,24 +208,88 @@ class Fun:
         Returns a random quotation from the #quotes channel.
         A user can be specified to return a random quotation from that user.
         """
+        conn = await asyncpg.connect()
         quote_channel = self.bot.get_channel(QUOTES_CHANNEL_ID)
-        quotes = self.bot.quotes
 
         if member is None:
-            message_id = choice(quotes[choice(list(quotes.keys()))])
+            message_id = await conn.fetchval(
+                "select quote_id from quotes order by random() limit 1;"
+            )  # fetchval returns first value by default
         else:
-            user_quotes = quotes[f'{member.name}#{member.discriminator}']
-            if not user_quotes:
-                await ctx.send("No quotes from that user.")
+            message_id = await conn.fetchval(
+                "select quote_id from quotes where author_id=$1 order by random() limit 1;",
+                member.id,
+            )
+            if message_id is None:
+                await ctx.send("No quotes for that user.")
                 return
-            message_id = choice(user_quotes)
 
+        await conn.close()
         message = await quote_channel.get_message(message_id)
-        await ctx.send(embed=message.embeds[0])
+        if message.author.id == QUOTES_BOT_ID:
+            await ctx.send(embed=message.embeds[0])
+        elif len(message.attachments) > 0:
+            image_url = message.attachments[0].url
+            quote = Embed()
+            quote.set_image(url=image_url)
+            await ctx.send(embed=quote)
+        else:
+            await ctx.send(message.content)
+
+    async def add_quote_to_db(
+        self, conn: asyncpg.connection.Connection, quote: Message
+    ):
+        if quote.author.id == QUOTES_BOT_ID:
+            if not quote.embeds:
+                return
+            embed = quote.embeds[0]
+            author_id = int(embed.author.icon_url.split("/")[4])
+            try:
+                await self.bot.get_user_info(author_id)
+            except NotFound:
+                author_info = embed.author.split("#")
+                author_id = discord_find(
+                    lambda m: m.name == author_info[0]
+                    or m.discriminator == author_info[1],
+                    quote.guild.members,
+                )
+        else:
+            author_id = quote.mentions[0].id if quote.mentions else None
+        if author_id is not None:
+            await conn.execute(
+                "INSERT INTO quotes(quote_id, author_id) VALUES($1, $2) ON CONFLICT DO NOTHING;",
+                quote.id,
+                author_id,
+            )
+        else:
+            await conn.execute(
+                "INSERT INTO quotes(quote_id) VALUES($1) ON CONFLICT DO NOTHING;",
+                quote.id,
+            )
+        print(f"Quote ID: {quote.id} has been added to the database.")
 
     @command()
     @has_any_role(*ADMIN_ROLES)
-    async def set_quote_channel(self, ctx: Context, channel: TextChannelConverter):
+    async def migrate_quotes(self, ctx: Context):
+        """
+        Pulls all quotes from a quotes channel into a PostgreSQL database.
+        Needs the PG_HOST, PG_USER, PG_DATABASE and PG_PASSWORD environmental variables to be set.
+        """
+        conn = await asyncpg.connect()
+        await conn.execute(
+            "CREATE TABLE IF NOT EXISTS quotes (quote_id bigint PRIMARY KEY, author_id bigint)"
+        )
+        quote_channel = self.bot.get_channel(QUOTES_CHANNEL_ID)
+        async for quote in quote_channel.history(limit=None):
+            await self.add_quote_to_db(ctx, conn, quote)
+        await conn.close()
+        await ctx.send("done!")
+
+    @command()
+    @has_any_role(*ADMIN_ROLES)
+    async def set_quote_channel(
+        self, ctx: Context, channel: TextChannelConverter
+    ):
         """
         Sets the quotes channel.
         """
