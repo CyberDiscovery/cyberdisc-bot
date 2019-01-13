@@ -217,7 +217,7 @@ class Fun:
         else:
             message_id = await conn.fetchval(
                 "select quote_id from quotes where author_id=$1 order by random() limit 1;",
-                member.id,
+                member.id
             )
             if message_id is None:
                 await ctx.send("No quotes for that user.")
@@ -249,7 +249,7 @@ class Fun:
                 author_info = embed.author.split("#")
                 author_id = discord_find(
                     lambda m: m.name == author_info[0] or m.discriminator == author_info[1],
-                    quote.guild.members,
+                    quote.guild.members
                 )
         else:
             author_id = quote.mentions[0].id if quote.mentions else None
@@ -257,12 +257,12 @@ class Fun:
             await conn.execute(
                 "INSERT INTO quotes(quote_id, author_id) VALUES($1, $2) ON CONFLICT DO NOTHING;",
                 quote.id,
-                author_id,
+                author_id
             )
         else:
             await conn.execute(
                 "INSERT INTO quotes(quote_id) VALUES($1) ON CONFLICT DO NOTHING;",
-                quote.id,
+                quote.id
             )
         print(f"Quote ID: {quote.id} has been added to the database.")
 
