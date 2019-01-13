@@ -4,6 +4,7 @@ from hashlib import sha1
 from json import load
 
 from aiohttp import ClientSession
+from dateutil.parser import parse
 from dateutil.relativedelta import relativedelta
 from discord import Embed, Message
 from discord.ext.commands import Bot, Context, command
@@ -228,70 +229,87 @@ class Cyber:
 
     @command()
     async def game(self, ctx: Context):
+        """
+        Gets the date of, and days and months until, CyberStart Game
+        """
+
+        await self.countdown('15th January 2019', 'CyberStart Game', ctx)
+
+    @command()
+    async def essentials(self, ctx: Context):
+        """
+        Gets the date of, and days and months until, CyberStart Essentials
+        """
+
+        await self.countdown('5th March 2019', 'CyberStart Essentials', ctx)
+
+    async def countdown(self, countdown_target_str: str, stage_name: str, ctx: Context):
+        countdown_target = parse(countdown_target_str).date()
+
         # Get the current date
         today = datetime.date.today()
-        game_start_date = datetime.date(2019, 1, 15)
-        time_until_game = relativedelta(game_start_date, today)
+        time_until_target = relativedelta(countdown_target, today)
 
         # Given a number of items, determine whether it should be pluralised.
         # Then, return the suffix of 's' if it should be, and '' if it shouldn't.
         def suffix_from_number(num):
             return "" if num == 1 else "s"
 
-        month_or_months = "month" + suffix_from_number(time_until_game.months)
-        day_or_days = "day" + suffix_from_number(time_until_game.days)
+        month_or_months = "month" + suffix_from_number(time_until_target.months)
+        day_or_days = "day" + suffix_from_number(time_until_target.days)
 
-        month_countdown = f"{time_until_game.months} {month_or_months}"
-        day_countdown = f"{time_until_game.days} {day_or_days}"
+        month_countdown = f"{time_until_target.months} {month_or_months}"
+        day_countdown = f"{time_until_target.days} {day_or_days}"
 
         # Diable the months component of the countdown when there are no months left
-        if time_until_game.months:
+        if time_until_target.months:
             month_and_day_countdown = f"{month_countdown} and {day_countdown}"
         else:
             month_and_day_countdown = day_countdown
 
-        if today > game_start_date:
-            await ctx.send("Cyberstart Game has begun! Use :level base level to get info"
-                           "on specific challenges once we update the bot")
+        if today > countdown_target:
+            await ctx.send(f"{stage_name} has begun!")
             return
 
-        await ctx.send("Cyberstart Game begins on the 15th January 2019.\n"
-                       f"That's in {month_and_day_countdown}!")
-
     async def on_message(self, message: Message):
+        # Check the current command context
+        ctx = await self.bot.get_context(message)
+        # If message is a command, ignore regex responses.
+        if ctx.valid:
+            return
 
         # CyberStart Assess Dates.
         if self.assess_start_regex.match(message.content):
             await message.channel.send(f"{message.author.mention}  |"
                                        "  Cyberstart Assess began on the 6th November 2018.")
 
-        if self.assess_end_regex.match(message.content):
-            await message.channel.send(f"{message.author.mention}  |  Cyberstart Assess ends on the 7th January 2019.")
+        elif self.assess_end_regex.match(message.content):
+            await message.channel.send(f"{message.author.mention}  |  Cyberstart Assess ends on the 31st January 2019.")
 
         # CyberStart Game Dates.
-        if self.game_start_regex.match(message.content):
+        elif self.game_start_regex.match(message.content):
             await message.channel.send(f"{message.author.mention}  |  Cyberstart Game begins on the 15th January 2019.")
 
-        if self.game_end_regex.match(message.content):
+        elif self.game_end_regex.match(message.content):
             await message.channel.send(f"{message.author.mention}  |  Cyberstart Game ends on the 18th March 2019.")
 
         # CyberStart Essentials Dates.
-        if self.essentials_start_regex.match(message.content):
+        elif self.essentials_start_regex.match(message.content):
             await message.channel.send(f"{message.author.mention}  |"
                                        "  Cyberstart Essentials begins on the 5 March 2019.")
 
-        if self.essentials_end_regex.match(message.content):
+        elif self.essentials_end_regex.match(message.content):
             await message.channel.send(f"{message.author.mention}  |"
                                        "  Cyberstart Essentials ends on the 29th April 2019.")
 
         # CyberStart Elite qualification requirements.
-        if self.elite_qualification_regex.match(message.content):
+        elif self.elite_qualification_regex.match(message.content):
             text = f"{message.author.mention}  |  **Quote from the @CyberDiscUK Twitter: **"
             text += "Selection for CyberStart Elite will be based on a combination of Game and Essentials results."
             await message.channel.send(text)
 
         # CyberStart Elite Dates.
-        if self.elite_dates_regex.match(message.content):
+        elif self.elite_dates_regex.match(message.content):
             text = f"{message.author.mention}  |  Cyberstart Elite dates: London - 4th and 5th August,"
             text += " Bristol - 28th and 29th July, Manchester - 21st and 22nd July"
             await message.channel.send(text)
