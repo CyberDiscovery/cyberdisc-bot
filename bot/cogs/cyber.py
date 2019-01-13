@@ -119,6 +119,9 @@ class Cyber:
         Gets information about a specific CyberStart Assess level and challenge.
         """
 
+        HINTS_LIMIT = 8  # Challenge number up to where hints are allowed (inclusive)
+        NO_HINTS_MSG = f"**:warning: Remember, we can't give hints after challenge {HINTS_LIMIT}**"
+
         # Gather Assess data from JSON file.
         with open("bot/data/assess.json") as f:
             assess_docs = load(f)
@@ -132,6 +135,10 @@ class Cyber:
             challenge_title = challenge_raw["title"]
             challenge_difficulty = challenge_raw["difficulty"]
             challenge_text = challenge_raw["description"]
+
+            if challenge_num > HINTS_LIMIT:
+                challenge_text = NO_HINTS_MSG + '\n' + challenge_text
+
             embed = Embed(
                 title=f"CyberStart Assess Challenge {challenge_num} - {challenge_title}",
                 description=challenge_text,
