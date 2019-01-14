@@ -24,6 +24,8 @@ PWNED_ICON_URL = (
     "/commons/2/23/Have_I_Been_Pwned_logo.png"
 )
 
+# Last level for CyberStart Assess where hints are allowed
+HINTS_LIMIT = 8
 
 # Base Aliases
 BASE_ALIASES = {
