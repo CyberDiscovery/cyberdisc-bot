@@ -49,3 +49,9 @@ Finally, run the command `pipenv run bot` in the root of the repository to run t
 * **`:quotes [@mention]`** - Will return a random quote from the #quotes channel. Adding an username/mention will result in a random quote from that user being selected.
 * **`:agentj text`** - Creates an image of Agent J with the specified text.
 * **`:jibhat text`** - Creates an image of Jibhat with the specified text.
+* **`:caesar encode text shift`** - Gives Caesar shift of given text with the given shift.
+* **`:caesar decode text shift`** - Decoded given Caesar shift with given shit.
+* **`:caesar brute text`** - Gives possible Caesar shift decode of the given text.
+
+
+
