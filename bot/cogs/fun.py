@@ -19,6 +19,7 @@ from wand.image import Image
 
 from bot.constants import ADMIN_ROLES, EMOJI_LETTERS, QUOTES_BOT_ID, QUOTES_CHANNEL_ID
 
+from bot.caesar import Caesar
 
 EMOJI_LETTERS = [
     cycle(letters) for letters in EMOJI_LETTERS
@@ -249,6 +250,43 @@ class Fun:
         """
         await self.create_text_image(ctx, "Jibhat", text)
 
+    @command(aliases=['cs', 'caesar'])
+    async def caesarCall(self, ctx: Context, *args):
+        """
+        Caesar shift command to encode, decode and brute force
+        """
+        if len(args) < 2:
+            await ctx.send("Invalid parameters!")
+
+        c = Caesar()
+        await c.create(args[1])
+
+        embed = Embed(
+            colour=0x4262f4
+        )
+        embed.set_author(
+            name=ctx.author,
+            icon_url=ctx.author.avatar_url
+        )
+
+        option = args[0]
+        if option == "brute":
+            await c.bruteForce()
+            embed.title = (f"Input: {c.text} \nOutput: {c.decoded} \nShift: {c.shift}")
+            await ctx.send(embed=embed)
+
+        elif option == "encode":
+            await c.encode(int(args[2]))
+            embed.title = (f"Input: {c.text} \nShift: {args[2]} \nOutput: {c.encoded}")
+            await ctx.send(embed=embed)
+
+        elif option == "decode":
+            await c.decode(int(args[2]))
+            embed.title = (f"Input: {c.text} \nShift: {args[2]} \nOutput: {c.decoded}")
+            await ctx.send(embed=embed)
+
+        else:
+            await ctx.send("Something went wrong... :/")
 
 def setup(bot):
     """
