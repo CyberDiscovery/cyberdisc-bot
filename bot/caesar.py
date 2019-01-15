@@ -5,12 +5,13 @@ ALPHABET_UPPER = ALPHABET_LOWER.upper()
 ALPHABET_LOWER_ARR = list(ALPHABET_LOWER)
 ALPHABET_UPPER_ARR = list(ALPHABET_UPPER)
 
+
 class Caesar:
 
     def __init__(self):
         self.id = 1
 
-    async def create(self, text, upper = True):
+    async def create(self, text, upper=True):
         self.upper = upper
         if (self.upper):
             self.text = text.upper()
@@ -60,7 +61,6 @@ class Caesar:
             newStr.append(newChar)
 
         self.decoded = "".join(newStr)
-
 
     async def bruteForce(self):
         wordsDir = "bot/resources/common_words.txt"

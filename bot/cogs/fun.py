@@ -16,10 +16,8 @@ from discord.ext.commands import (
 from wand.drawing import Drawing
 from wand.image import Image
 
-
-from bot.constants import ADMIN_ROLES, EMOJI_LETTERS, QUOTES_BOT_ID, QUOTES_CHANNEL_ID
-
 from bot.caesar import Caesar
+from bot.constants import ADMIN_ROLES, EMOJI_LETTERS, QUOTES_BOT_ID, QUOTES_CHANNEL_ID
 
 EMOJI_LETTERS = [
     cycle(letters) for letters in EMOJI_LETTERS
@@ -287,6 +285,7 @@ class Fun:
 
         else:
             await ctx.send("Something went wrong... :/")
+
 
 def setup(bot):
     """
