@@ -55,13 +55,13 @@ class Cyber:
             r"^.*\bwhat\b.*\belite\b.*\bemail\b.*$",
             re.IGNORECASE
         )
-    
+
     @command(aliases=["Manual", "manual", "fm"])
     async def fieldmanual(self, ctx: Context):
         """
         Returns a link to the field manual
         """
-        
+
         await ctx.send("https://game.joincyberdiscovery.com/manual")
 
     @command(aliases=["l", "lc"])
