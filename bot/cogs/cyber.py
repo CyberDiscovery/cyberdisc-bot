@@ -61,6 +61,7 @@ class Cyber:
         """
         Returns a link to the field manual
         """
+        
         await ctx.send("https://game.joincyberdiscovery.com/manual")
 
     @command(aliases=["l", "lc"])
