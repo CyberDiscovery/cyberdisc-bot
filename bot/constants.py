@@ -26,8 +26,9 @@ HINTS_LIMIT = 8
 
 # Base Aliases
 BASE_ALIASES = {
-    "Headquarters": ["headquarters", "main", "hq"],
-    "Moonbase": ["moonbase", "python", "moon"],
+    "Headquarters": ["headquarters", "main", "hq", "h"],
+    "Moonbase": ["moonbase", "python", "moon", "m"],
+    "Forensics": ["forensics","f"]
 }
 
 # Emoji Alphabet
