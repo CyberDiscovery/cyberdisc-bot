@@ -68,6 +68,9 @@ class Fun:
 
     async def on_message(self, message: Message):
 
+        """
+        React based on the contents of a message, and add quotes to database.
+        """
         if message.channel.id == QUOTES_CHANNEL_ID and (
             message.author.id == QUOTES_BOT_ID or message.mentions is not None
         ):
@@ -76,9 +79,6 @@ class Fun:
             await conn.close()
             print(f"Message #{message.id} added to database.")
 
-        """
-        React based on the contents of a message.
-        """
         # React if a message contains an @here or @everyone mention.
         if any(
             mention in message.content for mention in ("@here", "@everyone")
