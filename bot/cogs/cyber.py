@@ -56,6 +56,14 @@ class Cyber:
             re.IGNORECASE
         )
 
+    @command(aliases=["Manual", "manual", "fm"])
+    async def fieldmanual(self, ctx: Context):
+        """
+        Returns a link to the field manual
+        """
+
+        await ctx.send("https://game.joincyberdiscovery.com/manual")
+
     @command(aliases=["l", "lc"])
     async def level(self, ctx: Context, base: str, level_num: int, challenge_num: int = 0):
         """
