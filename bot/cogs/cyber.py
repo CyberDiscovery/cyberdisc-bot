@@ -56,6 +56,14 @@ class Cyber:
             re.IGNORECASE
         )
 
+    @command(aliases=["Manual", "manual", "fm"])
+    async def fieldmanual(self, ctx: Context):
+        """
+        Returns a link to the field manual
+        """
+
+        await ctx.send("https://game.joincyberdiscovery.com/manual")
+
     @command(aliases=["l", "lc"])
     async def level(self, ctx: Context, base: str, level_num: int, challenge_num: int = 0):
         """
@@ -318,8 +326,7 @@ class Cyber:
 
         # CyberStart Elite Dates.
         elif self.elite_dates_regex.match(message.content):
-            text = f"{message.author.mention}  |  Cyberstart Elite dates: London - 4th and 5th August,"
-            text += " Bristol - 28th and 29th July, Manchester - 21st and 22nd July"
+            text = f"{message.author.mention}  |  Cyberstart Elite dates for 2019 are yet to be announced."
             await message.channel.send(text)
 
         # CyberStart Elite email.
