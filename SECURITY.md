@@ -14,7 +14,7 @@ Thank you for improving the security of **cyberdisc-bot**. We appreciate your ef
 responsible disclosure and will make every effort to acknowledge your
 contributions.
 
-Report security bugs by emailing Beano at [thebeanogamer@gmail.com](mailto:thebeanogamer@gmail.com).
+Report security bugs by emailing an administrator at [thebeanogamer@gmail.com](mailto:thebeanogamer@gmail.com).
 
 ## Disclosure Policy
 
