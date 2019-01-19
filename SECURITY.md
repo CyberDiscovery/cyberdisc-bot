@@ -3,9 +3,9 @@
 This document outlines security procedures and general policies for the **cyberdisc-bot**
 project.
 
-  * [Reporting a Bug](#reporting-a-bug)
-  * [Disclosure Policy](#disclosure-policy)
-  * [Comments on this Policy](#comments-on-this-policy)
+* [Reporting a Bug](#reporting-a-bug)
+* [Disclosure Policy](#disclosure-policy)
+* [Comments on this Policy](#comments-on-this-policy)
 
 ## Reporting a Bug
 
@@ -20,9 +20,9 @@ Report security bugs by emailing an administrator at [thebeanogamer@gmail.com](m
 
 When the community developer team receives a security bug report, they will take the following steps:
 
-  * Confirm the problem and determine the cause.
-  * Audit code to find any potential similar problems.
-  * Prepare fixes for all affected code bases. These fixes will be
+* Confirm the problem and determine the cause.
+* Audit code to find any potential similar problems.
+* Prepare fixes for all affected code bases. These fixes will be
     released as fast as possible to production.
 
 ## Comments on this Policy
