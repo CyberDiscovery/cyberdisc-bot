@@ -67,7 +67,6 @@ class Fun:
         self.quote_channel = None
 
     async def on_message(self, message: Message):
-
         """
         React based on the contents of a message, and add quotes to database.
         """
