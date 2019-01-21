@@ -2,7 +2,6 @@
 Set of bot commands designed for general leisure.
 """
 import textwrap
-from itertools import cycle
 from random import choice, randint
 from string import ascii_lowercase
 from typing import AsyncGenerator
@@ -20,27 +19,22 @@ from wand.image import Image
 from bot.constants import ADMIN_ROLES, EMOJI_LETTERS, QUOTES_BOT_ID, QUOTES_CHANNEL_ID
 
 
-EMOJI_LETTERS = [
-    cycle(letters) for letters in EMOJI_LETTERS
-]
-
 ascii_lowercase += ' '
 
 
-async def _convert_emoji(message: str) -> AsyncGenerator[str, None]:
+async def _convert_emoji(message: str) -> AsyncGenerator:
     """Convert a string to a list of emojis."""
     emoji_trans = list(map(iter, EMOJI_LETTERS))
     # Enumerate characters in the message
     for character in message:
         index = ascii_lowercase.find(character)
-        if not index + 1:
+        if index == -1:
             continue
         # Yield the next iteration of the letter
         try:
-            emoji = next(emoji_trans[index])
+            yield next(emoji_trans[index])
         except StopIteration:
             yield None
-        yield emoji
 
 
 async def emojify(message: Message, string: str):
