@@ -34,7 +34,7 @@ async def _convert_emoji(message: str) -> AsyncGenerator:
         try:
             yield next(emoji_trans[index])
         except StopIteration:
-            yield None
+            continue
 
 
 async def emojify(message: Message, string: str):
