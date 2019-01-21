@@ -79,7 +79,7 @@ class Fun:
             print(f"Message #{message.id} added to database.")
 
         # React if a message contains an @here or @everyone mention.
-        if any(
+        if any(mention in message.content for mention in ("@here", "@everyone")):
             mention in message.content for mention in ("@here", "@everyone")
         ):
             await message.add_reaction("🙁")
@@ -234,7 +234,7 @@ class Fun:
         else:
             await ctx.send(message.content)
 
-    async def add_quote_to_db(
+    async def add_quote_to_db(self, conn: asyncpg.connection.Connection, quote: Message):
         self, conn: asyncpg.connection.Connection, quote: Message
     ):
         if quote.author.id == QUOTES_BOT_ID:
