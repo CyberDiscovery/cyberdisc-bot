@@ -1,7 +1,7 @@
-import random
-import string
 import datetime
+import random
 import re
+import string
 from hashlib import sha1
 from json import load
 
@@ -17,7 +17,7 @@ from bot.constants import BASE_ALIASES, CYBERDISC_ICON_URL, HINTS_LIMIT, PWNED_I
 async def generatebase64(seed: int):
     random.seed(seed)
     letters = string.ascii_letters + string.digits + "+" + "/" + "="
-    
+
     return "".join(random.choices(letters, k=20))
 
 
@@ -149,7 +149,6 @@ class Cyber:
         )
 
         await ctx.send(embed=embed)
-            
 
     @command(aliases=["a", "al"])
     async def assess(self, ctx: Context, challenge_num: int):
