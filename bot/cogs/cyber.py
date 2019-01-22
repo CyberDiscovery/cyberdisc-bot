@@ -56,7 +56,7 @@ class Cyber:
             re.IGNORECASE
         )
 
-    @command(aliases=["Manual", "manual", "fm"])
+    @command(aliases=["Manual", "manual", "fm", "rtfm"])
     async def fieldmanual(self, ctx: Context):
         """
         Returns a link to the field manual
