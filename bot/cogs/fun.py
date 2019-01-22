@@ -2,7 +2,6 @@
 Set of bot commands designed for general leisure.
 """
 import textwrap
-from itertools import cycle
 from random import randint
 from string import ascii_lowercase
 from typing import AsyncGenerator
@@ -10,26 +9,14 @@ from urllib.parse import urlencode
 
 import asyncpg
 from aiohttp import ClientSession
+from bot.constants import ADMIN_ROLES, EMOJI_LETTERS, QUOTES_BOT_ID, QUOTES_CHANNEL_ID
 from discord import Embed, File, Member, Message, NotFound
-from discord.ext.commands import (
-    Bot,
-    Context,
-    TextChannelConverter,
-    command,
-    has_any_role,
-)
+from discord.ext.commands import Bot, Context, TextChannelConverter, command, has_any_role
 from discord.utils import find as discord_find
 from wand.drawing import Drawing
 from wand.image import Image
 
-from bot.constants import (
-    ADMIN_ROLES,
-    EMOJI_LETTERS,
-    QUOTES_BOT_ID,
-    QUOTES_CHANNEL_ID,
-)
-
-ascii_lowercase += ' '
+ascii_lowercase += " "
 
 
 async def _convert_emoji(message: str) -> AsyncGenerator:
@@ -77,8 +64,6 @@ class Fun:
 
         # React if a message contains an @here or @everyone mention.
         if any(mention in message.content for mention in ("@here", "@everyone")):
-            mention in message.content for mention in ("@here", "@everyone")
-        ):
             await message.add_reaction("🙁")
             await emojify(message, "who pinged")
 
@@ -185,15 +170,11 @@ class Fun:
         comic.set_image(url=data["img"])
         comic.url = f"https://xkcd.com/{number}"
         comic.set_author(
-            name="xkcd",
-            url="https://xkcd.com/",
-            icon_url="https://xkcd.com/s/0b7742.png",
+            name="xkcd", url="https://xkcd.com/", icon_url="https://xkcd.com/s/0b7742.png"
         )
         comic.add_field(name="Number:", value=number)
         comic.add_field(name="Date:", value=date)
-        comic.add_field(
-            name="Explanation:", value=f"https://explainxkcd.com/{number}"
-        )
+        comic.add_field(name="Explanation:", value=f"https://explainxkcd.com/{number}")
 
         await ctx.send(embed=comic)
 
@@ -208,11 +189,11 @@ class Fun:
 
         if member is None:
             message_id = await conn.fetchval(
-                "select quote_id from quotes order by random() limit 1;"
+                "SELECT quote_id FROM quotes ORDER BY random() LIMIT 1;"
             )  # fetchval returns first value by default
         else:
             message_id = await conn.fetchval(
-                "select quote_id from quotes where author_id=$1 order by random() limit 1;",
+                "SELECT quote_id FROM quotes WHERE author_id=$1 ORDER BY random() LIMIT 1;",
                 member.id
             )
             if message_id is None:
@@ -232,8 +213,6 @@ class Fun:
             await ctx.send(message.content)
 
     async def add_quote_to_db(self, conn: asyncpg.connection.Connection, quote: Message):
-        self, conn: asyncpg.connection.Connection, quote: Message
-    ):
         if quote.author.id == QUOTES_BOT_ID:
             if not quote.embeds:
                 return
@@ -257,8 +236,7 @@ class Fun:
             )
         else:
             await conn.execute(
-                "INSERT INTO quotes(quote_id) VALUES($1) ON CONFLICT DO NOTHING;",
-                quote.id
+                "INSERT INTO quotes(quote_id) VALUES($1) ON CONFLICT DO NOTHING;", quote.id
             )
         print(f"Quote ID: {quote.id} has been added to the database.")
 
@@ -267,7 +245,7 @@ class Fun:
     async def migrate_quotes(self, ctx: Context):
         """
         Pulls all quotes from a quotes channel into a PostgreSQL database.
-        Needs the PG_HOST, PG_USER, PG_DATABASE and PG_PASSWORD environmental variables to be set.
+        Needs PG_HOST, PG_USER, PG_DATABASE and PG_PASSWORD env vars.
         """
         conn = await asyncpg.connect()
         await conn.execute(
@@ -281,9 +259,7 @@ class Fun:
 
     @command()
     @has_any_role(*ADMIN_ROLES)
-    async def set_quote_channel(
-        self, ctx: Context, channel: TextChannelConverter
-    ):
+    async def set_quote_channel(self, ctx: Context, channel: TextChannelConverter):
         """
         Sets the quotes channel.
         """
