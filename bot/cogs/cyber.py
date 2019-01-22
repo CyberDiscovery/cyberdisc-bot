@@ -11,6 +11,17 @@ from discord.ext.commands import Bot, Context, command
 
 from bot.constants import BASE_ALIASES, CYBERDISC_ICON_URL, HINTS_LIMIT, PWNED_ICON_URL
 
+async def generateb64(seed: int):
+    import random
+    import string
+    random.seed(seed)
+    letters = string.ascii_letters+string.digits+"+"+"/"+"="
+    result = ""
+
+    for i in range(20):
+        result += "".join(random.choices(letters))
+
+    return result
 
 class Cyber:
     """
@@ -121,6 +132,68 @@ class Cyber:
 
             await ctx.send(embed=embed)
 
+    @command()
+    async def flag(self, ctx: Context, base: str, level_num: int, challenge_num: int = 0):
+        """
+        Gets information about a specific CyberStart Game level and challenge.
+        If the date is before the start date of game (15th January 2019) it will redirect to game() instead
+        """
+
+        if datetime.date.today() < datetime.date(2019, 1, 15):
+            await self.game.callback(self, ctx)
+            return
+
+        # Gather data from CyberStart Game.
+        with open("bot/data/game.json") as f:
+            game_docs = load(f)
+        # Temporary change to allow old usage method
+        if base.isnumeric():
+            challenge_num = level_num
+            level_num = int(base)
+            base = "hq"
+        elif challenge_num == 0:
+            await ctx.send("Invalid challenge number!")
+            return
+        # Find out which base the user is refering to.
+        for area in BASE_ALIASES.keys():
+            if base.lower() in BASE_ALIASES[area]:
+                base = area
+                break
+        else:
+            await ctx.send("Unknown base.")
+            return
+
+        # Check to see if that many levels are present
+        if not 0 < level_num <= len(game_docs[base]):
+            await ctx.send("Invalid level number!")
+        # Then, check to see if the requested challenge is present
+        elif challenge_num not in range(len(game_docs[base][level_num - 1]) + 1):
+            await ctx.send("Invalid challenge number!")
+
+        else:
+            # Select the needed challenge
+            challenge_raw = game_docs[base][level_num - 1][challenge_num - 1]
+            challenge_title = challenge_raw["title"]
+            content = ""
+
+            if level_num == 13 and challenge_num == 1:
+                content = "13.1 is a No Flag Zone™ 🙅⛔⚔️"
+            else:
+                #Generates random, but unique and identical per challenge, base 64 "flag"
+                content = "The flag is: "+generatebase64(ord(base[0])+level_num+challenge_num)
+
+            embed = Embed(
+                title=(f"{base} - Level {level_num} Challenge {challenge_num} - {challenge_title}"),
+                description=content,
+                colour=0x4262f4
+            )
+            embed.set_author(
+                name="Cyber Discovery",
+                icon_url=CYBERDISC_ICON_URL
+            )
+
+            await ctx.send(embed=embed)
+            
     @command(aliases=["a", "al"])
     async def assess(self, ctx: Context, challenge_num: int):
         """
