@@ -16,7 +16,7 @@ from bot.constants import BASE_ALIASES, CYBERDISC_ICON_URL, HINTS_LIMIT, PWNED_I
 
 async def generatebase64(seed: int):
     random.seed(seed)
-    letters = string.ascii_letters + string.digits + "+" + "/" + "="
+    letters = string.ascii_letters + string.digits + "+/="
 
     return "".join(random.choices(letters, k=20))
 
