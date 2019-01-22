@@ -17,12 +17,8 @@ from bot.constants import BASE_ALIASES, CYBERDISC_ICON_URL, HINTS_LIMIT, PWNED_I
 async def generatebase64(seed: int):
     random.seed(seed)
     letters = string.ascii_letters + string.digits + "+" + "/" + "="
-    result = ""
-
-    for _ in range(20):
-        result += "".join(random.choices(letters))
-
-    return result
+    
+    return "".join(random.choices(letters, k=20))
 
 
 class Cyber:
