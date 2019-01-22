@@ -11,7 +11,7 @@ from discord.ext.commands import Bot, Context, command
 
 from bot.constants import BASE_ALIASES, CYBERDISC_ICON_URL, HINTS_LIMIT, PWNED_ICON_URL
 
-async def generateb64(seed: int):
+async def generatebase64(seed: int):
     import random
     import string
     random.seed(seed)
@@ -179,8 +179,8 @@ class Cyber:
             if level_num == 13 and challenge_num == 1:
                 content = "13.1 is a No Flag Zone™ 🙅⛔⚔️"
             else:
-                #Generates random, but unique and identical per challenge, base 64 "flag"
-                content = "The flag is: "+generatebase64(ord(base[0])+level_num+challenge_num)
+                # Generates random, but unique and identical per challenge, base 64 "flag"
+                content = "The flag is: " + generatebase64(ord(base[0]) + level_num + challenge_num)
 
             embed = Embed(
                 title=(f"{base} - Level {level_num} Challenge {challenge_num} - {challenge_title}"),
@@ -193,7 +193,7 @@ class Cyber:
             )
 
             await ctx.send(embed=embed)
-            
+
     @command(aliases=["a", "al"])
     async def assess(self, ctx: Context, challenge_num: int):
         """
