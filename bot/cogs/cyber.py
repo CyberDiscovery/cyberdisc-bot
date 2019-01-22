@@ -1,5 +1,7 @@
 import datetime
+import random
 import re
+import string
 from hashlib import sha1
 from json import load
 
@@ -10,6 +12,12 @@ from discord import Embed, Message
 from discord.ext.commands import Bot, Context, command
 
 from bot.constants import BASE_ALIASES, CYBERDISC_ICON_URL, HINTS_LIMIT, PWNED_ICON_URL
+
+
+async def generatebase64(seed: int):
+    random.seed(seed)
+    letters = string.ascii_letters + string.digits + "+/="
+    return "".join(random.choices(letters, k=20))
 
 
 class Cyber:
@@ -120,6 +128,26 @@ class Cyber:
             embed.set_footer(text="  |  ".join(challenge_tip))
 
             await ctx.send(embed=embed)
+
+    @command()
+    async def flag(self, ctx: Context, base: str, level_num: int, challenge_num: int = 0):
+        if level_num == 13 and challenge_num == 1:
+            content = "13.1 is a No Flag Zone™ 🙅⛔⚔️"
+        else:
+            # Generates random, but unique and identical per challenge, base 64 "flag"
+            content = "The flag is: " + generatebase64(ord(base[0]) + level_num + challenge_num)
+
+        embed = Embed(
+            title=(f"{base} - Level {level_num} Challenge {challenge_num}"),
+            description=content,
+            colour=0x4262f4
+        )
+        embed.set_author(
+            name="Cyber Discovery",
+            icon_url=CYBERDISC_ICON_URL
+        )
+
+        await ctx.send(embed=embed)
 
     @command(aliases=["a", "al"])
     async def assess(self, ctx: Context, challenge_num: int):
