@@ -7,6 +7,7 @@ from string import ascii_lowercase
 from typing import AsyncGenerator
 from urllib.parse import urlencode
 
+from asyncio import TimeoutError
 from aiohttp import ClientSession
 from discord import Embed, File, Member, Message
 from discord.ext.commands import (
@@ -16,7 +17,7 @@ from wand.drawing import Drawing
 from wand.image import Image
 
 
-from bot.constants import ADMIN_ROLES, EMOJI_LETTERS, QUOTES_BOT_ID, QUOTES_CHANNEL_ID
+from bot.constants import ADMIN_ROLES, EMOJI_LETTERS, FAKE_ROLE_ID, QUOTES_BOT_ID, QUOTES_CHANNEL_ID, STAFF_ROLE_ID
 
 
 ascii_lowercase += ' '
@@ -37,7 +38,7 @@ async def _convert_emoji(message: str) -> AsyncGenerator:
             continue
 
 
-async def emojify(message: Message, string: str):
+async def emojify(message: Message, string: str) -> None:
     """Convert a string to emojis, and add those emojis to a message."""
     async for emoji in _convert_emoji(string.lower()):
         if emoji is not None:
@@ -49,15 +50,64 @@ class Fun:
     Commands for fun!
     """
 
+    # Embed sent when users try to ping staff
+    ping_embed = Embed(
+        colour=0xff0000,
+        description="⚠ **Please make sure you have taken the following into account:** "
+    ).set_footer(
+        text="To continue with the ping, react 👍, To delete this message and move on, react 👎"
+    ).add_field(
+        name="Cyber Discovery staff will not provide help for challenges.",
+        value="If you're looking for help, feel free to ask questions in one of our topical channels."
+    ).add_field(
+        name="Make sure you have emailed support before pinging here.",
+        value="`support@joincyberdiscovery.com` are available to answer any and all questions!"
+    )
+
     def __init__(self, bot: Bot):
         self.bot = bot
+        self.staff_role = None
         self.quote_channel = None
+        self.fake_staff_role = None
 
     async def on_message(self, message: Message):
 
+        print(self.bot.guilds[0].roles)
+
+        if self.staff_role is None:
+            self.staff_role = self.bot.guilds[0].get_role(STAFF_ROLE_ID)
+
+        if self.fake_staff_role is None:
+            self.fake_staf_role = self.bot.guilds[0].get_role(FAKE_ROLE_ID)
+
+        if self.quote_channel is None:
+            self.quote_channel = self.bot.get_channel(QUOTES_CHANNEL_ID)
+
+        # If a new quote is added, add it to the quotes cache.
         if message.channel.id == QUOTES_CHANNEL_ID and message.author.id == QUOTES_BOT_ID:
             author = message.embeds[0].title
             self.bot.quotes[author].append(message.id)
+        
+        print(self.fake_staff_role)
+        if self.fake_staff_role in message.role_mentions and not message.author.bot:
+            sent = message.channel.send(embed=self.ping_embed, delete_after=30)
+            sent.add_reaction('👍')
+            sent.add_reaction('👎')
+
+            def check(reaction, user):
+                return all(
+                    user == message.author,
+                    str(reaction.emoji) in '👍👎'
+                )
+
+            try:
+                reaction, user = await self.bot.wait_for(
+                    'reaction_add', timeout=30, check=check
+                )
+            except BaseException:
+                print('lol ok')
+            else:
+                pass
 
         """
         React based on the contents of a message.
@@ -187,7 +237,6 @@ class Fun:
         Returns a random quotation from the #quotes channel.
         A user can be specified to return a random quotation from that user.
         """
-        quote_channel = self.bot.get_channel(QUOTES_CHANNEL_ID)
         quotes = self.bot.quotes
 
         if member is None:
@@ -199,7 +248,7 @@ class Fun:
                 return
             message_id = choice(user_quotes)
 
-        message = await quote_channel.get_message(message_id)
+        message = await self.quote_channel.get_message(message_id)
         await ctx.send(embed=message.embeds[0])
 
     @command()
