@@ -9,12 +9,13 @@ from urllib.parse import urlencode
 
 import asyncpg
 from aiohttp import ClientSession
-from bot.constants import ADMIN_ROLES, EMOJI_LETTERS, QUOTES_BOT_ID, QUOTES_CHANNEL_ID
 from discord import Embed, File, Member, Message, NotFound
 from discord.ext.commands import Bot, Context, TextChannelConverter, command, has_any_role
 from discord.utils import find as discord_find
 from wand.drawing import Drawing
 from wand.image import Image
+
+from bot.constants import ADMIN_ROLES, EMOJI_LETTERS, QUOTES_BOT_ID, QUOTES_CHANNEL_ID
 
 ascii_lowercase += " "
 
@@ -194,7 +195,7 @@ class Fun:
         else:
             message_id = await conn.fetchval(
                 "SELECT quote_id FROM quotes WHERE author_id=$1 ORDER BY random() LIMIT 1;",
-                member.id
+                member.id,
             )
             if message_id is None:
                 await ctx.send("No quotes for that user.")
@@ -224,7 +225,7 @@ class Fun:
                 author_info = embed.author.split("#")
                 author_id = discord_find(
                     lambda m: m.name == author_info[0] or m.discriminator == author_info[1],
-                    quote.guild.members
+                    quote.guild.members,
                 )
         else:
             author_id = quote.mentions[0].id if quote.mentions else None
@@ -232,7 +233,7 @@ class Fun:
             await conn.execute(
                 "INSERT INTO quotes(quote_id, author_id) VALUES($1, $2) ON CONFLICT DO NOTHING;",
                 quote.id,
-                author_id
+                author_id,
             )
         else:
             await conn.execute(
