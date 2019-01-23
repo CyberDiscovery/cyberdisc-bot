@@ -104,10 +104,7 @@ class Fun:
             ie_flag = True
 
         # Creates a lmgtfy.com url for the given query.
-        request_data = {
-            "q": " ".join(arg for arg in args if not arg.startswith("-")),
-            "ie": int(ie_flag),
-        }
+        request_data = {"q": " ".join(arg for arg in args if not arg.startswith("-")), "ie": int(ie_flag)}
         url = "https://lmgtfy.com/?" + urlencode(request_data)
 
         await ctx.send(url)
@@ -170,9 +167,7 @@ class Fun:
         comic.set_footer(text=data["alt"])
         comic.set_image(url=data["img"])
         comic.url = f"https://xkcd.com/{number}"
-        comic.set_author(
-            name="xkcd", url="https://xkcd.com/", icon_url="https://xkcd.com/s/0b7742.png"
-        )
+        comic.set_author(name="xkcd", url="https://xkcd.com/", icon_url="https://xkcd.com/s/0b7742.png")
         comic.add_field(name="Number:", value=number)
         comic.add_field(name="Date:", value=date)
         comic.add_field(name="Explanation:", value=f"https://explainxkcd.com/{number}")
@@ -194,8 +189,7 @@ class Fun:
             )  # fetchval returns first value by default
         else:
             message_id = await conn.fetchval(
-                "SELECT quote_id FROM quotes WHERE author_id=$1 ORDER BY random() LIMIT 1;",
-                member.id,
+                "SELECT quote_id FROM quotes WHERE author_id=$1 ORDER BY random() LIMIT 1;", member.id
             )
             if message_id is None:
                 await ctx.send("No quotes for that user.")
@@ -224,21 +218,16 @@ class Fun:
             except NotFound:
                 author_info = embed.author.split("#")
                 author_id = discord_find(
-                    lambda m: m.name == author_info[0] or m.discriminator == author_info[1],
-                    quote.guild.members,
+                    lambda m: m.name == author_info[0] or m.discriminator == author_info[1], quote.guild.members
                 )
         else:
             author_id = quote.mentions[0].id if quote.mentions else None
         if author_id is not None:
             await conn.execute(
-                "INSERT INTO quotes(quote_id, author_id) VALUES($1, $2) ON CONFLICT DO NOTHING;",
-                quote.id,
-                author_id,
+                "INSERT INTO quotes(quote_id, author_id) VALUES($1, $2) ON CONFLICT DO NOTHING;", quote.id, author_id
             )
         else:
-            await conn.execute(
-                "INSERT INTO quotes(quote_id) VALUES($1) ON CONFLICT DO NOTHING;", quote.id
-            )
+            await conn.execute("INSERT INTO quotes(quote_id) VALUES($1) ON CONFLICT DO NOTHING;", quote.id)
         print(f"Quote ID: {quote.id} has been added to the database.")
 
     @command()
@@ -249,9 +238,7 @@ class Fun:
         Needs PG_HOST, PG_USER, PG_DATABASE and PG_PASSWORD env vars.
         """
         conn = await asyncpg.connect()
-        await conn.execute(
-            "CREATE TABLE IF NOT EXISTS quotes (quote_id bigint PRIMARY KEY, author_id bigint)"
-        )
+        await conn.execute("CREATE TABLE IF NOT EXISTS quotes (quote_id bigint PRIMARY KEY, author_id bigint)")
         quote_channel = self.bot.get_channel(QUOTES_CHANNEL_ID)
         async for quote in quote_channel.history(limit=None):
             await self.add_quote_to_db(conn, quote)
