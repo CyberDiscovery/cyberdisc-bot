@@ -21,10 +21,6 @@ LEVEL_COLORS = {
 class DiscordHandler(logging.Handler):
     """
     A class implementing logging.Handler methods to send logs to a Discord channel.
-
-    >>> handler = DiscordHandler(client) # Where client is your instance of
-    ...                                  # discord.Client or commands.Bot
-    >>> logger.addHandler(handler)
     """
     def __init__(self, bot: commands.Bot, *args, **kwargs):
         super().__init__(*args, **kwargs)
