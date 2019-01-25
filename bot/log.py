@@ -38,7 +38,7 @@ class DiscordHandler(logging.Handler):
         if not self.client.loop.is_running():
             # The event loop is not running (discord is not connected) so
             # do not send the message
-            pass
+            return
 
         # Fetch the logging channel
         log_channel = self.client.get_channel(LOGGING_CHANNEL_ID)
