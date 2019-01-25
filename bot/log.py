@@ -37,9 +37,6 @@ class DiscordHandler(logging.Handler):
             # do not send the message
             return
 
-        # Fetch the logging channel
-        log_channel = self.client.get_channel(LOGGING_CHANNEL_ID)
-
         # Create an embed with a title like "Info" or "Error" and a color
         # relating to the level of the log message
         embed = Embed(title=record.levelname.title(), color=self._level_to_color(record.levelno))
@@ -50,7 +47,7 @@ class DiscordHandler(logging.Handler):
         embed.add_field(name="Function", value=f"`{record.funcName}`", inline=True)
         embed.add_field(name="File name", value=f"`{record.filename}`", inline=True)
         embed.add_field(name="Line number", value=record.lineno, inline=True)
-        
+
         if self.log_channel is None:
             self.log_channel = self.client.get_channel(LOGGING_CHANNEL_ID)
 
