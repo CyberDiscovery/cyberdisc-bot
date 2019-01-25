@@ -35,6 +35,7 @@ bot.quotes = defaultdict(list)
 
 bot.log = logger
 
+
 @bot.check
 async def block_banned_ids(ctx):
     """Check for if a user is banned."""
