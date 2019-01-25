@@ -17,6 +17,8 @@ class General:
         print(self.bot.user.name)
         print(self.bot.user.id)
         print('------')
+        
+        self.bot.log.info("CyberDiscovery bot is now logged in.")
 
         quote_channel = self.bot.get_channel(QUOTES_CHANNEL_ID)
 
