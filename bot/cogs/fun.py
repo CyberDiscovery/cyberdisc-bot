@@ -88,9 +88,8 @@ class Fun:
         if "revive" in message.content.lower():
             await emojify(message, "nou")
 
-    @client.event
     async def on_member_join(member):
-        channel = bot.get_channel(JOIN_CHANNEL_ID)
+        channel = self.bot.get_channel(JOIN_CHANNEL_ID)
         if member.avatar_url in DEFAULT_AVATARS:
             await channel.send(f'{member.mention} | "*grumbles* <https://support.discordapp.com/hc/en-us/articles/204156688-How-do-I-change-my-avatar>" - Beano')
         else:
