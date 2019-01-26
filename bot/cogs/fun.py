@@ -16,7 +16,7 @@ from wand.drawing import Drawing
 from wand.image import Image
 
 
-from bot.constants import ADMIN_ROLES, EMOJI_LETTERS, QUOTES_BOT_ID, QUOTES_CHANNEL_ID
+from bot.constants import ADMIN_ROLES,DEFAULT_AVATARS, EMOJI_LETTERS, JOIN_CHANNEL_ID, QUOTES_BOT_ID, QUOTES_CHANNEL_ID
 
 
 ascii_lowercase += ' '
@@ -87,6 +87,14 @@ class Fun:
         # React "NO" if message contains revive.
         if "revive" in message.content.lower():
             await emojify(message, "nou")
+
+    @bot.event
+    async def on_member_join(member):
+        channel = bot.get_channel(JOIN_CHANNEL_ID)
+        if member.avatar_url in DEFAULT_AVATARS:
+            await channel.send(f'{member.mention} | "*grumbles* <https://support.discordapp.com/hc/en-us/articles/204156688-How-do-I-change-my-avatar>" - Beano')
+        else:
+            pass
 
     @command()
     async def lmgtfy(self, ctx: Context, *args: str):
