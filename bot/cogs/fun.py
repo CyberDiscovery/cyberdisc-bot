@@ -92,7 +92,7 @@ class Fun:
         channel = self.bot.get_channel(JOIN_CHANNEL_ID)
         if member.avatar_url in DEFAULT_AVATARS:
             text = f'{member.mention} | "*grumbles* <https://support.discordapp.com/hc/en-us/articles/204156688>"'
-            text+=  " - Beano"
+            text +=  " - Beano"
             await channel.send(text)
         else:
             pass
