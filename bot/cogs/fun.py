@@ -16,7 +16,7 @@ from wand.drawing import Drawing
 from wand.image import Image
 
 
-from bot.constants import ADMIN_ROLES,DEFAULT_AVATARS, EMOJI_LETTERS, JOIN_CHANNEL_ID, QUOTES_BOT_ID, QUOTES_CHANNEL_ID
+from bot.constants import ADMIN_ROLES, DEFAULT_AVATARS, EMOJI_LETTERS, JOIN_CHANNEL_ID, QUOTES_BOT_ID, QUOTES_CHANNEL_ID
 
 
 ascii_lowercase += ' '
@@ -88,7 +88,7 @@ class Fun:
         if "revive" in message.content.lower():
             await emojify(message, "nou")
 
-    @bot.event
+    @client.event
     async def on_member_join(member):
         channel = bot.get_channel(JOIN_CHANNEL_ID)
         if member.avatar_url in DEFAULT_AVATARS:
