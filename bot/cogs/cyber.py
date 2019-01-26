@@ -132,6 +132,10 @@ class Cyber:
     @command()
     async def flag(self, ctx: Context, base: str, level_num: int, challenge_num: int = 0):
         """Generate a flag for the specified base, level and challenge."""
+        if challenge_num == 0:
+            challenge_num = level_num
+            level_num = int(base)
+            base = "Headquarters"
         if level_num == 13 and challenge_num == 1:
             content = "13.1 is a No Flag Zone™ 🙅⛔⚔️"
         else:
