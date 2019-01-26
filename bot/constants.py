@@ -63,3 +63,10 @@ EMOJI_LETTERS = [  # Feel free to add to this list
     "\U0001f1ff\U0001f4a4",  # Z
     "\u26ab\U0001f535\U0001f534\u26aa"  # Whitespace alternatives
 ]
+# List of Default Discord Avatars
+
+DEFAULT_AVATARS = ["https://cdn.discordapp.com/embed/avatars/0.png",
+                   "https://cdn.discordapp.com/embed/avatars/1.png",
+                   "https://cdn.discordapp.com/embed/avatars/2.png",
+                   "https://cdn.discordapp.com/embed/avatars/3.png",
+                   "https://cdn.discordapp.com/embed/avatars/4.png"]
