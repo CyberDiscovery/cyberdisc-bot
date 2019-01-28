@@ -9,13 +9,12 @@ from urllib.parse import urlencode
 
 import asyncpg
 from aiohttp import ClientSession
+from bot.constants import ADMIN_ROLES, EMOJI_LETTERS, QUOTES_BOT_ID, QUOTES_CHANNEL_ID
 from discord import Embed, File, Member, Message, NotFound
 from discord.ext.commands import Bot, Context, TextChannelConverter, command, has_any_role
 from discord.utils import find as discord_find
 from wand.drawing import Drawing
 from wand.image import Image
-
-from bot.constants import ADMIN_ROLES, EMOJI_LETTERS, QUOTES_BOT_ID, QUOTES_CHANNEL_ID
 
 ascii_lowercase += " "
 
@@ -201,25 +200,17 @@ class Fun:
         content = message.content
         attachment_urls = [attachment.url for attachment in message.attachments]
 
-        if message.embeds: 
+        if message.embeds:
             embed = message.embeds[0]
-        elif len(attachments) == 1:
-            image_url = attachments.pop(0)
+        elif len(attachment_urls) == 1:
+            image_url = attachment_urls.pop(0)
             embed = Embed()
             embed.set_image(url=image_url)
 
-        for url in attachments_urls:
+        for url in attachment_urls:
             content += "\n" + url
 
         await ctx.send(content, embed=embed)
-            await ctx.send(embed=message.embeds[0])
-        elif len(message.attachments) > 0:
-            image_url = message.attachments[0].url
-            quote = Embed()
-            quote.set_image(url=image_url)
-            await ctx.send(embed=quote)
-        else:
-            await ctx.send(message.content)
 
     async def add_quote_to_db(self, conn: asyncpg.connection.Connection, quote: Message):
         if quote.author.id == QUOTES_BOT_ID:
