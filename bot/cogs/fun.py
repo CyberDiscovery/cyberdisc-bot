@@ -197,7 +197,21 @@ class Fun:
 
         await conn.close()
         message = await quote_channel.get_message(message_id)
-        if message.author.id == QUOTES_BOT_ID:
+        embed = None
+        content = message.content
+        attachment_urls = [attachment.url for attachment in message.attachments]
+
+        if message.embeds: 
+            embed = message.embeds[0]
+        elif len(attachments) == 1:
+            image_url = attachments.pop(0)
+            embed = Embed()
+            embed.set_image(url=image_url)
+
+        for url in attachments_urls:
+            content += "\n" + url
+
+        await ctx.send(content, embed=embed)
             await ctx.send(embed=message.embeds[0])
         elif len(message.attachments) > 0:
             image_url = message.attachments[0].url
