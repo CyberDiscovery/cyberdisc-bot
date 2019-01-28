@@ -213,6 +213,9 @@ class Fun:
         await ctx.send(content, embed=embed)
 
     async def add_quote_to_db(self, conn: asyncpg.connection.Connection, quote: Message):
+        """
+        Adds a quote message ID to the database, and attempts to identify the author of the quote.
+        """
         if quote.author.id == QUOTES_BOT_ID:
             if not quote.embeds:
                 return
@@ -249,15 +252,6 @@ class Fun:
             await self.add_quote_to_db(conn, quote)
         await conn.close()
         await ctx.send("done!")
-
-    @command()
-    @has_any_role(*ADMIN_ROLES)
-    async def set_quote_channel(self, ctx: Context, channel: TextChannelConverter):
-        """
-        Sets the quotes channel.
-        """
-        self.quote_channel = channel
-        await ctx.send("Quotes channel successfully set.")
 
     async def create_text_image(self, ctx: Context, person: str, text: str):
         """
