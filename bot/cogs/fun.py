@@ -11,7 +11,7 @@ import asyncpg
 from aiohttp import ClientSession
 from bot.constants import ADMIN_ROLES, EMOJI_LETTERS, QUOTES_BOT_ID, QUOTES_CHANNEL_ID
 from discord import Embed, File, Member, Message, NotFound
-from discord.ext.commands import Bot, Context, TextChannelConverter, command, has_any_role
+from discord.ext.commands import Bot, Context, command, has_any_role
 from discord.utils import find as discord_find
 from wand.drawing import Drawing
 from wand.image import Image
