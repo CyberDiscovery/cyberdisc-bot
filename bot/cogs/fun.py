@@ -91,7 +91,7 @@ class Fun:
     async def on_member_join(self, member):
         channel = self.bot.get_channel(JOIN_CHANNEL_ID)
         if member.avatar_url in DEFAULT_AVATARS:
-            text = f'{member.mention} | "*grumbles* <https://support.discordapp.com/hc/en-us/articles/204156688>"'
+            text = f'{member.mention} | "*grumbles* https://support.discordapp.com/hc/en-us/articles/204156688"'
             text += " - Beano"
             await channel.send(text)
         else:
