@@ -1,7 +1,6 @@
 """Main script to define bot methods, and start the bot."""
 
 import logging
-from collections import defaultdict
 from os import environ
 
 from discord import Game
@@ -31,7 +30,6 @@ bot.muted = []
 
 bot.banned_ids = []
 
-bot.quotes = defaultdict(list)
 
 bot.log = logger
 
