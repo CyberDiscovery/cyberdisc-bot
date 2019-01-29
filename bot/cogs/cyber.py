@@ -94,13 +94,10 @@ class Cyber:
         elif challenge_num == 0:
             await ctx.send("Invalid challenge number!")
             return
-        # Find out which base the user is refering to.
-        for area in BASE_ALIASES.keys():
-            if base.lower() in BASE_ALIASES[area]:
-                base = area
-                break
-        else:
-            await ctx.send("Unknown base.")
+
+        base = self.get_area_from_base_abbrv(base)
+
+        if base is None:
             return
 
         # Check to see if that many levels are present
@@ -138,7 +135,7 @@ class Cyber:
             # Generates random, but unique and identical per challenge, base 64 "flag"
             #
             # First, we must generate a numeric seed (deterministically) out of:
-            # - the base (HQ/Forensics/Moon)
+            # - the area [base] (HQ/Forensics/Moon)
             # - the level [1..13]
             # - the challenge [1..13]
             #
@@ -151,12 +148,13 @@ class Cyber:
             # gain a single numeric seed which we can then pass for further computation
             # to `generatebase64`
             #
-            # To convert the base (HQ/Forensics/Moon) into a number, we take the ASCII
+            # To convert the area (HQ/Forensics/Moon) into a number, we take the ASCII
             # value of the first character present. ("H", "F", and "M" respectively).
-            #
-            # TODO: Validate that only those bases (HQ/Forensics/Moon) are allowed
 
-            seed = ord(base[0].lower()), level_num, challenge_num
+            area = self.get_area_from_base_abbrv(base)
+
+            seed = ord(area[0]), level_num, challenge_num
+
             num_base = 128  # the positional number base to use (must be > than all components of seed)
 
             aggregate_seed = sum(digit * (num_base ** digit_index) for digit_index, digit in enumerate(seed))
@@ -340,6 +338,11 @@ class Cyber:
             return
         await ctx.send(f"{stage_name} begins on the {countdown_target_str}.\n"
                        f"That's in {month_and_day_countdown}!")
+
+    async def get_area_from_base_abbrv(self, base: str):
+        for area in BASE_ALIASES.keys():
+            if base.lower() in BASE_ALIASES[area]:
+                return area
 
     async def on_message(self, message: Message):
         # Check the current command context
