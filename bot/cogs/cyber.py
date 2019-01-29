@@ -95,7 +95,7 @@ class Cyber:
             await ctx.send("Invalid challenge number!")
             return
 
-        base = self.get_area_from_base_abbrv(base)
+        base = await self.get_area_from_base_abbrv(base)
 
         if base is None:
             return
@@ -129,8 +129,12 @@ class Cyber:
     @command()
     async def flag(self, ctx: Context, base: str, level_num: int, challenge_num: int = 0):
         """Generate a flag for the specified base, level and challenge."""
+        area = await self.get_area_from_base_abbrv(base)
+
         if level_num == 13 and challenge_num == 1:
             content = "13.1 is a No Flag Zone™ 🙅⛔⚔️"
+        elif area is None:
+            content = "Error: Invalid base specified"
         else:
             # Generates random, but unique and identical per challenge, base 64 "flag"
             #
@@ -151,7 +155,6 @@ class Cyber:
             # To convert the area (HQ/Forensics/Moon) into a number, we take the ASCII
             # value of the first character present. ("H", "F", and "M" respectively).
 
-            area = self.get_area_from_base_abbrv(base)
 
             seed = ord(area[0]), level_num, challenge_num
 
