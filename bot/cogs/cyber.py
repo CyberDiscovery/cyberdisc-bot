@@ -155,9 +155,8 @@ class Cyber:
             # value of the first character present. ("H", "F", and "M" respectively).
             #
             # TODO: Validate that only those bases (HQ/Forensics/Moon) are allowed
-            # TODO: Ensure that capital and lowercase letters both result in the same flag
 
-            seed = ord(base[0]), level_num, challenge_num
+            seed = ord(base[0].lower()), level_num, challenge_num
             num_base = 128  # the positional number base to use (must be > than all components of seed)
 
             aggregate_seed = sum(digit * (num_base ** digit_index) for digit_index, digit in enumerate(seed))
