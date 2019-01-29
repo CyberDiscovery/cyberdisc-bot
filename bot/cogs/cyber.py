@@ -136,7 +136,33 @@ class Cyber:
             content = "13.1 is a No Flag Zone™ 🙅⛔⚔️"
         else:
             # Generates random, but unique and identical per challenge, base 64 "flag"
-            content = "The flag is: " + await generatebase64(ord(base[0]) + level_num + challenge_num)
+            #
+            # First, we must generate a numeric seed (deterministically) out of:
+            # - the base (HQ/Forensics/Moon)
+            # - the level [1..13]
+            # - the challenge [1..13]
+            #
+            # If we just added up the components of the seed, the resulting seed would not
+            # be unique. For example, 2 + 2 + 2 = 1 + 2 + 3.
+            #
+            # As a result, we treat each component of the seed as a digit in a positional
+            # number system (in this case, base-128, since all components will be less than
+            # this value). We can then convert these components (digits) into base-10 and
+            # gain a single numeric seed which we can then pass for further computation
+            # to `generatebase64`
+            #
+            # To convert the base (HQ/Forensics/Moon) into a number, we take the ASCII
+            # value of the first character present. ("H", "F", and "M" respectively).
+            #
+            # TODO: Validate that only those bases (HQ/Forensics/Moon) are allowed
+            # TODO: Ensure that capital and lowercase letters both result in the same flag
+
+            seed = ord(base[0]), level_num, challenge_num
+            num_base = 128  # the positional number base to use (must be > than all components of seed)
+
+            aggregate_seed = sum(digit * (num_base ** digit_index) for digit_index, digit in enumerate(seed))
+
+            content = "The flag is: " + await generatebase64(aggregate_seed)
 
         embed = Embed(
             title=(f"{base} - Level {level_num} Challenge {challenge_num}"),
