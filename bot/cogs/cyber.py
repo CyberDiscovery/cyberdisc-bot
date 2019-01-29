@@ -155,7 +155,6 @@ class Cyber:
             # To convert the area (HQ/Forensics/Moon) into a number, we take the ASCII
             # value of the first character present. ("H", "F", and "M" respectively).
 
-
             seed = ord(area[0]), level_num, challenge_num
 
             num_base = 128  # the positional number base to use (must be > than all components of seed)
