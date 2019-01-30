@@ -345,7 +345,7 @@ class Cyber:
         # CyberStart Essentials Dates.
         elif self.essentials_start_regex.match(message.content):
             await message.channel.send(f"{message.author.mention}  |"
-                                       "  Cyberstart Essentials begins on the 5 March 2019.")
+                                       "  Cyberstart Essentials begins on the 5th March 2019.")
 
         elif self.essentials_end_regex.match(message.content):
             await message.channel.send(f"{message.author.mention}  |"
