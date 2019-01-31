@@ -95,7 +95,7 @@ class Cyber:
             await ctx.send("Invalid challenge number!")
             return
 
-        base = await self.get_area_from_base_abbrv(base)
+        base = self.get_area_from_base_abbrv(base)
 
         if base is None:
             return
@@ -129,7 +129,7 @@ class Cyber:
     @command()
     async def flag(self, ctx: Context, base: str, level_num: int, challenge_num: int = 0):
         """Generate a flag for the specified base, level and challenge."""
-        area = await self.get_area_from_base_abbrv(base)
+        area = self.get_area_from_base_abbrv(base)
 
         if level_num == 13 and challenge_num == 1:
             content = "13.1 is a No Flag Zone™ 🙅⛔⚔️"
@@ -342,7 +342,7 @@ class Cyber:
         await ctx.send(f"{stage_name} begins on the {countdown_target_str}.\n"
                        f"That's in {month_and_day_countdown}!")
 
-    async def get_area_from_base_abbrv(self, base: str):
+    def get_area_from_base_abbrv(self, base: str):
         for area in BASE_ALIASES.keys():
             if base.lower() in BASE_ALIASES[area]:
                 return area
