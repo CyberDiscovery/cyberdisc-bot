@@ -342,7 +342,8 @@ class Cyber:
         await ctx.send(f"{stage_name} begins on the {countdown_target_str}.\n"
                        f"That's in {month_and_day_countdown}!")
 
-    def get_area_from_base_abbrv(self, base: str):
+    @staticmethod
+    def get_area_from_base_abbrv(base: str):
         for area in BASE_ALIASES.keys():
             if base.lower() in BASE_ALIASES[area]:
                 return area
