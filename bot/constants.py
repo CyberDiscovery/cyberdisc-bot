@@ -6,6 +6,15 @@ QUOTES_CHANNEL_ID = 463657120441696256
 QUOTES_BOT_ID = 292953664492929025
 LOGGING_CHANNEL_ID = 538494690601992212
 
+# Self-assignable roles
+SELF_ROLE_NAMES = {
+    "10": "Year 10",
+    "11": "Year 11",
+    "12": "Year 12",
+    "13": "Year 13",
+    "old": "Always just a bit too old"
+}
+
 # Lists for administration
 
 ADMIN_ROLES = ("Root", "Sudo")
