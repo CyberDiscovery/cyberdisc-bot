@@ -34,7 +34,9 @@ class General:
         role_name = SELF_ROLE_NAMES.get(year_group, None)
 
         if role_name is None:
-            await ctx.send(f"Not a self-assignable role. Try one of: {', '.join(SELF_ROLE_NAMES.keys())}")
+            msg = f"Not a self-assignable role. Try one of: {', '.join(SELF_ROLE_NAMES.keys())}, "
+            msg += "or use 'remove' if you don't want a year group role"
+            await ctx.send(msg)
         else:
             roles_to_add = list(filter(lambda role: role.name == role_name, ctx.guild.roles))
 
