@@ -64,6 +64,13 @@ class Cyber:
             re.IGNORECASE
         )
 
+    async def on_message(self, message: Message):
+        # If a question involves linux terminology, give a link to the field manual.
+        triggers = ("linux", "terminal", "", "grep", "cd", "ls", "nc", "mv", "cp", "ssh", "steghide", "chmod") # Some commands such as find aren't included because they could be in the wrong context.
+        channelids = ("532654287386443777", "532654358660120586", "532654399453921291")
+        if any(trigger in message.content.lower() for trigger in triggers) and message.channel.id in channelids:
+            await ctx.send("Have you tried looking in the field manual? https://game.joincyberdiscovery.com/manual")
+        
     @command(aliases=["Manual", "manual", "fm"])
     async def fieldmanual(self, ctx: Context):
         """
