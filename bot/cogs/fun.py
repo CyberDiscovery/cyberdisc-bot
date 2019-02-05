@@ -250,6 +250,13 @@ class Fun:
         """
         await self.create_text_image(ctx, "AgentQ", text)
 
+    @command()
+    async def angryj(self, ctx: Context, *, text: str):
+        """
+        Creates an image of Angry Agent J with the specified text.
+        """
+        await self.create_text_image(ctx, "AngryJ", text)
+
 
 def setup(bot):
     """
