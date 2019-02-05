@@ -88,6 +88,11 @@ class Fun:
         if "revive" in message.content.lower():
             await emojify(message, "nou")
 
+        # React with warning if staff are tagged.
+        if message.mentions(member.role.id(510190042187300934)):
+            await ctx.send(
+                "Have you tried emailing support@joincyberdiscovery.com? Please make sure to do that before unnecessarily pinging the staff!")
+
     @command()
     async def lmgtfy(self, ctx: Context, *args: str):
         """
@@ -242,6 +247,13 @@ class Fun:
         Creates an image of Jibhat with the specified text.
         """
         await self.create_text_image(ctx, "Jibhat", text)
+
+    @command()
+    async def agentq(self, ctx: Context, *, text: str):
+        """
+        Creates an image of Agent Q with the specified text.
+        """
+        await self.create_text_image(ctx, "AgentQ", text)
 
 
 def setup(bot):
