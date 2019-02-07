@@ -13,15 +13,20 @@ flake8-tidy-imports = "==1.1.0"
 flake8-todo = "==0.7"
 safety = "==1.8.4"
 dodgy = "==0.1.9"
+mypy = "*"
 
 [packages]
 pyyaml = ">=4.2b1"
 python-dateutil = "*"
 Wand = "*"
 "discord.py" = {extras = ["voice"],file = "https://github.com/Rapptz/discord.py/archive/rewrite.zip"}
+aiohttp = "*"
 
 [requires]
 python_version = "3.7"
 
 [scripts]
 bot = "python -m bot"
+
+[pipenv]
+allow_prereleases = true

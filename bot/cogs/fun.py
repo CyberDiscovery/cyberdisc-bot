@@ -2,12 +2,12 @@
 Set of bot commands designed for general leisure.
 """
 import textwrap
+from asyncio import TimeoutError
 from random import choice, randint
 from string import ascii_lowercase
 from typing import AsyncGenerator
 from urllib.parse import urlencode
 
-from asyncio import TimeoutError
 from aiohttp import ClientSession
 from discord import Embed, File, Member, Message
 from discord.ext.commands import (
@@ -15,7 +15,6 @@ from discord.ext.commands import (
 )
 from wand.drawing import Drawing
 from wand.image import Image
-
 
 from bot.constants import ADMIN_ROLES, EMOJI_LETTERS, FAKE_ROLE_ID, QUOTES_BOT_ID, QUOTES_CHANNEL_ID, STAFF_ROLE_ID
 
