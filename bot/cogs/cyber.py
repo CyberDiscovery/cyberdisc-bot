@@ -85,8 +85,8 @@ class Cyber:
         if datetime.date.today() < datetime.date(2019, 1, 15):
             await self.game.callback(self, ctx)
             return
-        
-    async def on_message(self, message: Message):
+
+    async def on_message(self, message):
         # Check the current command context
         ctx = await self.bot.get_context(message)
         # If message is a command, ignore regex responses.
