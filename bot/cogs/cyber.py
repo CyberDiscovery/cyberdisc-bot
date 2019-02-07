@@ -85,6 +85,7 @@ class Cyber:
         if datetime.date.today() < datetime.date(2019, 1, 15):
             await self.game.callback(self, ctx)
             return
+        
     async def on_message(self, message: Message):
         # Check the current command context
         ctx = await self.bot.get_context(message)
@@ -92,7 +93,7 @@ class Cyber:
         if ctx.valid:
             return
         if self.game_level_regex.match(message.content):
-            lvl_num , challenge_num = int(match.group(2)),int(match.group(3))
+            level_num, challenge_num = int(match.group(2)), int(match.group(3))
             if message.channel.id == '532654287386443777':
                 base = 'hq'
             elif message.channel.id == '532654358660120586':
