@@ -63,7 +63,6 @@ class Cyber:
             r"^.*\bwhat\b.*\belite\b.*\bemail\b.*$",
             re.IGNORECASE
         )
-        
         self.game_level_regex = re.compile(
             r"^.*(level|lvl)\b.*(\d+).*?(\d+)\b.*$",
             re.IGNORECASE
@@ -83,16 +82,23 @@ class Cyber:
         Gets information about a specific CyberStart Game level and challenge.
         If the date is before the start date of game (15th January 2019) it will redirect to game() instead
         """
-
         if datetime.date.today() < datetime.date(2019, 1, 15):
             await self.game.callback(self, ctx)
             return
-        
+    async def on_message(self, message: Message):
+        # Check the current command context
+        ctx = await self.bot.get_context(message)
+        # If message is a command, ignore regex responses.
+        if ctx.valid:
+            return
         if self.game_level_regex.match(message.content):
-            lvl_num , challenge_num = int(match.group(2)) , int(match.group(3))
-            if message.channel.id == '532654287386443777' : base='hq'
-            elif message.channel.id == '532654358660120586' : base='m'
-            elif message.channel.id == '32654399453921291' : base='f'
+            lvl_num , challenge_num = int(match.group(2)),int(match.group(3))
+            if message.channel.id == '532654287386443777':
+                base = 'hq'
+            elif message.channel.id == '532654358660120586':
+                base = 'm'
+            elif message.channel.id == '32654399453921291':
+                base = 'f'
 
         # Gather data from CyberStart Game.
         with open("bot/data/game.json") as f:
