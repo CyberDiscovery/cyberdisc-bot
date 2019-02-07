@@ -63,6 +63,11 @@ class Cyber:
             r"^.*\bwhat\b.*\belite\b.*\bemail\b.*$",
             re.IGNORECASE
         )
+        
+        self.game_level_regex = re.compile(
+            r"^.*(level|lvl)\b.*(\d+).*?(\d+)\b.*$",
+            re.IGNORECASE
+        )
 
     @command(aliases=["Manual", "manual", "fm"])
     async def fieldmanual(self, ctx: Context):
@@ -82,6 +87,12 @@ class Cyber:
         if datetime.date.today() < datetime.date(2019, 1, 15):
             await self.game.callback(self, ctx)
             return
+        
+        if self.game_level_regex.match(message.content):
+            lvl_num , challenge_num = int(match.group(2)) , int(match.group(3))
+            if message.channel.id == '532654287386443777' : base='hq'
+            elif message.channel.id == '532654358660120586' : base='m'
+            elif message.channel.id == '32654399453921291' : base='f'
 
         # Gather data from CyberStart Game.
         with open("bot/data/game.json") as f:
