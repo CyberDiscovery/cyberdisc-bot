@@ -17,7 +17,8 @@ from wand.image import Image
 
 from bot.constants import ADMIN_ROLES, EMOJI_LETTERS, QUOTES_BOT_ID, QUOTES_CHANNEL_ID
 
-ascii_lowercase += " "
+
+ascii_lowercase += ' !?$'
 
 
 async def _convert_emoji(message: str) -> AsyncGenerator:
@@ -285,6 +286,20 @@ class Fun:
         Creates an image of Jibhat with the specified text.
         """
         await self.create_text_image(ctx, "Jibhat", text)
+
+    @command()
+    async def agentq(self, ctx: Context, *, text: str):
+        """
+        Creates an image of Agent Q with the specified text.
+        """
+        await self.create_text_image(ctx, "AgentQ", text)
+
+    @command()
+    async def angryj(self, ctx: Context, *, text: str):
+        """
+        Creates an image of Angry Agent J with the specified text.
+        """
+        await self.create_text_image(ctx, "AngryJ", text)
 
 
 def setup(bot):
