@@ -19,7 +19,7 @@ from wand.image import Image
 from bot.constants import ADMIN_ROLES, EMOJI_LETTERS, QUOTES_BOT_ID, QUOTES_CHANNEL_ID
 
 
-ascii_lowercase += ' '
+ascii_lowercase += ' !?$'
 
 
 async def _convert_emoji(message: str) -> AsyncGenerator:
