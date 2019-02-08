@@ -376,9 +376,9 @@ class Cyber:
 
         # Level Function Regex.
         match = self.game_level_regex.match(message.content)
-        if (HEADQUARTERS_CHANNEL_ID or MOON_CHANNEL_ID or FORENSICS_CHANNEL_ID) == message.channel.id and match:
+        if HQ_CHANNEL_ID or MOON_CHANNEL_ID or FORENSICS_CHANNEL_ID == message.channel.id and match:
             level_num, challenge_num = int(match.group(2)), int(match.group(3))
-            if message.channel.id == HEADQUARTERS_CHANNEL_ID:
+            if message.channel.id == HQ_CHANNEL_ID:
                 base = 'hq'
             elif message.channel.id == MOON_CHANNEL_ID:
                 base = 'm'
