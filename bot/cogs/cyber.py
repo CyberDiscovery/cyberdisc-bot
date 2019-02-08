@@ -64,7 +64,7 @@ class Cyber:
             re.IGNORECASE
         )
         self.game_level_regex = re.compile(
-            r"^.*(level|lvl)\b.*(\d+).*?(\d+)\b.*$",
+            r"^(?!:level).*(level|lvl)\b.*(\d+).*?(\d+)\b.*$",
             re.IGNORECASE
         )
 
