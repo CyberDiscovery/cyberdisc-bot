@@ -140,7 +140,7 @@ class Cyber:
             content = "13.1 is a No Flag Zone™ 🙅⛔⚔️"
         else:
             # Generates random, but unique and identical per challenge, base 64 "flag"
-            content = "The flag is: " + await generatebase64(ord(base[0]) + level_num + challenge_num)
+            content = "The flag is: ||" + (await generatebase64(ord(base[0]) + level_num + challenge_num)) + "||"
 
         embed = Embed(
             title=(f"{base} - Level {level_num} Challenge {challenge_num}"),

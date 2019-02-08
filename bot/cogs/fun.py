@@ -2,6 +2,7 @@
 Set of bot commands designed for general leisure.
 """
 import textwrap
+from io import BytesIO
 from random import randint
 from string import ascii_lowercase
 from typing import AsyncGenerator
@@ -270,8 +271,12 @@ class Fun:
             draw.text(image.width // 5 + 20, image.height // 5 + offset, line)
             offset += 35
         draw(image)
-        image.save(filename=f"bot/resources/{person}Says.png")
-        await ctx.send(file=File(f"bot/resources/{person}Says.png"))
+        image_bytes = BytesIO()
+        image.save(image_bytes)
+        image_bytes.seek(0)
+        await ctx.send(
+            file=File(image_bytes, filename=f'{person}.png')
+        )
 
     @command()
     async def agentj(self, ctx: Context, *, text: str):
