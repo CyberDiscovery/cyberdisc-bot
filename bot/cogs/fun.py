@@ -37,7 +37,7 @@ async def _convert_emoji(message: str) -> AsyncGenerator:
             continue
 
 
-async def emojify(message: Message, string: str) -> None:
+async def emojify(message: Message, string: str):
     """Convert a string to emojis, and add those emojis to a message."""
     async for emoji in _convert_emoji(string.lower()):
         if emoji is not None:
@@ -253,6 +253,7 @@ class Fun:
         Returns a random quotation from the #quotes channel.
         A user can be specified to return a random quotation from that user.
         """
+        quote_channel = self.bot.get_channel(QUOTES_CHANNEL_ID)
         quotes = self.bot.quotes
 
         if member is None:
@@ -264,7 +265,7 @@ class Fun:
                 return
             message_id = choice(user_quotes)
 
-        message = await self.quote_channel.get_message(message_id)
+        message = await quote_channel.get_message(message_id)
         await ctx.send(embed=message.embeds[0])
 
     @command()
