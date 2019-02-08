@@ -1,8 +1,8 @@
 """
 Set of bot commands designed for general leisure.
 """
+import asyncio
 import textwrap
-from asyncio import TimeoutError
 from io import BytesIO
 from random import choice, randint
 from string import ascii_lowercase
@@ -107,7 +107,7 @@ class Fun:
                 reaction, user = await self.bot.wait_for(
                     'reaction_add', timeout=30, check=check
                 )
-            except TimeoutError:
+            except asyncio.TimeoutError:
                 pass
             else:
                 if str(reaction) == '👍':
