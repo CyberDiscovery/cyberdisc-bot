@@ -86,6 +86,7 @@ class Cyber:
         if datetime.date.today() < datetime.date(2019, 1, 15):
             await self.game.callback(self, ctx)
             return
+
         # Gather data from CyberStart Game.
         with open("bot/data/game.json") as f:
             game_docs = load(f)
