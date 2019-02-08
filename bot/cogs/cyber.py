@@ -372,6 +372,7 @@ class Cyber:
             text += "We’re currently allocating students to their preferred locations so it’s an ongoing process!"
             text += " We’ll send out details of your location as soon as we can. It shouldn’t be too long!"
             await message.channel.send(text)
+
         # Level Function Regex.
         match = self.game_level_regex.match(message.content)
         if match:
