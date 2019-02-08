@@ -82,6 +82,7 @@ class Cyber:
         Gets information about a specific CyberStart Game level and challenge.
         If the date is before the start date of game (15th January 2019) it will redirect to game() instead
         """
+
         if datetime.date.today() < datetime.date(2019, 1, 15):
             await self.game.callback(self, ctx)
             return
@@ -96,6 +97,7 @@ class Cyber:
         elif challenge_num == 0:
             await ctx.send("Invalid challenge number!")
             return
+
         # Find out which base the user is refering to.
         for area in BASE_ALIASES.keys():
             if base.lower() in BASE_ALIASES[area]:
