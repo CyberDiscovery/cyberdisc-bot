@@ -376,13 +376,13 @@ class Cyber:
 
         # Level Function Regex.
         match = self.game_level_regex.match(message.content)
-        if (CHANNEL_ID["headquarters_id"] or CHANNEL_ID["moon_id"] or CHANNEL_ID["forensics_id"]) == message.channel.id and match:
+        if (HEADQUARTERS_CHANNEL_ID or MOON_CHANNEL_ID or FORENSICS_CHANNEL_ID) == message.channel.id and match:
             level_num, challenge_num = int(match.group(2)), int(match.group(3))
-            if message.channel.id == CHANNEL_ID["headquarters_id"]:
+            if message.channel.id == HEADQUARTERS_CHANNEL_ID:
                 base = 'hq'
-            elif message.channel.id == CHANNEL_ID["moon_id"]:
+            elif message.channel.id == MOON_CHANNEL_ID:
                 base = 'm'
-            elif message.channel.id == CHANNEL_ID["forensics_id"]:
+            elif message.channel.id == FORENSICS_CHANNEL_ID:
                 base = 'f'
             self.level(ctx, base, level_num, challenge_num)
 
