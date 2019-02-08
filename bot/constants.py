@@ -69,7 +69,7 @@ EMOJI_LETTERS = [  # Feel free to add to this list
 
 # Channel IDs
 CHANNEL_ID = {
-  "headquarters": '532654287386443777',
-  "moon": '532654358660120586',
-  "forensics": '32654399453921291'
+    "headquarters_id": "532654287386443777",
+    "moon_id": "532654358660120586",
+    "forensics_id": "32654399453921291"
 }
