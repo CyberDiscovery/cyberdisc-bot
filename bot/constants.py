@@ -66,3 +66,10 @@ EMOJI_LETTERS = [  # Feel free to add to this list
     "\u2754\u2753",  # ?
     "\U0001f4b2"  # $
 ]
+
+# Channel IDs
+CHANNEL_ID = {
+  "headquarters": '532654287386443777',
+  "moon": '532654358660120586',
+  "forensics": '32654399453921291'
+}
