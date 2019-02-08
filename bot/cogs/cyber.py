@@ -11,7 +11,7 @@ from dateutil.relativedelta import relativedelta
 from discord import Embed, Message
 from discord.ext.commands import Bot, Context, command
 
-from bot.constants import BASE_ALIASES, CYBERDISC_ICON_URL, HINTS_LIMIT, PWNED_ICON_URL
+from bot.constants import BASE_ALIASES, CYBERDISC_ICON_URL, HINTS_LIMIT, PWNED_ICON_URL, HQ_ID, MOON_ID, FORENSICS_ID
 
 
 async def generatebase64(seed: int) -> str:
@@ -376,13 +376,13 @@ class Cyber:
 
         # Level Function Regex.
         match = self.game_level_regex.match(message.content)
-        if match:
+        if match and message.channel.id == HQ_ID or MOON_ID or FORENSICS_ID:
             level_num, challenge_num = int(match.group(2)), int(match.group(3))
-            if match and message.channel.id == '532654287386443777':
+            if message.channel.id == HQ_ID:
                 base = 'hq'
-            elif match and message.channel.id == '532654358660120586':
+            elif message.channel.id == MOON_ID:
                 base = 'm'
-            elif match and message.channel.id == '32654399453921291':
+            elif message.channel.id == FORENSICS_ID:
                 base = 'f'
             self.level(ctx, base, level_num, challenge_num)
 
