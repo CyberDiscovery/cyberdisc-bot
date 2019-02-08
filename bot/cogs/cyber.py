@@ -85,22 +85,6 @@ class Cyber:
         if datetime.date.today() < datetime.date(2019, 1, 15):
             await self.game.callback(self, ctx)
             return
-
-        async def on_message(message):
-            # Check the current command context
-            ctx = await self.bot.get_context(message)
-            # If message is a command, ignore regex responses.
-            if ctx.valid:
-                return
-            if self.game_level_regex.match(message.content):
-                level_num, challenge_num = int(match.group(2)), int(match.group(3))
-                if message.channel.id == '532654287386443777':
-                    base = 'hq'
-                elif message.channel.id == '532654358660120586':
-                    base = 'm'
-                elif message.channel.id == '32654399453921291':
-                    base = 'f'
-
         # Gather data from CyberStart Game.
         with open("bot/data/game.json") as f:
             game_docs = load(f)
@@ -386,7 +370,16 @@ class Cyber:
             text += "We’re currently allocating students to their preferred locations so it’s an ongoing process!"
             text += " We’ll send out details of your location as soon as we can. It shouldn’t be too long!"
             await message.channel.send(text)
-
-
+        #Level Function Regex.
+        match = self.game_level_regex.match(message.content)
+        if match:
+            level_num, challenge_num = int(match.group(2)), int(match.group(3))
+            if match and message.channel.id == '532654287386443777':
+                base = 'hq'
+            elif match and message.channel.id == '532654358660120586':
+                base = 'm'
+            elif match and message.channel.id == '32654399453921291':
+                base = 'f'
+            self.level(ctx, base, level_num, challenge_num)
 def setup(bot):
     bot.add_cog(Cyber(bot))
