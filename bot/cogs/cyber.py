@@ -64,7 +64,7 @@ class Cyber:
             re.IGNORECASE
         )
         self.game_level_regex = re.compile(
-            r"^(?!:level).*(level|lvl)\b.*(\d+).*?(\d+)\b.*$",
+            r"^(?!:level).*(le?ve?l)\b.*?(\d{1,2}).*(\d{1,2})\b.*$",
             re.IGNORECASE
         )
 
@@ -384,7 +384,9 @@ class Cyber:
                 base = 'm'
             elif message.channel.id == FORENSICS_ID:
                 base = 'f'
-            self.level(ctx, base, level_num, challenge_num)
+            message.content = f"{self.bot.user.mention} level {base} {level_num} {challenge_num}"
+            new_ctx = await self.bot.get_context(message)
+            await self.bot.invoke(new_ctx)
 
 
 def setup(bot):
