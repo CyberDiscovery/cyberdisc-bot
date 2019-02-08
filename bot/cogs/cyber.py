@@ -11,7 +11,7 @@ from dateutil.relativedelta import relativedelta
 from discord import Embed, Message
 from discord.ext.commands import Bot, Context, command
 
-from bot.constants import BASE_ALIASES, CYBERDISC_ICON_URL, HINTS_LIMIT, PWNED_ICON_URL, HQ_ID, MOON_ID, FORENSICS_ID
+from bot.constants import BASE_ALIASES, CYBERDISC_ICON_URL, FORENSICS_ID, HINTS_LIMIT, HQ_ID, MOON_ID, PWNED_ICON_URL
 
 
 async def generatebase64(seed: int) -> str:
