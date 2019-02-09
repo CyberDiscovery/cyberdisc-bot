@@ -1,7 +1,9 @@
 """
 Set of bot commands designed for general leisure.
 """
+import asyncio
 import textwrap
+from io import BytesIO
 from random import choice, randint
 from string import ascii_lowercase
 from typing import AsyncGenerator
@@ -15,8 +17,7 @@ from discord.ext.commands import (
 from wand.drawing import Drawing
 from wand.image import Image
 
-
-from bot.constants import ADMIN_ROLES, EMOJI_LETTERS, QUOTES_BOT_ID, QUOTES_CHANNEL_ID
+from bot.constants import ADMIN_ROLES, EMOJI_LETTERS, FAKE_ROLE_ID, QUOTES_BOT_ID, QUOTES_CHANNEL_ID, STAFF_ROLE_ID
 
 
 ascii_lowercase += ' !?$'
@@ -49,19 +50,85 @@ class Fun:
     Commands for fun!
     """
 
+    # Embed sent when users try to ping staff
+    ping_embed = Embed(
+        colour=0xff0000,
+        description="⚠ **Please make sure you have taken the following into account:** "
+    ).set_footer(
+        text="To continue with the ping, react 👍, To delete this message and move on, react 👎"
+    ).add_field(
+        name="Cyber Discovery staff will not provide help for challenges.",
+        value="If you're looking for help, feel free to ask questions in one of our topical channels."
+    ).add_field(
+        name="Make sure you have emailed support before pinging here.",
+        value="`support@joincyberdiscovery.com` are available to answer any and all questions!"
+    )
+
     def __init__(self, bot: Bot):
         self.bot = bot
+        self.staff_role = None
         self.quote_channel = None
+        self.fake_staff_role = None
+
+    async def on_ready(self):
+        guild = self.bot.guilds[0]
+
+        if self.staff_role is None:
+            self.staff_role = guild.get_role(STAFF_ROLE_ID)
+
+        if self.fake_staff_role is None:
+            self.fake_staff_role = guild.get_role(FAKE_ROLE_ID)
+
+        if self.quote_channel is None:
+            self.quote_channel = guild.get_channel(QUOTES_CHANNEL_ID)
 
     async def on_message(self, message: Message):
-
+        # If a new quote is added, add it to the quotes cache.
         if message.channel.id == QUOTES_CHANNEL_ID and message.author.id == QUOTES_BOT_ID:
             author = message.embeds[0].title
             self.bot.quotes[author].append(message.id)
+            return
 
-        """
-        React based on the contents of a message.
-        """
+        if self.fake_staff_role in message.role_mentions and not message.author.bot:
+            # A user has requested to ping official staff
+            sent = await message.channel.send(embed=self.ping_embed, delete_after=30)
+            await sent.add_reaction('👍')
+            await sent.add_reaction('👎')
+
+            def check(reaction, user):
+                """Check if the reaction was valid."""
+                return all((
+                    user == message.author,
+                    str(reaction.emoji) in '👍👎'
+                ))
+
+            try:
+                # Get the user's reaction
+                reaction, _ = await self.bot.wait_for(
+                    'reaction_add', timeout=30, check=check
+                )
+            except asyncio.TimeoutError:
+                pass
+            else:
+                if str(reaction) == '👍':
+                    # The user wants to continue with the ping
+                    await self.staff_role.edit(mentionable=True)
+                    staff_ping = Embed(
+                        title='This user has requested an official staff ping!',
+                        colour=0xff0000,
+                        description=message.content
+                    ).set_author(
+                        name=f'{message.author.name}#{message.author.discriminator}',
+                        icon_url=message.author.avatar_url
+                    )
+                    # Send the embed with the user's content
+                    await message.channel.send(self.staff_role.mention, embed=staff_ping)
+                    await self.staff_role.edit(mentionable=False)
+                    # Delete the original message
+                    await message.delete()
+            finally:
+                await sent.delete()
+
         # React if a message contains an @here or @everyone mention.
         if any(mention in message.content for mention in ("@here", "@everyone")):
             await message.add_reaction("🙁")
@@ -226,8 +293,12 @@ class Fun:
             draw.text(image.width // 5 + 20, image.height // 5 + offset, line)
             offset += 35
         draw(image)
-        image.save(filename=f"bot/resources/{person}Says.png")
-        await ctx.send(file=File(f"bot/resources/{person}Says.png"))
+        image_bytes = BytesIO()
+        image.save(image_bytes)
+        image_bytes.seek(0)
+        await ctx.send(
+            file=File(image_bytes, filename=f'{person}.png')
+        )
 
     @command()
     async def agentj(self, ctx: Context, *, text: str):
