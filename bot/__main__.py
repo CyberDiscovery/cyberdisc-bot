@@ -28,11 +28,8 @@ logger.addHandler(DiscordHandler(bot))
 logger.setLevel(logging.INFO)
 
 bot.muted = []
-
 bot.banned_ids = []
-
 bot.quotes = defaultdict(list)
-
 bot.log = logger
 
 
