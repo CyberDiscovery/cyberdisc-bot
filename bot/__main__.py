@@ -42,8 +42,6 @@ def handle_exception(exception, instance, traceback):
         )
     )
 
-bot.log = logger
-
 
 @bot.check
 async def block_banned_ids(ctx):
