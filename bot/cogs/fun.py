@@ -104,7 +104,7 @@ class Fun:
 
             try:
                 # Get the user's reaction
-                reaction, user = await self.bot.wait_for(
+                reaction, _ = await self.bot.wait_for(
                     'reaction_add', timeout=30, check=check
                 )
             except asyncio.TimeoutError:
