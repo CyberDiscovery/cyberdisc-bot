@@ -31,6 +31,9 @@ class General:
             author = quote.embeds[0].author.name
             self.bot.quotes[author].append(quote.id)
 
+    async def on_command_error(self, ctx, error):
+        self.bot.log.exception(error)
+
 
 def setup(bot):
     bot.add_cog(General(bot))

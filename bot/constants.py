@@ -8,7 +8,7 @@ LOGGING_CHANNEL_ID = 538494690601992212
 
 # Lists for administration
 STAFF_ROLE_ID = 510507184396959785
-FAKE_ROLE_ID = 533828477988634624
+FAKE_ROLE_ID = 533826912712130580
 ADMIN_ROLES = ("Root", "Sudo")
 BANNED_DOMAINS = ["discord.gg"]
 
@@ -62,5 +62,8 @@ EMOJI_LETTERS = [  # Feel free to add to this list
     "\U0001f1fd\u274e\u274c\u2716",  # X
     "\U0001f1fe\U0001f331\u270C",  # Y
     "\U0001f1ff\U0001f4a4",  # Z
-    "\u26ab\U0001f535\U0001f534\u26aa"  # Whitespace alternatives
+    "\u26ab\U0001f535\U0001f534\u26aa",  # Whitespace alternatives
+    "\u2755\u2757\u2763",  # !
+    "\u2754\u2753",  # ?
+    "\U0001f4b2"  # $
 ]
