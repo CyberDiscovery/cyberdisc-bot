@@ -1,8 +1,9 @@
 """
 Set of bot commands designed for general leisure.
 """
+import asyncio
 import textwrap
-from asyncio import TimeoutError
+from io import BytesIO
 from random import choice, randint
 from string import ascii_lowercase
 from typing import AsyncGenerator
@@ -19,7 +20,7 @@ from wand.image import Image
 from bot.constants import ADMIN_ROLES, EMOJI_LETTERS, FAKE_ROLE_ID, QUOTES_BOT_ID, QUOTES_CHANNEL_ID, STAFF_ROLE_ID
 
 
-ascii_lowercase += ' '
+ascii_lowercase += ' !?$'
 
 
 async def _convert_emoji(message: str) -> AsyncGenerator:
@@ -103,10 +104,10 @@ class Fun:
 
             try:
                 # Get the user's reaction
-                reaction, user = await self.bot.wait_for(
+                reaction, _ = await self.bot.wait_for(
                     'reaction_add', timeout=30, check=check
                 )
-            except TimeoutError:
+            except asyncio.TimeoutError:
                 pass
             else:
                 if str(reaction) == '👍':
@@ -292,8 +293,12 @@ class Fun:
             draw.text(image.width // 5 + 20, image.height // 5 + offset, line)
             offset += 35
         draw(image)
-        image.save(filename=f"bot/resources/{person}Says.png")
-        await ctx.send(file=File(f"bot/resources/{person}Says.png"))
+        image_bytes = BytesIO()
+        image.save(image_bytes)
+        image_bytes.seek(0)
+        await ctx.send(
+            file=File(image_bytes, filename=f'{person}.png')
+        )
 
     @command()
     async def agentj(self, ctx: Context, *, text: str):
@@ -308,6 +313,20 @@ class Fun:
         Creates an image of Jibhat with the specified text.
         """
         await self.create_text_image(ctx, "Jibhat", text)
+
+    @command()
+    async def agentq(self, ctx: Context, *, text: str):
+        """
+        Creates an image of Agent Q with the specified text.
+        """
+        await self.create_text_image(ctx, "AgentQ", text)
+
+    @command()
+    async def angryj(self, ctx: Context, *, text: str):
+        """
+        Creates an image of Angry Agent J with the specified text.
+        """
+        await self.create_text_image(ctx, "AngryJ", text)
 
 
 def setup(bot):
