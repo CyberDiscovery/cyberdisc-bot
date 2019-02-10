@@ -15,10 +15,11 @@ safety = "==1.8.4"
 dodgy = "==0.1.9"
 
 [packages]
-pyyaml = ">=4.2b1"
 python-dateutil = "*"
 Wand = "*"
-"discord.py" = {extras = ["voice"],file = "https://github.com/Rapptz/discord.py/archive/rewrite.zip"}
+"discord.py" = {extras = ["voice"], file = "https://github.com/Rapptz/discord.py/archive/rewrite.zip"}
+asyncpg = "*"
+PyYAML = ">=4.2b1"
 
 [requires]
 python_version = "3.7"

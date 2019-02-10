@@ -1,10 +1,12 @@
+from os import getenv
+
 """
 A list of constants.
 """
 # Fun constants
-QUOTES_CHANNEL_ID = 463657120441696256
+QUOTES_CHANNEL_ID = int(getenv("QUOTES_CHANNEL_ID", "463657120441696256"))
 QUOTES_BOT_ID = 292953664492929025
-LOGGING_CHANNEL_ID = 538494690601992212
+LOGGING_CHANNEL_ID = int(getenv("LOGGING_CHANNEL_ID", "538494690601992212"))
 
 # Lists for administration
 STAFF_ROLE_ID = 450063890362138624
@@ -14,14 +16,8 @@ BANNED_DOMAINS = ["discord.gg"]
 
 # Cyber Constants
 
-CYBERDISC_ICON_URL = (
-    "https://pbs.twimg.com/profile_images/"
-    "921313066515615745/fLEl2Gfa_400x400.jpg"
-)
-PWNED_ICON_URL = (
-    "https://upload.wikimedia.org/wikipedia"
-    "/commons/2/23/Have_I_Been_Pwned_logo.png"
-)
+CYBERDISC_ICON_URL = "https://pbs.twimg.com/profile_images/" "921313066515615745/fLEl2Gfa_400x400.jpg"
+PWNED_ICON_URL = "https://upload.wikimedia.org/wikipedia" "/commons/2/23/Have_I_Been_Pwned_logo.png"
 
 # Last level for CyberStart Assess where hints are allowed
 HINTS_LIMIT = 8
@@ -30,7 +26,7 @@ HINTS_LIMIT = 8
 BASE_ALIASES = {
     "Headquarters": ["headquarters", "main", "hq", "h"],
     "Moonbase": ["moonbase", "python", "moon", "m"],
-    "Forensics": ["forensics", "f"]
+    "Forensics": ["forensics", "f"],
 }
 
 # Emoji Alphabet
