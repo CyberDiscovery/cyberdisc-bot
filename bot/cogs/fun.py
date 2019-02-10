@@ -71,6 +71,15 @@ class Fun:
         self.quote_channel = None
         self.fake_staff_role = None
 
+    async def on_ready(self):
+        guild = self.bot.guilds[0]
+
+        if self.staff_role is None:
+            self.staff_role = guild.get_role(STAFF_ROLE_ID)
+
+        if self.fake_staff_role is None:
+            self.fake_staff_role = guild.get_role(FAKE_ROLE_ID)
+
     async def on_message(self, message: Message):
         # If a new quote is added, add it to the database.
         if message.channel.id == QUOTES_CHANNEL_ID and (
