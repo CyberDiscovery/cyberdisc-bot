@@ -305,7 +305,7 @@ class Fun:
     async def migrate_quotes(self, ctx: Context):
         """
         Pulls all quotes from a quotes channel into a PostgreSQL database.
-        Needs PGHOST, PGUSER, PGDATABASE and PGPASSWORD env vars.
+        Needs PGHOST, PGPORT, PGUSER, PGDATABASE and PGPASSWORD env vars.
         """
         conn = await asyncpg.connect()
         await conn.execute("CREATE TABLE IF NOT EXISTS quotes (quote_id bigint PRIMARY KEY, author_id bigint)")
