@@ -17,6 +17,9 @@ class General:
 
         self.bot.log.info("CyberDiscovery bot is now logged in.")
 
+    async def on_command_error(self, ctx, error):
+        self.bot.log.exception(error)
+
 
 def setup(bot):
     bot.add_cog(General(bot))

@@ -27,10 +27,7 @@ logger.addHandler(DiscordHandler(bot))
 logger.setLevel(logging.INFO)
 
 bot.muted = []
-
 bot.banned_ids = []
-
-
 bot.log = logger
 
 
