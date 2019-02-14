@@ -1,6 +1,7 @@
 """Main script to define bot methods, and start the bot."""
 
 import logging
+import sentry_sdk
 from collections import defaultdict
 from os import environ
 
@@ -51,4 +52,6 @@ bot.load_extension("bot.cogs.cyber")
 bot.load_extension("bot.cogs.fun")
 
 if __name__ == "__main__":
+    if environ.get("SENTRY_URL") is not None:
+        sentry_sdk.init(environ.get("SENTRY_URL"))
     bot.run(environ.get("BOT_TOKEN"))
