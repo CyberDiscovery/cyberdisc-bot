@@ -7,7 +7,7 @@ from os import environ
 from discord import Game
 from discord.ext.commands import Bot, when_mentioned_or
 
-from bot.log import DiscordHandler
+from cyberdisc_bot.log import DiscordHandler
 
 
 logger = logging.getLogger(__name__)
@@ -46,9 +46,6 @@ async def block_muted(ctx):
 
 
 # Load cogs
-bot.load_extension("bot.cogs.general")
-bot.load_extension("bot.cogs.cyber")
-bot.load_extension("bot.cogs.fun")
-
-if __name__ == "__main__":
-    bot.run(environ.get("BOT_TOKEN"))
+bot.load_extension("cyberdisc_bot.cogs.general")
+bot.load_extension("cyberdisc_bot.cogs.cyber")
+bot.load_extension("cyberdisc_bot.cogs.fun")

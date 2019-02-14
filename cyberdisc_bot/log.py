@@ -8,7 +8,7 @@ import logging
 from discord import Color, Embed
 from discord.ext import commands
 
-from bot.constants import LOGGING_CHANNEL_ID
+from cyberdisc_bot.constants import LOGGING_CHANNEL_ID
 
 LEVEL_COLORS = {
     logging.CRITICAL: Color.red(),

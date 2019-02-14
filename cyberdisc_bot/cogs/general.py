@@ -1,7 +1,7 @@
 from discord import Message
 from discord.ext.commands import Bot
 
-from bot.constants import QUOTES_BOT_ID, QUOTES_CHANNEL_ID
+from cyberdisc_bot.constants import QUOTES_BOT_ID, QUOTES_CHANNEL_ID
 
 
 class General:
