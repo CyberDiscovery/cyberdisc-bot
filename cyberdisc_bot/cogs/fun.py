@@ -17,15 +17,11 @@ from discord.utils import find as discord_find
 from wand.drawing import Drawing
 from wand.image import Image
 
-<<<<<<< HEAD:cyberdisc_bot/cogs/fun.py
+
 from cyberdisc_bot.constants import (
     ADMIN_ROLES, EMOJI_LETTERS, FAKE_ROLE_ID, QUOTES_BOT_ID, QUOTES_CHANNEL_ID,
     STAFF_ROLE_ID
 )
-=======
-
-from bot.constants import ADMIN_ROLES, EMOJI_LETTERS, FAKE_ROLE_ID, QUOTES_BOT_ID, QUOTES_CHANNEL_ID, STAFF_ROLE_ID
->>>>>>> master:bot/cogs/fun.py
 
 
 ascii_lowercase += " !?$"

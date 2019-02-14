@@ -1,10 +1,5 @@
 from discord.ext.commands import Bot
 
-<<<<<<< HEAD:cyberdisc_bot/cogs/general.py
-from cyberdisc_bot.constants import QUOTES_BOT_ID, QUOTES_CHANNEL_ID
-
-=======
->>>>>>> master:bot/cogs/general.py
 
 class General:
     """
