@@ -4,26 +4,31 @@ Set of bot commands designed for general leisure.
 import asyncio
 import textwrap
 from io import BytesIO
-from random import choice, randint
+from random import randint
 from string import ascii_lowercase
 from typing import AsyncGenerator
 from urllib.parse import urlencode
 
+import asyncpg
 from aiohttp import ClientSession
-from discord import Embed, File, Member, Message
-from discord.ext.commands import (
-    Bot, Context, TextChannelConverter, command, has_any_role
-)
+from discord import Embed, File, Member, Message, NotFound
+from discord.ext.commands import Bot, Context, command, has_any_role
+from discord.utils import find as discord_find
 from wand.drawing import Drawing
 from wand.image import Image
 
+<<<<<<< HEAD:cyberdisc_bot/cogs/fun.py
 from cyberdisc_bot.constants import (
     ADMIN_ROLES, EMOJI_LETTERS, FAKE_ROLE_ID, QUOTES_BOT_ID, QUOTES_CHANNEL_ID,
     STAFF_ROLE_ID
 )
+=======
+
+from bot.constants import ADMIN_ROLES, EMOJI_LETTERS, FAKE_ROLE_ID, QUOTES_BOT_ID, QUOTES_CHANNEL_ID, STAFF_ROLE_ID
+>>>>>>> master:bot/cogs/fun.py
 
 
-ascii_lowercase += ' !?$'
+ascii_lowercase += " !?$"
 
 
 async def _convert_emoji(message: str) -> AsyncGenerator:
@@ -54,17 +59,17 @@ class Fun:
     """
 
     # Embed sent when users try to ping staff
-    ping_embed = Embed(
-        colour=0xff0000,
-        description="⚠ **Please make sure you have taken the following into account:** "
-    ).set_footer(
-        text="To continue with the ping, react 👍, To delete this message and move on, react 👎"
-    ).add_field(
-        name="Cyber Discovery staff will not provide help for challenges.",
-        value="If you're looking for help, feel free to ask questions in one of our topical channels."
-    ).add_field(
-        name="Make sure you have emailed support before pinging here.",
-        value="`support@joincyberdiscovery.com` are available to answer any and all questions!"
+    ping_embed = (
+        Embed(colour=0xFF0000, description="⚠ **Please make sure you have taken the following into account:** ")
+        .set_footer(text="To continue with the ping, react 👍, To delete this message and move on, react 👎")
+        .add_field(
+            name="Cyber Discovery staff will not provide help for challenges.",
+            value="If you're looking for help, feel free to ask questions in one of our topical channels.",
+        )
+        .add_field(
+            name="Make sure you have emailed support before pinging here.",
+            value="`support@joincyberdiscovery.com` are available to answer any and all questions!",
+        )
     )
 
     def __init__(self, bot: Bot):
@@ -82,47 +87,41 @@ class Fun:
         if self.fake_staff_role is None:
             self.fake_staff_role = guild.get_role(FAKE_ROLE_ID)
 
-        if self.quote_channel is None:
-            self.quote_channel = guild.get_channel(QUOTES_CHANNEL_ID)
-
     async def on_message(self, message: Message):
-        # If a new quote is added, add it to the quotes cache.
-        if message.channel.id == QUOTES_CHANNEL_ID and message.author.id == QUOTES_BOT_ID:
-            author = message.embeds[0].title
-            self.bot.quotes[author].append(message.id)
-            return
+        # If a new quote is added, add it to the database.
+        if message.channel.id == QUOTES_CHANNEL_ID and (
+            message.author.id == QUOTES_BOT_ID or message.mentions is not None
+        ):
+            conn = await asyncpg.connect()
+            await self.add_quote_to_db(conn, message)
+            await conn.close()
+            print(f"Message #{message.id} added to database.")
 
         if self.fake_staff_role in message.role_mentions and not message.author.bot:
             # A user has requested to ping official staff
             sent = await message.channel.send(embed=self.ping_embed, delete_after=30)
-            await sent.add_reaction('👍')
-            await sent.add_reaction('👎')
+            await sent.add_reaction("👍")
+            await sent.add_reaction("👎")
 
             def check(reaction, user):
                 """Check if the reaction was valid."""
-                return all((
-                    user == message.author,
-                    str(reaction.emoji) in '👍👎'
-                ))
+                return all((user == message.author, str(reaction.emoji) in "👍👎"))
 
             try:
                 # Get the user's reaction
-                reaction, _ = await self.bot.wait_for(
-                    'reaction_add', timeout=30, check=check
-                )
+                reaction, _ = await self.bot.wait_for("reaction_add", timeout=30, check=check)
             except asyncio.TimeoutError:
                 pass
             else:
-                if str(reaction) == '👍':
+                if str(reaction) == "👍":
                     # The user wants to continue with the ping
                     await self.staff_role.edit(mentionable=True)
                     staff_ping = Embed(
-                        title='This user has requested an official staff ping!',
-                        colour=0xff0000,
-                        description=message.content
+                        title="This user has requested an official staff ping!",
+                        colour=0xFF0000,
+                        description=message.content,
                     ).set_author(
-                        name=f'{message.author.name}#{message.author.discriminator}',
-                        icon_url=message.author.avatar_url
+                        name=f"{message.author.name}#{message.author.discriminator}", icon_url=message.author.avatar_url
                     )
                     # Send the embed with the user's content
                     await message.channel.send(self.staff_role.mention, embed=staff_ping)
@@ -173,10 +172,7 @@ class Fun:
             ie_flag = True
 
         # Creates a lmgtfy.com url for the given query.
-        request_data = {
-            "q": " ".join(arg for arg in args if not arg.startswith("-")),
-            "ie": int(ie_flag)
-        }
+        request_data = {"q": " ".join(arg for arg in args if not arg.startswith("-")), "ie": int(ie_flag)}
         url = "https://lmgtfy.com/?" + urlencode(request_data)
 
         await ctx.send(url)
@@ -184,14 +180,14 @@ class Fun:
         if delete:
             await ctx.message.delete()
 
-    @command(aliases=['emojify'])
+    @command(aliases=["emojify"])
     async def react(self, ctx, *, message: str):
         """
         Emojifies a given string, and reacts to a previous message
         with those emojis.
         """
         print(repr(message))
-        limit, _, output = message.partition(' ')
+        limit, _, output = message.partition(" ")
         if limit.isdigit():
             limit = int(limit)
         else:
@@ -239,15 +235,10 @@ class Fun:
         comic.set_footer(text=data["alt"])
         comic.set_image(url=data["img"])
         comic.url = f"https://xkcd.com/{number}"
-        comic.set_author(
-            name="xkcd",
-            url="https://xkcd.com/",
-            icon_url="https://xkcd.com/s/0b7742.png")
+        comic.set_author(name="xkcd", url="https://xkcd.com/", icon_url="https://xkcd.com/s/0b7742.png")
         comic.add_field(name="Number:", value=number)
         comic.add_field(name="Date:", value=date)
-        comic.add_field(
-            name="Explanation:",
-            value=f"https://explainxkcd.com/{number}")
+        comic.add_field(name="Explanation:", value=f"https://explainxkcd.com/{number}")
 
         await ctx.send(embed=comic)
 
@@ -257,29 +248,79 @@ class Fun:
         Returns a random quotation from the #quotes channel.
         A user can be specified to return a random quotation from that user.
         """
+        conn = await asyncpg.connect()
         quote_channel = self.bot.get_channel(QUOTES_CHANNEL_ID)
-        quotes = self.bot.quotes
 
         if member is None:
-            message_id = choice(quotes[choice(list(quotes.keys()))])
+            message_id = await conn.fetchval(
+                "SELECT quote_id FROM quotes ORDER BY random() LIMIT 1;"
+            )  # fetchval returns first value by default
         else:
-            user_quotes = quotes[f'{member.name}#{member.discriminator}']
-            if not user_quotes:
-                await ctx.send("No quotes from that user.")
+            message_id = await conn.fetchval(
+                "SELECT quote_id FROM quotes WHERE author_id=$1 ORDER BY random() LIMIT 1;", member.id
+            )
+            if message_id is None:
+                await ctx.send("No quotes for that user.")
                 return
-            message_id = choice(user_quotes)
 
+        await conn.close()
         message = await quote_channel.get_message(message_id)
-        await ctx.send(embed=message.embeds[0])
+        embed = None
+        content = message.content
+        attachment_urls = [attachment.url for attachment in message.attachments]
+
+        if message.embeds:
+            embed = message.embeds[0]
+        elif len(attachment_urls) == 1:
+            image_url = attachment_urls.pop(0)
+            embed = Embed()
+            embed.set_image(url=image_url)
+
+        for url in attachment_urls:
+            content += "\n" + url
+
+        await ctx.send(content, embed=embed)
+
+    async def add_quote_to_db(self, conn: asyncpg.connection.Connection, quote: Message):
+        """
+        Adds a quote message ID to the database, and attempts to identify the author of the quote.
+        """
+        if quote.author.id == QUOTES_BOT_ID:
+            if not quote.embeds:
+                return
+            embed = quote.embeds[0]
+            author_id = int(embed.author.icon_url.split("/")[4])
+            try:
+                await self.bot.get_user_info(author_id)
+            except NotFound:
+                author_info = embed.author.split("#")
+                author_id = discord_find(
+                    lambda m: m.name == author_info[0] or m.discriminator == author_info[1], quote.guild.members
+                )
+        else:
+            author_id = quote.mentions[0].id if quote.mentions else None
+        if author_id is not None:
+            await conn.execute(
+                "INSERT INTO quotes(quote_id, author_id) VALUES($1, $2) ON CONFLICT DO NOTHING;", quote.id, author_id
+            )
+        else:
+            await conn.execute("INSERT INTO quotes(quote_id) VALUES($1) ON CONFLICT DO NOTHING;", quote.id)
+        print(f"Quote ID: {quote.id} has been added to the database.")
 
     @command()
     @has_any_role(*ADMIN_ROLES)
-    async def set_quote_channel(self, ctx: Context, channel: TextChannelConverter):
+    async def migrate_quotes(self, ctx: Context):
         """
-        Sets the quotes channel.
+        Pulls all quotes from a quotes channel into a PostgreSQL database.
+        Needs PGHOST, PGPORT, PGUSER, PGDATABASE and PGPASSWORD env vars.
         """
-        self.quote_channel = channel
-        await ctx.send("Quotes channel successfully set.")
+        conn = await asyncpg.connect()
+        await conn.execute("CREATE TABLE IF NOT EXISTS quotes (quote_id bigint PRIMARY KEY, author_id bigint)")
+        quote_channel = self.bot.get_channel(QUOTES_CHANNEL_ID)
+        async for quote in quote_channel.history(limit=None):
+            await self.add_quote_to_db(conn, quote)
+        await conn.close()
+        await ctx.send("done!")
 
     async def create_text_image(self, ctx: Context, person: str, text: str):
         """
@@ -299,9 +340,7 @@ class Fun:
         image_bytes = BytesIO()
         image.save(image_bytes)
         image_bytes.seek(0)
-        await ctx.send(
-            file=File(image_bytes, filename=f'{person}.png')
-        )
+        await ctx.send(file=File(image_bytes, filename=f"{person}.png"))
 
     @command()
     async def agentj(self, ctx: Context, *, text: str):
