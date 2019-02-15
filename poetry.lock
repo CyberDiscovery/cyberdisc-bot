@@ -24,6 +24,19 @@ version = "3.0.1"
 
 [[package]]
 category = "main"
+description = "An asyncio PosgtreSQL driver"
+name = "asyncpg"
+optional = false
+python-versions = ">=3.5.0"
+version = "0.18.3"
+
+[package.extras]
+dev = ["Cython (0.29)", "pytest (>=3.6.0)", "Sphinx (>=1.7.0,<1.8.0)", "sphinxcontrib-asyncio (>=0.2.0,<0.3.0)", "sphinx-rtd-theme (>=0.2.0,<0.3.0)", "flake8 (>=3.5.0,<3.6.0)", "uvloop (>=0.8.0)"]
+docs = ["Sphinx (>=1.7.0,<1.8.0)", "sphinxcontrib-asyncio (>=0.2.0,<0.3.0)", "sphinx-rtd-theme (>=0.2.0,<0.3.0)"]
+test = ["flake8 (>=3.5.0,<3.6.0)", "uvloop (>=0.8.0)"]
+
+[[package]]
+category = "main"
 description = "Classes Without Boilerplate"
 name = "attrs"
 optional = false
@@ -79,7 +92,7 @@ description = "A python wrapper for the Discord API"
 name = "discord.py"
 optional = false
 python-versions = ">=3.5.3"
-version = "1.0.0a1665+g60f9ac3"
+version = "1.0.0a1667+g806295a"
 
 [package.dependencies]
 aiohttp = ">=3.3.0,<3.6.0"
@@ -90,7 +103,7 @@ docs = ["sphinx (1.7.4)", "sphinxcontrib-asyncio", "sphinxcontrib-websupport"]
 voice = ["PyNaCl (1.2.1)"]
 
 [package.source]
-reference = "60f9ac3062199083edd3481ab82e2459ef28f134"
+reference = "806295a1be2cfb0ebc8659aa9abb605bd59ff3b6"
 type = "git"
 url = "https://github.com/Rapptz/discord.py"
 [[package]]
@@ -438,12 +451,13 @@ idna = ">=2.0"
 multidict = ">=4.0"
 
 [metadata]
-content-hash = "65f0343a9ee9961034cb370235770e670f9a48c82c127dcb47981d698014b9b8"
+content-hash = "8b34f22b35487db81788307b3f5776791c7c0db091494d37cc9b83fc3e733e9e"
 python-versions = "^3.7"
 
 [metadata.hashes]
 aiohttp = ["2293bc184be9eda99ede8afbfc8fe3a8e65fc82f2d5ab94cb5b7714d766bbb2d", "3128d3ef7b575dbb272cdacd4d4c9a7cf67b18899e96260d55ae3a5782d886e7", "4417ab2f296fa57b65a946c28326ef7de345d8e94b429037ce1623c5bc96850e", "5eba807790f45cfc5df935a425aca30c43f35159b94a34b2d2d360fca9406cbb", "85860218fab4e8991f3ed629e0319331e82f7697557bd9eed278fb9f5dba7f29", "899d5253d23e56ea1bff42e6d742f3118d80ceaa993f0cedc9b436feaacd128b", "a05ff430d849095ea4662a833bb790d6ca876ab88305e49fdba445ab1a236b7b", "b4e354f8e29d99c60628ddc5d5d959ac2bd8dcb388808e6ccbca3860b7b59269", "e2960362e0c2f9d48bfdc8e0d084a5bb416817be86c94914bc79e45421471f48"]
 async-timeout = ["0c3c816a028d47f659d6ff5c745cb2acf1f966da1fe5c19c77a70282b25f4c5f", "4291ca197d287d274d0b6cb5d6f8f8f82d434ed288f962539ff18cc9012f9ea3"]
+asyncpg = ["0677714b26b48d63db728867b812ef365ec3879d2be6fa1c9cf4328503f9a464", "2dee4fb251139f1c1ee4bd9959d516f930f4da37a2f33b07c2b902b837a76666", "378a7ef11ce7b35f11eb816e5252bc1e779119f7583a872233b45a76effac02e", "4539bc2e63600a1ee999086bbb59bf717ab32ea771ac20b5b792a2234633b5fb", "4a779a85302241782bed8ed0f2bcb38544805b3e107b16ee7489c5818d8f4228", "51a3d67a3fa43112b17ec510338723932e1e0611ad99a146acc9960d32210196", "58a5eccaac60fd326e32683226efe1046bfea558fa043360bdd1708e0e812c67", "814343dc2baa489a11521ff9fad68f337a05c9ae0461fdf9f1ec7ac3541c13a9", "84084f7dfed0b2d397a0c2fd7eaf29b01904c74f4320e5fe95ad3042042cf188", "89e727fdba05d90a0156d9d18932fd44a2baa84e90e3368573f432a308ad8fd7", "ab8b9d367e3ef48f35a059642940714a2bda7a7fce8b017b21bfbc4f8fbf8f5f", "c1fe1f0ef848f0f17bf63b90a4c3f446a14e4c899d8531ea988109cc0de014e5", "cc7aa61bf41273ee5d4c11e0e72c0d9340e9c4dbf752464ae2b6816abadaabce", "d5450bdf8631fa1200c08a2e70cab06c2e8c09ef608629908531513444d12858", "fd2d13da29f55c2c71b1acc9d9f107c7a5176fffb3f62ff503f2b300f7ecd74e", "fd35a8082b97d5b97d26bcd1b010fdd65a56311d7a02bf2a7e2c56810b9961a7"]
 attrs = ["10cbf6e27dbce8c30807caf056c8eb50917e0eaafe86347671b57254006c3e69", "ca4be454458f9dec299268d472aaa5a11f67a4ff70093396e1ceae9c76cf4bbb"]
 bandit = ["6102b5d6afd9d966df5054e0bdfc2e73a24d0fea400ec25f2e54c134412158d7", "9413facfe9de1e1bd291d525c784e1beb1a55c9916b51dae12979af63a69ba4c"]
 certifi = ["47f9c83ef4c0c621eaef743f133f09fa8a74a9b75f037e8624f83bd1b6626cb7", "993f830721089fef441cdfeb4b2c8c9df86f0c63239f06bd025a76a7daddb033"]
