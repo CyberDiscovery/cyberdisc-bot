@@ -321,8 +321,8 @@ class Fun:
         """
         lines = textwrap.wrap(text, 15)
         draw = Drawing()
-        image = Image(filename=f"bot/resources/{person}SaysBlank.png")
-        draw.font = "bot/resources/Dosis-SemiBold.ttf"
+        image = Image(filename=f"cyberdisc_bot/resources/{person}SaysBlank.png")
+        draw.font = f"cyberdisc_bot/resources/Dosis-SemiBold.ttf"
         draw.text_alignment = "center"
         draw.font_size = 34
         offset = 45 - 10 * len(lines)
