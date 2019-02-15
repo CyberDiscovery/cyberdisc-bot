@@ -385,7 +385,7 @@ class Cyber:
             elif message.channel.id == FORENSICS_ID:
                 base = 'f'
             message.content = f"{self.bot.user.mention} level {base} {level_num} {challenge_num}"
-            new_ctx = await self.bot.get_context(message)
+            ctx.invoke(self.bot.get_command('level'), base, level_num, challenge_num)
             await self.bot.invoke(new_ctx)
 
 
