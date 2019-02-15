@@ -1,13 +1,11 @@
 """Main script to define bot methods, and start the bot."""
 
 import logging
-from os import environ
 
 from discord import Game
 from discord.ext.commands import Bot, when_mentioned_or
 
 from cyberdisc_bot.log import DiscordHandler
-
 
 logger = logging.getLogger(__name__)
 
