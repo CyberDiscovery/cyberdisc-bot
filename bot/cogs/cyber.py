@@ -386,7 +386,6 @@ class Cyber:
                 base = 'f'
             message.content = f"{self.bot.user.mention} level {base} {level_num} {challenge_num}"
             ctx.invoke(self.bot.get_command('level'), base, level_num, challenge_num)
-            await self.bot.invoke(new_ctx)
 
 
 def setup(bot):
