@@ -11,7 +11,7 @@ from urllib.parse import urlencode
 
 import asyncpg
 from aiohttp import ClientSession
-from cyberdisc_bot.constants import (
+from cdbot.constants import (
     ADMIN_ROLES, EMOJI_LETTERS, FAKE_ROLE_ID, QUOTES_BOT_ID, QUOTES_CHANNEL_ID,
     STAFF_ROLE_ID
 )
@@ -321,8 +321,8 @@ class Fun:
         """
         lines = textwrap.wrap(text, 15)
         draw = Drawing()
-        image = Image(filename=f"cyberdisc_bot/resources/{person}SaysBlank.png")
-        draw.font = f"cyberdisc_bot/resources/Dosis-SemiBold.ttf"
+        image = Image(filename=f"cdbot/resources/{person}SaysBlank.png")
+        draw.font = f"cdbot/resources/Dosis-SemiBold.ttf"
         draw.text_alignment = "center"
         draw.font_size = 34
         offset = 45 - 10 * len(lines)

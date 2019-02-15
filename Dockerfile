@@ -14,4 +14,4 @@ RUN poetry install --no-dev
 
 ENTRYPOINT ["/sbin/tini", "--"]
 
-CMD ["poetry", "run", "cyberdisc-bot"]
+CMD ["poetry", "run", "cdbot"]

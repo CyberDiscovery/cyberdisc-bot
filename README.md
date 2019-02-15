@@ -24,7 +24,7 @@ https://discordapp.com/oauth2/authorize?&client_id=<insert client id here>&scope
 
 Add it to a channel that you will use for testing.
 
-Finally, run the command `poetry run cyberdisc-bot` in the root of the repository to run the bot on your server. To access admin commands of the bot, add a group called `Root` to the server and add yourself to it.
+Finally, run the command `poetry run cdbot` in the root of the repository to run the bot on your server. To access admin commands of the bot, add a group called `Root` to the server and add yourself to it.
 
 
 ## Commands

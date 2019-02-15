@@ -2,7 +2,7 @@
 
 import logging
 
-from cyberdisc_bot.log import DiscordHandler
+from cdbot.log import DiscordHandler
 from discord import Game
 from discord.ext.commands import Bot, when_mentioned_or
 
@@ -42,6 +42,6 @@ async def block_muted(ctx):
 
 
 # Load cogs
-bot.load_extension("cyberdisc_bot.cogs.general")
-bot.load_extension("cyberdisc_bot.cogs.cyber")
-bot.load_extension("cyberdisc_bot.cogs.fun")
+bot.load_extension("cdbot.cogs.general")
+bot.load_extension("cdbot.cogs.cyber")
+bot.load_extension("cdbot.cogs.fun")

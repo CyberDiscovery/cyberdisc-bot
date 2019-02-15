@@ -6,7 +6,7 @@ from hashlib import sha1
 from json import load
 
 from aiohttp import ClientSession
-from cyberdisc_bot.constants import (
+from cdbot.constants import (
     BASE_ALIASES, CYBERDISC_ICON_URL, HINTS_LIMIT, PWNED_ICON_URL
 )
 from dateutil.parser import parse
