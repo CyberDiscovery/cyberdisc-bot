@@ -9,7 +9,7 @@ RUN apk --update --no-cache add imagemagick-dev --repository http://dl-cdn.alpin
 COPY . /app
 WORKDIR /app
 
-RUN pip install poetry
+RUN pip install poetry==0.12.11
 RUN poetry install --no-dev
 
 ENTRYPOINT ["/sbin/tini", "--"]
