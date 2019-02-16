@@ -10,8 +10,9 @@ COPY . /app
 WORKDIR /app
 
 RUN pip install poetry==0.12.11
-RUN poetry install --no-dev
+RUN poetry export -f requirements.txt
+RUN pip install -r requirements.txt
 
 ENTRYPOINT ["/sbin/tini", "--"]
 
-CMD ["poetry", "run", "cdbot"]
+CMD ["python", "-m", "cdbot"]
