@@ -1,6 +1,6 @@
 # Security Policies and Procedures
 
-This document outlines security procedures and general policies for the **cdbot**
+This document outlines security procedures and general policies for the **cyberdisc-bot**
 project.
 
 * [Reporting a Bug](#reporting-a-bug)
@@ -9,8 +9,8 @@ project.
 
 ## Reporting a Bug
 
-The Cyber Discovery team and community take all security bugs in **cdbot** seriously.
-Thank you for improving the security of **cdbot**. We appreciate your efforts and
+The Cyber Discovery team and community take all security bugs in **cyberdisc-bot** seriously.
+Thank you for improving the security of **cyberdisc-bot**. We appreciate your efforts and
 responsible disclosure and will make every effort to acknowledge your
 contributions.
 
