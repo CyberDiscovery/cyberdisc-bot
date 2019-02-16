@@ -1,4 +1,4 @@
-"""Main script to define bot methods, and start the bot."""
+"""Entry point for the 'python -m cdbot' command."""
 
 import cdbot
 

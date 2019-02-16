@@ -1,4 +1,4 @@
-"""Main script to define bot methods, and start the bot."""
+"""Initialise cdbot as a package for poetry."""
 
 from os import environ
 
