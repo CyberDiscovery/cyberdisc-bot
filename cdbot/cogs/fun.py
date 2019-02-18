@@ -11,15 +11,15 @@ from urllib.parse import urlencode
 
 import asyncpg
 from aiohttp import ClientSession
+from cdbot.constants import (
+    ADMIN_ROLES, EMOJI_LETTERS, FAKE_ROLE_ID, QUOTES_BOT_ID, QUOTES_CHANNEL_ID,
+    STAFF_ROLE_ID
+)
 from discord import Embed, File, Member, Message, NotFound
 from discord.ext.commands import Bot, Context, command, has_any_role
 from discord.utils import find as discord_find
 from wand.drawing import Drawing
 from wand.image import Image
-
-
-from bot.constants import ADMIN_ROLES, EMOJI_LETTERS, FAKE_ROLE_ID, QUOTES_BOT_ID, QUOTES_CHANNEL_ID, STAFF_ROLE_ID
-
 
 ascii_lowercase += " !?$"
 
@@ -321,8 +321,8 @@ class Fun:
         """
         lines = textwrap.wrap(text, 15)
         draw = Drawing()
-        image = Image(filename=f"bot/resources/{person}SaysBlank.png")
-        draw.font = "bot/resources/Dosis-SemiBold.ttf"
+        image = Image(filename=f"cdbot/resources/{person}SaysBlank.png")
+        draw.font = f"cdbot/resources/Dosis-SemiBold.ttf"
         draw.text_alignment = "center"
         draw.font_size = 34
         offset = 45 - 10 * len(lines)

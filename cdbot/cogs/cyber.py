@@ -6,12 +6,13 @@ from hashlib import sha1
 from json import load
 
 from aiohttp import ClientSession
+from cdbot.constants import (
+    BASE_ALIASES, CYBERDISC_ICON_URL, HINTS_LIMIT, PWNED_ICON_URL
+)
 from dateutil.parser import parse
 from dateutil.relativedelta import relativedelta
 from discord import Embed, Message
 from discord.ext.commands import Bot, Context, command
-
-from bot.constants import BASE_ALIASES, CYBERDISC_ICON_URL, HINTS_LIMIT, PWNED_ICON_URL
 
 
 async def generatebase64(seed: int) -> str:
