@@ -5,10 +5,10 @@ An implementation of a logging.Handler for sending messages to Discord
 import datetime
 import logging
 
+from cdbot.constants import LOGGING_CHANNEL_ID
 from discord import Color, Embed
 from discord.ext import commands
 
-from bot.constants import LOGGING_CHANNEL_ID
 
 LEVEL_COLORS = {
     logging.CRITICAL: Color.red(),
