@@ -1,10 +1,10 @@
 """Initialise cdbot as a package for poetry."""
 
+import sentry_sdk
+
 from os import environ
 
 from .bot import bot
-
-import sentry_sdk
 
 
 def main():
