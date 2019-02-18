@@ -30,11 +30,6 @@ optional = false
 python-versions = ">=3.5.0"
 version = "0.18.3"
 
-[package.extras]
-dev = ["Cython (0.29)", "pytest (>=3.6.0)", "Sphinx (>=1.7.0,<1.8.0)", "sphinxcontrib-asyncio (>=0.2.0,<0.3.0)", "sphinx-rtd-theme (>=0.2.0,<0.3.0)", "flake8 (>=3.5.0,<3.6.0)", "uvloop (>=0.8.0)"]
-docs = ["Sphinx (>=1.7.0,<1.8.0)", "sphinxcontrib-asyncio (>=0.2.0,<0.3.0)", "sphinx-rtd-theme (>=0.2.0,<0.3.0)"]
-test = ["flake8 (>=3.5.0,<3.6.0)", "uvloop (>=0.8.0)"]
-
 [[package]]
 category = "main"
 description = "Classes Without Boilerplate"
@@ -42,11 +37,6 @@ name = "attrs"
 optional = false
 python-versions = "*"
 version = "18.2.0"
-
-[package.extras]
-dev = ["coverage", "hypothesis", "pympler", "pytest", "six", "zope.interface", "sphinx", "zope.interface", "pre-commit"]
-docs = ["sphinx", "zope.interface"]
-tests = ["coverage", "hypothesis", "pympler", "pytest", "six", "zope.interface"]
 
 [[package]]
 category = "dev"
@@ -63,7 +53,7 @@ six = ">=1.10.0"
 stevedore = ">=1.20.0"
 
 [[package]]
-category = "dev"
+category = "main"
 description = "Python package for providing Mozilla's CA Bundle."
 name = "certifi"
 optional = false
@@ -98,14 +88,11 @@ version = "1.0.0a1667+g806295a"
 aiohttp = ">=3.3.0,<3.6.0"
 websockets = ">=6.0,<7.0"
 
-[package.extras]
-docs = ["sphinx (1.7.4)", "sphinxcontrib-asyncio", "sphinxcontrib-websupport"]
-voice = ["PyNaCl (1.2.1)"]
-
 [package.source]
 reference = "806295a1be2cfb0ebc8659aa9abb605bd59ff3b6"
 type = "git"
 url = "https://github.com/Rapptz/discord.py"
+
 [[package]]
 category = "dev"
 description = "Dodgy: Searches for dodgy looking lines in Python code"
@@ -126,9 +113,6 @@ version = "0.4.1"
 packaging = "*"
 pyyaml = "*"
 six = "*"
-
-[package.extras]
-pipenv = ["pipenv"]
 
 [[package]]
 category = "dev"
@@ -359,10 +343,6 @@ chardet = ">=3.0.2,<3.1.0"
 idna = ">=2.5,<2.9"
 urllib3 = ">=1.21.1,<1.25"
 
-[package.extras]
-security = ["pyOpenSSL (>=0.14)", "cryptography (>=1.3.4)", "idna (>=2.0.0)"]
-socks = ["PySocks (>=1.5.6,<1.5.7 || >1.5.7)", "win-inet-pton"]
-
 [[package]]
 category = "dev"
 description = "Safety checks your installed dependencies for known security vulnerabilities."
@@ -377,6 +357,18 @@ dparse = ">=0.4.1"
 packaging = "*"
 pip = "*"
 requests = "*"
+
+[[package]]
+category = "main"
+description = "Python client for Sentry (https://getsentry.com)"
+name = "sentry-sdk"
+optional = false
+python-versions = "*"
+version = "0.7.3"
+
+[package.dependencies]
+certifi = "*"
+urllib3 = "*"
 
 [[package]]
 category = "main"
@@ -407,16 +399,12 @@ pbr = ">=2.0.0,<2.1.0 || >2.1.0"
 six = ">=1.10.0"
 
 [[package]]
-category = "dev"
+category = "main"
 description = "HTTP library with thread-safe connection pooling, file post, and more."
 name = "urllib3"
 optional = false
 python-versions = ">=2.7, !=3.0.*, !=3.1.*, !=3.2.*, !=3.3.*, <4"
 version = "1.24.1"
-
-[package.extras]
-secure = ["pyOpenSSL (>=0.14)", "cryptography (>=1.3.4)", "idna (>=2.0.0)", "certifi", "ipaddress"]
-socks = ["PySocks (>=1.5.6,<1.5.7 || >1.5.7,<2.0)"]
 
 [[package]]
 category = "main"
@@ -425,10 +413,6 @@ name = "wand"
 optional = false
 python-versions = "*"
 version = "0.5.1"
-
-[package.extras]
-doc = ["Sphinx (>=1.0)"]
-test = ["pytest (>=2.3.0)", "pytest-xdist (>=1.8)", "psutil (>=1.0.1)"]
 
 [[package]]
 category = "main"
@@ -451,7 +435,7 @@ idna = ">=2.0"
 multidict = ">=4.0"
 
 [metadata]
-content-hash = "8b34f22b35487db81788307b3f5776791c7c0db091494d37cc9b83fc3e733e9e"
+content-hash = "0f78121e072f3d51344aaef05969f077075b7e676d37a7bfe756b6e7633016c2"
 python-versions = "^3.7"
 
 [metadata.hashes]
@@ -489,6 +473,7 @@ python-dateutil = ["7e6584c74aeed623791615e26efd690f29817a27c73085b78e4bad02493d
 pyyaml = ["3d7da3009c0f3e783b2c873687652d83b1bbfd5c88e9813fb7e5b03c0dd3108b", "3ef3092145e9b70e3ddd2c7ad59bdd0252a94dfe3949721633e41344de00a6bf", "40c71b8e076d0550b2e6380bada1f1cd1017b882f7e16f09a65be98e017f211a", "558dd60b890ba8fd982e05941927a3911dc409a63dcb8b634feaa0cda69330d3", "a7c28b45d9f99102fa092bb213aa12e0aaf9a6a1f5e395d36166639c1f96c3a1", "aa7dd4a6a427aed7df6fb7f08a580d68d9b118d90310374716ae90b710280af1", "bc558586e6045763782014934bfaf39d48b8ae85a2713117d16c39864085c613", "d46d7982b62e0729ad0175a9bc7e10a566fc07b224d2c79fafb5e032727eaa04", "d5eef459e30b09f5a098b9cea68bebfeb268697f78d647bd255a085371ac7f3f", "e01d3203230e1786cd91ccfdc8f8454c8069c91bee3962ad93b87a4b2860f537", "e170a9e6fcfd19021dd29845af83bb79236068bf5fd4df3327c1be18182b2531"]
 requests = ["502a824f31acdacb3a35b6690b5fbf0bc41d63a24a45c4004352b0242707598e", "7bf2a778576d825600030a110f3c0e3e8edc51dfaafe1c146e39a2027784957b"]
 safety = ["399511524f47230d5867f1eb75548f9feefb7a2711a4985cb5be0e034f87040f", "69b970918324865dcd7b92337e07152a0ea1ceecaf92f4d3b38529ee0ca83441"]
+sentry-sdk = ["6f4e264d0ad6267c40e20431a6a50f815515805ffe8eb9815340adf931279523", "ded1a85821d555dd68abdc0a8e7e4eee7b096f8a6d7a4821228b52a62a465f07"]
 six = ["3350809f0555b11f552448330d0b52d5f24c91a322ea4a15ef22629740f3761c", "d16a0141ec1a18405cd4ce8b4613101da75da0e9a7aec5bdd4fa804d0e0eba73"]
 smmap2 = ["0555a7bf4df71d1ef4218e4807bbf9b201f910174e6e08af2e138d4e517b4dde", "29a9ffa0497e7f2be94ca0ed1ca1aa3cd4cf25a1f6b4f5f87f74b46ed91d609a"]
 stevedore = ["b92bc7add1a53fb76c634a178978d113330aaf2006f9498d9e2414b31fbfc104", "c58b7c231a9c4890cd3c2b5d2b23bd63fa807ff934d68579e3f6c3a1735e8a7c"]
