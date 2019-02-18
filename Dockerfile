@@ -9,8 +9,10 @@ RUN apk --update --no-cache add imagemagick-dev --repository http://dl-cdn.alpin
 COPY . /app
 WORKDIR /app
 
+RUN mkdir ~/.config/pypoetry
 RUN pip install poetry==1.0.0a2
-RUN VIRTUAL_ENV=~/virtualenv/python3.7 poetry install --no-dev
+RUN poetry config settings.virtualenvs.create false
+RUN poetry install --no-dev
 
 ENTRYPOINT ["/sbin/tini", "--"]
 
