@@ -10,7 +10,6 @@ COPY . /app
 WORKDIR /app
 
 RUN pip install poetry==1.0.0a2
-RUN poetry config settings.virtualenvs.create false
 RUN poetry install --no-dev
 
 ENTRYPOINT ["/sbin/tini", "--"]
