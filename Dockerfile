@@ -11,7 +11,8 @@ WORKDIR /app
 
 RUN pip install poetry==1.0.0a2
 RUN poetry export -f requirements.txt
-RUN pip install -r requirements.txt
+RUN pip install -r <(grep -v git requirements.txt)
+RUN pip install -e $(grep git requirements.txt)
 
 ENTRYPOINT ["/sbin/tini", "--"]
 
