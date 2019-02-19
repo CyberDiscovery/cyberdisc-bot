@@ -18,7 +18,7 @@ from cdbot.constants import (
 from discord import Embed, File, Member, Message, NotFound
 from discord.ext.commands import Bot, Context, command, has_any_role
 from discord.utils import find as discord_find
-from PIL import Image, ImageFont, ImageDraw
+from PIL import Image, ImageDraw, ImageFont
 
 ascii_lowercase += " !?$"
 
