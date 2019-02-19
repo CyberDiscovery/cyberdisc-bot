@@ -5,7 +5,7 @@ RUN apk add --update --no-cache tini
 RUN apk add --update --no-cache build-base
 RUN apk add --update --no-cache libffi-dev
 RUN apk add --update --no-cache zlib-dev
-RUN apk add --update --no-cache libjpeg-dev
+RUN apk add --update --no-cache libjpeg
 
 COPY . /app
 WORKDIR /app
