@@ -18,8 +18,7 @@ from cdbot.constants import (
 from discord import Embed, File, Member, Message, NotFound
 from discord.ext.commands import Bot, Context, command, has_any_role
 from discord.utils import find as discord_find
-from wand.drawing import Drawing
-from wand.image import Image
+from PIL import Image, ImageFont, ImageDraw
 
 ascii_lowercase += " !?$"
 
@@ -320,18 +319,20 @@ class Fun:
         Creates an image of a given person with the specified text.
         """
         lines = textwrap.wrap(text, 15)
-        draw = Drawing()
-        image = Image(filename=f"cdbot/resources/{person}SaysBlank.png")
-        draw.font = f"cdbot/resources/Dosis-SemiBold.ttf"
-        draw.text_alignment = "center"
-        draw.font_size = 34
-        offset = 45 - 10 * len(lines)
-        for line in lines:
-            draw.text(image.width // 5 + 20, image.height // 5 + offset, line)
-            offset += 35
-        draw(image)
+        drawing_text = "\n".join(lines)
+
+        img = Image.open(f"cdbot/resources/{person}SaysBlank.png")
+        draw = ImageDraw.Draw(img)
+        font = ImageFont.truetype("cdbot/resources/Dosis-SemiBold.ttf", 34)
+
+        possible_size = draw.multiline_textsize(drawing_text, font=font)
+        x = img.width // 5 + 20 - possible_size[0] // 2
+        y = img.height // 5 + 35 / 2 - 35 * len(lines) // 2
+
+        draw.multiline_text((x, y), drawing_text, fill=(0, 0, 0), align="center", font=font)
+
         image_bytes = BytesIO()
-        image.save(image_bytes)
+        img.save(image_bytes, format="PNG")
         image_bytes.seek(0)
         await ctx.send(file=File(image_bytes, filename=f"{person}.png"))
 
