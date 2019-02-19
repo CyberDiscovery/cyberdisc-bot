@@ -4,7 +4,7 @@ RUN apk add --update --no-cache git
 RUN apk add --update --no-cache tini
 RUN apk add --update --no-cache build-base
 RUN apk add --update --no-cache libffi-dev
-RUN apk add --update --no-cache zlib1g-dev
+RUN apk add --update --no-cache zlib-dev
 
 COPY . /app
 WORKDIR /app
