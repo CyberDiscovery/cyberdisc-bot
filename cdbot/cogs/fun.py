@@ -321,18 +321,18 @@ class Fun:
         lines = textwrap.wrap(text, 15)
         drawing_text = "\n".join(lines)
 
-        img = Image.open(f"cdbot/resources/{person}SaysBlank.png")
-        draw = ImageDraw.Draw(img)
+        image = Image.open(f"cdbot/resources/{person}SaysBlank.png")
+        draw = ImageDraw.Draw(image)
         font = ImageFont.truetype("cdbot/resources/Dosis-SemiBold.ttf", 34)
 
         possible_size = draw.multiline_textsize(drawing_text, font=font)
-        x = img.width // 5 + 20 - possible_size[0] // 2
-        y = img.height // 5 + 35 / 2 - 35 * len(lines) // 2
+        x = image.width // 5 + 20 - possible_size[0] // 2
+        y = image.height // 5 + 35 / 2 - 35 * len(lines) // 2
 
         draw.multiline_text((x, y), drawing_text, fill=(0, 0, 0), align="center", font=font)
 
         image_bytes = BytesIO()
-        img.save(image_bytes, format="PNG")
+        image.save(image_bytes, format="PNG")
         image_bytes.seek(0)
         await ctx.send(file=File(image_bytes, filename=f"{person}.png"))
 
