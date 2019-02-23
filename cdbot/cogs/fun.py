@@ -16,7 +16,7 @@ from cdbot.constants import (
     STAFF_ROLE_ID
 )
 from discord import Embed, File, Member, Message, NotFound
-from discord.ext.commands import Bot, Context, command, has_any_role
+from discord.ext.commands import Bot, Cog, Context, command, has_any_role
 from discord.utils import find as discord_find
 from PIL import Image, ImageDraw, ImageFont
 
@@ -45,7 +45,7 @@ async def emojify(message: Message, string: str):
             await message.add_reaction(emoji)
 
 
-class Fun:
+class Fun(Cog):
     """
     Commands for fun!
     """
@@ -70,6 +70,7 @@ class Fun:
         self.quote_channel = None
         self.fake_staff_role = None
 
+    @Cog.listener()
     async def on_ready(self):
         guild = self.bot.guilds[0]
 
@@ -79,6 +80,7 @@ class Fun:
         if self.fake_staff_role is None:
             self.fake_staff_role = guild.get_role(FAKE_ROLE_ID)
 
+    @Cog.listener()
     async def on_message(self, message: Message):
         # If a new quote is added, add it to the database.
         if message.channel.id == QUOTES_CHANNEL_ID and (

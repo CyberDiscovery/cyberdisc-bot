@@ -12,7 +12,7 @@ from cdbot.constants import (
 from dateutil.parser import parse
 from dateutil.relativedelta import relativedelta
 from discord import Embed, Message
-from discord.ext.commands import Bot, Context, command
+from discord.ext.commands import Bot, Cog, Context, command
 
 
 async def generatebase64(seed: int) -> str:
@@ -21,7 +21,7 @@ async def generatebase64(seed: int) -> str:
     return "".join(random.choices(letters, k=20))
 
 
-class Cyber:
+class Cyber(Cog):
     """
     Cyber Discovery/Security related commands.
     """
@@ -321,6 +321,7 @@ class Cyber:
         await ctx.send(f"{stage_name} begins on the {countdown_target_str}.\n"
                        f"That's in {month_and_day_countdown}!")
 
+    @Cog.listener()
     async def on_message(self, message: Message):
         # Check the current command context
         ctx = await self.bot.get_context(message)
