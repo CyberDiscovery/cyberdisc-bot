@@ -1,7 +1,7 @@
-from discord.ext.commands import Bot
+from discord.ext.commands import Bot, Cog
 
 
-class General:
+class General(Cog):
     """
     General Purpose Commands
     """
@@ -9,6 +9,7 @@ class General:
     def __init__(self, bot: Bot):
         self.bot = bot
 
+    @Cog.listener()
     async def on_ready(self):
         print("Logged in as")
         print(self.bot.user.name)
@@ -17,6 +18,7 @@ class General:
 
         self.bot.log.info("CyberDiscovery bot is now logged in.")
 
+    @Cog.listener()
     async def on_command_error(self, ctx, error):
         self.bot.log.exception(error)
 
