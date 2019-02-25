@@ -320,18 +320,24 @@ class Fun(Cog):
         """
         Creates an image of a given person with the specified text.
         """
+        if len(text) > 500:
+            return ctx.send("Your string is too long.")
         lines = textwrap.wrap(text, 15)
         drawing_text = "\n".join(lines)
+        text_image = Image.new("RGBA", (1500, 1500), (255, 0, 0, 0))
+        text_draw = ImageDraw.Draw(text_image)
+
+        font = ImageFont.truetype("cdbot/resources/Dosis-SemiBold.ttf", 100)
+        crop_a, crop_b = text_draw.multiline_textsize(drawing_text, font=font)
+        text_draw = ImageDraw.Draw(text_image)
+        text_draw.multiline_text((0, 0), drawing_text, fill=(0, 0, 0), align='center', font=font)
+        text_image = text_image.crop((0, 25, crop_a, crop_b + 1))
+        text_image.thumbnail((200, 128))
+        size = text_image.size[0]
 
         image = Image.open(f"cdbot/resources/{person}SaysBlank.png")
-        draw = ImageDraw.Draw(image)
-        font = ImageFont.truetype("cdbot/resources/Dosis-SemiBold.ttf", 34)
-
-        possible_size = draw.multiline_textsize(drawing_text, font=font)
-        x = image.width // 5 + 20 - possible_size[0] // 2
-        y = image.height // 5 + 35 / 2 - 35 * len(lines) // 2
-
-        draw.multiline_text((x, y), drawing_text, fill=(0, 0, 0), align="center", font=font)
+        x = image.width // 5 + 20 - size // 2
+        image.paste(text_image, (x, 40), text_image)
 
         image_bytes = BytesIO()
         image.save(image_bytes, format="PNG")
