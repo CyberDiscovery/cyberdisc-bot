@@ -151,6 +151,10 @@ class Fun(Cog):
         if "revive" in message.content.lower():
             await emojify(message, "nou")
 
+        # Adds waving emoji when a new user joins.
+        if "Welcome to the Cyber Discovery discussion discord" in message.content and message.author.id == 155149108183695360:
+            await message.add_reaction("👋")
+
     @command()
     async def lmgtfy(self, ctx: Context, *args: str):
         """
