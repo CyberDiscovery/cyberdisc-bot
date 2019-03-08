@@ -85,7 +85,7 @@ class Cyber(Cog):
             return
 
         # Gather data from CyberStart Game.
-        with open("bot/data/game.json") as f:
+        with open("cdbot/data/game.json") as f:
             game_docs = load(f)
         # Temporary change to allow old usage method
         if base.isnumeric():
