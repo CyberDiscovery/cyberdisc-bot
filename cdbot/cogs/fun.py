@@ -152,7 +152,7 @@ class Fun(Cog):
             await emojify(message, "nou")
 
         # Adds waving emoji when a new user joins.
-        if "Welcome to the Cyber Discovery" in message.content and message.author.id == 155149108183695360:
+        if "Welcome to the Cyber Discovery" in message.content and message.author.id == WELCOME_BOT_ID
             await message.add_reaction("👋")
 
     @command()
