@@ -1,0 +1,33 @@
+jobs:
+- job: test
+  displayName: 'Lint & Test'
+
+  pool:
+    vmImage: 'Ubuntu 16.04'
+
+  steps:
+  - script: sudo apt-get install docker
+    displayName: 'Install base dependencies'
+
+  - script: docker build -t cd-bot .
+    displayName: 'Build docker container'
+
+  - script: pip install -r requirements-ci.txt
+    displayName: 'Install project using pipenv'
+
+  - script: python -m flake8 .
+    displayName: 'Run linter'
+
+- job: build
+  displayName: 'Build Containers'
+  dependsOn: 'test'
+
+  pool:
+    vmImage: 'Ubuntu 16.04'
+
+  steps:
+  - task: ShellScript@2
+    displayName: 'Build and deploy containers'
+
+    inputs:
+      scriptPath: deploy.sh
