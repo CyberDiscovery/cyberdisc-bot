@@ -6,7 +6,7 @@ import textwrap
 from io import BytesIO
 from random import randint
 from string import ascii_lowercase
-from typing import AsyncGenerator
+from typing import List
 from urllib.parse import urlencode
 
 import asyncpg
@@ -22,25 +22,36 @@ from PIL import Image, ImageDraw, ImageFont
 
 ascii_lowercase += " !?$"
 
+REACT_TRIGGERS = {
+    "dabato": "\N{THINKING FACE}",
+    "kali": "\N{ONCOMING POLICE CAR}",
+    "duck": "\N{DUCK}",
+    "revive": "nou"
+}
 
-async def _convert_emoji(message: str) -> AsyncGenerator:
+def convert_emoji(message: str) -> typing.List[]:
     """Convert a string to a list of emojis."""
     emoji_trans = list(map(iter, EMOJI_LETTERS))
     # Enumerate characters in the message
+    
+    emojified = []
+
     for character in message:
         index = ascii_lowercase.find(character)
         if index == -1:
             continue
         # Yield the next iteration of the letter
         try:
-            yield next(emoji_trans[index])
+            emojified.append(next(emoji_trans[index]))
         except StopIteration:
             continue
+
+    return emojified
 
 
 async def emojify(message: Message, string: str):
     """Convert a string to emojis, and add those emojis to a message."""
-    async for emoji in _convert_emoji(string.lower()):
+    for emoji in convert_emoji(string.lower()):
         if emoji is not None:
             await message.add_reaction(emoji)
 
@@ -130,26 +141,20 @@ class Fun(Cog):
             await message.add_reaction("\N{SLIGHTLY FROWNING FACE}")
             await emojify(message, "who pinged")
 
-        # React if message contains dabato.
-        if "dabato" in message.content:
-            await message.add_reaction("\N{THINKING FACE}")
-
         # React FBI OPEN UP if message contains trigger words.
         triggers = ["child", "fbi", "loli", "hentai", "illegal", "maltego"]
         if any(trigger in message.content.lower() for trigger in triggers):
             await emojify(message, "fbi open up")
 
-        # React if message contains Kali.
-        if "kali" in message.content.lower():
-            await message.add_reaction("\N{ONCOMING POLICE CAR}")
+        for trigger in REACT_TRIGGERS:
+            # Check if the message contains a trigger
+            if trigger in message.content.lower():
+                to_react = REACT_TRIGGERS[trigger]
 
-        # React if message contains Duck.
-        if "duck" in message.content.lower():
-            await message.add_reaction("\N{DUCK}")
-
-        # React "NO" if message contains revive.
-        if "revive" in message.content.lower():
-            await emojify(message, "nou")
+                if len(to_react) > 1: # We have a string to react with
+                    await emojify(message, to_react)
+                else:
+                    await message.add_reaction(to_react)
 
     @command()
     async def lmgtfy(self, ctx: Context, *args: str):
