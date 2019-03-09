@@ -13,7 +13,7 @@ jobs:
     displayName: 'Build docker container'
 
   - script: pip install -r requirements-ci.txt
-    displayName: 'Install project using pipenv'
+    displayName: 'Install project using pip'
 
   - script: python -m flake8 .
     displayName: 'Run linter'
