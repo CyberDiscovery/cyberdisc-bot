@@ -53,7 +53,7 @@ class Fun(Cog):
     # Embed sent when users try to ping staff
     ping_embed = (
         Embed(colour=0xFF0000, description="⚠ **Please make sure you have taken the following into account:** ")
-        .set_footer(text="To continue with the ping, react 👍, To delete this message and move on, react 👎")
+        .set_footer(text="To continue with the ping, react \N{THUMBS UP SIGN}, To delete this message and move on, react \N{THUMBS DOWN SIGN}")
         .add_field(
             name="Cyber Discovery staff will not provide help for challenges.",
             value="If you're looking for help, feel free to ask questions in one of our topical channels.",
