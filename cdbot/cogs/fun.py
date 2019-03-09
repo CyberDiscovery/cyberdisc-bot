@@ -94,12 +94,12 @@ class Fun(Cog):
         if self.fake_staff_role in message.role_mentions and not message.author.bot:
             # A user has requested to ping official staff
             sent = await message.channel.send(embed=self.ping_embed, delete_after=30)
-            await sent.add_reaction("👍")
-            await sent.add_reaction("👎")
+            await sent.add_reaction("\N{THUMBS UP SIGN}")
+            await sent.add_reaction("\N{THUMBS DOWN SIGN}")
 
             def check(reaction, user):
                 """Check if the reaction was valid."""
-                return all((user == message.author, str(reaction.emoji) in "👍👎"))
+                return all((user == message.author, str(reaction.emoji) in "\N{THUMBS UP SIGN}\N{THUMBS DOWN SIGN}"))
 
             try:
                 # Get the user's reaction
@@ -107,7 +107,7 @@ class Fun(Cog):
             except asyncio.TimeoutError:
                 pass
             else:
-                if str(reaction) == "👍":
+                if str(reaction) == "\N{THUMBS UP SIGN}":
                     # The user wants to continue with the ping
                     await self.staff_role.edit(mentionable=True)
                     staff_ping = Embed(
@@ -127,12 +127,12 @@ class Fun(Cog):
 
         # React if a message contains an @here or @everyone mention.
         if any(mention in message.content for mention in ("@here", "@everyone")):
-            await message.add_reaction("🙁")
+            await message.add_reaction("\N{SLIGHTLY FROWNING FACE}")
             await emojify(message, "who pinged")
 
         # React if message contains dabato.
         if "dabato" in message.content:
-            await message.add_reaction("🤔")
+            await message.add_reaction("\N{THINKING FACE}")
 
         # React FBI OPEN UP if message contains trigger words.
         triggers = ["child", "fbi", "loli", "hentai", "illegal", "maltego"]
@@ -141,11 +141,11 @@ class Fun(Cog):
 
         # React if message contains Kali.
         if "kali" in message.content.lower():
-            await message.add_reaction("🚔")
+            await message.add_reaction("\N{ONCOMING POLICE CAR}")
 
         # React if message contains Duck.
         if "duck" in message.content.lower():
-            await message.add_reaction("🦆")
+            await message.add_reaction("\N{DUCK}")
 
         # React "NO" if message contains revive.
         if "revive" in message.content.lower():
