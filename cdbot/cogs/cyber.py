@@ -164,7 +164,7 @@ class Cyber(Cog):
         NO_HINTS_MSG = f"**:warning: Remember, other people can't give hints after challenge {HINTS_LIMIT}**"
 
         # Gather Assess data from JSON file.
-        with open("bot/data/assess.json") as f:
+        with open("cdbot/data/assess.json") as f:
             assess_docs = load(f)
 
         if not 0 < challenge_num <= len(assess_docs):
