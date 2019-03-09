@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # Build and deploy only on master
-if [ $TRAVIS_BRANCH == 'master' ] && [ $TRAVIS_PULL_REQUEST == 'false' ]; then
+if [ $BUILD_SOURCEBRANCHNAME == 'master' ] && [ $SYSTEM_PULLREQUEST_PULLREQUESTID == '' ]; then
     openssl aes-256-cbc -K $encrypted_6c901f41f0ce_key -iv $encrypted_6c901f41f0ce_iv -in id_rsa.enc -out id_rsa -d
 
     echo "Building image..."
