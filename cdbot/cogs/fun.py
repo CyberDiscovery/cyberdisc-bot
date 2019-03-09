@@ -13,7 +13,7 @@ import asyncpg
 from aiohttp import ClientSession
 from cdbot.constants import (
     ADMIN_ROLES, EMOJI_LETTERS, FAKE_ROLE_ID, QUOTES_BOT_ID, QUOTES_CHANNEL_ID,
-    STAFF_ROLE_ID
+    STAFF_ROLE_ID, WELCOME_BOT_ID
 )
 from discord import Embed, File, Member, Message, NotFound
 from discord.ext.commands import Bot, Cog, Context, command, has_any_role
