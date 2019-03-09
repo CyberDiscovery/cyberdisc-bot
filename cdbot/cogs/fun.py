@@ -29,11 +29,12 @@ REACT_TRIGGERS = {
     "revive": "nou"
 }
 
-def convert_emoji(message: str) -> typing.List[]:
+
+def convert_emoji(message: str) -> List[str]:
     """Convert a string to a list of emojis."""
     emoji_trans = list(map(iter, EMOJI_LETTERS))
     # Enumerate characters in the message
-    
+
     emojified = []
 
     for character in message:
@@ -64,7 +65,8 @@ class Fun(Cog):
     # Embed sent when users try to ping staff
     ping_embed = (
         Embed(colour=0xFF0000, description="⚠ **Please make sure you have taken the following into account:** ")
-        .set_footer(text="To continue with the ping, react \N{THUMBS UP SIGN}, To delete this message and move on, react \N{THUMBS DOWN SIGN}")
+        .set_footer(text="To continue with the ping, react \N{THUMBS UP SIGN}, To delete this message and move on,"
+                         " react \N{THUMBS DOWN SIGN}")
         .add_field(
             name="Cyber Discovery staff will not provide help for challenges.",
             value="If you're looking for help, feel free to ask questions in one of our topical channels.",
@@ -151,7 +153,7 @@ class Fun(Cog):
             if trigger in message.content.lower():
                 to_react = REACT_TRIGGERS[trigger]
 
-                if len(to_react) > 1: # We have a string to react with
+                if len(to_react) > 1:  # We have a string to react with
                     await emojify(message, to_react)
                 else:
                     await message.add_reaction(to_react)
