@@ -1,5 +1,5 @@
 jobs:
-- job: test
+- job: lint
   displayName: 'Lint'
 
   pool:
