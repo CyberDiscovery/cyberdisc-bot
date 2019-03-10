@@ -12,6 +12,12 @@ jobs:
   - script: docker build -t cd-bot .
     displayName: 'Build docker container'
 
+  - task: UsePythonVersion@0
+    displayName: 'Set Python version'
+    inputs:
+      versionSpec: '3.7.x'
+      addToPath: true
+
   - script: pip install -r requirements-ci.txt
     displayName: 'Install project using pip'
 
@@ -39,3 +45,4 @@ jobs:
 
     inputs:
       scriptPath: deploy.sh
+    condition: and(eq(variables['Build.SourceBranch'], 'refs/heads/master'), ne(variables['Build.Reason'], 'PullRequest'))
