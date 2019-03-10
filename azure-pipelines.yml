@@ -1,12 +1,12 @@
 jobs:
 - job: test
-  displayName: 'Lint & Test'
+  displayName: 'Lint'
 
   pool:
     vmImage: 'Ubuntu 16.04'
 
   steps:
-  - script: sudo apt-get install docker
+  - script: sudo apt-get install docker python-setuptools
     displayName: 'Install base dependencies'
 
   - script: docker build -t cd-bot .
@@ -18,9 +18,17 @@ jobs:
   - script: python -m flake8 .
     displayName: 'Run linter'
 
+- job: test
+  displayName: 'Test'
+  
+  pool:
+    vmImage: 'Ubuntu 16.04'
+
 - job: build
-  displayName: 'Build Containers'
-  dependsOn: 'test'
+  displayName: 'Deploy'
+  dependsOn: 
+    - 'lint'
+    - 'test'
 
   pool:
     vmImage: 'Ubuntu 16.04'
