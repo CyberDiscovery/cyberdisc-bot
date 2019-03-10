@@ -52,7 +52,7 @@ async def react_to_message(message: Message, emoji_str: Iterable[str]):
 
 async def emojify(message: Message, string: str):
     """Convert a string to emojis, and add those emojis to a message."""
-    await react_to_message(message, map(convert_emoji, string))
+    await react_to_message(message, map(convert_emoji, string.lower()))
 
 
 REACT_TRIGGERS = {
