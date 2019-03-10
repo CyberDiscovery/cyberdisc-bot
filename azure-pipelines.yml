@@ -21,8 +21,8 @@ jobs:
   - script: python -m flake8 .
     displayName: 'Run linter'
 
-- job: test
-  displayName: 'Test'
+- job: build
+  displayName: 'Build'
   
   pool:
     vmImage: 'Ubuntu 16.04'
