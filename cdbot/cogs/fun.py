@@ -6,7 +6,7 @@ import textwrap
 from io import BytesIO
 from random import randint
 from string import ascii_lowercase
-from typing import List
+from typing import Iterable, List
 from urllib.parse import urlencode
 
 import asyncpg
@@ -21,13 +21,6 @@ from discord.utils import find as discord_find
 from PIL import Image, ImageDraw, ImageFont
 
 ascii_lowercase += " !?$"
-
-REACT_TRIGGERS = {
-    "dabato": "\N{THINKING FACE}",
-    "kali": "\N{ONCOMING POLICE CAR}",
-    "duck": "\N{DUCK}",
-    "revive": "nou"
-}
 
 
 def convert_emoji(message: str) -> List[str]:
@@ -50,11 +43,24 @@ def convert_emoji(message: str) -> List[str]:
     return emojified
 
 
-async def emojify(message: Message, string: str):
-    """Convert a string to emojis, and add those emojis to a message."""
-    for emoji in convert_emoji(string.lower()):
+async def react_to_message(message: Message, emoji_str: Iterable[str]):
+    """Add a set of reactions to a message"""
+    for emoji in emoji_str:
         if emoji is not None:
             await message.add_reaction(emoji)
+
+
+async def emojify(message: Message, string: str):
+    """Convert a string to emojis, and add those emojis to a message."""
+    await react_to_message(message, map(convert_emoji, string))
+
+
+REACT_TRIGGERS = {
+    "dabato": "\N{THINKING FACE}",
+    "kali": "\N{ONCOMING POLICE CAR}",
+    "duck": "\N{DUCK}",
+    "revive": convert_emoji("nou")
+}
 
 
 class Fun(Cog):
@@ -151,12 +157,7 @@ class Fun(Cog):
         for trigger in REACT_TRIGGERS:
             # Check if the message contains a trigger
             if trigger in message.content.lower():
-                to_react = REACT_TRIGGERS[trigger]
-
-                if len(to_react) > 1:  # We have a string to react with
-                    await emojify(message, to_react)
-                else:
-                    await message.add_reaction(to_react)
+                await react_to_message(message, REACT_TRIGGERS[trigger])
 
     @command()
     async def lmgtfy(self, ctx: Context, *args: str):
