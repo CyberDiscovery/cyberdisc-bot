@@ -298,9 +298,6 @@ class Cyber(Cog):
             )
             await ctx.send(embed=no_perms_embed)
 
-    # Secrets of the Universe that must not be revealed at any cost.
-    # m: SHVDJWx1S2lianFnSE8qfUp1M0BLMzhDS3VvaUhdcnI= k: beano
-
     @command(aliases=["a", "al"])
     async def assess(self, ctx: Context, challenge_num: int):
         """
