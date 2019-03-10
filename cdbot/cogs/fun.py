@@ -159,8 +159,8 @@ class Fun(Cog):
                     await message.add_reaction(to_react)
 
         # Adds waving emoji when a new user joins.
-        if "Welcome to the Cyber Discovery" in message.content and message.author.id == WELCOME_BOT_ID
-            await message.add_reaction("\N{THUMBS UP SIGN}")
+        if "Welcome to the Cyber Discovery" in message.content and message.author.id == WELCOME_BOT_ID:
+            await message.add_reaction("\N{WAVING HAND SIGN}")
 
     @command()
     async def lmgtfy(self, ctx: Context, *args: str):
