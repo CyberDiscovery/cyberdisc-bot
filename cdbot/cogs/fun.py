@@ -6,7 +6,7 @@ import textwrap
 from io import BytesIO
 from random import randint
 from string import ascii_lowercase
-from typing import AsyncGenerator
+from typing import List
 from urllib.parse import urlencode
 
 import asyncpg
@@ -22,25 +22,37 @@ from PIL import Image, ImageDraw, ImageFont
 
 ascii_lowercase += " !?$"
 
+REACT_TRIGGERS = {
+    "dabato": "\N{THINKING FACE}",
+    "kali": "\N{ONCOMING POLICE CAR}",
+    "duck": "\N{DUCK}",
+    "revive": "nou"
+}
 
-async def _convert_emoji(message: str) -> AsyncGenerator:
+
+def convert_emoji(message: str) -> List[str]:
     """Convert a string to a list of emojis."""
     emoji_trans = list(map(iter, EMOJI_LETTERS))
     # Enumerate characters in the message
+
+    emojified = []
+
     for character in message:
         index = ascii_lowercase.find(character)
         if index == -1:
             continue
         # Yield the next iteration of the letter
         try:
-            yield next(emoji_trans[index])
+            emojified.append(next(emoji_trans[index]))
         except StopIteration:
             continue
+
+    return emojified
 
 
 async def emojify(message: Message, string: str):
     """Convert a string to emojis, and add those emojis to a message."""
-    async for emoji in _convert_emoji(string.lower()):
+    for emoji in convert_emoji(string.lower()):
         if emoji is not None:
             await message.add_reaction(emoji)
 
@@ -53,7 +65,8 @@ class Fun(Cog):
     # Embed sent when users try to ping staff
     ping_embed = (
         Embed(colour=0xFF0000, description="⚠ **Please make sure you have taken the following into account:** ")
-        .set_footer(text="To continue with the ping, react 👍, To delete this message and move on, react 👎")
+        .set_footer(text="To continue with the ping, react \N{THUMBS UP SIGN}, To delete this message and move on,"
+                         " react \N{THUMBS DOWN SIGN}")
         .add_field(
             name="Cyber Discovery staff will not provide help for challenges.",
             value="If you're looking for help, feel free to ask questions in one of our topical channels.",
@@ -94,12 +107,12 @@ class Fun(Cog):
         if self.fake_staff_role in message.role_mentions and not message.author.bot:
             # A user has requested to ping official staff
             sent = await message.channel.send(embed=self.ping_embed, delete_after=30)
-            await sent.add_reaction("👍")
-            await sent.add_reaction("👎")
+            await sent.add_reaction("\N{THUMBS UP SIGN}")
+            await sent.add_reaction("\N{THUMBS DOWN SIGN}")
 
             def check(reaction, user):
                 """Check if the reaction was valid."""
-                return all((user == message.author, str(reaction.emoji) in "👍👎"))
+                return all((user == message.author, str(reaction.emoji) in "\N{THUMBS UP SIGN}\N{THUMBS DOWN SIGN}"))
 
             try:
                 # Get the user's reaction
@@ -107,7 +120,7 @@ class Fun(Cog):
             except asyncio.TimeoutError:
                 pass
             else:
-                if str(reaction) == "👍":
+                if str(reaction) == "\N{THUMBS UP SIGN}":
                     # The user wants to continue with the ping
                     await self.staff_role.edit(mentionable=True)
                     staff_ping = Embed(
@@ -127,29 +140,23 @@ class Fun(Cog):
 
         # React if a message contains an @here or @everyone mention.
         if any(mention in message.content for mention in ("@here", "@everyone")):
-            await message.add_reaction("🙁")
+            await message.add_reaction("\N{SLIGHTLY FROWNING FACE}")
             await emojify(message, "who pinged")
-
-        # React if message contains dabato.
-        if "dabato" in message.content:
-            await message.add_reaction("🤔")
 
         # React FBI OPEN UP if message contains trigger words.
         triggers = ["child", "fbi", "loli", "hentai", "illegal", "maltego"]
         if any(trigger in message.content.lower() for trigger in triggers):
             await emojify(message, "fbi open up")
 
-        # React if message contains Kali.
-        if "kali" in message.content.lower():
-            await message.add_reaction("🚔")
+        for trigger in REACT_TRIGGERS:
+            # Check if the message contains a trigger
+            if trigger in message.content.lower():
+                to_react = REACT_TRIGGERS[trigger]
 
-        # React if message contains Duck.
-        if "duck" in message.content.lower():
-            await message.add_reaction("🦆")
-
-        # React "NO" if message contains revive.
-        if "revive" in message.content.lower():
-            await emojify(message, "nou")
+                if len(to_react) > 1:  # We have a string to react with
+                    await emojify(message, to_react)
+                else:
+                    await message.add_reaction(to_react)
 
         # Adds waving emoji when a new user joins.
         if "Welcome to the Cyber Discovery" in message.content and message.author.id == WELCOME_BOT_ID
