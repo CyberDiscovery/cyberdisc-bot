@@ -14,7 +14,7 @@ from cdbot.constants import (
 from dateutil.parser import parse
 from dateutil.relativedelta import relativedelta
 from discord import Colour, Embed, File, Message
-from discord.ext.commands import Bot, Cog, Context, command
+from discord.ext.commands import Bot, Cog, Context, command, has_role
 
 
 async def generatebase64(seed: int) -> str:
@@ -158,6 +158,7 @@ class Cyber(Cog):
         await ctx.send(embed=embed)
 
     @command()
+    @has_role(ROOT_ROLE_ID)
     async def readme(self, ctx: Context, operand: str = "", channel_id: int = 0, msg_send_interval: int = 0):
         """
         Allows generating, sending and manipulation of JSON file containing the info needed
@@ -189,7 +190,7 @@ class Cyber(Cog):
             await ctx.send(embed=misssing_channel_embed)
 
         # Process the request.
-        elif ROOT_ROLE_ID in [msg_author.id for msg_author in ctx.message.author.roles]:
+        else:
             # Let's create a series of #readme-capable embeds. If something is uploaded,
             # It will attempt to use that file for the readme, if omitted, it will use
             # the default JSONifed readme file and send that into the channel instead.
@@ -261,14 +262,13 @@ class Cyber(Cog):
                         if (0 < msg_send_interval < 901):
                             await sleep(msg_send_interval)
 
-                except(Exception) as e:
+                except(Exception):
                     parse_fail_embed = Embed(
                         colour=0x673ab7,
                         description=":x: **Error parsing JSON file, please ensure its valid!**"
                     )
                     await ctx.message.delete()
                     await ctx.send(embed=parse_fail_embed)
-                    await ctx.send(e)  # DEBUG
 
             # Pull the readme JSON constant files and slide it into the user's DMs.
             elif operand in README_RECV_ALIASES:
@@ -289,14 +289,6 @@ class Cyber(Cog):
                     )
                     await ctx.message.delete()
                     await ctx.send(embed=msg_confirmation)
-
-        else:
-            # User does not have permissions.
-            no_perms_embed = Embed(
-                colour=0xf44336,
-                description="**Sorry, but you do not have the required permissions to use this command.**"
-            )
-            await ctx.send(embed=no_perms_embed)
 
     @command(aliases=["a", "al"])
     async def assess(self, ctx: Context, challenge_num: int):
