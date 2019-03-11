@@ -8,8 +8,7 @@ jobs:
   steps:
   - script: echo hello don't use azure
     displayName: 'Warning not to use Azure'
-
-  steps:
+  
   - script: sudo apt-get install python-setuptools
     displayName: 'Install base dependencies'
 
