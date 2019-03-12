@@ -19,6 +19,7 @@ BANNED_DOMAINS = ["discord.gg"]
 
 CYBERDISC_ICON_URL = "https://pbs.twimg.com/profile_images/" "921313066515615745/fLEl2Gfa_400x400.jpg"
 PWNED_ICON_URL = "https://upload.wikimedia.org/wikipedia" "/commons/2/23/Have_I_Been_Pwned_logo.png"
+END_README_MESSAGE = "**Can't see any of the above?**\nIf you can't see any of the rich embeds above, try the following: `Settings -> Text & Images -> Link Preview (Show website preview info from links pasted into that chat)  -> ON`"
 
 # Last level for CyberStart Assess where hints are allowed
 HINTS_LIMIT = 8
