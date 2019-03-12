@@ -226,7 +226,11 @@ class Cyber(Cog):
                     await ctx.message.delete()
 
                     for section in json_config:
-                        # Get data from the JSON file sections.
+                        # Initialise our message and embed variables each loop.
+                        # This is to prevent leftover data from being re-sent.
+                        msg_content, current_embed = None, None
+
+                        # The part which handles general messages.
                         if "content" in json_config[section]:
                             msg_content = json_config[section]["content"]
 
@@ -251,9 +255,9 @@ class Cyber(Cog):
                         # Send the message.
                         requested_channel = self.bot.get_channel(channel_id)
 
-                        if ("msg_content" in locals() and "current_embed" not in locals()):
+                        if (msg_content is not None and current_embed is None):
                             await requested_channel.send(content=msg_content)
-                        elif ("current_embed" in locals() and "msg_content" not in locals()):
+                        elif (current_embed is not None and msg_content is None):
                             await requested_channel.send(embed=current_embed)
                         else:
                             await requested_channel.send(content=msg_content, embed=current_embed)
