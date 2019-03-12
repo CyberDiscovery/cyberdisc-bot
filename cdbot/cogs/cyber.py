@@ -263,12 +263,13 @@ class Cyber(Cog):
                             await requested_channel.send(embed=current_embed)
                         else:
                             await requested_channel.send(content=msg_content, embed=current_embed)
-                        
-                        await requested_channel.send(content=END_README_MESSAGE)
-                            
+
                         # User has requested a delay between each message being sent.
                         if (0 < msg_send_interval < 901):
                             await sleep(msg_send_interval)
+
+                    # Send the trailing embed message constant.
+                    await requested_channel.send(content=END_README_MESSAGE)
 
                 except(Exception):
                     parse_fail_embed = Embed(
