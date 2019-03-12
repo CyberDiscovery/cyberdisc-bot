@@ -238,6 +238,8 @@ class Cyber(Cog):
                         if "embed" in json_config[section]:
                             current_embed = Embed()
                             msg_embed = json_config[section]["embed"]
+                            if "title" in msg_embed:
+                                current_embed.title = msg_embed["title"]
                             if "text" in msg_embed:
                                 current_embed.description = msg_embed["text"]
                             if "color" in msg_embed:
