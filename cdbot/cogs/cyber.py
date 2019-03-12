@@ -9,7 +9,7 @@ from json import load
 
 from aiohttp import ClientSession
 from cdbot.constants import (
-    BASE_ALIASES, CYBERDISC_ICON_URL, HINTS_LIMIT, PWNED_ICON_URL, ROOT_ROLE_ID
+    BASE_ALIASES, CYBERDISC_ICON_URL, END_README_MESSAGE, HINTS_LIMIT, PWNED_ICON_URL, ROOT_ROLE_ID
 )
 from dateutil.parser import parse
 from dateutil.relativedelta import relativedelta
@@ -267,6 +267,9 @@ class Cyber(Cog):
                         # User has requested a delay between each message being sent.
                         if (0 < msg_send_interval < 901):
                             await sleep(msg_send_interval)
+
+                    # Send the trailing embed message constant.
+                    await requested_channel.send(content=END_README_MESSAGE)
 
                 except(Exception):
                     parse_fail_embed = Embed(
