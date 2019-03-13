@@ -1,0 +1,38 @@
+{
+    "part1": {"content": "**Welcome to the Cyber Discovery Discord Server!** This is a place to discuss all things Cyber Discovery (and a few things tangentially related as well), to meet like-minded people, and to learn more about cyber security!"
+    },
+
+    "part2": {
+        "content": "Below is an explanation of some of the roles and their purposes on this server. If you qualify for one of these roles, please ask a member of Root or Sudo (explained below!); for certain roles, we may ask you to DM proof for verification.",
+        "embed": {
+            "title": "**Roles**",
+            "text": "```diff\n- Root and Sudo\n```The admins here, who help run and moderate the server!\n\n```diff\n- Official Cyber Discovery Staff\n```(some of) The people who created and run the programme! Please don't spam their pings, try emailing support@joincyberdiscovery.com instead.\n\n```HTTP\nMentor\n```Feel free to ask/DM anyone with the Mentor role (it's the yellow one!) with any questions you may have; everyone is here to learn and we're happy to help! Current Mentors: <@232476036342874113>, <@140605665772175361>, <@368472688202874892>, <@108983846103461888>, <@453880450683764756>\n\n```CSS\nCommunity Developer\n```People who have contributed to the community through development! If you'd like to contribute to some of our projects or start a new one, please see our GitHub page. https://github.com/CyberDiscovery/\n\n```yaml\nHQ, Moonbase, Forensics, 100 Percent, Essentials, True 100%\n```Roles for completing each base of CyberStart Game, completing the entirety of it, completing all of CyberStart Essentials, and for completing 100% of CyberStart Assess, Game and Essentials, respectively. Please DM a Root/Sudo a video of you refreshing either the base pages or your timeline for verification to obtain these roles.\n\n```diff\n+ Veteran 2018\n```Anybody who get through to CyberStart Elite in the first year of the programme (2017/2018) has this role.\n\n```\nBeta Squad\n```Anyone invited to participate in Cyber Discovery's beta programme has this role.\n\n```\nYear X (10-13)\n```We have roles for the academic year you're in, use .rank Year X in <#409860647170342919> to assign it to yourself! We also have Always just a bit too old for those who've now moved past Year 13.\n\n```md\n# Level X\n```The Level roles are assigned by the bots, and simply measure server activity.\n\n```\nTrusted\n```Allows use of external emojis, and control of <@235088799074484224>",
+            "color": "0x00ff00"
+        }
+    },
+
+    "part3": {
+        "embed": {
+            "title": "**Doxing**",
+            "text": "To ensure everyone's on the same page around what doxing is, we've made some guidelines which everyone is expected to abide by:\n\n```dts\n1. Do not expose any personal information about person A without express permission from person A ANYWHERE, on or off the server.\n2. Personal information is any info pertaining to person A’s identity, e.g. locations, names, contact details - anything that is linked to that person.\n3. If you’re not sure whether it counts as doxing, simply DO NOT SAY IT. Ask the person in question FIRST. \n4. If you want to release your own personal information PUBLICLY ON THE SERVER, feel free to, but be aware that it can be RE-QUOTED AT ANY TIME as YOU have made it freely available. If there’s something that you accidentally posted or something you want deleted, delete it or let a mod know so that appropriate action can be taken.\n5. Don’t try to find information that can dox someone else. Ask their permission or leave it. It’s not worth the risk of ruining someone else’s/your time on the server.```Thank you.",
+            "color": "0xffd500"    
+        }
+    },
+
+    "part4": {
+        "embed": {
+            "title": "**Discriminatory Content**",
+            "text": "Discriminatory content is not and never will be condoned on the server. This means ALL racist imagery or remarks posted by anyone on the server is sufficient grounds for punishment by a moderator. This is not up for debate - offensive content is not allowed on this server in any form. If you are upset or offended by racist or derogatory content posted on this server, DM a moderator immediately. If you are unsure if your content 'counts' as offensive, do not post it, and DM a moderator if you want clarification.",
+            "color": "0xff7f00"
+        }
+    },
+
+    "part5": {
+        "content": "We would like to make it clear that all these rules are intended to make this server a friendly and welcoming place for everybody. We're all here to try and have some fun learning about cyber security - keep that in mind when considering your actions. :smiley:",
+        "embed": {
+            "title": "**Rules**",
+            "text": "```diff\n- No offensive messages or nicknames\n+ Anything that a reasonable person may find offensive.\n- No spam\n+ This includes, but is not limited to, @mention spam, message or image spam, or loud/obnoxious noises in voice channels.\n- No inappropriate content\n+ Remember this is a server for a programme for 14-18 year olds. No gory, sexual or scary content, e.g. screamer links, porn, death, etc.\n- No harassment\n+ Including sexual harassment or encouraging or harassment.\n- Use the appropriate channels\n+ Please don't post any solutions or spoilers to the challenges, and be mindful that some parts of the programme (eg. some of the specifics of the beta) are meant to remain semi-secret!\n\nSwearing is allowed so long as it isn't directed maliciously at another member.\nIf you aim something at another member intended as a joke and they do not take it as so, just apologise and move on.\nDo not discuss any illegal activity on the server - remember that people's lives and careers have been impacted by messing with the wrong people or activities when they were young.\n\nThere may be situations not covered by the rules or times where the rule may not fit the situation. If this happens, the moderators are trusted to handle the situation appropriately, and reserve the right to take action as they see fit. If you have a complaint about a staff member, you can DM a complaint to another member of staff.\n```",
+            "color": "0xff0000"
+        }
+    }
+}
