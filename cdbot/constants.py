@@ -12,6 +12,7 @@ WELCOME_BOT_ID = 155149108183695360
 # Lists for administration
 STAFF_ROLE_ID = 450063890362138624
 FAKE_ROLE_ID = 533826912712130580
+ROOT_ROLE_ID = int(getenv("ROOT_MEMBERS_ID", "450113490590629888"))
 ADMIN_ROLES = ("Root", "Sudo")
 BANNED_DOMAINS = ["discord.gg"]
 
@@ -19,7 +20,9 @@ BANNED_DOMAINS = ["discord.gg"]
 
 CYBERDISC_ICON_URL = "https://pbs.twimg.com/profile_images/" "921313066515615745/fLEl2Gfa_400x400.jpg"
 PWNED_ICON_URL = "https://upload.wikimedia.org/wikipedia" "/commons/2/23/Have_I_Been_Pwned_logo.png"
-
+END_README_MESSAGE = ("**Can't see any of the above?**\nIf you can't see any of the rich embeds above, try the"
+                      " following: `Settings -> Text & Images -> Link Preview (Show website preview info from"
+                      " links pasted into that chat)  -> ON`")
 # Last level for CyberStart Assess where hints are allowed
 HINTS_LIMIT = 8
 
