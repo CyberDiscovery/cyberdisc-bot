@@ -31,5 +31,5 @@ jobs:
   - task: Docker@1
     displayName: 'Build an image'
     inputs:
-      dockerFile: '$(System.DefaultWorkingDirectory)/_CyberDiscovery_cyberdisc-bot/Dockerfile'
+      dockerFile: '$(System.DefaultWorkingDirectory)/Dockerfile'
       imageName: 'cyberdiscovery/cdbot:latest'
