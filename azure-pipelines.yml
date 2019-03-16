@@ -28,8 +28,8 @@ jobs:
     vmImage: 'Ubuntu 16.04'
 
   steps:
-  - script: sudo apt-get install docker
-    displayName: 'Install base dependencies'
-
-  - script: docker build -t cd-bot .
-    displayName: 'Build docker container'
+  - task: Docker@1
+    displayName: 'Build an image'
+    inputs:
+      dockerFile: '$(System.DefaultWorkingDirectory)/_CyberDiscovery_cyberdisc-bot/Dockerfile'
+      imageName: 'cyberdiscovery/cdbot:latest'
