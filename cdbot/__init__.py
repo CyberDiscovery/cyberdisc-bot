@@ -6,8 +6,6 @@ import sentry_sdk
 
 from .bot import bot
 
-__author__ = 'Gareth Coles'
-
 
 def main():
     """Entry point for poetry script."""
