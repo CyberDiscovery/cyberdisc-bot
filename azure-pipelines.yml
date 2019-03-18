@@ -35,3 +35,5 @@ jobs:
       imageName: 'cyberdiscovery/cdbot:latest'
 pr:
   autoCancel: false
+  branches:
+    include: *
