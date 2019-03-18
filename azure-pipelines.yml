@@ -1,7 +1,5 @@
 pr:
   autoCancel: false
-  branches:
-    include: *
 
 jobs:
 - job: lint
