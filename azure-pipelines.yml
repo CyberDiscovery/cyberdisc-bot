@@ -1,3 +1,8 @@
+pr:
+  autoCancel: false
+  branches:
+    include: *
+
 jobs:
 - job: lint
   displayName: 'Lint'
@@ -33,7 +38,4 @@ jobs:
     inputs:
       dockerFile: '$(System.DefaultWorkingDirectory)/Dockerfile'
       imageName: 'cyberdiscovery/cdbot:latest'
-pr:
-  autoCancel: false
-  branches:
-    include: *
+
