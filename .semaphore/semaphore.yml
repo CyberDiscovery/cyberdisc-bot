@@ -1,0 +1,24 @@
+version: v1.0
+name: Sempahore FTW?
+agent:
+  machine:
+    type: e1-standard-2
+    os_image: ubuntu1804
+blocks:
+  - name: "Build"
+    task:
+      jobs:
+      - name: Docker build
+        commands:
+          - checkout
+          - docker build -t cyberdiscovery/cdbot:latest .
+  - name: "Test"
+    task:
+      prologue:
+        commands:
+          - pip install -r requirements-ci.txt
+      jobs:
+      - name: Flake8
+        commands:
+          - checkout
+          - python -m flake8 .
