@@ -26,7 +26,7 @@ jobs:
 
   - task: PublishTestResults@2
     inputs:
-      testResultsFiles: '**/flake8_junit.xml.xml'
+      testResultsFiles: '**/flake8_junit.xml'
       testRunTitle: 'Publish test results to Azure'
 
 - job: build
