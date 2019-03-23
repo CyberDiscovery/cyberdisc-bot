@@ -18,16 +18,8 @@ jobs:
   - script: pip install -r requirements-ci.txt
     displayName: 'Install project using pip'
 
-  - script: python -m flake8 . --output-file flake8.txt
+  - script: python -m flake8 . --format junit-xml
     displayName: 'Run linter'
-
-  - script: flake8_junit flake8.txt flake8_junit.xml
-    displayName: 'Convert flake8 output to JUnit'
-
-  - task: PublishTestResults@2
-    inputs:
-      testResultsFiles: '**/flake8_junit.xml'
-      testRunTitle: 'Publish test results to Azure'
 
 - job: build
   displayName: 'Build'
