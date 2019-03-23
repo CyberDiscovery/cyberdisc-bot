@@ -6,7 +6,6 @@ authors = ["Cyber Discovery Community <triggerhappymods@cyberdiscoverycommunity.
 license = "MIT"
 
 [tool.poetry.dependencies]
-websockets = ">=7.0"
 aiohttp = "=3.3.0"
 "discord.py" = {git = "https://github.com/Rapptz/discord.py", branch = "rewrite"}
 python = "^3.7"
