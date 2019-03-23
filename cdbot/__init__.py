@@ -1,8 +1,8 @@
 """Initialise cdbot as a package for poetry."""
 
+import base64
 from os import environ
 
-import base64
 import sentry_sdk
 
 from .bot import bot

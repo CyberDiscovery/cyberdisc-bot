@@ -8,8 +8,8 @@ from io import BytesIO
 from random import randint
 from string import ascii_lowercase
 from typing import List
-from urllib.parse import urlencode
 from os import environ
+from urllib.parse import urlencode
 
 import asyncpg
 from aiohttp import ClientSession
