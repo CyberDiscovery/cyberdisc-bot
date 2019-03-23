@@ -5,10 +5,10 @@ import asyncio
 import base64
 import textwrap
 from io import BytesIO
+from os import environ
 from random import randint
 from string import ascii_lowercase
 from typing import List
-from os import environ
 from urllib.parse import urlencode
 
 import asyncpg
