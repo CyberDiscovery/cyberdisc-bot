@@ -24,6 +24,9 @@ jobs:
   - script: flake8_junit flake8.txt flake8_junit.xml
     displayName: 'Convert flake8 output to JUnit'
 
+  - script: cat /home/vsts/work/1/s/flake8_junit.xml
+    displayName: 'What madness is this?'
+
   - task: PublishTestResults@2
     inputs:
       testResultsFiles: '**/flake8_junit.xml'
