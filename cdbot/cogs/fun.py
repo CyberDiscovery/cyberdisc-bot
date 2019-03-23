@@ -2,12 +2,14 @@
 Set of bot commands designed for general leisure.
 """
 import asyncio
+import base64
 import textwrap
 from io import BytesIO
 from random import randint
 from string import ascii_lowercase
 from typing import List
 from urllib.parse import urlencode
+from os import environ
 
 import asyncpg
 from aiohttp import ClientSession
@@ -99,7 +101,12 @@ class Fun(Cog):
         if message.channel.id == QUOTES_CHANNEL_ID and (
             message.author.id == QUOTES_BOT_ID or message.mentions is not None
         ):
-            conn = await asyncpg.connect()
+            conn = await asyncpg.connect(host=base64.b64decode(environ.get("PGHOST")),
+                                         port=base64.b64decode(environ.get("PGPORT")),
+                                         user=base64.b64decode(environ.get("PGUSER")),
+                                         password=base64.b64decode(environ.get("PGPASSWORD")),
+                                         database=base64.b64decode(environ.get("PGDATABASE")))
+
             await self.add_quote_to_db(conn, message)
             await conn.close()
             print(f"Message #{message.id} added to database.")
@@ -253,7 +260,11 @@ class Fun(Cog):
         Returns a random quotation from the #quotes channel.
         A user can be specified to return a random quotation from that user.
         """
-        conn = await asyncpg.connect()
+        conn = await asyncpg.connect(host=base64.b64decode(environ.get("PGHOST")),
+                                     port=base64.b64decode(environ.get("PGPORT")),
+                                     user=base64.b64decode(environ.get("PGUSER")),
+                                     password=base64.b64decode(environ.get("PGPASSWORD")),
+                                     database=base64.b64decode(environ.get("PGDATABASE")))
         quote_channel = self.bot.get_channel(QUOTES_CHANNEL_ID)
 
         if member is None:
@@ -319,7 +330,11 @@ class Fun(Cog):
         Pulls all quotes from a quotes channel into a PostgreSQL database.
         Needs PGHOST, PGPORT, PGUSER, PGDATABASE and PGPASSWORD env vars.
         """
-        conn = await asyncpg.connect()
+        conn = await asyncpg.connect(host=base64.b64decode(environ.get("PGHOST")),
+                                     port=base64.b64decode(environ.get("PGPORT")),
+                                     user=base64.b64decode(environ.get("PGUSER")),
+                                     password=base64.b64decode(environ.get("PGPASSWORD")),
+                                     database=base64.b64decode(environ.get("PGDATABASE")))
         await conn.execute("CREATE TABLE IF NOT EXISTS quotes (quote_id bigint PRIMARY KEY, author_id bigint)")
         quote_channel = self.bot.get_channel(QUOTES_CHANNEL_ID)
         async for quote in quote_channel.history(limit=None):
