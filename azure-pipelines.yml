@@ -22,7 +22,7 @@ jobs:
     displayName: 'Run linter'
 
   - script: flake8_junit flake8.txt flake8_junit.xml
-    displayname: 'Convert flake8 output to JUnit'
+    displayName: 'Convert flake8 output to JUnit'
 
   - task: PublishTestResults@2
     inputs:
