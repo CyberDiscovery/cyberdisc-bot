@@ -1,5 +1,5 @@
-from os import environ
 import base64
+from os import environ
 
 """
 Setup PostgreSQL
