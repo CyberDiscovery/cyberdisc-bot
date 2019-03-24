@@ -6,7 +6,7 @@ metadata:
   labels:
     app: "cyberdisc-bot"
 spec:
-  replicas: 3
+  replicas: 1
   selector:
     matchLabels:
       app: "cyberdisc-bot"
@@ -17,7 +17,7 @@ spec:
     spec:
       containers:
       - name: "cyberdisc-bot"
-        image: "gcr.io/dazzling-matrix-120920/github.com/cyberdiscovery/cyberdisc-bot:$COMMIT_SHA"
+        image: "cyberdiscovery/cdbot:latest"
         env:
         - name: "BOT_TOKEN"
           valueFrom:
