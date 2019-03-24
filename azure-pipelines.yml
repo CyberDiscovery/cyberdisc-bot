@@ -1,3 +1,14 @@
+trigger:
+  branches:
+    include:
+    - '*'
+
+pr:
+  autoCancel: false
+  branches:
+    include:
+    - '*'
+
 jobs:
 - job: lint
   displayName: 'Lint'
