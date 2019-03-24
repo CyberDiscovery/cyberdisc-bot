@@ -2,10 +2,8 @@
 Set of bot commands designed for general leisure.
 """
 import asyncio
-import base64
 import textwrap
 from io import BytesIO
-from os import environ
 from random import randint
 from string import ascii_lowercase
 from typing import List
@@ -14,8 +12,7 @@ from urllib.parse import urlencode
 import asyncpg
 from aiohttp import ClientSession
 from cdbot.constants import (
-    ADMIN_ROLES, EMOJI_LETTERS, FAKE_ROLE_ID, QUOTES_BOT_ID, QUOTES_CHANNEL_ID,
-    STAFF_ROLE_ID, WELCOME_BOT_ID, PostgreSQL
+    ADMIN_ROLES, EMOJI_LETTERS, FAKE_ROLE_ID, PostgreSQL, QUOTES_BOT_ID, QUOTES_CHANNEL_ID,STAFF_ROLE_ID, WELCOME_BOT_ID
 )
 from discord import Embed, File, Member, Message, NotFound
 from discord.ext.commands import Bot, Cog, Context, command, has_any_role

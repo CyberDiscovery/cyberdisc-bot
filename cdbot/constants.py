@@ -4,12 +4,15 @@ import base64
 """
 Setup PostgreSQL
 """
+
+
 class PostgreSQL():
     PGHOST = base64.b64decode(environ.get("PGHOST"))
     PGPORT = base64.b64decode(environ.get("PGPORT"))
     PGDATABASE = base64.b64decode(environ.get("PGDATABASE"))
     PGUSER = base64.b64decode(environ.get("PGUSER"))
     PGPASSWORD = base64.b64decode(environ.get("PGPASSWORD"))
+
 
 """
 A list of constants.
