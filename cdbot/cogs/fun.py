@@ -15,7 +15,7 @@ import asyncpg
 from aiohttp import ClientSession
 from cdbot.constants import (
     ADMIN_ROLES, EMOJI_LETTERS, FAKE_ROLE_ID, QUOTES_BOT_ID, QUOTES_CHANNEL_ID,
-    STAFF_ROLE_ID, WELCOME_BOT_ID
+    STAFF_ROLE_ID, WELCOME_BOT_ID, Postgresql
 )
 from discord import Embed, File, Member, Message, NotFound
 from discord.ext.commands import Bot, Cog, Context, command, has_any_role
@@ -101,11 +101,8 @@ class Fun(Cog):
         if message.channel.id == QUOTES_CHANNEL_ID and (
             message.author.id == QUOTES_BOT_ID or message.mentions is not None
         ):
-            conn = await asyncpg.connect(host=base64.b64decode(environ.get("PGHOST")),
-                                         port=base64.b64decode(environ.get("PGPORT")),
-                                         user=base64.b64decode(environ.get("PGUSER")),
-                                         password=base64.b64decode(environ.get("PGPASSWORD")),
-                                         database=base64.b64decode(environ.get("PGDATABASE")))
+            conn = await asyncpg.connect(host=Postgresql.PGHOST, port=Postgresql.PGPORT, user=Postgresql.PGUSER,
+                                         password=Postgresql.PGPASSWORD, database=Postgresql.PGDATABASE)
 
             await self.add_quote_to_db(conn, message)
             await conn.close()
@@ -260,11 +257,8 @@ class Fun(Cog):
         Returns a random quotation from the #quotes channel.
         A user can be specified to return a random quotation from that user.
         """
-        conn = await asyncpg.connect(host=base64.b64decode(environ.get("PGHOST")),
-                                     port=base64.b64decode(environ.get("PGPORT")),
-                                     user=base64.b64decode(environ.get("PGUSER")),
-                                     password=base64.b64decode(environ.get("PGPASSWORD")),
-                                     database=base64.b64decode(environ.get("PGDATABASE")))
+        conn = await asyncpg.connect(host=Postgresql.PGHOST, port=Postgresql.PGPORT, user=Postgresql.PGUSER,
+                                     password=Postgresql.PGPASSWORD, database=Postgresql.PGDATABASE)
         quote_channel = self.bot.get_channel(QUOTES_CHANNEL_ID)
 
         if member is None:
@@ -330,11 +324,8 @@ class Fun(Cog):
         Pulls all quotes from a quotes channel into a PostgreSQL database.
         Needs PGHOST, PGPORT, PGUSER, PGDATABASE and PGPASSWORD env vars.
         """
-        conn = await asyncpg.connect(host=base64.b64decode(environ.get("PGHOST")),
-                                     port=base64.b64decode(environ.get("PGPORT")),
-                                     user=base64.b64decode(environ.get("PGUSER")),
-                                     password=base64.b64decode(environ.get("PGPASSWORD")),
-                                     database=base64.b64decode(environ.get("PGDATABASE")))
+        conn = await asyncpg.connect(host=Postgresql.PGHOST, port=Postgresql.PGPORT, user=Postgresql.PGUSER,
+                                     password=Postgresql.PGPASSWORD, database=Postgresql.PGDATABASE)
         await conn.execute("CREATE TABLE IF NOT EXISTS quotes (quote_id bigint PRIMARY KEY, author_id bigint)")
         quote_channel = self.bot.get_channel(QUOTES_CHANNEL_ID)
         async for quote in quote_channel.history(limit=None):
