@@ -6,7 +6,7 @@ Setup PostgreSQL
 """
 
 
-class PostgreSQL():
+class PostgreSQL:
     PGHOST = base64.b64decode(environ.get("PGHOST"))
     PGPORT = base64.b64decode(environ.get("PGPORT"))
     PGDATABASE = base64.b64decode(environ.get("PGDATABASE"))
