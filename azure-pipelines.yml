@@ -18,7 +18,7 @@ jobs:
   - script: pip install -r requirements-ci.txt
     displayName: 'Install project using pip'
 
-  - script: python -m flake8 --format junit-xml --output-file flake8.xml .
+  - script: python -m flake8 .
     displayName: 'Run linter'
 
   - task: PublishTestResults@2
