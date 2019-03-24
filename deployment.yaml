@@ -1,0 +1,56 @@
+apiVersion: "extensions/v1beta1"
+kind: "Deployment"
+metadata:
+  name: "cyberdisc-bot"
+  namespace: "default"
+  labels:
+    app: "cyberdisc-bot"
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: "cyberdisc-bot"
+  template:
+    metadata:
+      labels:
+        app: "cyberdisc-bot"
+    spec:
+      containers:
+      - name: "cyberdisc-bot"
+        image: "gcr.io/dazzling-matrix-120920/github.com/cyberdiscovery/cyberdisc-bot:$COMMIT_SHA"
+        env:
+        - name: "BOT_TOKEN"
+          valueFrom:
+            creds:
+              key: "BOT_TOKEN"
+              name: "cyberdisc-bot-config"
+        - name: "PGHOST"
+          valueFrom:
+            creds:
+              key: "PGHOST"
+              name: "cyberdisc-bot-config"
+        - name: "PGPORT"
+          valueFrom:
+            creds:
+              key: "PGPORT"
+              name: "cyberdisc-bot-config"
+        - name: "PGDATABASE"
+          valueFrom:
+            creds:
+              key: "PGDATABASE"
+              name: "cyberdisc-bot-config"
+        - name: "PGUSER"
+          valueFrom:
+            creds:
+              key: "PGUSER"
+              name: "cyberdisc-bot-config"
+        - name: "PGPASSWORD"
+          valueFrom:
+            creds:
+              key: "PGPASSWORD"
+              name: "cyberdisc-bot-config"
+        - name: "SENTRY_URL"
+          valueFrom:
+            creds:
+              key: "SENTRY_URL"
+              name: "cyberdisc-bot-config"

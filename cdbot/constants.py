@@ -1,18 +1,32 @@
-from os import getenv
+import base64
+from os import environ
+
+"""
+Setup PostgreSQL
+"""
+
+
+class PostgreSQL:
+    PGHOST = base64.b64decode(environ.get("PGHOST"))
+    PGPORT = base64.b64decode(environ.get("PGPORT"))
+    PGDATABASE = base64.b64decode(environ.get("PGDATABASE"))
+    PGUSER = base64.b64decode(environ.get("PGUSER"))
+    PGPASSWORD = base64.b64decode(environ.get("PGPASSWORD"))
+
 
 """
 A list of constants.
 """
 # Fun constants
-QUOTES_CHANNEL_ID = int(getenv("QUOTES_CHANNEL_ID", "463657120441696256"))
+QUOTES_CHANNEL_ID = int(environ.get("QUOTES_CHANNEL_ID", "463657120441696256"))
 QUOTES_BOT_ID = 292953664492929025
-LOGGING_CHANNEL_ID = int(getenv("LOGGING_CHANNEL_ID", "538494690601992212"))
+LOGGING_CHANNEL_ID = int(environ.get("LOGGING_CHANNEL_ID", "538494690601992212"))
 WELCOME_BOT_ID = 155149108183695360
 
 # Lists for administration
 STAFF_ROLE_ID = 450063890362138624
 FAKE_ROLE_ID = 533826912712130580
-ROOT_ROLE_ID = int(getenv("ROOT_MEMBERS_ID", "450113490590629888"))
+ROOT_ROLE_ID = int(environ.get("ROOT_MEMBERS_ID", "450113490590629888"))
 ADMIN_ROLES = ("Root", "Sudo")
 BANNED_DOMAINS = ["discord.gg"]
 

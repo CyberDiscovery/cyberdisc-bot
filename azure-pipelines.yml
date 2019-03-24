@@ -1,3 +1,14 @@
+trigger:
+  branches:
+    include:
+    - '*'
+
+pr:
+  autoCancel: false
+  branches:
+    include:
+    - '*'
+
 jobs:
 - job: lint
   displayName: 'Lint'
@@ -20,6 +31,12 @@ jobs:
 
   - script: python -m flake8 .
     displayName: 'Run linter'
+
+  - task: PublishTestResults@2
+    condition: succeededOrFailed()
+    inputs:
+      testResultsFiles: '**/flake8.xml'
+      testRunTitle: 'Publish test results from flake8'
 
 - job: build
   displayName: 'Build'
