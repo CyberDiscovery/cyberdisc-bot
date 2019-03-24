@@ -21,36 +21,36 @@ spec:
         env:
         - name: "BOT_TOKEN"
           valueFrom:
-            creds:
-              key: "BOT_TOKEN"
-              name: "cyberdisc-bot-config"
+            secretKeyRef:
+              name: 'creds'
+              key: 'BOT_TOKEN'
         - name: "PGHOST"
           valueFrom:
-            creds:
-              key: "PGHOST"
-              name: "cyberdisc-bot-config"
+            secretKeyRef:
+              name: 'creds'
+              key: 'PGHOST'
         - name: "PGPORT"
           valueFrom:
-            creds:
-              key: "PGPORT"
-              name: "cyberdisc-bot-config"
+            secretKeyRef:
+              name: 'creds'
+              key: 'PGPORT'
         - name: "PGDATABASE"
           valueFrom:
-            creds:
-              key: "PGDATABASE"
-              name: "cyberdisc-bot-config"
+            secretKeyRef:
+              name: 'creds'
+              key: 'PGDATABASE'
         - name: "PGUSER"
           valueFrom:
-            creds:
-              key: "PGUSER"
-              name: "cyberdisc-bot-config"
+            secretKeyRef:
+              name: 'creds'
+              key: 'PGUSER'
         - name: "PGPASSWORD"
           valueFrom:
-            creds:
-              key: "PGPASSWORD"
-              name: "cyberdisc-bot-config"
+            secretKeyRef:
+              name: 'creds'
+              key: 'PGPASSWORD'
         - name: "SENTRY_URL"
           valueFrom:
-            creds:
-              key: "SENTRY_URL"
-              name: "cyberdisc-bot-config"
+            secretKeyRef:
+              name: 'creds'
+              key: 'SENTRY_URL'
