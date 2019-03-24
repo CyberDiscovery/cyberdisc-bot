@@ -272,7 +272,7 @@ class Fun(Cog):
                 return
 
         await conn.close()
-        message = await quote_channel.get_message(message_id)
+        message = await quote_channel.fetch_message(message_id)
         embed = None
         content = message.content
         attachment_urls = [attachment.url for attachment in message.attachments]
