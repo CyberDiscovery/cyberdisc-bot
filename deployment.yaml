@@ -17,7 +17,7 @@ spec:
     spec:
       containers:
       - name: "cyberdisc-bot"
-        image: "gcr.io/dazzling-matrix-120920/github.com/cyberdiscovery/cyberdisc-bot:$COMMIT_SHA"
+        image: "cyberdiscovery/cdbot:latest"
         env:
         - name: "BOT_TOKEN"
           valueFrom:
