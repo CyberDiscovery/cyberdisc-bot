@@ -12,22 +12,23 @@ from urllib.parse import urlencode
 import asyncpg
 from aiohttp import ClientSession
 from cdbot.constants import (
-    ADMIN_ROLES, EMOJI_LETTERS, FAKE_ROLE_ID, PostgreSQL, QUOTES_BOT_ID, QUOTES_CHANNEL_ID, STAFF_ROLE_ID,
-    WELCOME_BOT_ID
+    ADMIN_ROLES,
+    EMOJI_LETTERS,
+    FAKE_ROLE_ID,
+    QUOTES_BOT_ID,
+    QUOTES_CHANNEL_ID,
+    PostgreSQL,
+    STAFF_ROLE_ID,
+    WELCOME_BOT_ID,
 )
-from discord import Embed, File, Member, Message, NotFound
-from discord.ext.commands import Bot, Cog, Context, command, has_any_role
+from discord import Embed, File, Member, Message, NotFound, User
+from discord.ext.commands import Bot, Cog, Context, UserConverter, command, has_any_role
 from discord.utils import find as discord_find
 from PIL import Image, ImageDraw, ImageFont
 
 ascii_lowercase += " !?$"
 
-REACT_TRIGGERS = {
-    "dabato": "\N{THINKING FACE}",
-    "kali": "\N{ONCOMING POLICE CAR}",
-    "duck": "\N{DUCK}",
-    "revive": "nou"
-}
+REACT_TRIGGERS = {"dabato": "\N{THINKING FACE}", "kali": "\N{ONCOMING POLICE CAR}", "duck": "\N{DUCK}", "revive": "nou"}
 
 
 def convert_emoji(message: str) -> List[str]:
@@ -56,6 +57,12 @@ async def emojify(message: Message, string: str):
         if emoji is not None:
             await message.add_reaction(emoji)
 
+class FormerUser(UserConverter):
+    async def convert(self, ctx, argument):
+        try:
+            return await ctx.bot.fetch_user(argument)
+        except TypeError:
+            return await super().convert(ctx, argument)
 
 class Fun(Cog):
     """
@@ -65,8 +72,10 @@ class Fun(Cog):
     # Embed sent when users try to ping staff
     ping_embed = (
         Embed(colour=0xFF0000, description="⚠ **Please make sure you have taken the following into account:** ")
-        .set_footer(text="To continue with the ping, react \N{THUMBS UP SIGN}, To delete this message and move on,"
-                         " react \N{THUMBS DOWN SIGN}")
+        .set_footer(
+            text="To continue with the ping, react \N{THUMBS UP SIGN}, To delete this message and move on,"
+            " react \N{THUMBS DOWN SIGN}"
+        )
         .add_field(
             name="Cyber Discovery staff will not provide help for challenges.",
             value="If you're looking for help, feel free to ask questions in one of our topical channels.",
@@ -100,7 +109,7 @@ class Fun(Cog):
             message.author.id == QUOTES_BOT_ID or message.mentions is not None
         ):
             conn = await asyncpg.connect(host=PostgreSQL.PGHOST, port=PostgreSQL.PGPORT, user=PostgreSQL.PGUSER,
-                                         password=PostgreSQL.PGPASSWORD, database=PostgreSQL.PGDATABASE)
+password=PostgreSQL.PGPASSWORD, database=PostgreSQL.PGDATABASE)
 
             await self.add_quote_to_db(conn, message)
             await conn.close()
@@ -249,14 +258,16 @@ class Fun(Cog):
 
         await ctx.send(embed=comic)
 
+
+
     @command()
-    async def quotes(self, ctx: Context, member: Member = None):
+    async def quotes(self, ctx: Context, member: FormerUser = None):
         """
         Returns a random quotation from the #quotes channel.
         A user can be specified to return a random quotation from that user.
         """
         conn = await asyncpg.connect(host=PostgreSQL.PGHOST, port=PostgreSQL.PGPORT, user=PostgreSQL.PGUSER,
-                                     password=PostgreSQL.PGPASSWORD, database=PostgreSQL.PGDATABASE)
+password=PostgreSQL.PGPASSWORD, database=PostgreSQL.PGDATABASE)
         quote_channel = self.bot.get_channel(QUOTES_CHANNEL_ID)
 
         if member is None:
@@ -299,7 +310,7 @@ class Fun(Cog):
             embed = quote.embeds[0]
             author_id = int(embed.author.icon_url.split("/")[4])
             try:
-                await self.bot.get_user_info(author_id)
+                await self.bot.fetch_user(author_id)
             except NotFound:
                 author_info = embed.author.split("#")
                 author_id = discord_find(
@@ -323,7 +334,7 @@ class Fun(Cog):
         Needs PGHOST, PGPORT, PGUSER, PGDATABASE and PGPASSWORD env vars.
         """
         conn = await asyncpg.connect(host=PostgreSQL.PGHOST, port=PostgreSQL.PGPORT, user=PostgreSQL.PGUSER,
-                                     password=PostgreSQL.PGPASSWORD, database=PostgreSQL.PGDATABASE)
+password=PostgreSQL.PGPASSWORD, database=PostgreSQL.PGDATABASE)
         await conn.execute("CREATE TABLE IF NOT EXISTS quotes (quote_id bigint PRIMARY KEY, author_id bigint)")
         quote_channel = self.bot.get_channel(QUOTES_CHANNEL_ID)
         async for quote in quote_channel.history(limit=None):
