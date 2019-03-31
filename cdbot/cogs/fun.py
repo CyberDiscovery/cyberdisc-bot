@@ -15,11 +15,11 @@ from cdbot.constants import (
     ADMIN_ROLES,
     EMOJI_LETTERS,
     FAKE_ROLE_ID,
-    PostgreSQL,
     QUOTES_BOT_ID,
     QUOTES_CHANNEL_ID,
     STAFF_ROLE_ID,
     WELCOME_BOT_ID,
+    PostgreSQL,
 )
 from discord import Embed, File, Message, NotFound
 from discord.ext.commands import Bot, Cog, Context, UserConverter, command, has_any_role
@@ -28,7 +28,12 @@ from PIL import Image, ImageDraw, ImageFont
 
 ascii_lowercase += " !?$"
 
-REACT_TRIGGERS = {"dabato": "\N{THINKING FACE}", "kali": "\N{ONCOMING POLICE CAR}", "duck": "\N{DUCK}", "revive": "nou"}
+REACT_TRIGGERS = {
+    "dabato": "\N{THINKING FACE}",
+    "kali": "\N{ONCOMING POLICE CAR}",
+    "duck": "\N{DUCK}",
+    "revive": "nou",
+}
 
 
 def convert_emoji(message: str) -> List[str]:
@@ -73,7 +78,9 @@ class Fun(Cog):
 
     # Embed sent when users try to ping staff
     ping_embed = (
-        Embed(colour=0xFF0000, description="⚠ **Please make sure you have taken the following into account:** ")
+        Embed(
+            colour=0xFF0000, description="⚠ **Please make sure you have taken the following into account:** "
+        )
         .set_footer(
             text="To continue with the ping, react \N{THUMBS UP SIGN}, To delete this message and move on,"
             " react \N{THUMBS DOWN SIGN}"
@@ -130,7 +137,9 @@ class Fun(Cog):
 
             def check(reaction, user):
                 """Check if the reaction was valid."""
-                return all((user == message.author, str(reaction.emoji) in "\N{THUMBS UP SIGN}\N{THUMBS DOWN SIGN}"))
+                return all(
+                    (user == message.author, str(reaction.emoji) in "\N{THUMBS UP SIGN}\N{THUMBS DOWN SIGN}")
+                )
 
             try:
                 # Get the user's reaction
@@ -146,7 +155,8 @@ class Fun(Cog):
                         colour=0xFF0000,
                         description=message.content,
                     ).set_author(
-                        name=f"{message.author.name}#{message.author.discriminator}", icon_url=message.author.avatar_url
+                        name=f"{message.author.name}#{message.author.discriminator}",
+                        icon_url=message.author.avatar_url,
                     )
                     # Send the embed with the user's content
                     await message.channel.send(self.staff_role.mention, embed=staff_ping)
@@ -324,13 +334,16 @@ class Fun(Cog):
             except NotFound:
                 author_info = embed.author.split("#")
                 author_id = discord_find(
-                    lambda m: m.name == author_info[0] or m.discriminator == author_info[1], quote.guild.members
+                    lambda m: m.name == author_info[0] or m.discriminator == author_info[1],
+                    quote.guild.members,
                 )
         else:
             author_id = quote.mentions[0].id if quote.mentions else None
         if author_id is not None:
             await conn.execute(
-                "INSERT INTO quotes(quote_id, author_id) VALUES($1, $2) ON CONFLICT DO NOTHING;", quote.id, author_id
+                "INSERT INTO quotes(quote_id, author_id) VALUES($1, $2) ON CONFLICT DO NOTHING;",
+                quote.id,
+                author_id,
             )
         else:
             await conn.execute("INSERT INTO quotes(quote_id) VALUES($1) ON CONFLICT DO NOTHING;", quote.id)
@@ -350,7 +363,9 @@ class Fun(Cog):
             password=PostgreSQL.PGPASSWORD,
             database=PostgreSQL.PGDATABASE,
         )
-        await conn.execute("CREATE TABLE IF NOT EXISTS quotes (quote_id bigint PRIMARY KEY, author_id bigint)")
+        await conn.execute(
+            "CREATE TABLE IF NOT EXISTS quotes (quote_id bigint PRIMARY KEY, author_id bigint)"
+        )
         quote_channel = self.bot.get_channel(QUOTES_CHANNEL_ID)
         async for quote in quote_channel.history(limit=None):
             await self.add_quote_to_db(conn, quote)
