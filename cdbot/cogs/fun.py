@@ -12,11 +12,17 @@ from urllib.parse import urlencode
 import asyncpg
 from aiohttp import ClientSession
 from cdbot.constants import (
-    ADMIN_ROLES, EMOJI_LETTERS, FAKE_ROLE_ID, PostgreSQL, QUOTES_BOT_ID, QUOTES_CHANNEL_ID, STAFF_ROLE_ID,
-    WELCOME_BOT_ID
+    ADMIN_ROLES,
+    EMOJI_LETTERS,
+    FAKE_ROLE_ID,
+    PostgreSQL,
+    QUOTES_BOT_ID,
+    QUOTES_CHANNEL_ID,
+    STAFF_ROLE_ID,
+    WELCOME_BOT_ID,
 )
-from discord import Embed, File, Member, Message, NotFound
-from discord.ext.commands import Bot, Cog, Context, command, has_any_role
+from discord import Embed, File, Message, NotFound
+from discord.ext.commands import Bot, Cog, Context, UserConverter, command, has_any_role
 from discord.utils import find as discord_find
 from PIL import Image, ImageDraw, ImageFont
 
@@ -26,7 +32,7 @@ REACT_TRIGGERS = {
     "dabato": "\N{THINKING FACE}",
     "kali": "\N{ONCOMING POLICE CAR}",
     "duck": "\N{DUCK}",
-    "revive": "nou"
+    "revive": "nou",
 }
 
 
@@ -57,6 +63,14 @@ async def emojify(message: Message, string: str):
             await message.add_reaction(emoji)
 
 
+class FormerUser(UserConverter):
+    async def convert(self, ctx, argument):
+        try:
+            return await ctx.bot.fetch_user(argument)
+        except TypeError:
+            return await super().convert(ctx, argument)
+
+
 class Fun(Cog):
     """
     Commands for fun!
@@ -64,9 +78,13 @@ class Fun(Cog):
 
     # Embed sent when users try to ping staff
     ping_embed = (
-        Embed(colour=0xFF0000, description="⚠ **Please make sure you have taken the following into account:** ")
-        .set_footer(text="To continue with the ping, react \N{THUMBS UP SIGN}, To delete this message and move on,"
-                         " react \N{THUMBS DOWN SIGN}")
+        Embed(
+            colour=0xFF0000, description="⚠ **Please make sure you have taken the following into account:** "
+        )
+        .set_footer(
+            text="To continue with the ping, react \N{THUMBS UP SIGN}, To delete this message and move on,"
+            " react \N{THUMBS DOWN SIGN}"
+        )
         .add_field(
             name="Cyber Discovery staff will not provide help for challenges.",
             value="If you're looking for help, feel free to ask questions in one of our topical channels.",
@@ -99,8 +117,13 @@ class Fun(Cog):
         if message.channel.id == QUOTES_CHANNEL_ID and (
             message.author.id == QUOTES_BOT_ID or message.mentions is not None
         ):
-            conn = await asyncpg.connect(host=PostgreSQL.PGHOST, port=PostgreSQL.PGPORT, user=PostgreSQL.PGUSER,
-                                         password=PostgreSQL.PGPASSWORD, database=PostgreSQL.PGDATABASE)
+            conn = await asyncpg.connect(
+                host=PostgreSQL.PGHOST,
+                port=PostgreSQL.PGPORT,
+                user=PostgreSQL.PGUSER,
+                password=PostgreSQL.PGPASSWORD,
+                database=PostgreSQL.PGDATABASE,
+            )
 
             await self.add_quote_to_db(conn, message)
             await conn.close()
@@ -114,7 +137,9 @@ class Fun(Cog):
 
             def check(reaction, user):
                 """Check if the reaction was valid."""
-                return all((user == message.author, str(reaction.emoji) in "\N{THUMBS UP SIGN}\N{THUMBS DOWN SIGN}"))
+                return all(
+                    (user == message.author, str(reaction.emoji) in "\N{THUMBS UP SIGN}\N{THUMBS DOWN SIGN}")
+                )
 
             try:
                 # Get the user's reaction
@@ -130,7 +155,8 @@ class Fun(Cog):
                         colour=0xFF0000,
                         description=message.content,
                     ).set_author(
-                        name=f"{message.author.name}#{message.author.discriminator}", icon_url=message.author.avatar_url
+                        name=f"{message.author.name}#{message.author.discriminator}",
+                        icon_url=message.author.avatar_url,
                     )
                     # Send the embed with the user's content
                     await message.channel.send(self.staff_role.mention, embed=staff_ping)
@@ -250,13 +276,18 @@ class Fun(Cog):
         await ctx.send(embed=comic)
 
     @command()
-    async def quotes(self, ctx: Context, member: Member = None):
+    async def quotes(self, ctx: Context, member: FormerUser = None):
         """
         Returns a random quotation from the #quotes channel.
         A user can be specified to return a random quotation from that user.
         """
-        conn = await asyncpg.connect(host=PostgreSQL.PGHOST, port=PostgreSQL.PGPORT, user=PostgreSQL.PGUSER,
-                                     password=PostgreSQL.PGPASSWORD, database=PostgreSQL.PGDATABASE)
+        conn = await asyncpg.connect(
+            host=PostgreSQL.PGHOST,
+            port=PostgreSQL.PGPORT,
+            user=PostgreSQL.PGUSER,
+            password=PostgreSQL.PGPASSWORD,
+            database=PostgreSQL.PGDATABASE,
+        )
         quote_channel = self.bot.get_channel(QUOTES_CHANNEL_ID)
 
         if member is None:
@@ -299,17 +330,20 @@ class Fun(Cog):
             embed = quote.embeds[0]
             author_id = int(embed.author.icon_url.split("/")[4])
             try:
-                await self.bot.get_user_info(author_id)
+                await self.bot.fetch_user(author_id)
             except NotFound:
                 author_info = embed.author.split("#")
                 author_id = discord_find(
-                    lambda m: m.name == author_info[0] or m.discriminator == author_info[1], quote.guild.members
+                    lambda m: m.name == author_info[0] or m.discriminator == author_info[1],
+                    quote.guild.members,
                 )
         else:
             author_id = quote.mentions[0].id if quote.mentions else None
         if author_id is not None:
             await conn.execute(
-                "INSERT INTO quotes(quote_id, author_id) VALUES($1, $2) ON CONFLICT DO NOTHING;", quote.id, author_id
+                "INSERT INTO quotes(quote_id, author_id) VALUES($1, $2) ON CONFLICT DO NOTHING;",
+                quote.id,
+                author_id,
             )
         else:
             await conn.execute("INSERT INTO quotes(quote_id) VALUES($1) ON CONFLICT DO NOTHING;", quote.id)
@@ -322,9 +356,16 @@ class Fun(Cog):
         Pulls all quotes from a quotes channel into a PostgreSQL database.
         Needs PGHOST, PGPORT, PGUSER, PGDATABASE and PGPASSWORD env vars.
         """
-        conn = await asyncpg.connect(host=PostgreSQL.PGHOST, port=PostgreSQL.PGPORT, user=PostgreSQL.PGUSER,
-                                     password=PostgreSQL.PGPASSWORD, database=PostgreSQL.PGDATABASE)
-        await conn.execute("CREATE TABLE IF NOT EXISTS quotes (quote_id bigint PRIMARY KEY, author_id bigint)")
+        conn = await asyncpg.connect(
+            host=PostgreSQL.PGHOST,
+            port=PostgreSQL.PGPORT,
+            user=PostgreSQL.PGUSER,
+            password=PostgreSQL.PGPASSWORD,
+            database=PostgreSQL.PGDATABASE,
+        )
+        await conn.execute(
+            "CREATE TABLE IF NOT EXISTS quotes (quote_id bigint PRIMARY KEY, author_id bigint)"
+        )
         quote_channel = self.bot.get_channel(QUOTES_CHANNEL_ID)
         async for quote in quote_channel.history(limit=None):
             await self.add_quote_to_db(conn, quote)
