@@ -6,7 +6,7 @@ RUN apk add --update --no-cache build-base
 RUN apk add --update --no-cache libffi-dev
 RUN apk add --update --no-cache zlib-dev
 RUN apk add --update --no-cache jpeg-dev
-RUN apk add --update --no-cache freetype
+RUN apk add --update --no-cache freetype-dev
 
 COPY . /app
 WORKDIR /app

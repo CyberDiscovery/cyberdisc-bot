@@ -92,7 +92,7 @@ description = "A python wrapper for the Discord API"
 name = "discord.py"
 optional = false
 python-versions = ">=3.5.3"
-version = "1.0.0a1785+gb41a29a"
+version = "1.0.0a1792+gdea3ba5"
 
 [package.dependencies]
 aiohttp = ">=3.3.0,<3.6.0"
@@ -103,7 +103,7 @@ docs = ["sphinx (1.7.4)", "sphinxcontrib-asyncio", "sphinxcontrib-websupport"]
 voice = ["PyNaCl (1.2.1)"]
 
 [package.source]
-reference = "b41a29a8897c5936d022a741e923353c0a26e9e8"
+reference = "dea3ba5eb7c99f54c72b11f3e3f7b8f41649e779"
 type = "git"
 url = "https://github.com/Rapptz/discord.py"
 [[package]]
@@ -226,7 +226,7 @@ version = "0.7"
 pycodestyle = ">=2.0.0,<3.0.0"
 
 [[package]]
-category = "dev"
+category = "main"
 description = "Git Object Database"
 name = "gitdb2"
 optional = false
@@ -237,7 +237,7 @@ version = "2.0.5"
 smmap2 = ">=2.0.0"
 
 [[package]]
-category = "dev"
+category = "main"
 description = "Python Git Library"
 name = "gitpython"
 optional = false
@@ -392,13 +392,14 @@ description = "Python client for Sentry (https://getsentry.com)"
 name = "sentry-sdk"
 optional = false
 python-versions = "*"
-version = "0.7.7"
+version = "0.7.9"
 
 [package.dependencies]
 certifi = "*"
 urllib3 = "*"
 
 [package.extras]
+bottle = ["bottle (>=0.12.13)"]
 flask = ["flask (>=0.8)", "blinker (>=1.1)"]
 
 [[package]]
@@ -410,7 +411,7 @@ python-versions = ">=2.6, !=3.0.*, !=3.1.*"
 version = "1.12.0"
 
 [[package]]
-category = "dev"
+category = "main"
 description = "A pure Python implementation of a sliding window memory map manager"
 name = "smmap2"
 optional = false
@@ -462,7 +463,7 @@ idna = ">=2.0"
 multidict = ">=4.0"
 
 [metadata]
-content-hash = "a179b871e7e97f0374cdbb5bd521234d009642b17d93a097ee91c807987d490d"
+content-hash = "55a998b9949b3d673f5a0007e50e53d43b54551dc0226c16379fffbd3ec2debe"
 python-versions = "^3.7"
 
 [metadata.hashes]
@@ -501,7 +502,7 @@ python-dateutil = ["7e6584c74aeed623791615e26efd690f29817a27c73085b78e4bad02493d
 pyyaml = ["1adecc22f88d38052fb787d959f003811ca858b799590a5eaa70e63dca50308c", "436bc774ecf7c103814098159fbb84c2715d25980175292c648f2da143909f95", "460a5a4248763f6f37ea225d19d5c205677d8d525f6a83357ca622ed541830c2", "5a22a9c84653debfbf198d02fe592c176ea548cccce47553f35f466e15cf2fd4", "7a5d3f26b89d688db27822343dfa25c599627bc92093e788956372285c6298ad", "9372b04a02080752d9e6f990179a4ab840227c6e2ce15b95e1278456664cf2ba", "a5dcbebee834eaddf3fa7366316b880ff4062e4bcc9787b78c7fbb4a26ff2dd1", "aee5bab92a176e7cd034e57f46e9df9a9862a71f8f37cad167c6fc74c65f5b4e", "c51f642898c0bacd335fc119da60baae0824f2cde95b0330b56c0553439f0673", "c68ea4d3ba1705da1e0d85da6684ac657912679a649e8868bd850d2c299cce13", "e23d0cc5299223dcc37885dae624f382297717e459ea24053709675a976a3e19"]
 requests = ["502a824f31acdacb3a35b6690b5fbf0bc41d63a24a45c4004352b0242707598e", "7bf2a778576d825600030a110f3c0e3e8edc51dfaafe1c146e39a2027784957b"]
 safety = ["399511524f47230d5867f1eb75548f9feefb7a2711a4985cb5be0e034f87040f", "69b970918324865dcd7b92337e07152a0ea1ceecaf92f4d3b38529ee0ca83441"]
-sentry-sdk = ["4250f4d2114d1f45d8a94f2f078016b7d8ffc6f57f42db7f20dccd7692bc804c", "c5a41eba2d27416c81c901fe86de887e356aec4df7afd3327c324b2b3db7e934"]
+sentry-sdk = ["2649400cc6ebf5985d5923997997fb381cf84cf53afd803658e2d734e04f775c", "35bc2c4f65cc20a8a55d318179037d4e7f9e23379ae306d10fea70e482b017e9"]
 six = ["3350809f0555b11f552448330d0b52d5f24c91a322ea4a15ef22629740f3761c", "d16a0141ec1a18405cd4ce8b4613101da75da0e9a7aec5bdd4fa804d0e0eba73"]
 smmap2 = ["0555a7bf4df71d1ef4218e4807bbf9b201f910174e6e08af2e138d4e517b4dde", "29a9ffa0497e7f2be94ca0ed1ca1aa3cd4cf25a1f6b4f5f87f74b46ed91d609a"]
 stevedore = ["7be098ff53d87f23d798a7ce7ae5c31f094f3deb92ba18059b1aeb1ca9fec0a0", "7d1ce610a87d26f53c087da61f06f9b7f7e552efad2a7f6d2322632b5f932ea2"]

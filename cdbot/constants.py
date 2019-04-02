@@ -1,22 +1,29 @@
 import base64
 from os import environ
 
-"""
-Setup PostgreSQL
-"""
+
+DEPLOY = bool(environ.get('DEPLOY'))
+
+
+def getenv(name: str, fallback: str = "") -> str:
+    """Return an (optionally base64-encoded) env var."""
+    variable = environ.get(name)
+    if DEPLOY and variable is not None:
+        variable = base64.b64decode(variable).decode()
+    return variable or fallback
 
 
 class PostgreSQL:
-    PGHOST = base64.b64decode(environ.get("PGHOST"))
-    PGPORT = base64.b64decode(environ.get("PGPORT"))
-    PGDATABASE = base64.b64decode(environ.get("PGDATABASE"))
-    PGUSER = base64.b64decode(environ.get("PGUSER"))
-    PGPASSWORD = base64.b64decode(environ.get("PGPASSWORD"))
+    PGHOST = getenv("PGHOST")
+    PGPORT = getenv("PGPORT")
+    PGUSER = getenv("PGUSER")
+    PGDATABASE = getenv("PGDATABASE")
+    PGPASSWORD = getenv("PGPASSWORD")
 
 
-"""
-A list of constants.
-"""
+BOT_TOKEN = getenv("BOT_TOKEN")
+SENTRY_URL = getenv("SENTRY_URL")
+
 # Fun constants
 QUOTES_CHANNEL_ID = int(environ.get("QUOTES_CHANNEL_ID", "463657120441696256"))
 QUOTES_BOT_ID = 292953664492929025
@@ -31,25 +38,25 @@ ADMIN_ROLES = ("Root", "Sudo")
 BANNED_DOMAINS = ["discord.gg"]
 
 # Cyber Constants
-
-CYBERDISC_ICON_URL = "https://pbs.twimg.com/profile_images/" "921313066515615745/fLEl2Gfa_400x400.jpg"
-PWNED_ICON_URL = "https://upload.wikimedia.org/wikipedia" "/commons/2/23/Have_I_Been_Pwned_logo.png"
-END_README_MESSAGE = ("**Can't see any of the above?**\nIf you can't see any of the rich embeds above, try the"
-                      " following: `Settings -> Text & Images -> Link Preview (Show website preview info from"
-                      " links pasted into that chat)  -> ON`")
-# Last level for CyberStart Assess where hints are allowed
 HINTS_LIMIT = 8
+PWNED_ICON_URL = "https://upload.wikimedia.org/wikipedia/commons/2/23/Have_I_Been_Pwned_logo.png"
+CYBERDISC_ICON_URL = "https://pbs.twimg.com/profile_images/921313066515615745/fLEl2Gfa_400x400.jpg"
 
-# Base Aliases
+END_README_MESSAGE = (
+    "**Can't see any of the above?**\nIf you can't see any of the rich embeds above, try the"
+    " following: `Settings -> Text & Images -> Link Preview (Show website preview info from"
+    " links pasted into that chat)  -> ON`"
+)
+
 BASE_ALIASES = {
     "Headquarters": ["headquarters", "main", "hq", "h"],
     "Moonbase": ["moonbase", "python", "moon", "m"],
     "Forensics": ["forensics", "f"],
 }
 
-# Emoji Alphabet
 
-EMOJI_LETTERS = [  # Feel free to add to this list
+# Emoji Alphabet
+EMOJI_LETTERS = [
     "\U0001f1e6\U0001f170\U0001F359",  # A
     "\U0001f1e7\U0001f171",  # B
     "\U0001f1e8\u262a\u00A9",  # C
