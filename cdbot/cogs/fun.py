@@ -15,13 +15,13 @@ from cdbot.constants import (
     ADMIN_ROLES,
     EMOJI_LETTERS,
     FAKE_ROLE_ID,
-    PostgreSQL,
     QUOTES_BOT_ID,
     QUOTES_CHANNEL_ID,
     STAFF_ROLE_ID,
     WELCOME_BOT_ID,
+    PostgreSQL,
 )
-from discord import Embed, File, Message, NotFound
+from discord import Embed, File, HTTPException, Message, NotFound
 from discord.ext.commands import Bot, Cog, Context, UserConverter, command, has_any_role
 from discord.utils import find as discord_find
 from PIL import Image, ImageDraw, ImageFont
