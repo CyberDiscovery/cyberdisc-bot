@@ -67,7 +67,7 @@ class FormerUser(UserConverter):
     async def convert(self, ctx, argument):
         try:
             return await ctx.bot.fetch_user(argument)
-        except TypeError:
+        except (NotFound, HTTPException):
             return await super().convert(ctx, argument)
 
 
