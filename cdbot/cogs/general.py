@@ -1,4 +1,8 @@
 from discord.ext.commands import Bot, Cog
+from git import Repo
+
+
+commit = Repo().commit()
 
 
 class General(Cog):
@@ -15,8 +19,12 @@ class General(Cog):
         print(self.bot.user.name)
         print(self.bot.user.id)
         print("------")
-
-        self.bot.log.info("CyberDiscovery bot is now logged in.")
+        date = commit.authored_datetime.strftime('**%x** at **%X**')
+        self.bot.log.info(
+            "CyberDiscovery bot is now logged in.\n"
+            f"Latest commit: **[{commit}](https://github.com/CyberDiscovery/cyberdisc-bot/commit/{commit})**"
+            f"\nAuthor: **{commit.author}** on {date}"
+        )
 
     @Cog.listener()
     async def on_command_error(self, ctx, error):
