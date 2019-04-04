@@ -1,21 +1,16 @@
 FROM python:3.7-alpine3.9
 
-RUN apk add --update --no-cache git
-RUN apk add --update --no-cache tini
-RUN apk add --update --no-cache build-base
-RUN apk add --update --no-cache libffi-dev
-RUN apk add --update --no-cache zlib-dev
-RUN apk add --update --no-cache jpeg-dev
-RUN apk add --update --no-cache freetype-dev
+RUN apk add git
+RUN apk add build-base
+RUN apk add libffi-dev
+RUN apk add zlib-dev
+RUN apk add jpeg-dev
+RUN apk add freetype-dev
 
-COPY . /app
 WORKDIR /app
+ADD ./requirements.txt /app/requirements.txt
+RUN pip install -r requirements.txt
+RUN pip install -e git+https://github.com/Rapptz/discord.py@dea3ba5eb7c99f54c72b11f3e3f7b8f41649e779#egg=discord.py
+ADD . /app
 
-RUN mkdir -p ~/.config/pypoetry
-RUN pip install poetry==1.0.0a2
-RUN poetry config settings.virtualenvs.create false
-RUN poetry install --no-dev
-
-ENTRYPOINT ["/sbin/tini", "--"]
-
-CMD ["python", "-m", "cdbot"]
+CMD python -m cdbot
