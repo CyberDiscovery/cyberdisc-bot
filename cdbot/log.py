@@ -3,8 +3,8 @@ An implementation of a logging.Handler for sending messages to Discord
 """
 
 import datetime
-import re
 import logging
+import re
 
 from cdbot.constants import LOGGING_CHANNEL_ID
 from discord import Color, Embed
