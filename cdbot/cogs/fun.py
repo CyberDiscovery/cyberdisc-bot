@@ -21,7 +21,7 @@ from cdbot.constants import (
     STAFF_ROLE_ID,
     WELCOME_BOT_ID,
 )
-from discord import Embed, File, Message, NotFound
+from discord import Embed, File, HTTPException, Message, NotFound
 from discord.ext.commands import Bot, Cog, Context, UserConverter, command, has_any_role
 from discord.utils import find as discord_find
 from PIL import Image, ImageDraw, ImageFont
@@ -67,7 +67,7 @@ class FormerUser(UserConverter):
     async def convert(self, ctx, argument):
         try:
             return await ctx.bot.fetch_user(argument)
-        except TypeError:
+        except (NotFound, HTTPException):
             return await super().convert(ctx, argument)
 
 
