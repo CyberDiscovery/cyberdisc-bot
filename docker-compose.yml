@@ -1,0 +1,28 @@
+version: '3'
+
+volumes:
+
+  database:
+    driver: local
+
+
+services:
+
+  database:
+    image: postgres:latest
+    volumes:
+      - database:/var/lib/postgresql/data
+
+  bot:
+    build: .
+    links:
+      - database
+    environment:
+      - PGHOST=database
+      - PGUSER=postgres
+      - PGDATABASE=postgres
+      - BOT_TOKEN
+      - QUOTES_BOT_ID
+      - QUOTES_CHANNEL_ID
+      - LOGGING_CHANNEL_ID
+
