@@ -3,7 +3,9 @@ Set of bot commands designed for general leisure.
 """
 import asyncio
 import textwrap
+from json import load
 from io import BytesIO
+from io import StringIO
 from random import randint
 from string import ascii_lowercase
 from typing import List
@@ -189,6 +191,27 @@ class Fun(Cog):
         # Adds waving emoji when a new user joins.
         if "Welcome to the Cyber Discovery" in message.content and message.author.id == WELCOME_BOT_ID:
             await message.add_reaction("\N{WAVING HAND SIGN}")
+
+    @command(aliases=['f', 'funfact'])
+    async def getfact(self, ctx: Context):
+        async with ClientSession() as session:
+            async with session.get("http://randomuselessfact.appspot.com/random.json?language=en") as sess:
+                if sess.status == 200:
+                    #await getting json text
+                    res = await sess.json()
+                    await ctx.send(res['text'])
+
+    
+    @command(aliases=['catpic', 'c'])
+    async def cat(self, ctx: Context):
+        async with ClientSession() as session:
+            async with session.get("https://api.thecatapi.com/v1/images/search") as sess:
+                if sess.status == 200:
+                    #await getting cat pic url
+                    res = await sess.json()
+                    embed = Embed().set_image(url=res[0]['url'])
+                    await ctx.send(embed=embed)
+
 
     @command()
     async def lmgtfy(self, ctx: Context, *args: str):
