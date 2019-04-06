@@ -196,8 +196,7 @@ class Fun(Cog):
             async with session.get("http://randomuselessfact.appspot.com/random.json?language=en") as sess:
                 if sess.status == 200:
                     res = await sess.json()
-                    await ctx.send(res['text'])
- 
+                    await ctx.send(res['text']) 
     @command(aliases=['catpic', 'c'])
     async def cat(self, ctx: Context):
         async with ClientSession() as session:
