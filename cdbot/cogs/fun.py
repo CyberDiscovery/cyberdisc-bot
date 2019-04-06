@@ -195,21 +195,17 @@ class Fun(Cog):
         async with ClientSession() as session:
             async with session.get("http://randomuselessfact.appspot.com/random.json?language=en") as sess:
                 if sess.status == 200:
-                    #await getting json text
                     res = await sess.json()
                     await ctx.send(res['text'])
-
-    
+ 
     @command(aliases=['catpic', 'c'])
     async def cat(self, ctx: Context):
         async with ClientSession() as session:
             async with session.get("https://api.thecatapi.com/v1/images/search") as sess:
                 if sess.status == 200:
-                    #await getting cat pic url
                     res = await sess.json()
                     embed = Embed().set_image(url=res[0]['url'])
                     await ctx.send(embed=embed)
-
 
     @command()
     async def lmgtfy(self, ctx: Context, *args: str):
