@@ -3,9 +3,7 @@ Set of bot commands designed for general leisure.
 """
 import asyncio
 import textwrap
-from json import load
 from io import BytesIO
-from io import StringIO
 from random import randint
 from string import ascii_lowercase
 from typing import List
