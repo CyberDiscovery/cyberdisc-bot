@@ -197,7 +197,7 @@ class Fun(Cog):
                 if sess.status == 200:
                     res = await sess.json()
                     await ctx.send(res['text'])
-                    
+ 
     @command(aliases=['catpic', 'c'])
     async def cat(self, ctx: Context):
         async with ClientSession() as session:
