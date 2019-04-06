@@ -207,6 +207,14 @@ class Fun(Cog):
                     embed = Embed().set_image(url=res[0]['url'])
                     await ctx.send(embed=embed)
 
+    @command(aliases=['k', 'kanye'])
+    async def kaynequote(self, ctx: Context):
+        async with ClientSession() as session:
+            async with session.get("https://api.kanye.rest") as sess:
+                if sess.status == 200:
+                    res = await sess.json()
+                    await ctx.send('***"' + res['quote'] + '"*** ~ Kanye West')
+
     @command()
     async def lmgtfy(self, ctx: Context, *args: str):
         """
