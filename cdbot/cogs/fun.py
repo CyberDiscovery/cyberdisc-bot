@@ -351,6 +351,7 @@ class Fun(Cog):
             )
         else:
             await conn.execute("INSERT INTO quotes(quote_id) VALUES($1) ON CONFLICT DO NOTHING;", quote.id)
+        print(f"Quote ID: {quote.id} has been added to the database.")
 
     @command()
     @has_any_role(*ADMIN_ROLES)
