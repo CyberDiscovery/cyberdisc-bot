@@ -21,9 +21,9 @@ from cdbot.constants import (
     STAFF_ROLE_ID,
     WELCOME_BOT_ID,
 )
-from discord import Embed, File, HTTPException, Message, NotFound
+from discord import Embed, File, HTTPException, Message, NotFound, embeds
 from discord.ext.commands import Bot, Cog, Context, UserConverter, command, has_any_role
-from discord.utils import find as discord_find
+from discord.utils import get
 from PIL import Image, ImageDraw, ImageFont
 
 ascii_lowercase += " !?$"
@@ -324,19 +324,23 @@ class Fun(Cog):
         """
         Adds a quote message ID to the database, and attempts to identify the author of the quote.
         """
+        author_id = None
         if quote.author.id == QUOTES_BOT_ID:
             if not quote.embeds:
                 return
             embed = quote.embeds[0]
-            author_id = int(embed.author.icon_url.split("/")[4])
-            try:
-                await self.bot.fetch_user(author_id)
-            except NotFound:
-                author_info = embed.author.split("#")
-                author_id = discord_find(
-                    lambda m: m.name == author_info[0] or m.discriminator == author_info[1],
+            icon_url = embed.author.icon_url
+            if type(icon_url) == embeds._EmptyEmbed or 'twimg' in icon_url:
+                author_id = QUOTES_BOT_ID
+            elif 'avatars' in icon_url:
+                author_id = int(icon_url.split('/')[4])
+            else:
+                author_info = embed.author.name.split("#")
+                author = get(
                     quote.guild.members,
-                )
+                    name=author_info[0],
+                    discriminator=author_info[1])
+                author_id = author.id if author is not None else None
         else:
             author_id = quote.mentions[0].id if quote.mentions else None
         if author_id is not None:
