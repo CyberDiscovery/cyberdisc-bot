@@ -374,7 +374,7 @@ class Fun(Cog):
         async for quote in quote_channel.history(limit=None):
             await self.add_quote_to_db(conn, quote)
         await conn.close()
-        await ctx.send("done!")
+        await ctx.send("Done!")
 
     async def create_text_image(self, ctx: Context, person: str, text: str):
         """
