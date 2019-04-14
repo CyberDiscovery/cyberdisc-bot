@@ -3,6 +3,7 @@ import re
 from cbot.constants import NICKNAME_PATTERNS, PLACEHOLDER_NICKNAME
 from discord.ext.commands import Bot, Cog
 
+
 def checkName(nick):
     result = False
     for i in NICKNAME_PATTERNS:
