@@ -45,3 +45,5 @@ async def block_muted(ctx):
 bot.load_extension("cdbot.cogs.general")
 bot.load_extension("cdbot.cogs.cyber")
 bot.load_extension("cdbot.cogs.fun")
+bot.load_extension("cdbot.cogs.admin")
+
