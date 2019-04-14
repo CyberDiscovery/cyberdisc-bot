@@ -1,10 +1,7 @@
 import re
-from discord import Member
-from discord.ext.commands import Bot, Cog, Context, command
 
-from cbot.constants import (
-    PLACEHOLDER_NICKNAME, NICKNAME_PATTERNS
-)
+from cbot.constants import NICKNAME_PATTERNS, PLACEHOLDER_NICKNAME
+from discord.ext.commands import Bot, Cog
 
 def checkName(nick):
     result = False
@@ -33,7 +30,6 @@ class Admin(Cog):
             else:
                 # assign placeholder nickname
                 await memberAfter.edit(nick=PLACEHOLDER_NICKNAME)
-    
 
     @Cog.listener()  # triggered on username change
     async def on_user_update(memberBefore, memberAfter):
@@ -41,7 +37,6 @@ class Admin(Cog):
         if checkName(newUsername):  # bad username
             # assign placeholder nickname
             await memberAfter.edit(nick=PLACEHOLDER_NICKNAME)
-
 
     @Cog.listener()
     async def on_member_join(member):
