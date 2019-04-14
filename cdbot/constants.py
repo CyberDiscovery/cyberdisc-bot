@@ -54,6 +54,8 @@ BASE_ALIASES = {
     "Forensics": ["forensics", "f"],
 }
 
+# Admin Constants
+PLACEHOLDER_NICKNAME = "Valued server member"
 
 # Emoji Alphabet
 EMOJI_LETTERS = [
