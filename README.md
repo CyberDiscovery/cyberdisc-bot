@@ -7,7 +7,7 @@ To test the bot, you will need to setup a custom instance of it running locally.
 pip install --user poetry
 poetry install
 ```
-If you don't already have the required Python version (currently 3.7.2) installed, install [https://github.com/pyenv/pyenv](pyenv) before running the above commands.
+If you don't already have the required Python version (currently 3.7.2) installed, install [pyenv](https://github.com/pyenv/pyenv) before running the above commands.
 
 Whilst they are installing, head over to [the Discord Developer Portal](https://discordapp.com/developers/applications/) and create an application.
 It needs a name, then go to the bots tab (on the left) and add a new bot. For testing purposes, it is best to have the bot private, so uncheck that option.
