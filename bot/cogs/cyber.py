@@ -1,6 +1,10 @@
 import datetime
 import re
+<<<<<<< HEAD
 from hashlib import sha1
+=======
+
+>>>>>>> parent of efe3127... will this fix the build?
 from json import load
 
 from aiohttp import ClientSession
