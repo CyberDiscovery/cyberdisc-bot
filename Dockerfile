@@ -1,6 +1,6 @@
 FROM python:3.7-alpine3.9
 
-RUN apk add git build-base libffi-dev zlib-dev jpeg-dev freetype-dev
+RUN apk add build-base freetype-dev git jpeg-dev libffi-dev zlib-dev
 
 WORKDIR /app
 ADD ./requirements.txt /app/requirements.txt
