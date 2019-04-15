@@ -1,6 +1,10 @@
 """Main script to define bot methods, and start the bot."""
 
+<<<<<<< HEAD:cdbot/bot.py
 import logging
+=======
+from os import environ
+>>>>>>> parent of f70cc13... Optimise quotes system by implementing a cache in memory (#76):bot/__main__.py
 
 from cdbot.log import DiscordHandler
 from discord import Game
@@ -26,7 +30,10 @@ logger.setLevel(logging.INFO)
 
 bot.muted = []
 bot.banned_ids = []
+<<<<<<< HEAD:cdbot/bot.py
 bot.log = logger
+=======
+>>>>>>> parent of f70cc13... Optimise quotes system by implementing a cache in memory (#76):bot/__main__.py
 
 
 @bot.check
