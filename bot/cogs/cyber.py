@@ -114,6 +114,7 @@ class Cyber:
             challenge_title = challenge_raw["title"]
             challenge_difficulty = challenge_raw["difficulty"]
             challenge_text = challenge_raw["description"]
+            challenge_text += f"\nhttps://assess.joincyberdiscovery.com/challenge-{challenge_num:02d}"
             embed = Embed(
                 title=f"CyberStart Assess Challenge {challenge_num} - {challenge_title}",
                 description=challenge_text,
