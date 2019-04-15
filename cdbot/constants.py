@@ -33,6 +33,8 @@ WELCOME_BOT_ID = 155149108183695360
 # Lists for administration
 STAFF_ROLE_ID = 450063890362138624
 FAKE_ROLE_ID = 533826912712130580
+STATIC_NICKNAME_ROLE_ID = 567259415393075210
+CD_BOT_ROLE_ID = 543768819844251658
 ROOT_ROLE_ID = int(environ.get("ROOT_MEMBERS_ID", "450113490590629888"))
 ADMIN_ROLES = ("Root", "Sudo")
 BANNED_DOMAINS = ["discord.gg"]
@@ -54,6 +56,9 @@ BASE_ALIASES = {
     "Forensics": ["forensics", "f"],
 }
 
+# Admin Constants
+PLACEHOLDER_NICKNAME = "Valued server member"
+NICKNAME_PATTERNS = [r"(discord\.gg/)"]
 
 # Emoji Alphabet
 EMOJI_LETTERS = [
