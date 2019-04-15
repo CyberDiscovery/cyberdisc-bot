@@ -6,7 +6,11 @@ import re
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 from hashlib import sha1
+=======
+
+>>>>>>> parent of efe3127... will this fix the build?
 =======
 
 >>>>>>> parent of efe3127... will this fix the build?
