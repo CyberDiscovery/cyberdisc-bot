@@ -1,7 +1,7 @@
 import re
 
 from cdbot.constants import (
-    ADMIN_ROLES, CD_BOT_ROLE_ID, NICKNAME_PATTERNS, PLACEHOLDER_NICKNAME, STATIC_NICKNAME_ROLE_ID
+    ADMIN_MENTOR_ROLE_ID, ADMIN_ROLES, CD_BOT_ROLE_ID, NICKNAME_PATTERNS, PLACEHOLDER_NICKNAME, STATIC_NICKNAME_ROLE_ID
 )
 from discord import AuditLogAction, Member
 from discord.ext.commands import Bot, Cog
@@ -39,7 +39,8 @@ class Admin(Cog):
             # user changed their own nickname; ignore if admin/bot changed it
             admin_role_check = (corresponding_audit_entry.user.top_role.name in ADMIN_ROLES)
             bot_role_check = (corresponding_audit_entry.user.top_role.id == CD_BOT_ROLE_ID)
-            if not(admin_role_check or bot_role_check):
+            mentor_role_check = (corresponding_audit_entry.user.top_role.id == ADMIN_MENTOR_ROLE_ID)
+            if not(admin_role_check or bot_role_check or mentor_role_check):
                 for i in member_after.roles:
                     print(i.id)
                     if i.id == STATIC_NICKNAME_ROLE_ID:  # user has Static Name role
