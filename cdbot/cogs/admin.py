@@ -1,6 +1,6 @@
 import re
 
-from cbot.constants import NICKNAME_PATTERNS, PLACEHOLDER_NICKNAME
+from cdbot.constants import NICKNAME_PATTERNS, PLACEHOLDER_NICKNAME
 from discord.ext.commands import Bot, Cog
 
 
