@@ -35,6 +35,7 @@ STAFF_ROLE_ID = 450063890362138624
 FAKE_ROLE_ID = 533826912712130580
 STATIC_NICKNAME_ROLE_ID = 567259415393075210
 CD_BOT_ROLE_ID = 543768819844251658
+ADMIN_MENTOR_ROLE_ID = 502238208747110411
 ROOT_ROLE_ID = int(environ.get("ROOT_MEMBERS_ID", "450113490590629888"))
 ADMIN_ROLES = ("Root", "Sudo")
 BANNED_DOMAINS = ["discord.gg"]
@@ -58,7 +59,11 @@ BASE_ALIASES = {
 
 # Admin Constants
 PLACEHOLDER_NICKNAME = "Valued server member"
-NICKNAME_PATTERNS = [r"(discord\.gg/)"]
+NICKNAME_PATTERNS = [
+    r'(discord\.gg/)',  # invite links
+    r'(nigg|cunt|ligma|fag|nazi|hitler|\bpaki\b)',  # banned words
+    r'(http(s)?:\/\/.)?(www\.)?[-a-zA-Z0-9@:%._\+~#=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_\+.~#?&//=]*)'  # hyperlinks
+]
 
 # Emoji Alphabet
 EMOJI_LETTERS = [
