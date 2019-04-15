@@ -58,7 +58,7 @@ BASE_ALIASES = {
 
 # Admin Constants
 PLACEHOLDER_NICKNAME = "Valued server member"
-NICKNAME_PATTERNS = ["(discord\.gg/)"]
+NICKNAME_PATTERNS = [r"(discord\.gg/)"]
 
 # Emoji Alphabet
 EMOJI_LETTERS = [
