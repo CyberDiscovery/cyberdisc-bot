@@ -5,6 +5,10 @@ from discord.ext.commands import Bot, Cog
 
 
 def checkName(nick):
+    for i in NICKNAME_PATTERNS:
+         if re.match(i,nick):
+             return True
+    return False
     result = False
     for i in NICKNAME_PATTERNS:
         if re.match(i, nick):
