@@ -9,7 +9,7 @@ from discord.ext.commands import Bot, Cog
 
 def check_bad_name(nick):
     for i in NICKNAME_PATTERNS:
-        if re.match(i, nick):
+        if re.match(i, nick, re.IGNORECASE):
             return True
     return False
 
