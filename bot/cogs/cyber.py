@@ -116,10 +116,9 @@ class Cyber:
             challenge_text = challenge_raw["description"]
             challenge_text += f"\nhttps://assess.joincyberdiscovery.com/challenge-{challenge_num:02d}"
             embed = Embed(
-                title=f"CyberStart Assess Challenge {challenge_num} - {challenge_title}",
+                title=(f"CyberStart Assess Challenge {challenge_num} - {challenge_title}"),
                 description=challenge_text,
-                colour=0x4262f4,
-                url=f"https://assess.joincyberdiscovery.com/challenge-{challenge_num:02d}"
+                colour=0x4262f4
             )
             embed.set_author(
                 name="Cyber Discovery",
