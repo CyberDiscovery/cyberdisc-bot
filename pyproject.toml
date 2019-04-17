@@ -7,7 +7,7 @@ license = "MIT"
 
 [tool.poetry.dependencies]
 aiohttp = "=3.3.0"
-"discord.py" = {git = "https://github.com/Rapptz/discord.py", branch = "rewrite"}
+"discord.py" = "^1.0"
 python = "^3.7"
 python-dateutil = "^2.8"
 asyncpg = "^0.18.3"
