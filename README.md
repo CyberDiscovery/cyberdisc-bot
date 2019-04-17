@@ -19,7 +19,7 @@ Or on Windows:
 ```
 set BOT_TOKEN="<insert bot token here>"
 ```
-Go back to the home page of your application on discord and grab the client ID. Then put it into this url:
+Go back to the home page of your application on Discord and grab the client ID. Then put it into this url:
 ```
 https://discordapp.com/oauth2/authorize?&client_id=<insert client id here>&scope=bot&
 ```
