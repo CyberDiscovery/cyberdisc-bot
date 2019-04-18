@@ -305,7 +305,7 @@ class Fun(Cog):
         await conn.close()
         message = await quote_channel.fetch_message(message_id)
         embed = None
-        content = message.content
+        content = message.clean_content
         attachment_urls = [attachment.url for attachment in message.attachments]
 
         if message.embeds:
