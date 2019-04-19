@@ -1,7 +1,12 @@
+import os
+
 from discord.ext.commands import Bot, Cog
 from git import Repo
 
-repo = Repo()
+path = os.path.dirname(os.path.abspath(__file__))
+path = '/'.join(path.split('/')[:-2])
+
+repo = Repo(path)
 latest = repo.commit()
 
 
@@ -24,7 +29,7 @@ class General(Cog):
         date = latest.authored_datetime.strftime('**%x** at **%X**')
         self.bot.log.info(
             "CyberDiscovery bot is now logged in.\n"
-            f"Latest commit: **[{message}]({link})**"
+            f"Latest commit: **[{message}]({link})** {path}"
             f"\nAuthor: **{latest.author}** on {date}"
         )
 
