@@ -29,7 +29,7 @@ class General(Cog):
         date = latest.authored_datetime.strftime('**%x** at **%X**')
         self.bot.log.info(
             "CyberDiscovery bot is now logged in.\n"
-            f"Latest commit: **[{message}]({link})** {path}"
+            f"Latest commit: **[{message}]({link})**"
             f"\nAuthor: **{latest.author}** on {date}"
         )
 
