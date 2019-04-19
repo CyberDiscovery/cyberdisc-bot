@@ -1,8 +1,8 @@
 """Initialise cdbot as a package for poetry."""
+import os
 
 import sentry_sdk
 from git import Repo
-import os
 
 from .bot import bot
 from .constants import BOT_TOKEN, SENTRY_URL
