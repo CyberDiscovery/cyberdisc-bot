@@ -61,12 +61,15 @@ class General(Cog):
         else:
             await ctx.send("\N{NO ENTRY SIGN} An error occured during execution, the error has been reported.")
 
+        link = f"https://discordapp.com/channels/{ctx.guild.id}/{ctx.channel.id}/{ctx.message.id}"
+
         extra_context = {
             "discord_info": {
                 "Channel ID": ctx.channel.id,
                 "Message ID": ctx.message.id,
                 "User": ctx.author.mention,
-                "Command": ctx.command.name
+                "Command": ctx.command.name,
+                "Jump to message": f"[Click here]({link})"
             }
         }
 
