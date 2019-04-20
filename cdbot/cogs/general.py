@@ -70,7 +70,7 @@ class General(Cog):
                 "Jump to message": f"[Click here]({link})"
             }
         }
-        
+ 
         if ctx.guild is not None:
             link = f"https://discordapp.com/channels/{ctx.guild.id}/{ctx.channel.id}/{ctx.message.id}"
             extra_content["discord_info"]["Jump to message"] = link
