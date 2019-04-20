@@ -64,14 +64,19 @@ class General(Cog):
         extra_context = {
             "discord_info": {
                 "Channel": ctx.channel.mention,
-                "Message": (
-                    f'[{ctx.message.id}](https://discordapp.com/channels/'
-                    f'{ctx.guild.id}/{ctx.channel.id}/{ctx.message.id})'
-                ),
                 "User": ctx.author.mention,
                 "Command": ctx.message.content
             }
         }
+
+        if ctx.guild is not None:
+            # We are NOT in a DM
+            extra_context["discord_info"]["Message"] = (
+                f'[{ctx.message.id}](https://discordapp.com/channels/'
+                f'{ctx.guild.id}/{ctx.channel.id}/{ctx.message.id})'
+            )
+        else:
+            extra_context["discord_info"]["Message"] = f"{ctx.message.id} (DM)"
 
         self.bot.log.exception(error, extra=extra_context)
 
