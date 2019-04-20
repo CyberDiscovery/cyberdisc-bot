@@ -55,7 +55,6 @@ class General(Cog):
         else:
             await ctx.send("\N{NO ENTRY SIGN} An error occured during execution, the error has been reported.")
 
-
         self.bot.log.exception(error)
 
 
