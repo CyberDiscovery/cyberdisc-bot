@@ -179,7 +179,7 @@ class Fun(Cog):
                 await sent.delete()
 
         if ctx.valid:
-            # Don't react to invocations of :react
+            # Don't react to valid commands
             return
 
         for word in message.content.lower().split():
