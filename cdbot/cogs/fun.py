@@ -37,6 +37,14 @@ REACT_TRIGGERS = {
     "kali": "\N{ONCOMING POLICE CAR}",
     "duck": "\N{DUCK}",
     "revive": "no u",
+    "child": "fbi open up",
+    "fbi": "fbi open up",
+    "loli": "fbi open up",
+    "hentai": "fbi open up",
+    "illegal": "fbi open up",
+    "maltego": "fbi open up",
+    "@here": "who pinged",
+    "@everyone": "who pinged"
 }
 
 
@@ -173,16 +181,6 @@ class Fun(Cog):
         if message.content.startswith(":react ") or message.content.startswith(":emojify "):
             # Don't react to invocations of :react
             return
-
-        # React if a message contains an @here or @everyone mention.
-        if any(mention in message.content for mention in ("@here", "@everyone")):
-            await message.add_reaction("\N{SLIGHTLY FROWNING FACE}")
-            return await emojify(message, "who pinged")
-
-        # React FBI OPEN UP if message contains trigger words.
-        triggers = ["child", "fbi", "loli", "hentai", "illegal", "maltego"]
-        if any(trigger in message.content.lower() for trigger in triggers):
-            return await emojify(message, "fbi open up")
 
         for word in message.content.lower().split():
             # Check if the message contains a trigger
