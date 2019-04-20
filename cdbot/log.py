@@ -33,8 +33,8 @@ class DiscordHandler(logging.Handler):
         return LEVEL_COLORS.get(level_number)
 
     def emit(self, record):
-        if not self.client.loop.is_running() or re.match('Command ".*" is not found', str(record.msg)):
-            # The event loop is not running (discord is not connected), or CommandNotFound.
+        if not self.client.loop.is_running():
+            # The event loop is not running (discord is not connected)
             return
 
         # Create an embed with a title like "Info" or "Error" and a color
