@@ -225,7 +225,6 @@ class Fun(Cog):
         Emojifies a given string, and reacts to a previous message
         with those emojis.
         """
-        print(repr(message))
         limit, _, output = message.partition(" ")
         if limit.isdigit():
             limit = int(limit)
