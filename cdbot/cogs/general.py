@@ -73,10 +73,6 @@ class General(Cog):
             }
         }
 
-        if ctx.guild is not None:
-            link = f"https://discordapp.com/channels/{ctx.guild.id}/{ctx.channel.id}/{ctx.message.id}"
-            extra_context["discord_info"]["Jump to message"] = link
-
         self.bot.log.exception(error, extra=extra_context)
 
 
