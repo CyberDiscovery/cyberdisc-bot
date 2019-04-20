@@ -12,9 +12,6 @@ jobs:
     vmImage: 'Ubuntu 16.04'
 
   steps:
-  - script: sudo apt-get install python-setuptools
-    displayName: 'Install base dependencies'
-
   - task: UsePythonVersion@0
     displayName: 'Set Python version'
     inputs:
