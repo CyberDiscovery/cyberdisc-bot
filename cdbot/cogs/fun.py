@@ -22,7 +22,11 @@ from cdbot.constants import (
     WELCOME_BOT_ID,
 )
 from discord import Embed, File, HTTPException, Message, NotFound, embeds
-from discord.ext.commands import Bot, Cog, Context, UserConverter, command, has_any_role
+from discord.ext.commands import (
+    Bot, BucketType, Cog,
+    Context, UserConverter, command,
+    cooldown, has_any_role
+)
 from discord.utils import get
 from PIL import Image, ImageDraw, ImageFont
 
@@ -33,6 +37,14 @@ REACT_TRIGGERS = {
     "kali": "\N{ONCOMING POLICE CAR}",
     "duck": "\N{DUCK}",
     "revive": "nou",
+    "child": "fbi open up",
+    "fbi": "fbi open up",
+    "loli": "fbi open up",
+    "hentai": "fbi open up",
+    "illegal": "fbi open up",
+    "maltego": "fbi open up",
+    "@here": "who pinged",
+    "@everyone": "who pinged"
 }
 
 
@@ -166,25 +178,23 @@ class Fun(Cog):
             finally:
                 await sent.delete()
 
-        # React if a message contains an @here or @everyone mention.
-        if any(mention in message.content for mention in ("@here", "@everyone")):
-            await message.add_reaction("\N{SLIGHTLY FROWNING FACE}")
-            await emojify(message, "who pinged")
+        ctx = await self.bot.get_context(message)
 
-        # React FBI OPEN UP if message contains trigger words.
-        triggers = ["child", "fbi", "loli", "hentai", "illegal", "maltego"]
-        if any(trigger in message.content.lower() for trigger in triggers):
-            await emojify(message, "fbi open up")
+        if ctx.valid:
+            # Don't react to valid commands
+            return
 
-        for trigger in REACT_TRIGGERS:
+        for word in message.content.lower().split():
             # Check if the message contains a trigger
-            if trigger in message.content.lower():
-                to_react = REACT_TRIGGERS[trigger]
+            if word in REACT_TRIGGERS:
+                to_react = REACT_TRIGGERS[word]
 
                 if len(to_react) > 1:  # We have a string to react with
                     await emojify(message, to_react)
                 else:
                     await message.add_reaction(to_react)
+
+                return  # Only one auto-reaction per message
 
         # Adds waving emoji when a new user joins.
         if "Welcome to the Cyber Discovery" in message.content and message.author.id == WELCOME_BOT_ID:
@@ -213,13 +223,15 @@ class Fun(Cog):
         if delete:
             await ctx.message.delete()
 
+    # Ratelimit to two usages per user every minute and 4 usages per minute per channel
     @command(aliases=["emojify"])
+    @cooldown(1, 60, BucketType.user)
+    @cooldown(4, 60, BucketType.channel)
     async def react(self, ctx, *, message: str):
         """
         Emojifies a given string, and reacts to a previous message
         with those emojis.
         """
-        print(repr(message))
         limit, _, output = message.partition(" ")
         if limit.isdigit():
             limit = int(limit)
