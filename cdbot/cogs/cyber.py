@@ -28,44 +28,37 @@ class Cyber(Cog):
     Cyber Discovery/Security related commands.
     """
 
+    match_strings = [
+        # Assess dates
+        (r"^.*\bassess\b.*(start|begin|open)\b.*$", "Cyberstart Assess began on the 6th November 2018."),
+        (r"^.*\bassess\b.*(end|finish|close)\b.*$", "Cyberstart Assess ends on the 31st January 2019."),
+
+        # Game dates
+        (r"^.*\bgame\b.*(start|begin|open)\b.*$", "Cyberstart Game begins on the 15th January 2019."),
+        (r"^.*\bgame\b.*(end|finish|close)\b.*$", "Cyberstart Game ends on the 15th April 2019."),
+
+        # Essentials dates
+        (r"^.*\bessentials\b.*(start|begin|open)\b.*$", "Cyberstart Essentials begins on the 5th March 2019."),
+        (r"^.*\bessentials\b.*(end|finish|close)\b.*$", "Cyberstart Essentials ends on the 29th April 2019."),
+
+        # Elite questions
+        (r"^.*\bhow\b.*\bget\b.*\belite\b.*$", "**Quote from the @CyberDiscUK Twitter: **"
+         "Selection for CyberStart Elite will be based on a combination of Game and Essentials results."),
+
+        (r"^.*\belite\b.*\bstart\b.*$", "Cyberstart Elite dates for 2019 are yet to be announced."),
+
+        (r"^.*\bwhat\b.*\belite\b.*\bemail\b.*$", "**Quote from the Cyber Discovery Elite team: **"
+         "We’re currently allocating students to their preferred locations so it’s an ongoing process! "
+         "We’ll send out details of your location as soon as we can. It shouldn’t be too long!"
+         ),
+    ]
+
     def __init__(self, bot: Bot):
         self.bot = bot
-        self.assess_start_regex = re.compile(
-            r"^.*\bassess\b.*(start|begin|open)\b.*$",
-            re.IGNORECASE
-        )
-        self.assess_end_regex = re.compile(
-            r"^.*\bassess\b.*(end|finish|close)\b.*$",
-            re.IGNORECASE
-        )
-        self.game_start_regex = re.compile(
-            r"^.*\bgame\b.*(start|begin|open)\b.*$",
-            re.IGNORECASE
-        )
-        self.game_end_regex = re.compile(
-            r"^.*\bgame\b.*(end|finish|close)\b.*$",
-            re.IGNORECASE
-        )
-        self.essentials_start_regex = re.compile(
-            r"^.*\bessentials\b.*(start|begin|open)\b.*$",
-            re.IGNORECASE
-        )
-        self.essentials_end_regex = re.compile(
-            r"^.*\bessentials\b.*(end|finish|close)\b.*$",
-            re.IGNORECASE
-        )
-        self.elite_qualification_regex = re.compile(
-            r"^.*\bhow\b.*\bget\b.*\belite\b.*$",
-            re.IGNORECASE
-        )
-        self.elite_dates_regex = re.compile(
-            r"^.*\belite\b.*\bstart\b.*$",
-            re.IGNORECASE
-        )
-        self.elite_email_regex = re.compile(
-            r"^.*\bwhat\b.*\belite\b.*\bemail\b.*$",
-            re.IGNORECASE
-        )
+
+        self.matches = [
+            (re.compile(i[0], re.IGNORECASE), i[1]) for i in self.match_strings
+        ]
 
     @command(aliases=["Manual", "manual", "fm"])
     async def fieldmanual(self, ctx: Context):
@@ -473,47 +466,11 @@ class Cyber(Cog):
         if ctx.valid:
             return
 
-        # CyberStart Assess Dates.
-        if self.assess_start_regex.match(message.content):
-            await message.channel.send(f"{message.author.mention}  |"
-                                       "  Cyberstart Assess began on the 6th November 2018.")
-
-        elif self.assess_end_regex.match(message.content):
-            await message.channel.send(f"{message.author.mention}  |  Cyberstart Assess ends on the 31st January 2019.")
-
-        # CyberStart Game Dates.
-        elif self.game_start_regex.match(message.content):
-            await message.channel.send(f"{message.author.mention}  |  Cyberstart Game begins on the 15th January 2019.")
-
-        elif self.game_end_regex.match(message.content):
-            await message.channel.send(f"{message.author.mention}  |  Cyberstart Game ends on the 15th April 2019.")
-
-        # CyberStart Essentials Dates.
-        elif self.essentials_start_regex.match(message.content):
-            await message.channel.send(f"{message.author.mention}  |"
-                                       "  Cyberstart Essentials begins on the 5th March 2019.")
-
-        elif self.essentials_end_regex.match(message.content):
-            await message.channel.send(f"{message.author.mention}  |"
-                                       "  Cyberstart Essentials ends on the 29th April 2019.")
-
-        # CyberStart Elite qualification requirements.
-        elif self.elite_qualification_regex.match(message.content):
-            text = f"{message.author.mention}  |  **Quote from the @CyberDiscUK Twitter: **"
-            text += "Selection for CyberStart Elite will be based on a combination of Game and Essentials results."
-            await message.channel.send(text)
-
-        # CyberStart Elite Dates.
-        elif self.elite_dates_regex.match(message.content):
-            text = f"{message.author.mention}  |  Cyberstart Elite dates for 2019 are yet to be announced."
-            await message.channel.send(text)
-
-        # CyberStart Elite email.
-        elif self.elite_email_regex.match(message.content):
-            text = f"{message.author.mention}  |  **Quote from the Cyber Discovery Elite team: **"
-            text += "We’re currently allocating students to their preferred locations so it’s an ongoing process!"
-            text += " We’ll send out details of your location as soon as we can. It shouldn’t be too long!"
-            await message.channel.send(text)
+        # Check if the message matches any of the pre-baked regexes
+        for regex, response in self.matches:
+            if regex.match(message.content):
+                await message.channel.send(f"{message.author.mention}  |  {response}")
+                break
 
 
 def setup(bot):
