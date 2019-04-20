@@ -47,6 +47,10 @@ class DiscordHandler(logging.Handler):
         embed.add_field(name="Function", value=f"`{record.funcName}`", inline=True)
         embed.add_field(name="File name", value=f"`{record.filename}`", inline=True)
         embed.add_field(name="Line number", value=record.lineno, inline=True)
+       
+        if "discord_info" in record.__dict__:
+            for field, value in record.__dict__["discord_info"].items():
+                embed.add_field(name=field, value=value, inline=True)
 
         if self.log_channel is None:
             self.log_channel = self.client.get_channel(LOGGING_CHANNEL_ID)
