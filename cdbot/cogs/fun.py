@@ -22,7 +22,11 @@ from cdbot.constants import (
     WELCOME_BOT_ID,
 )
 from discord import Embed, File, HTTPException, Message, NotFound, embeds
-from discord.ext.commands import Bot, Cog, Context, UserConverter, command, has_any_role
+from discord.ext.commands import (
+    Bot, BucketType, Cog,
+    Context, UserConverter, command,
+    cooldown, has_any_role
+)
 from discord.utils import get
 from PIL import Image, ImageDraw, ImageFont
 
@@ -219,7 +223,10 @@ class Fun(Cog):
         if delete:
             await ctx.message.delete()
 
+    # Ratelimit to two usages per user every minute and 4 usages per minute per channel
     @command(aliases=["emojify"])
+    @cooldown(1, 60, BucketType.user)
+    @cooldown(4, 60, BucketType.channel)
     async def react(self, ctx, *, message: str):
         """
         Emojifies a given string, and reacts to a previous message
