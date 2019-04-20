@@ -63,10 +63,13 @@ class General(Cog):
 
         extra_context = {
             "discord_info": {
-                "Channel ID": ctx.channel.id,
-                "Message ID": ctx.message.id,
+                "Channel": ctx.channel.mention,
+                "Message": (
+                    f'[{ctx.message.id}](https://discordapp.com/channels/'
+                    f'{ctx.guild.id}/{ctx.channel.id}/{ctx.message.id})'
+                ),
                 "User": ctx.author.mention,
-                "Command": ctx.command.name,
+                "Command": ctx.message.content
             }
         }
 
