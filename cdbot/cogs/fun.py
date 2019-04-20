@@ -166,7 +166,7 @@ class Fun(Cog):
             finally:
                 await sent.delete()
                 
-        if message.content.startswith(":react "):
+        if message.content.startswith(":react ") or message.content.startswith(":emojify "):
             # Don't react to invocations of :react
             return
 
