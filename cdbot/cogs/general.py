@@ -68,7 +68,7 @@ class General(Cog):
                 "Command": ctx.command.name
             }
         }
-            
+
         self.bot.log.exception(error, extra=extra_context)
 
 
