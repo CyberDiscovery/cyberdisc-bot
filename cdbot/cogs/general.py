@@ -60,7 +60,16 @@ class General(Cog):
         else:
             await ctx.send("\N{NO ENTRY SIGN} An error occured during execution, the error has been reported.")
 
-        self.bot.log.exception(error)
+        extra_context = {
+            "discord_info": {
+                "Channel ID": ctx.channel.id,
+                "Message ID": ctx.message.id,
+                "User": ctx.author.mention,
+                "Command": ctx.command.name
+            }
+        }
+
+        self.bot.log.exception(error, extra=extra_context)
 
 
 def setup(bot):
