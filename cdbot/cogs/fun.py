@@ -177,7 +177,7 @@ class Fun(Cog):
                     await message.delete()
             finally:
                 await sent.delete()
-                
+
         if message.content.startswith(":react ") or message.content.startswith(":emojify "):
             # Don't react to invocations of :react
             return
@@ -191,7 +191,7 @@ class Fun(Cog):
                     await emojify(message, to_react)
                 else:
                     await message.add_reaction(to_react)
-                    
+
                 return  # Only one auto-reaction per message
 
         # Adds waving emoji when a new user joins.
