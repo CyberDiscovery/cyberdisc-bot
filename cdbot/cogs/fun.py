@@ -36,7 +36,7 @@ REACT_TRIGGERS = {
     "dabato": "\N{THINKING FACE}",
     "kali": "\N{ONCOMING POLICE CAR}",
     "duck": "\N{DUCK}",
-    "revive": "no u",
+    "revive": "nou",
     "child": "fbi open up",
     "fbi": "fbi open up",
     "loli": "fbi open up",
