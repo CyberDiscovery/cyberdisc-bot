@@ -48,7 +48,8 @@ class General(Cog):
         elif isinstance(error, commands.CheckFailure):
             return await ctx.send("\N{NO ENTRY SIGN} You do not have permission to use that command")
         elif isinstance(error, commands.CommandOnCooldown):
-            return await ctx.send(f"\N{HOURGLASS} Command is on cooldown, try again after {error.retry_after} seconds")
+            retry_after = round(error.retry_after)
+            return await ctx.send(f"\N{HOURGLASS} Command is on cooldown, try again after {retry_after} seconds")
 
         # All errors below this need reporting and so do not return
 
