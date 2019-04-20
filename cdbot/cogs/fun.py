@@ -178,6 +178,8 @@ class Fun(Cog):
             finally:
                 await sent.delete()
 
+        ctx = await self.bot.get_context(message)
+
         if ctx.valid:
             # Don't react to valid commands
             return
