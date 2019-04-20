@@ -14,6 +14,7 @@ asyncpg = "^0.18.3"
 sentry-sdk = "^0.7.3"
 Pillow = "^5.4"
 gitpython = "^2.1"
+google-python-cloud-debugger = "^2.10"
 
 [tool.poetry.dev-dependencies]
 flake8 = "=3.6.0"
