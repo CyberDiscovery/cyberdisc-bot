@@ -32,7 +32,7 @@ REACT_TRIGGERS = {
     "dabato": "\N{THINKING FACE}",
     "kali": "\N{ONCOMING POLICE CAR}",
     "duck": "\N{DUCK}",
-    "revive": "nou",
+    "revive": "no u",
 }
 
 
@@ -165,26 +165,32 @@ class Fun(Cog):
                     await message.delete()
             finally:
                 await sent.delete()
+                
+        if message.content.startswith(":react "):
+            # Don't react to invocations of :react
+            return
 
         # React if a message contains an @here or @everyone mention.
         if any(mention in message.content for mention in ("@here", "@everyone")):
             await message.add_reaction("\N{SLIGHTLY FROWNING FACE}")
-            await emojify(message, "who pinged")
+            return await emojify(message, "who pinged")
 
         # React FBI OPEN UP if message contains trigger words.
         triggers = ["child", "fbi", "loli", "hentai", "illegal", "maltego"]
         if any(trigger in message.content.lower() for trigger in triggers):
-            await emojify(message, "fbi open up")
+            return await emojify(message, "fbi open up")
 
-        for trigger in REACT_TRIGGERS:
+        for word in message.content.lower().split():
             # Check if the message contains a trigger
-            if trigger in message.content.lower():
-                to_react = REACT_TRIGGERS[trigger]
+            if word in REACT_TRIGGERS:
+                to_react = REACT_TRIGGERS[word]
 
                 if len(to_react) > 1:  # We have a string to react with
                     await emojify(message, to_react)
                 else:
                     await message.add_reaction(to_react)
+                    
+                return  # Only one auto-reaction per message
 
         # Adds waving emoji when a new user joins.
         if "Welcome to the Cyber Discovery" in message.content and message.author.id == WELCOME_BOT_ID:
