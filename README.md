@@ -43,8 +43,6 @@ Finally, run the command `poetry run cdbot` in the root of the repository to run
 * **`:fieldmanual`** - Returns a link to the CyberStart Game field manual.
 * **`:flag [base] [level] [challenge]`** - Generate a very legitimate:tm: flag for CyberStart Game.
 * **`:game`** - Displays the remaining time until the start of CyberStart Game.
-* **`:hasitbeenpwned password`** - Searches pwnedpasswords.com for breached passwords.
-* **`:haveibeenpwned email@exmaple.com`** - Searches haveibeenpwned.com for breached accounts.
 * **`:level [base] [level] [challenge]` - Display information about challenges from CyberStart Game
 
 ### Fun Commands:
