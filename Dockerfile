@@ -1,7 +1,7 @@
 FROM python:3.7-stretch
 
-RUN apt update
-RUN apt install -y build-base freetype-dev git jpeg-dev libffi-dev zlib-dev
+RUN apt-get update
+RUN apt-get install -y build-base freetype-dev git jpeg-dev libffi-dev zlib-dev
 
 WORKDIR /app
 ADD ./requirements.txt /app/requirements.txt
