@@ -40,8 +40,6 @@ Finally, run the command `poetry run cdbot` in the root of the repository to run
 
 ### Cyber Security Commands:
 * **`:level 13 1`** - Gets information about a specific CyberStart Game challenge. If Game has not yet begun, calls `:game` instead.
-* **`:haveibeenpwned email@exmaple.com`** - Searches haveibeenpwned.com for breached accounts.
-* **`:hasitbeenpwned password`** - Searches pwnedpasswords.com for breached passwords.
 * **`:game`** - Displays information about CyberStart Game, including start time.
 * **`:assess <level>`** - Displays information about a CyberStart assess level. `<Level>` can be any number from 1-14
 
