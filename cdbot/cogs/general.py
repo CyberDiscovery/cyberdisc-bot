@@ -48,7 +48,8 @@ class General(Cog):
         elif isinstance(error, commands.CheckFailure):
             return await ctx.send("\N{NO ENTRY SIGN} You do not have permission to use that command")
         elif isinstance(error, commands.CommandOnCooldown):
-            return await ctx.send(f"\N{HOURGLASS} Command is on cooldown, try again after {error.retry_after} seconds")
+            retry_after = round(error.retry_after)
+            return await ctx.send(f"\N{HOURGLASS} Command is on cooldown, try again after {retry_after} seconds")
 
         # All errors below this need reporting and so do not return
 
@@ -60,7 +61,24 @@ class General(Cog):
         else:
             await ctx.send("\N{NO ENTRY SIGN} An error occured during execution, the error has been reported.")
 
-        self.bot.log.exception(error)
+        extra_context = {
+            "discord_info": {
+                "Channel": ctx.channel.mention,
+                "User": ctx.author.mention,
+                "Command": ctx.message.content
+            }
+        }
+
+        if ctx.guild is not None:
+            # We are NOT in a DM
+            extra_context["discord_info"]["Message"] = (
+                f'[{ctx.message.id}](https://discordapp.com/channels/'
+                f'{ctx.guild.id}/{ctx.channel.id}/{ctx.message.id})'
+            )
+        else:
+            extra_context["discord_info"]["Message"] = f"{ctx.message.id} (DM)"
+
+        self.bot.log.exception(error, extra=extra_context)
 
 
 def setup(bot):

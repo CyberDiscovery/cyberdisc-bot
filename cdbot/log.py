@@ -4,7 +4,6 @@ An implementation of a logging.Handler for sending messages to Discord
 
 import datetime
 import logging
-import re
 
 from cdbot.constants import LOGGING_CHANNEL_ID
 from discord import Color, Embed
@@ -33,8 +32,8 @@ class DiscordHandler(logging.Handler):
         return LEVEL_COLORS.get(level_number)
 
     def emit(self, record):
-        if not self.client.loop.is_running() or re.match('Command ".*" is not found', str(record.msg)):
-            # The event loop is not running (discord is not connected), or CommandNotFound.
+        if not self.client.loop.is_running():
+            # The event loop is not running (discord is not connected)
             return
 
         # Create an embed with a title like "Info" or "Error" and a color
@@ -47,6 +46,10 @@ class DiscordHandler(logging.Handler):
         embed.add_field(name="Function", value=f"`{record.funcName}`", inline=True)
         embed.add_field(name="File name", value=f"`{record.filename}`", inline=True)
         embed.add_field(name="Line number", value=record.lineno, inline=True)
+
+        if "discord_info" in record.__dict__:
+            for field, value in record.__dict__["discord_info"].items():
+                embed.add_field(name=field, value=value, inline=True)
 
         if self.log_channel is None:
             self.log_channel = self.client.get_channel(LOGGING_CHANNEL_ID)
