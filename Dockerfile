@@ -1,6 +1,6 @@
-FROM python:3.7-alpine3.9
+FROM python:3.7-stretch
 
-RUN apk add build-base freetype-dev git jpeg-dev libffi-dev zlib-dev
+RUN apt install build-base freetype-dev git jpeg-dev libffi-dev zlib-dev
 
 WORKDIR /app
 ADD ./requirements.txt /app/requirements.txt
