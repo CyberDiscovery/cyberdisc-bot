@@ -3,13 +3,12 @@ import random
 import re
 import string
 from asyncio import sleep
-from hashlib import sha1
 from io import StringIO
 from json import load
 
 from aiohttp import ClientSession
 from cdbot.constants import (
-    BASE_ALIASES, CYBERDISC_ICON_URL, END_README_MESSAGE, HINTS_LIMIT, PWNED_ICON_URL, ROOT_ROLE_ID
+    BASE_ALIASES, CYBERDISC_ICON_URL, END_README_MESSAGE, HINTS_LIMIT, ROOT_ROLE_ID
 )
 from dateutil.parser import parse
 from dateutil.relativedelta import relativedelta
@@ -330,87 +329,6 @@ class Cyber(Cog):
             embed.set_footer(text=f"Difficulty: {challenge_difficulty}")
 
             await ctx.send(embed=embed)
-
-    @command()
-    async def haveibeenpwned(self, ctx: Context, account: str):
-        """
-        Searches haveibeenpwned.com for breached accounts.
-        """
-
-        url = "https://haveibeenpwned.com/api/v2/breachedaccount/"
-
-        data: dict = {}
-
-        # GETs the data on the breached account.
-        async with ClientSession() as session:
-            async with session.get(url + account) as response:
-                if response.status == 200:
-                    data = await response.json()
-
-        # If the page doesn't return 200, it will assume there are no breached accounts of that name.
-        if data:
-            info_string = "Info from `https://haveibeenpwned.com/`. Showing up to **5** breaches"
-            info_string += " (Total: " + str(len(data))
-            await ctx.send(f"{ctx.author.mention}  |  {info_string}")
-            for i in data[:5]:
-                output = "```"
-                output += f"Title: {i['Title']}\n"
-                output += f"Name: {i['Name']}\n"
-                output += f"Breach date: {i['BreachDate']}\n"
-                output += f"PwnCount: {i['PwnCount']}\n"
-
-                # An ugly but working method of getting rid of the HTML formatting.
-                desc = i["Description"]
-                desc = desc.replace("<a href=\"", "")
-                desc = desc.replace("\" target=\"_blank\" rel=\"noopener\">", " ")
-                desc = desc.replace("</a>", "")
-                desc = desc.replace("&quot;", "\"")
-                output += f"Description: {desc}\n"
-
-                output += "Lost data: " + "/".join(i['DataClasses']) + "\n"
-                output += f"Currently active: {i['IsActive']}\n"
-                output += "```"
-                await ctx.send(output)
-
-        else:
-            await ctx.send(f"{ctx.author.mention}  |  This account has never been breached!")
-
-    @command()
-    async def hasitbeenpwned(self, ctx: Context, password: str):
-        """
-        Searches pwnedpasswords.com for breached passwords.
-        """
-
-        url = "https://api.pwnedpasswords.com/range/"
-        digest = sha1(password.encode()).hexdigest().upper()  # NOQA
-        prefix, digest = digest[:5], digest[5:]
-
-        async with ClientSession() as session:
-            async with session.get(url + prefix) as response:
-                result = await response.text()
-
-        match = re.search(fr"{digest}:(\d+)", result)
-        if match is not None:
-            count = int(match.group(1))
-        else:
-            count = 0
-
-        embed = Embed(
-            name="have i been pwned?",
-            description=f"{ctx.author.mention} | This password has ",
-            colour=0x5DBCD2
-        )
-        embed.set_author(
-            name="have i been pwned?",
-            icon_url=PWNED_ICON_URL
-        )
-
-        if count:
-            embed.description += f"been uncovered {count} times."
-        else:
-            embed.description += f"has never been uncovered."
-
-        await ctx.send(embed=embed)
 
     @command()
     async def game(self, ctx: Context):
