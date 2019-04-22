@@ -3,13 +3,12 @@ import random
 import re
 import string
 from asyncio import sleep
-from hashlib import sha1
 from io import StringIO
 from json import load
 
 from aiohttp import ClientSession
 from cdbot.constants import (
-    BASE_ALIASES, CYBERDISC_ICON_URL, END_README_MESSAGE, HINTS_LIMIT, PWNED_ICON_URL, ROOT_ROLE_ID
+    BASE_ALIASES, CYBERDISC_ICON_URL, END_README_MESSAGE, HINTS_LIMIT, ROOT_ROLE_ID
 )
 from dateutil.parser import parse
 from dateutil.relativedelta import relativedelta
@@ -28,44 +27,37 @@ class Cyber(Cog):
     Cyber Discovery/Security related commands.
     """
 
+    match_strings = [
+        # Assess dates
+        (r"^.*\bassess\b.*(start|begin|open)\b.*$", "Cyberstart Assess began on the 6th November 2018."),
+        (r"^.*\bassess\b.*(end|finish|close)\b.*$", "Cyberstart Assess ends on the 31st January 2019."),
+
+        # Game dates
+        (r"^.*\bgame\b.*(start|begin|open)\b.*$", "Cyberstart Game begins on the 15th January 2019."),
+        (r"^.*\bgame\b.*(end|finish|close)\b.*$", "Cyberstart Game ends on the 15th April 2019."),
+
+        # Essentials dates
+        (r"^.*\bessentials\b.*(start|begin|open)\b.*$", "Cyberstart Essentials begins on the 5th March 2019."),
+        (r"^.*\bessentials\b.*(end|finish|close)\b.*$", "Cyberstart Essentials ends on the 29th April 2019."),
+
+        # Elite questions
+        (r"^.*\bhow\b.*\bget\b.*\belite\b.*$", "**Quote from the @CyberDiscUK Twitter: **"
+         "Selection for CyberStart Elite will be based on a combination of Game and Essentials results."),
+
+        (r"^.*\belite\b.*\bstart\b.*$", "Cyberstart Elite dates for 2019 are yet to be announced."),
+
+        (r"^.*\bwhat\b.*\belite\b.*\bemail\b.*$", "**Quote from the Cyber Discovery Elite team: **"
+         "We’re currently allocating students to their preferred locations so it’s an ongoing process! "
+         "We’ll send out details of your location as soon as we can. It shouldn’t be too long!"
+         ),
+    ]
+
     def __init__(self, bot: Bot):
         self.bot = bot
-        self.assess_start_regex = re.compile(
-            r"^.*\bassess\b.*(start|begin|open)\b.*$",
-            re.IGNORECASE
-        )
-        self.assess_end_regex = re.compile(
-            r"^.*\bassess\b.*(end|finish|close)\b.*$",
-            re.IGNORECASE
-        )
-        self.game_start_regex = re.compile(
-            r"^.*\bgame\b.*(start|begin|open)\b.*$",
-            re.IGNORECASE
-        )
-        self.game_end_regex = re.compile(
-            r"^.*\bgame\b.*(end|finish|close)\b.*$",
-            re.IGNORECASE
-        )
-        self.essentials_start_regex = re.compile(
-            r"^.*\bessentials\b.*(start|begin|open)\b.*$",
-            re.IGNORECASE
-        )
-        self.essentials_end_regex = re.compile(
-            r"^.*\bessentials\b.*(end|finish|close)\b.*$",
-            re.IGNORECASE
-        )
-        self.elite_qualification_regex = re.compile(
-            r"^.*\bhow\b.*\bget\b.*\belite\b.*$",
-            re.IGNORECASE
-        )
-        self.elite_dates_regex = re.compile(
-            r"^.*\belite\b.*\bstart\b.*$",
-            re.IGNORECASE
-        )
-        self.elite_email_regex = re.compile(
-            r"^.*\bwhat\b.*\belite\b.*\bemail\b.*$",
-            re.IGNORECASE
-        )
+
+        self.matches = [
+            (re.compile(i[0], re.IGNORECASE), i[1]) for i in self.match_strings
+        ]
 
     @command(aliases=["Manual", "manual", "fm"])
     async def fieldmanual(self, ctx: Context):
@@ -339,87 +331,6 @@ class Cyber(Cog):
             await ctx.send(embed=embed)
 
     @command()
-    async def haveibeenpwned(self, ctx: Context, account: str):
-        """
-        Searches haveibeenpwned.com for breached accounts.
-        """
-
-        url = "https://haveibeenpwned.com/api/v2/breachedaccount/"
-
-        data: dict = {}
-
-        # GETs the data on the breached account.
-        async with ClientSession() as session:
-            async with session.get(url + account) as response:
-                if response.status == 200:
-                    data = await response.json()
-
-        # If the page doesn't return 200, it will assume there are no breached accounts of that name.
-        if data:
-            info_string = "Info from `https://haveibeenpwned.com/`. Showing up to **5** breaches"
-            info_string += " (Total: " + str(len(data))
-            await ctx.send(f"{ctx.author.mention}  |  {info_string}")
-            for i in data[:5]:
-                output = "```"
-                output += f"Title: {i['Title']}\n"
-                output += f"Name: {i['Name']}\n"
-                output += f"Breach date: {i['BreachDate']}\n"
-                output += f"PwnCount: {i['PwnCount']}\n"
-
-                # An ugly but working method of getting rid of the HTML formatting.
-                desc = i["Description"]
-                desc = desc.replace("<a href=\"", "")
-                desc = desc.replace("\" target=\"_blank\" rel=\"noopener\">", " ")
-                desc = desc.replace("</a>", "")
-                desc = desc.replace("&quot;", "\"")
-                output += f"Description: {desc}\n"
-
-                output += "Lost data: " + "/".join(i['DataClasses']) + "\n"
-                output += f"Currently active: {i['IsActive']}\n"
-                output += "```"
-                await ctx.send(output)
-
-        else:
-            await ctx.send(f"{ctx.author.mention}  |  This account has never been breached!")
-
-    @command()
-    async def hasitbeenpwned(self, ctx: Context, password: str):
-        """
-        Searches pwnedpasswords.com for breached passwords.
-        """
-
-        url = "https://api.pwnedpasswords.com/range/"
-        digest = sha1(password.encode()).hexdigest().upper()  # NOQA
-        prefix, digest = digest[:5], digest[5:]
-
-        async with ClientSession() as session:
-            async with session.get(url + prefix) as response:
-                result = await response.text()
-
-        match = re.search(fr"{digest}:(\d+)", result)
-        if match is not None:
-            count = int(match.group(1))
-        else:
-            count = 0
-
-        embed = Embed(
-            name="have i been pwned?",
-            description=f"{ctx.author.mention} | This password has ",
-            colour=0x5DBCD2
-        )
-        embed.set_author(
-            name="have i been pwned?",
-            icon_url=PWNED_ICON_URL
-        )
-
-        if count:
-            embed.description += f"been uncovered {count} times."
-        else:
-            embed.description += f"has never been uncovered."
-
-        await ctx.send(embed=embed)
-
-    @command()
     async def game(self, ctx: Context):
         """
         Gets the date of, and days and months until, CyberStart Game
@@ -473,47 +384,11 @@ class Cyber(Cog):
         if ctx.valid:
             return
 
-        # CyberStart Assess Dates.
-        if self.assess_start_regex.match(message.content):
-            await message.channel.send(f"{message.author.mention}  |"
-                                       "  Cyberstart Assess began on the 6th November 2018.")
-
-        elif self.assess_end_regex.match(message.content):
-            await message.channel.send(f"{message.author.mention}  |  Cyberstart Assess ends on the 31st January 2019.")
-
-        # CyberStart Game Dates.
-        elif self.game_start_regex.match(message.content):
-            await message.channel.send(f"{message.author.mention}  |  Cyberstart Game begins on the 15th January 2019.")
-
-        elif self.game_end_regex.match(message.content):
-            await message.channel.send(f"{message.author.mention}  |  Cyberstart Game ends on the 15th April 2019.")
-
-        # CyberStart Essentials Dates.
-        elif self.essentials_start_regex.match(message.content):
-            await message.channel.send(f"{message.author.mention}  |"
-                                       "  Cyberstart Essentials begins on the 5th March 2019.")
-
-        elif self.essentials_end_regex.match(message.content):
-            await message.channel.send(f"{message.author.mention}  |"
-                                       "  Cyberstart Essentials ends on the 29th April 2019.")
-
-        # CyberStart Elite qualification requirements.
-        elif self.elite_qualification_regex.match(message.content):
-            text = f"{message.author.mention}  |  **Quote from the @CyberDiscUK Twitter: **"
-            text += "Selection for CyberStart Elite will be based on a combination of Game and Essentials results."
-            await message.channel.send(text)
-
-        # CyberStart Elite Dates.
-        elif self.elite_dates_regex.match(message.content):
-            text = f"{message.author.mention}  |  Cyberstart Elite dates for 2019 are yet to be announced."
-            await message.channel.send(text)
-
-        # CyberStart Elite email.
-        elif self.elite_email_regex.match(message.content):
-            text = f"{message.author.mention}  |  **Quote from the Cyber Discovery Elite team: **"
-            text += "We’re currently allocating students to their preferred locations so it’s an ongoing process!"
-            text += " We’ll send out details of your location as soon as we can. It shouldn’t be too long!"
-            await message.channel.send(text)
+        # Check if the message matches any of the pre-baked regexes
+        for regex, response in self.matches:
+            if regex.match(message.content):
+                await message.channel.send(f"{message.author.mention}  |  {response}")
+                break
 
 
 def setup(bot):
