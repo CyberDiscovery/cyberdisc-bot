@@ -356,8 +356,8 @@ class Cyber(Cog):
         game_r = ctx.guild.get_role(HUNDRED_PERCENT_ROLE_ID)
         true_r = ctx.guild.get_role(TRUE_HUNDRED_PERCENT_ROLE_ID)
 
-        await ctx.send((f"There are {len(game_r.members)} that have completed Cyberstart Game. Out of them, {len(true_r.members)} have also "
-                        "completed Essentials and Assess."))
+        await ctx.send(f"There are {len(game_r.members)} that have completed Cyberstart Game. Out of them, "
+                       f"{len(true_r.members)} have also completed Essentials and Assess.")
 
     async def countdown(self, countdown_target_str: str, stage_name: str, ctx: Context):
         countdown_target = parse(countdown_target_str).date()
