@@ -8,8 +8,8 @@ from json import load
 
 from aiohttp import ClientSession
 from cdbot.constants import (
-    BASE_ALIASES, CYBERDISC_ICON_URL, END_README_MESSAGE, HINTS_LIMIT, ROOT_ROLE_ID, HUNDRED_ROLE_ID,
-    TRUE_HUNDRED_ROLE_ID
+    BASE_ALIASES, CYBERDISC_ICON_URL, END_README_MESSAGE, HINTS_LIMIT, ROOT_ROLE_ID, HUNDRED_PERCENT_ROLE_ID,
+    TRUE_HUNDRED_PERCENT_ROLE_ID
 )
 from dateutil.parser import parse
 from dateutil.relativedelta import relativedelta
@@ -353,10 +353,10 @@ class Cyber(Cog):
         Gets the number of 100% and true 100% users
         """
 
-        game_r = utils.get(ctx.guild.roles, id=HUNDRED_ROLE_ID)
-        true_r = utils.get(ctx.guild.roles, id=TRUE_HUNDRED_ROLE_ID)
+        game_r = utils.get(ctx.guild.roles, id=HUNDRED_PERCENT_ROLE_ID)
+        true_r = utils.get(ctx.guild.roles, id=TRUE_HUNDRED_PERCENT_ROLE_ID)
 
-        await ctx.send((f"There are {len(game_r.members)} 100% users, of which {len(true_r.members)} have also "
+        await ctx.send((f"There are {len(game_r.members)} that have completed Cyberstart Game. Out of them, {len(true_r.members)} have also "
                         "completed Essentials and Assess."))
 
     async def countdown(self, countdown_target_str: str, stage_name: str, ctx: Context):
