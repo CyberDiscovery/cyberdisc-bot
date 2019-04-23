@@ -8,7 +8,8 @@ from json import load
 
 from aiohttp import ClientSession
 from cdbot.constants import (
-    BASE_ALIASES, CYBERDISC_ICON_URL, END_README_MESSAGE, HINTS_LIMIT, ROOT_ROLE_ID
+    BASE_ALIASES, CYBERDISC_ICON_URL, END_README_MESSAGE, HINTS_LIMIT, HUNDRED_PERCENT_ROLE_ID, ROOT_ROLE_ID,
+    TRUE_HUNDRED_PERCENT_ROLE_ID
 )
 from dateutil.parser import parse
 from dateutil.relativedelta import relativedelta
@@ -345,6 +346,18 @@ class Cyber(Cog):
         """
 
         await self.countdown('5th March 2019', 'CyberStart Essentials', ctx)
+
+    @command()
+    async def hundred(self, ctx: Context):
+        """
+        Gets the number of 100% and true 100% users
+        """
+
+        game_r = ctx.guild.get_role(HUNDRED_PERCENT_ROLE_ID)
+        true_r = ctx.guild.get_role(TRUE_HUNDRED_PERCENT_ROLE_ID)
+
+        await ctx.send(f"There are {len(game_r.members)} that have completed Cyberstart Game. Out of them, "
+                       f"{len(true_r.members)} have also completed Essentials and Assess.")
 
     async def countdown(self, countdown_target_str: str, stage_name: str, ctx: Context):
         countdown_target = parse(countdown_target_str).date()
