@@ -13,7 +13,7 @@ from cdbot.constants import (
 )
 from dateutil.parser import parse
 from dateutil.relativedelta import relativedelta
-from discord import Colour, Embed, File, Message, utils
+from discord import Colour, Embed, File, Message
 from discord.ext.commands import Bot, Cog, Context, command, has_role
 
 
@@ -353,8 +353,8 @@ class Cyber(Cog):
         Gets the number of 100% and true 100% users
         """
 
-        game_r = utils.get(ctx.guild.roles, id=HUNDRED_PERCENT_ROLE_ID)
-        true_r = utils.get(ctx.guild.roles, id=TRUE_HUNDRED_PERCENT_ROLE_ID)
+        game_r = ctx.guild.get_role(HUNDRED_PERCENT_ROLE_ID)
+        true_r = ctx.guild.get_role(TRUE_HUNDRED_PERCENT_ROLE_ID)
 
         await ctx.send((f"There are {len(game_r.members)} that have completed Cyberstart Game. Out of them, {len(true_r.members)} have also "
                         "completed Essentials and Assess."))
