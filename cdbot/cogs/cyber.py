@@ -1,4 +1,4 @@
-import datetime
+﻿import datetime
 import random
 import re
 import string
@@ -51,6 +51,9 @@ class Cyber(Cog):
          "We’re currently allocating students to their preferred locations so it’s an ongoing process! "
          "We’ll send out details of your location as soon as we can. It shouldn’t be too long!"
          ),
+
+        # Beta date
+        (r"^.*\bbeta\b.*(end|finish|close)\b.*$", "Cyberstart Cloud CTF ends on the May 13th 2019 at 12:00pm."),
     ]
 
     def __init__(self, bot: Bot):
@@ -133,7 +136,7 @@ class Cyber(Cog):
             level_num = int(base)
             base = "Headquarters"
         if level_num == 13 and challenge_num == 1:
-            content = "13.1 is a No Flag Zone™ 🙅⛔⚔️"
+            content = "13.1 is a No Flag Zone™ ðﾟﾙﾅ⛔⚔️"
         else:
             # Generates random, but unique and identical per challenge, base 64 "flag"
             content = "The flag is: ||" + (await generatebase64(ord(base[0]) + level_num + challenge_num)) + "||"
