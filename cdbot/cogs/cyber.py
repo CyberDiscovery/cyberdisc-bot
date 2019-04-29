@@ -136,7 +136,7 @@ class Cyber(Cog):
             level_num = int(base)
             base = "Headquarters"
         if level_num == 13 and challenge_num == 1:
-            content = "13.1 is a No Flag Zone™ ðﾟﾙﾅ⛔⚔️"
+            content = "13.1 is a No Flag Zone™ 🙅⛔⚔️"
         else:
             # Generates random, but unique and identical per challenge, base 64 "flag"
             content = "The flag is: ||" + (await generatebase64(ord(base[0]) + level_num + challenge_num)) + "||"
