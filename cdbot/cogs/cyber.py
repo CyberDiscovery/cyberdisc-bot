@@ -53,7 +53,7 @@ class Cyber(Cog):
          ),
 
         # Beta date
-        (r"^.*\bbeta\b.*(end|finish|close)\b.*$", "Cyberstart Cloud CTF ends on the May 13th 2019 at 12:00pm."),
+        (r"^.*\bbeta\b.*(end|finish|close)\b.*$", "Cyberstart Cloud CTF ends on the 13th May 2019 at 12:00pm."),
     ]
 
     def __init__(self, bot: Bot):
