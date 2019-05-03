@@ -31,15 +31,15 @@ class Cyber(Cog):
     match_strings = [
         # Assess dates
         (r"^.*\bassess\b.*(start|begin|open)\b.*$", "Cyberstart Assess began on the 6th November 2018."),
-        (r"^.*\bassess\b.*(end|finish|close)\b.*$", "Cyberstart Assess ends on the 31st January 2019."),
+        (r"^.*\bassess\b.*(end|finish|close)\b.*$", "Cyberstart Assess ended on the 31st January 2019."),
 
         # Game dates
         (r"^.*\bgame\b.*(start|begin|open)\b.*$", "Cyberstart Game begins on the 15th January 2019."),
-        (r"^.*\bgame\b.*(end|finish|close)\b.*$", "Cyberstart Game ends on the 15th April 2019."),
+        (r"^.*\bgame\b.*(end|finish|close)\b.*$", "Cyberstart Game ended on the 15th April 2019."),
 
         # Essentials dates
         (r"^.*\bessentials\b.*(start|begin|open)\b.*$", "Cyberstart Essentials begins on the 5th March 2019."),
-        (r"^.*\bessentials\b.*(end|finish|close)\b.*$", "Cyberstart Essentials ends on the 29th April 2019."),
+        (r"^.*\bessentials\b.*(end|finish|close)\b.*$", "Cyberstart Essentials ended on the 29th April 2019."),
 
         # Elite questions
         (r"^.*\bhow\b.*\bget\b.*\belite\b.*$", "**Quote from the @CyberDiscUK Twitter: **"
