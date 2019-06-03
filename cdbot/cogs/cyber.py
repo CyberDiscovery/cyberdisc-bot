@@ -50,10 +50,7 @@ class Cyber(Cog):
         (r"^.*\bwhat\b.*\belite\b.*\bemail\b.*$", "**Quote from the Cyber Discovery Elite team: **"
          "We’re currently allocating students to their preferred locations so it’s an ongoing process! "
          "We’ll send out details of your location as soon as we can. It shouldn’t be too long!"
-         ),
-
-        # Beta date
-        (r"^.*\bbeta\b.*(end|finish|close)\b.*$", "Cyberstart Cloud CTF ends on the 13th May 2019 at 12:00pm."),
+         )
     ]
 
     def __init__(self, bot: Bot):
