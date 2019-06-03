@@ -188,5 +188,8 @@ fabric.properties
 # deploy ssh key
 id_rsa
 
-#Flake output
+# Flake output
 flake8.xml
+
+# VS Code
+.vscode/*
