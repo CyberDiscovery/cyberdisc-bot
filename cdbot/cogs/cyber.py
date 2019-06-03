@@ -385,7 +385,7 @@ London - Older: {len(ldn_o_r.members)}
 Birmingham - Younger: {len(brm_y_r.members)}
 Birmingham - Older: {len(brm_o_r.members)}
 Lancaster - Younger: {len(lan_y_r.members)}
-Lancaster - Older:{len(lan_o_r.members)}
+Lancaster - Older: {len(lan_o_r.members)}
         """)
 
     async def countdown(self, countdown_target_str: str, stage_name: str, ctx: Context):
