@@ -379,6 +379,7 @@ class Cyber(Cog):
 
         await ctx.send(f"""There are {len(elite_r.members)} server members that have qualified for CyberStart Elite.
         {len(exch_l_r.members)} members have qualified for Exchange ({len(exch_c_r.members)} confirmed).
+
 Of those who didn't, preferences have been expressed as follows:
 London - Younger: {len(ldn_y_r.members)}
 London - Older: {len(ldn_o_r.members)}
