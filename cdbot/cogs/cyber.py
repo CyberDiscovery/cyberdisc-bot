@@ -378,7 +378,7 @@ class Cyber(Cog):
         exch_c_r = ctx.guild.get_role(ELITE_EXCH_CONF_ROLE_ID)
 
         await ctx.send(f"""There are {len(elite_r.members)} server members that have qualified for CyberStart Elite.
-        {len(exch_l_r.members)} members have qualified for Exchange ({len(exch_c_r.members)} confirmed).
+{len(exch_l_r.members)} members have qualified for Exchange ({len(exch_c_r.members)} confirmed).
 
 Of those who didn't, preferences have been expressed as follows:
 London - Younger: {len(ldn_y_r.members)}
