@@ -383,9 +383,9 @@ class Cyber(Cog):
             }
         }
 
-        elite = len(Roles.Elite.members)
-        exchange = len(Roles.Exchange.Shortlist.members)
-        confirmed = len(Roles.Exchange.Confirmed.members)
+        elite = len(ELITE_ROLES.Elite.members)
+        exchange = len(ELITE_ROLES.Exchange.Shortlist.members)
+        confirmed = len(ELITE_ROLES.Exchange.Confirmed.members)
 
         message = f"""
 There are {elite} server members that have qualified for CyberStart Elite.
