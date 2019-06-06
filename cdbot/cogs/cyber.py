@@ -382,7 +382,7 @@ class Cyber(Cog):
 
         elite = len(ctx.guild.get_role(ELITE_ROLES.Elite.members))
         exchange = len(ctx.guild.get_role(ELITE_ROLES.Exchange.Shortlist.members))
-        confirmed=len(ctx.guild.get_role(ELITE_ROLES.Exchange.Confirmed.members))
+        confirmed = len(ctx.guild.get_role(ELITE_ROLES.Exchange.Confirmed.members))
 
         message = f"""
 There are {elite} server members that have qualified for CyberStart Elite.
@@ -397,7 +397,7 @@ Of those who did not qualify for Elite, preferences have been expressed as follo
 
         await ctx.send(message)
         )
-    
+
     async def countdown(self, countdown_target_str: str, stage_name: str, ctx: Context):
         countdown_target = parse(countdown_target_str).date()
 
