@@ -22,9 +22,6 @@ async def generatebase64(seed: int) -> str:
     letters = string.ascii_letters + string.digits + "+/="
     return "".join(random.choices(letters, k=20))
 
-async def memberCount(roleID):
-    return len(ctx.guild.get_role(roleID).members)
-
 
 class Cyber(Cog):
     """
