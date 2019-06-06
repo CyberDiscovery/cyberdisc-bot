@@ -8,10 +8,8 @@ from json import load
 
 from aiohttp import ClientSession
 from cdbot.constants import (
-    BASE_ALIASES, CYBERDISC_ICON_URL, ELITE_BRM_OLD_ROLE_ID, ELITE_BRM_YNG_ROLE_ID, ELITE_EXCH_CONF_ROLE_ID,
-    ELITE_EXCH_LIST_ROLE_ID, ELITE_LAN_OLD_ROLE_ID, ELITE_LAN_YNG_ROLE_ID, ELITE_LDN_OLD_ROLE_ID,
-    ELITE_LDN_YNG_ROLE_ID, ELITE_ROLE_ID, END_README_MESSAGE, HINTS_LIMIT, HUNDRED_PERCENT_ROLE_ID, ROOT_ROLE_ID,
-    TRUE_HUNDRED_PERCENT_ROLE_ID
+    BASE_ALIASES, CYBERDISC_ICON_URL, ELITE_ROLES, END_README_MESSAGE, HINTS_LIMIT, HUNDRED_PERCENT_ROLE_ID,
+    ROOT_ROLE_ID, TRUE_HUNDRED_PERCENT_ROLE_ID
 )
 from dateutil.parser import parse
 from dateutil.relativedelta import relativedelta
@@ -23,6 +21,9 @@ async def generatebase64(seed: int) -> str:
     random.seed(seed)
     letters = string.ascii_letters + string.digits + "+/="
     return "".join(random.choices(letters, k=20))
+
+async def memberCount(roleID):
+    return len(ctx.guild.get_role(roleID).members)
 
 
 class Cyber(Cog):
@@ -367,27 +368,38 @@ class Cyber(Cog):
         Gets the number of elite users
         """
 
-        elite_r = ctx.guild.get_role(ELITE_ROLE_ID)
-        ldn_y_r = ctx.guild.get_role(ELITE_LDN_YNG_ROLE_ID)
-        ldn_o_r = ctx.guild.get_role(ELITE_LDN_OLD_ROLE_ID)
-        brm_y_r = ctx.guild.get_role(ELITE_BRM_YNG_ROLE_ID)
-        brm_o_r = ctx.guild.get_role(ELITE_BRM_OLD_ROLE_ID)
-        lan_y_r = ctx.guild.get_role(ELITE_LAN_YNG_ROLE_ID)
-        lan_o_r = ctx.guild.get_role(ELITE_LAN_OLD_ROLE_ID)
-        exch_l_r = ctx.guild.get_role(ELITE_EXCH_LIST_ROLE_ID)
-        exch_c_r = ctx.guild.get_role(ELITE_EXCH_CONF_ROLE_ID)
+        preferences = {
+            'London': {
+                'Younger': ELITE_ROLES.Elite.London.Younger,
+                'Older': ELITE_ROLES.Elite.London.Older
+            },
+            'Birmingham': {
+                'Younger': ELITE_ROLES.Elite.Birmingham.Younger,
+                'Older': ELITE_ROLES.Elite.Birmingham.Older
+            },
+            'Lancaster': {
+                'Younger': ELITE_ROLES.Elite.Lancaster.Younger,
+                'Older': ELITE_ROLES.Elite.Lancaster.Older
+            }
+        }
 
-        await ctx.send(f"""There are {len(elite_r.members)} server members that have qualified for CyberStart Elite.
-{len(exch_l_r.members)} members have qualified for Exchange ({len(exch_c_r.members)} confirmed).
+        elite = len(Roles.Elite.members)
+        exchange = len(Roles.Exchange.Shortlist.members)
+        confirmed = len(Roles.Exchange.Confirmed.members)
 
-Of those who didn't, preferences have been expressed as follows:
-London - Younger: {len(ldn_y_r.members)}
-London - Older: {len(ldn_o_r.members)}
-Birmingham - Younger: {len(brm_y_r.members)}
-Birmingham - Older: {len(brm_o_r.members)}
-Lancaster - Younger: {len(lan_y_r.members)}
-Lancaster - Older: {len(lan_o_r.members)}
-        """)
+        message = f"""
+There are {elite} server members that have qualified for CyberStart Elite.
+{exchange} members have qualified for the Exchange, {confirmed} of which are confirmed.
+
+Of those who did not qualify for Elite, preferences have been expressed as follows:
+        """
+
+        for location, ages in preferences.items():
+            for age, role in ages.items():
+                message += f'{location} - {age}: {len(role.members)}\n'
+
+        await ctx.send(message)
+        )
 
     async def countdown(self, countdown_target_str: str, stage_name: str, ctx: Context):
         countdown_target = parse(countdown_target_str).date()
