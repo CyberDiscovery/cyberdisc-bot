@@ -396,7 +396,6 @@ Of those who did not qualify for Elite, preferences have been expressed as follo
                 message += f'{location} - {age}: {len(ctx.guild.get_role(role).members)}\n'
 
         await ctx.send(message)
-        )
 
     async def countdown(self, countdown_target_str: str, stage_name: str, ctx: Context):
         countdown_target = parse(countdown_target_str).date()
