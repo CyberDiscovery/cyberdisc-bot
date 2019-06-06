@@ -43,7 +43,14 @@ ADMIN_MENTOR_ROLE_ID = 502238208747110411
 ROOT_ROLE_ID = int(environ.get("ROOT_MEMBERS_ID", "450113490590629888"))
 ADMIN_ROLES = ("Root", "Sudo")
 BANNED_DOMAINS = ["discord.gg"]
-ELITE_ROLES = {"Elite": {"London": {"Younger": "580387877385404428", "Older": "580387897644023811"}, "Birmingham": {"Younger": "580387895299276830", "Older": "580387899833581572"}, "Lancaster"{"Younger": "580387898973618176", "Older": "580387892853997578"}},"Exchange": {"Shortlist": "582894164597932034", "Confirmed": "585150522336608256"}}
+ELITE_ROLES = {
+    "Elite": {
+        "London": {"Younger": "580387877385404428", "Older": "580387897644023811"},
+        "Birmingham": {"Younger": "580387895299276830", "Older": "580387899833581572"},
+        "Lancaster": {"Younger": "580387898973618176", "Older": "580387892853997578"},
+    },
+    "Exchange": {"Shortlist": "582894164597932034", "Confirmed": "585150522336608256"},
+}
 
 # Cyber Constants
 HINTS_LIMIT = 8
