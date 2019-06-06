@@ -377,7 +377,11 @@ class Cyber(Cog):
         exch_l_r = ctx.guild.get_role(ELITE_EXCH_LIST_ROLE_ID)
         exch_c_r = ctx.guild.get_role(ELITE_EXCH_CONF_ROLE_ID)
 
-        await ctx.send(f"""There are {len(elite_r.members)} server members that have qualified for CyberStart Elite.
+        elite_count = len(elite_r.members)
+        young_count = len(ldn_y_r.members) + len(brm_y_r.members) + len(lan_y_r.members)
+        old_count = len(ldn_o_r.members) + len(brm_o_r.members) + len(lan_o_r.members)
+
+        await ctx.send(f"""There are {elite_count} server members that have qualified for CyberStart Elite.
 {len(exch_l_r.members)} members have qualified for Exchange ({len(exch_c_r.members)} confirmed).
 
 Of those who didn't, preferences have been expressed as follows:
@@ -387,6 +391,11 @@ Birmingham - Younger: {len(brm_y_r.members)}
 Birmingham - Older: {len(brm_o_r.members)}
 Lancaster - Younger: {len(lan_y_r.members)}
 Lancaster - Older: {len(lan_o_r.members)}
+
+Total younger: {young_count}
+Total older: {old_count}
+
+There are {elite_count - (young_count + old_count)} server members who qualified but haven't told us their preferences
         """)
 
     async def countdown(self, countdown_target_str: str, stage_name: str, ctx: Context):
