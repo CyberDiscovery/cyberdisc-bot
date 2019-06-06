@@ -380,9 +380,9 @@ class Cyber(Cog):
             }
         }
 
-        elite = len(ELITE_ROLES.Elite.members)
-        exchange = len(ELITE_ROLES.Exchange.Shortlist.members)
-        confirmed = len(ELITE_ROLES.Exchange.Confirmed.members)
+        elite = len(ctx.guild.get_role(ELITE_ROLES.Elite.members))
+        exchange = len(ctx.guild.get_role(ELITE_ROLES.Exchange.Shortlist.members))
+        confirmed=len(ctx.guild.get_role(ELITE_ROLES.Exchange.Confirmed.members))
 
         message = f"""
 There are {elite} server members that have qualified for CyberStart Elite.
@@ -393,7 +393,7 @@ Of those who did not qualify for Elite, preferences have been expressed as follo
 
         for location, ages in preferences.items():
             for age, role in ages.items():
-                message += f'{location} - {age}: {len(role.members)}\n'
+                message += f'{location} - {age}: {len(ctx.guild.get_role(role).members)}\n'
 
         await ctx.send(message)
         )
