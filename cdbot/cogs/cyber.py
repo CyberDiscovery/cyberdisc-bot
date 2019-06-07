@@ -2,6 +2,7 @@ import datetime
 import random
 import re
 import string
+import textwrap
 from asyncio import sleep
 from io import StringIO
 from json import load
@@ -384,18 +385,32 @@ class Cyber(Cog):
         exchange = len(ctx.guild.get_role(Roles.Exchange.Shortlist).members)
         confirmed = len(ctx.guild.get_role(Roles.Exchange.Confirmed).members)
 
-        message = f"""
-There are {elite} server members that have qualified for CyberStart Elite.
-{exchange} members have qualified for the Exchange, {confirmed} of which are confirmed.
+        year = datetime.datetime.utcnow().year
 
-Of those who did not qualify for Elite, preferences have been expressed as follows:
-"""
+        description = textwrap.dedent(f"""
+        **Total qualified**: {elite}
+
+        **Camp Statistics**
+        """)
+
+        embed = Embed(title=f"CyberStart Elite {year}",
+                      description=description,
+                      colour=Colour(0xf45f42))  # A nice red
+
+        embed.set_thumbnail(url=CYBERDISC_ICON_URL)
 
         for location, ages in preferences.items():
+            section = ""
             for age, role in ages.items():
-                message += f'{location} - {age}: {len(ctx.guild.get_role(role).members)}\n'
+                r = ctx.guild.get_role(role)
+                section += f"**{age}**: {len(r.members)}\n"
+            embed.add_field(name=location, value=section, inline=True)
 
-        await ctx.send(message)
+        exchange_text = f"**Shortlisted**: {exchange}\n**Confirmed**: {confirmed}"
+
+        embed.add_field(name="Exchange", value=exchange_text, inline=True)
+
+        await ctx.send(embed=embed)
 
     async def countdown(self, countdown_target_str: str, stage_name: str, ctx: Context):
         countdown_target = parse(countdown_target_str).date()
