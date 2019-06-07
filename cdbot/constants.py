@@ -44,12 +44,13 @@ ROOT_ROLE_ID = int(environ.get("ROOT_MEMBERS_ID", "450113490590629888"))
 ADMIN_ROLES = ("Root", "Sudo")
 BANNED_DOMAINS = ["discord.gg"]
 
+
 class ROLES:
 
     class ELITE:
 
         ID = int(environ.get("ELITE_MEMBERS_ID", "580387468336037888"))
-        
+
         class LONDON:
             YOUNGER = int(environ.get("LDN_Y_MEMBERS_ID", "580387877385404428"))
             OLDER = int(environ.get("LDN_O_MEMBERS_ID", "580387897644023811"))
