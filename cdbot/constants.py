@@ -45,7 +45,7 @@ ADMIN_ROLES = ("Root", "Sudo")
 BANNED_DOMAINS = ["discord.gg"]
 ELITE_ROLES = {
     "Elite": {
-        "General": "580387468336037888"
+        "General": "580387468336037888", 
         "London": {"Younger": "580387877385404428", "Older": "580387897644023811"},
         "Birmingham": {"Younger": "580387895299276830", "Older": "580387899833581572"},
         "Lancaster": {"Younger": "580387898973618176", "Older": "580387892853997578"},
