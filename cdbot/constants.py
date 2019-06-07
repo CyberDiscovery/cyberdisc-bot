@@ -48,7 +48,6 @@ BANNED_DOMAINS = ["discord.gg"]
 class Roles:
 
     class Elite:
-
         Main = int(environ.get("ELITE_MEMBERS_ID", "580387468336037888"))
 
         class London:
