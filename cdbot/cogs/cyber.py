@@ -388,7 +388,7 @@ class Cyber(Cog):
         year = datetime.datetime.utcnow().year
 
         description = textwrap.dedent(f"""
-        Elite qualified: {elite}
+        **Total qualified**: {elite}
 
         **Camp Statistics**
         """)
@@ -406,7 +406,7 @@ class Cyber(Cog):
                 section += f"**{age}**: {len(r.members)}\n"
             embed.add_field(name=location, value=section, inline=True)
 
-        exchange_text = f"**Qualified**: {exchange}\n**Confirmed**: {confirmed}"
+        exchange_text = f"**Shortlisted**: {exchange}\n**Confirmed**: {confirmed}"
 
         embed.add_field(name="Exchange", value=exchange_text, inline=True)
 
