@@ -367,29 +367,29 @@ class Cyber(Cog):
 
         preferences = {
             'London': {
-                'Younger': ROLES.Elite.London.Younger,
-                'Older': ROLES.Elite.London.Older
+                'Younger': ROLES.ELITE.LONDON.YOUNGER,
+                'Older': ROLES.ELITE.LONDON.OLDER
             },
             'Birmingham': {
-                'Younger': ROLES.Elite.Birmingham.Younger,
-                'Older': ROLES.Elite.Birmingham.Older
+                'Younger': ROLES.ELITE.BIRMINGHAM.YOUNGER,
+                'Older': ROLES.ELITE.BIRMINGHAM.OLDER
             },
             'Lancaster': {
-                'Younger': ROLES.Elite.Lancaster.Younger,
-                'Older': ROLES.Elite.Lancaster.Older
+                'Younger': ROLES.ELITE.LANCASTER.YOUNGER,
+                'Older': ROLES.ELITE.LANCASTER.OLDER
             }
         }
 
-        elite = len(ctx.guild.get_role(ROLES.Elite.ID.members))
-        exchange = len(ctx.guild.get_role(ROLES.Exchange.Shortlist.members))
-        confirmed = len(ctx.guild.get_role(ROLES.Exchange.Confirmed.members))
+        elite = len(ctx.guild.get_role(ROLES.ELITE.ID).members)
+        exchange = len(ctx.guild.get_role(ROLES.EXCHANGE.SHORTLIST).members)
+        confirmed = len(ctx.guild.get_role(ROLES.EXCHANGE.CONFIRMED).members)
 
         message = f"""
 There are {elite} server members that have qualified for CyberStart Elite.
 {exchange} members have qualified for the Exchange, {confirmed} of which are confirmed.
 
 Of those who did not qualify for Elite, preferences have been expressed as follows:
-        """
+"""
 
         for location, ages in preferences.items():
             for age, role in ages.items():
