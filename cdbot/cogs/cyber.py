@@ -384,7 +384,7 @@ class Cyber(Cog):
         elite = len(ctx.guild.get_role(Roles.Elite.Main).members)
         exchange = len(ctx.guild.get_role(Roles.Exchange.Shortlist).members)
         confirmed = len(ctx.guild.get_role(Roles.Exchange.Confirmed).members)
-        
+ 
         year = datetime.dadtetime.utcnow().year
 
         description = textwrap.dedent(f"""
@@ -396,10 +396,10 @@ class Cyber(Cog):
         **»** Camp Statistics
         """)
 
-        embed = Embed(title=f"CyberDiscovery Elite {year}", 
+        embed = Embed(title=f"CyberDiscovery Elite {year}",
                       description=description,
                       colour=Colour(0xf45f42))  # A nice red
-        
+ 
         for location, ages in preferences.items():
             section = ""
             for age, role in ages.items():
