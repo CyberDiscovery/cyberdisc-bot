@@ -49,6 +49,7 @@ class ROLES:
     class ELITE:
 
         ID = int(environ.get("ELITE_MEMBERS_ID", "580387468336037888"))
+        
         class LONDON:
             YOUNGER = int(environ.get("LDN_Y_MEMBERS_ID", "580387877385404428"))
             OLDER = int(environ.get("LDN_O_MEMBERS_ID", "580387897644023811"))
