@@ -8,7 +8,7 @@ from json import load
 
 from aiohttp import ClientSession
 from cdbot.constants import (
-    BASE_ALIASES, CYBERDISC_ICON_URL, ELITE_ROLES, END_README_MESSAGE, HINTS_LIMIT, HUNDRED_PERCENT_ROLE_ID,
+    BASE_ALIASES, CYBERDISC_ICON_URL, ROLES, END_README_MESSAGE, HINTS_LIMIT, HUNDRED_PERCENT_ROLE_ID,
     ROOT_ROLE_ID, TRUE_HUNDRED_PERCENT_ROLE_ID
 )
 from dateutil.parser import parse
@@ -367,22 +367,22 @@ class Cyber(Cog):
 
         preferences = {
             'London': {
-                'Younger': ELITE_ROLES.Elite.London.Younger,
-                'Older': ELITE_ROLES.Elite.London.Older
+                'Younger': ROLES.Elite.London.Younger,
+                'Older': ROLES.Elite.London.Older
             },
             'Birmingham': {
-                'Younger': ELITE_ROLES.Elite.Birmingham.Younger,
-                'Older': ELITE_ROLES.Elite.Birmingham.Older
+                'Younger': ROLES.Elite.Birmingham.Younger,
+                'Older': ROLES.Elite.Birmingham.Older
             },
             'Lancaster': {
-                'Younger': ELITE_ROLES.Elite.Lancaster.Younger,
-                'Older': ELITE_ROLES.Elite.Lancaster.Older
+                'Younger': ROLES.Elite.Lancaster.Younger,
+                'Older': ROLES.Elite.Lancaster.Older
             }
         }
 
-        elite = len(ctx.guild.get_role(ELITE_ROLES.Elite.General.members))
-        exchange = len(ctx.guild.get_role(ELITE_ROLES.Exchange.Shortlist.members))
-        confirmed = len(ctx.guild.get_role(ELITE_ROLES.Exchange.Confirmed.members))
+        elite = len(ctx.guild.get_role(ROLES.Elite.ID.members))
+        exchange = len(ctx.guild.get_role(ROLES.Exchange.Shortlist.members))
+        confirmed = len(ctx.guild.get_role(ROLES.Exchange.Confirmed.members))
 
         message = f"""
 There are {elite} server members that have qualified for CyberStart Elite.

@@ -43,15 +43,28 @@ ADMIN_MENTOR_ROLE_ID = 502238208747110411
 ROOT_ROLE_ID = int(environ.get("ROOT_MEMBERS_ID", "450113490590629888"))
 ADMIN_ROLES = ("Root", "Sudo")
 BANNED_DOMAINS = ["discord.gg"]
-ELITE_ROLES = {
-    "Elite": {
-        "General": "580387468336037888"
-        "London": {"Younger": "580387877385404428", "Older": "580387897644023811"},
-        "Birmingham": {"Younger": "580387895299276830", "Older": "580387899833581572"},
-        "Lancaster": {"Younger": "580387898973618176", "Older": "580387892853997578"},
-    },
-    "Exchange": {"Shortlist": "582894164597932034", "Confirmed": "585150522336608256"},
-}
+
+
+class ROLES:
+
+    class Elite:
+
+        ID = int(environ.get("ELITE_MEMBERS_ID", "580387468336037888"))
+        class London:
+            YOUNGER = int(environ.get("LDN_Y_MEMBERS_ID", "580387877385404428"))
+            OLDER = int(environ.get("LDN_O_MEMBERS_ID", "580387897644023811"))
+
+        class Birmingham:
+            YOUNGER = int(environ.get("BRM_Y_MEMBERS_ID", "580387895299276830"))
+            OLDER = int(environ.get("BRM_O_MEMBERS_ID", "580387899833581572"))
+
+        class Lancaster:
+            YOUNGER = int(environ.get("LAN_Y_MEMBERS_ID", "580387898973618176"))
+            OLDER = int(environ.get("LAN_O_MEMBERS_ID", "580387892853997578"))
+
+    class Exchange:
+        SHORTLIST = int(environ.get("EXCH_S_MEMBERS_ID", "582894164597932034"))
+        CONFIRMED = int(environ.get("EXCH_C_MEMBERS_ID", "585150522336608256"))
 
 # Cyber Constants
 HINTS_LIMIT = 8
