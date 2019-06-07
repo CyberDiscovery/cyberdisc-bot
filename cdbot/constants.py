@@ -48,23 +48,23 @@ BANNED_DOMAINS = ["discord.gg"]
 class Roles:
 
     class Elite:
-        Main = int(environ.get("ELITE_MEMBERS_ID", "580387468336037888"))
+        MAIN = int(environ.get("ELITE_MEMBERS_ID", "580387468336037888"))
 
         class London:
-            Younger = int(environ.get("LDN_Y_MEMBERS_ID", "580387877385404428"))
-            Older = int(environ.get("LDN_O_MEMBERS_ID", "580387897644023811"))
+            YOUNGER = int(environ.get("LDN_Y_MEMBERS_ID", "580387877385404428"))
+            OLDER = int(environ.get("LDN_O_MEMBERS_ID", "580387897644023811"))
 
         class Birmingham:
-            Younger = int(environ.get("BRM_Y_MEMBERS_ID", "580387895299276830"))
-            Older = int(environ.get("BRM_O_MEMBERS_ID", "580387899833581572"))
+            YOUNGER = int(environ.get("BRM_Y_MEMBERS_ID", "580387895299276830"))
+            OLDER = int(environ.get("BRM_O_MEMBERS_ID", "580387899833581572"))
 
         class Lancaster:
-            Younger = int(environ.get("LAN_Y_MEMBERS_ID", "580387898973618176"))
-            Older = int(environ.get("LAN_O_MEMBERS_ID", "580387892853997578"))
+            YOUNGER = int(environ.get("LAN_Y_MEMBERS_ID", "580387898973618176"))
+            OLDER = int(environ.get("LAN_O_MEMBERS_ID", "580387892853997578"))
 
     class Exchange:
-        Shortlist = int(environ.get("EXCH_S_MEMBERS_ID", "582894164597932034"))
-        Confirmed = int(environ.get("EXCH_C_MEMBERS_ID", "585150522336608256"))
+        SHORTLIST = int(environ.get("EXCH_S_MEMBERS_ID", "582894164597932034"))
+        CONFIRMED = int(environ.get("EXCH_C_MEMBERS_ID", "585150522336608256"))
 
 
 # Cyber Constants
