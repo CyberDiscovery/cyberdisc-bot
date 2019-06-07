@@ -380,7 +380,7 @@ class Cyber(Cog):
             }
         }
 
-        elite = len(ctx.guild.get_role(ELITE_ROLES.Elite.members))
+        elite = len(ctx.guild.get_role(ELITE_ROLES.Elite.General.members))
         exchange = len(ctx.guild.get_role(ELITE_ROLES.Exchange.Shortlist.members))
         confirmed = len(ctx.guild.get_role(ELITE_ROLES.Exchange.Confirmed.members))
 
