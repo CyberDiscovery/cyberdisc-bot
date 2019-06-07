@@ -395,7 +395,7 @@ class Cyber(Cog):
 
         embed = Embed(title=f"CyberStart Elite {year}",
                       description=description,
-                      colour=Colour(0xf45f42))  # A nice red
+                      colour=Colour(0xae444a))  # A nice red
 
         embed.set_thumbnail(url=CYBERDISC_ICON_URL)
 
