@@ -400,10 +400,7 @@ class Cyber(Cog):
                       description=description,
                       colour=Colour(0xf45f42))  # A nice red
 
-        embed.set_author(
-            name="Cyber Discovery",
-            icon_url=CYBERDISC_ICON_URL
-        )
+        embed.set_thumnail(url=CYBERDISC_ICON_URL)
 
         for location, ages in preferences.items():
             section = ""
