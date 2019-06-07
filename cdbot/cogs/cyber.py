@@ -388,10 +388,7 @@ class Cyber(Cog):
         year = datetime.datetime.utcnow().year
 
         description = textwrap.dedent(f"""
-        **Overall Statistics**
         Elite qualified: {elite}
-        Exchange qualified: {exchange}
-        Exchange confirmed: {confirmed}
 
         **Camp Statistics**
         """)
@@ -408,6 +405,10 @@ class Cyber(Cog):
                 r = ctx.guild.get_role(role)
                 section += f"**{age}**: {len(r.members)}\n"
             embed.add_field(name=location, value=section, inline=True)
+
+        exchange_text = f"**Qualified**: {exchange}\n**Confirmed**: {confirmed}"
+
+        embed.add_field(name="Exchange", value=exchange_text, inline=True)
 
         await ctx.send(embed=embed)
 
