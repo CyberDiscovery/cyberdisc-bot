@@ -385,7 +385,7 @@ class Cyber(Cog):
         exchange = len(ctx.guild.get_role(Roles.Exchange.Shortlist).members)
         confirmed = len(ctx.guild.get_role(Roles.Exchange.Confirmed).members)
 
-        year = datetime.dadtetime.utcnow().year
+        year = datetime.datetime.utcnow().year
 
         description = textwrap.dedent(f"""
         **»** Overall Statistics
