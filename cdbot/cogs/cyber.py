@@ -388,17 +388,22 @@ class Cyber(Cog):
         year = datetime.datetime.utcnow().year
 
         description = textwrap.dedent(f"""
-        **»** Overall Statistics
+        **Overall Statistics**
         Elite qualified: {elite}
         Exchange qualified: {exchange}
         Exchange confirmed: {confirmed}
 
-        **»** Camp Statistics
+        **Camp Statistics**
         """)
 
         embed = Embed(title=f"CyberStart Elite {year}",
                       description=description,
                       colour=Colour(0xf45f42))  # A nice red
+
+        embed.set_author(
+            name="Cyber Discovery",
+            icon_url=CYBERDISC_ICON_URL
+        )
 
         for location, ages in preferences.items():
             section = ""
