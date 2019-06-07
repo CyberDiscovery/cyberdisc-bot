@@ -396,7 +396,7 @@ class Cyber(Cog):
         **»** Camp Statistics
         """)
 
-        embed = Embed(title=f"CyberDiscovery Elite {year}",
+        embed = Embed(title=f"CyberStart Elite {year}",
                       description=description,
                       colour=Colour(0xf45f42))  # A nice red
 
@@ -404,7 +404,7 @@ class Cyber(Cog):
             section = ""
             for age, role in ages.items():
                 r = ctx.guild.get_role(role)
-                section += f"**{age}**: {len(r.members)}"
+                section += f"**{age}**: {len(r.members)}\n"
             embed.add_field(name=location, value=section, inline=True)
 
         await ctx.send(embed=embed)
