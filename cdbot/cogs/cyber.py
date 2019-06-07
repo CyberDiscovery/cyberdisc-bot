@@ -368,22 +368,22 @@ class Cyber(Cog):
 
         preferences = {
             'London': {
-                'Younger': Roles.Elite.London.Younger,
-                'Older': Roles.Elite.London.Older
+                'Younger': Roles.Elite.London.YOUNGER,
+                'Older': Roles.Elite.London.OLDER
             },
             'Birmingham': {
-                'Younger': Roles.Elite.Birmingham.Younger,
-                'Older': Roles.Elite.Birmingham.Older
+                'Younger': Roles.Elite.Birmingham.YOUNGER,
+                'Older': Roles.Elite.Birmingham.OLDER
             },
             'Lancaster': {
-                'Younger': Roles.Elite.Lancaster.Younger,
-                'Older': Roles.Elite.Lancaster.Older
+                'Younger': Roles.Elite.Lancaster.YOUNGER,
+                'Older': Roles.Elite.Lancaster.OLDER
             }
         }
 
-        elite = len(ctx.guild.get_role(Roles.Elite.Main).members)
-        exchange = len(ctx.guild.get_role(Roles.Exchange.Shortlist).members)
-        confirmed = len(ctx.guild.get_role(Roles.Exchange.Confirmed).members)
+        elite = len(ctx.guild.get_role(Roles.Elite.MAIN).members)
+        exchange = len(ctx.guild.get_role(Roles.Exchange.SHORTLIST).members)
+        confirmed = len(ctx.guild.get_role(Roles.Exchange.CONFIRMED).members)
 
         year = datetime.datetime.utcnow().year
 
