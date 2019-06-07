@@ -405,7 +405,7 @@ class Cyber(Cog):
             for age, role in ages.items():
                 r = ctx.guild.get_role(role)
                 section += f"**{age}**: {len(r.members)}"
-            embed.add_field(location, section, inline=True)
+            embed.add_field(name=location, value=section, inline=True)
 
         await ctx.send(embed=embed)
 
