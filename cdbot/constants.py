@@ -59,8 +59,8 @@ class Roles:
             OLDER = int(environ.get("BRM_O_MEMBERS_ID", "580387899833581572"))
 
         class Lancaster:
-            YOUNGER = int(environ.get("LAN_Y_MEMBERS_ID", "580387898973618176"))
-            OLDER = int(environ.get("LAN_O_MEMBERS_ID", "580387892853997578"))
+            YOUNGER = int(environ.get("LAN_Y_MEMBERS_ID", "580387892853997578"))
+            OLDER = int(environ.get("LAN_O_MEMBERS_ID", "580387898973618176"))
 
     class Exchange:
         SHORTLIST = int(environ.get("EXCH_S_MEMBERS_ID", "582894164597932034"))
