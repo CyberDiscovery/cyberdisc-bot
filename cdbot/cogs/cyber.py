@@ -366,7 +366,16 @@ class Cyber(Cog):
         Gets the time until elite, and shows in an embed
         """
         valid_elite_locations = ["London", "Birmingham", "Lancaster "]
-        elite_aliases = {}
+        elite_aliases = {
+            "Lo": "London",
+            "La": "Lancaster",
+            "B": "Birmingham",
+            "Brum": "Birmingham",
+            "Birm": "Birmingham",
+            "Lanc": "Lancaster",
+            "Lon": "London"
+        }
+
         # Validate and normalise inputs
         event_name = event_name.lower().capitalize()
         if event_name:
