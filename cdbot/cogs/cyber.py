@@ -361,7 +361,7 @@ class Cyber(Cog):
                        f"{len(true_r.members)} have also completed Essentials and Assess.")
 
     @command()
-    async def elitecountdown(self, ctx: Context, event_name: str=None, event_level: str=None):
+    async def elitecountdown(self, ctx: Context, event_name: str = None, event_level: str = None):
         """
         Gets the time until elite, and shows in an embed
         """
