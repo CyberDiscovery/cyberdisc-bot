@@ -367,8 +367,8 @@ class Cyber(Cog):
         """
 
         # Validate and normalise inputs
-        event_name = event_name.capitalize()
         if event_name:
+            event_name = event_name.capitalize()
             if not (event_name in ELITE_LOCATIONS):
                 try:
                     event_name = ELITE_ALISES[event_name]
