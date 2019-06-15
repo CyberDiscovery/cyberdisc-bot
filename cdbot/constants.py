@@ -91,6 +91,26 @@ NICKNAME_PATTERNS = [
     r'(http(s)?:\/\/.)?(www\.)?[-a-zA-Z0-9@:%._\+~#=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_\+.~#?&//=]*)'  # hyperlinks
 ]
 
+ELITE_ALISES = {
+    "Lo": "London",
+    "La": "Lancaster",
+    "Bi": "Birmingham",
+    "B": "Birmingham",
+    "Brum": "Birmingham",
+    "Birm": "Birmingham",
+    "Lanc": "Lancaster",
+    "Lon": "London"
+}
+
+ELITE_DATE_KEYS = {
+    "Birminghamy": "23rd July 2019",
+    "Lancastery": "30th July 2019",
+    "Londony": "6th August 2019",
+    "Birminghamo": "22nd July 2019",
+    "Lancastero": "29th July 2019",
+    "Londono": "5th August 2019"
+}
+
 # Emoji Alphabet
 EMOJI_LETTERS = [
     "\U0001f1e6\U0001f170\U0001F359",  # A

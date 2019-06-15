@@ -10,7 +10,7 @@ from json import load
 from aiohttp import ClientSession
 from cdbot.constants import (
     BASE_ALIASES, CYBERDISC_ICON_URL, END_README_MESSAGE, HINTS_LIMIT, HUNDRED_PERCENT_ROLE_ID, ROOT_ROLE_ID, Roles,
-    TRUE_HUNDRED_PERCENT_ROLE_ID
+    TRUE_HUNDRED_PERCENT_ROLE_ID, ELITE_ALISES, ELITE_DATE_KEYS
 )
 from dateutil.parser import parse
 from dateutil.relativedelta import relativedelta
@@ -366,23 +366,14 @@ class Cyber(Cog):
         Gets the time until elite, and shows in an embed
         """
         valid_elite_locations = ["London", "Birmingham", "Lancaster "]
-        elite_aliases = {
-            "Lo": "London",
-            "La": "Lancaster",
-            "Bi": "Birmingham",
-            "B": "Birmingham",
-            "Brum": "Birmingham",
-            "Birm": "Birmingham",
-            "Lanc": "Lancaster",
-            "Lon": "London"
-        }
+
 
         # Validate and normalise inputs
-        event_name = event_name.lower().capitalize()
+        event_name = event_name.capitalize()
         if event_name:
             if not (event_name in valid_elite_locations):
                 try:
-                    event_name = elite_aliases[event_name]
+                    event_name = ELITE_ALISES[event_name]
                 except KeyError:
                     content = f"{event_name} is not a valid elite location! " \
                         "Please choose from 'London', 'Birmingham', 'Lancaster'"
@@ -412,42 +403,9 @@ class Cyber(Cog):
 
         # Get dates and send
 
-        event_date_keys = {
-            "Birminghamy": "23rd July 2019",
-            "Lancastery": "30th July 2019",
-            "Londony": "6th August 2019",
-            "Birminghamo": "22nd July 2019",
-            "Lancastero": "29th July 2019",
-            "Londono": "5th August 2019"
-        }
         events = []
         for event in events_to_get:
-            countdown_target = parse(event_date_keys[event]).date()
-
-            # Get the current date
-            today = datetime.date.today()
-            time_until_target = relativedelta(countdown_target, today)
-
-            # Given a number of items, determine whether it should be pluralised.
-            # Then, return the suffix of 's' if it should be, and '' if it shouldn't.
-            def suffix_from_number(num):
-                return "" if num == 1 else "s"
-
-            month_or_months = "month" + suffix_from_number(time_until_target.months)
-            day_or_days = "day" + suffix_from_number(time_until_target.days)
-
-            month_countdown = f"{time_until_target.months} {month_or_months}"
-            day_countdown = f"{time_until_target.days} {day_or_days}"
-
-            # Diable the months component of the countdown when there are no months left
-            if time_until_target.months:
-                month_and_day_countdown = f"{month_countdown} and {day_countdown}"
-            else:
-                month_and_day_countdown = day_countdown
-
-            if today > countdown_target:
-                events.append([event, "begun"])
-            events.append([event, month_and_day_countdown])
+            events.append([event, self.get_days_and_months_until(ELITE_DATE_KEYS[event[1]])])
 
         # Display to user
 
@@ -523,7 +481,10 @@ class Cyber(Cog):
 
         await ctx.send(embed=embed)
 
-    async def countdown(self, countdown_target_str: str, stage_name: str, ctx: Context):
+    def get_days_and_months_until(self, countdown_target_str):
+        """
+        Returns a nicely formatted string saying how long is left until a particular date
+        """
         countdown_target = parse(countdown_target_str).date()
 
         # Get the current date
@@ -548,7 +509,13 @@ class Cyber(Cog):
             month_and_day_countdown = day_countdown
 
         if today > countdown_target:
-            await ctx.send(f"{stage_name} has begun!")
+            return "Started"
+        return month_and_day_countdown
+
+    async def countdown(self, countdown_target_str: str, stage_name: str, ctx: Context):
+        month_and_day_countdown = self.get_days_and_months_until(countdown_target_str)
+        if month_and_day_countdown == "Started":
+            await ctx.send(f"{stage_name} has already started!")
             return
         await ctx.send(f"{stage_name} begins on the {countdown_target_str}.\n"
                        f"That's in {month_and_day_countdown}!")
