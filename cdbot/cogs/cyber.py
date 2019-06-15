@@ -361,6 +361,101 @@ class Cyber(Cog):
                        f"{len(true_r.members)} have also completed Essentials and Assess.")
 
     @command()
+    async def elitecountdown(self, ctx: Context, event_name: str=None, event_level: str=None):
+        """
+        Gets the time until elite, and shows in an embed
+        """
+        valid_elite_locations = ["London", "Birmingham", "Lancaster "]
+        elite_aliases = {}
+        # Validate and normalise inputs
+        event_name = event_name.lower().capitalize()
+        if event_name:
+            if not (event_name in valid_elite_locations):
+                try:
+                    event_name = elite_aliases[event_name]
+                except:
+                    await ctx.send(f"{event_name} is not a valid elite location! Please choose from 'London', 'Birmingham', 'Lancaster'")
+                    return
+
+        if event_level:
+            event_level = event_level[0].lower()
+            if not (event_level in ["o", "y"]):
+                await ctx.send(f"Sorry, but that isn't a valid age group! Please choose from 'older', 'younger'")
+                return
+
+        # Make array of dates to get
+
+        events_to_get = []
+
+        if event_name:
+            if event_level:
+                events_to_get.append(event_name + event_level)
+            else:
+                events_to_get.append(event_name + "o")
+                events_to_get.append(event_name + "y")
+        else:
+            for location in valid_elite_locations:
+                events_to_get.append(location + "o")
+                events_to_get.append(location + "y")
+
+        # Get dates and send
+
+        event_date_keys = {
+            "Birminghamy": "23rd July 2019",
+            "Lancastery": "30th July 2019",
+            "Londony": "6th August 2019",
+            "Birminghamo": "22nd July 2019",
+            "Lancastero": "29th July 2019",
+            "Londono": "5th August 2019"
+        }
+        events = []
+        for event in events_to_get:
+            countdown_target = parse(event_date_keys[event]).date()
+
+            # Get the current date
+            today = datetime.date.today()
+            time_until_target = relativedelta(countdown_target, today)
+
+            # Given a number of items, determine whether it should be pluralised.
+            # Then, return the suffix of 's' if it should be, and '' if it shouldn't.
+            def suffix_from_number(num):
+                return "" if num == 1 else "s"
+
+            month_or_months = "month" + suffix_from_number(time_until_target.months)
+            day_or_days = "day" + suffix_from_number(time_until_target.days)
+
+            month_countdown = f"{time_until_target.months} {month_or_months}"
+            day_countdown = f"{time_until_target.days} {day_or_days}"
+
+            # Diable the months component of the countdown when there are no months left
+            if time_until_target.months:
+                month_and_day_countdown = f"{month_countdown} and {day_countdown}"
+            else:
+                month_and_day_countdown = day_countdown
+
+            if today > countdown_target:
+                events.append([event, "begun"])
+            events.append([event, month_and_day_countdown])
+
+        # Display to user
+
+        if len(events) == 1:
+            # No need for an embed
+            await ctx.send(f"The {events[0][:-1]} event for the {'older' if events[0][-1:] == 'o' else 'younger'} age group starts in {events[0][1]}!")
+            return
+        else:
+            embed = Embed(title="Cyberstart Elite: Camp Countdown", description="**Countdown:**\n", colour=Colour(0xae444a))
+
+            embed.set_thumbnail(url=CYBERDISC_ICON_URL)
+
+            for event in events:
+                embed.add_field(name=f"{event[:-1]} - {'older' if events[0][-1:] == 'o' else 'younger'}", value=f"Starting in {event[1]}", inline=True)
+
+            ctx.send(embed=embed)
+            return
+
+
+    @command()
     async def elitecount(self, ctx: Context):
         """
         Gets the number of elite users
