@@ -103,12 +103,16 @@ ELITE_ALISES = {
 }
 
 ELITE_DATE_KEYS = {
-    "Birminghamy": "23rd July 2019",
-    "Lancastery": "30th July 2019",
-    "Londony": "6th August 2019",
-    "Birminghamo": "22nd July 2019",
-    "Lancastero": "29th July 2019",
-    "Londono": "5th August 2019"
+    "Birmingham": {
+        "Younger": "23rd July 2019",
+        "Older": "22nd July 2019",
+    }, "Lancaster": {
+        "Younger": "30th July 2019",
+        "Older": "29th July 2019",
+    }, "London": {
+        "Younger": "30th July 2019",
+        "Older": "29th July 2019",
+    }
 }
 
 ELITE_LOCATIONS = [
