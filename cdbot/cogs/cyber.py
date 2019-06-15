@@ -9,7 +9,7 @@ from json import load
 
 from aiohttp import ClientSession
 from cdbot.constants import (
-    BASE_ALIASES, CYBERDISC_ICON_URL, ELITE_ALISES, ELITE_DATE_KEYS, END_README_MESSAGE, HINTS_LIMIT,
+    BASE_ALIASES, CYBERDISC_ICON_URL, ELITE_ALISES, ELITE_DATE_KEYS, ELITE_LOCATIONS, END_README_MESSAGE, HINTS_LIMIT,
     HUNDRED_PERCENT_ROLE_ID, ROOT_ROLE_ID, Roles, TRUE_HUNDRED_PERCENT_ROLE_ID
 )
 from dateutil.parser import parse
@@ -365,17 +365,16 @@ class Cyber(Cog):
         """
         Gets the time until elite, and shows in an embed
         """
-        valid_elite_locations = ["London", "Birmingham", "Lancaster "]
 
         # Validate and normalise inputs
         event_name = event_name.capitalize()
         if event_name:
-            if not (event_name in valid_elite_locations):
+            if not (event_name in ELITE_LOCATIONS):
                 try:
                     event_name = ELITE_ALISES[event_name]
                 except KeyError:
                     content = f"{event_name} is not a valid elite location! " \
-                        "Please choose from 'London', 'Birmingham', 'Lancaster'"
+                        f"Please choose from {', '.join(ELITE_LOCATIONS)}"
                     await ctx.send(content)
                     return
 
@@ -396,7 +395,7 @@ class Cyber(Cog):
                 events_to_get.append(event_name + "o")
                 events_to_get.append(event_name + "y")
         else:
-            for location in valid_elite_locations:
+            for location in ELITE_LOCATIONS:
                 events_to_get.append(location + "o")
                 events_to_get.append(location + "y")
 

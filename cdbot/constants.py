@@ -111,6 +111,12 @@ ELITE_DATE_KEYS = {
     "Londono": "5th August 2019"
 }
 
+ELITE_LOCATIONS = [
+    "London",
+    "Birmingham",
+    "Lancaster"
+]
+
 # Emoji Alphabet
 EMOJI_LETTERS = [
     "\U0001f1e6\U0001f170\U0001F359",  # A
