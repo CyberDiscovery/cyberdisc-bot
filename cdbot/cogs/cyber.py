@@ -369,6 +369,7 @@ class Cyber(Cog):
         elite_aliases = {
             "Lo": "London",
             "La": "Lancaster",
+            "Bi": "Birmingham",
             "B": "Birmingham",
             "Brum": "Birmingham",
             "Birm": "Birmingham",
@@ -382,8 +383,10 @@ class Cyber(Cog):
             if not (event_name in valid_elite_locations):
                 try:
                     event_name = elite_aliases[event_name]
-                except:
-                    await ctx.send(f"{event_name} is not a valid elite location! Please choose from 'London', 'Birmingham', 'Lancaster'")
+                except KeyError:
+                    content = f"{event_name} is not a valid elite location! " \
+                        "Please choose from 'London', 'Birmingham', 'Lancaster'"
+                    await ctx.send(content)
                     return
 
         if event_level:
@@ -450,19 +453,23 @@ class Cyber(Cog):
 
         if len(events) == 1:
             # No need for an embed
-            await ctx.send(f"The {events[0][:-1]} event for the {'older' if events[0][-1:] == 'o' else 'younger'} age group starts in {events[0][1]}!")
+            await ctx.send(f"The {events[0][:-1]} event for the {'older' if events[0][-1:] == 'o' else 'younger'} "
+                           f"age group starts in {events[0][1]}!")
             return
         else:
-            embed = Embed(title="Cyberstart Elite: Camp Countdown", description="**Countdown:**\n", colour=Colour(0xae444a))
+            embed = Embed(title="Cyberstart Elite: Camp Countdown",
+                          description="**Countdown:**\n",
+                          colour=Colour(0xae444a))
 
             embed.set_thumbnail(url=CYBERDISC_ICON_URL)
 
             for event in events:
-                embed.add_field(name=f"{event[:-1]} - {'older' if events[0][-1:] == 'o' else 'younger'}", value=f"Starting in {event[1]}", inline=True)
+                embed.add_field(name=f"{event[:-1]} - {'older' if events[0][-1:] == 'o' else 'younger'}",
+                                value=f"Starting in {event[1]}",
+                                inline=True)
 
             ctx.send(embed=embed)
             return
-
 
     @command()
     async def elitecount(self, ctx: Context):
