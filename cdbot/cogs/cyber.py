@@ -9,8 +9,8 @@ from json import load
 
 from aiohttp import ClientSession
 from cdbot.constants import (
-    BASE_ALIASES, CYBERDISC_ICON_URL, END_README_MESSAGE, HINTS_LIMIT, HUNDRED_PERCENT_ROLE_ID, ROOT_ROLE_ID, Roles,
-    TRUE_HUNDRED_PERCENT_ROLE_ID, ELITE_ALISES, ELITE_DATE_KEYS
+    BASE_ALIASES, CYBERDISC_ICON_URL, ELITE_ALISES, ELITE_DATE_KEYS, END_README_MESSAGE, HINTS_LIMIT,
+    HUNDRED_PERCENT_ROLE_ID, ROOT_ROLE_ID, Roles, TRUE_HUNDRED_PERCENT_ROLE_ID
 )
 from dateutil.parser import parse
 from dateutil.relativedelta import relativedelta
@@ -366,7 +366,6 @@ class Cyber(Cog):
         Gets the time until elite, and shows in an embed
         """
         valid_elite_locations = ["London", "Birmingham", "Lancaster "]
-
 
         # Validate and normalise inputs
         event_name = event_name.capitalize()
