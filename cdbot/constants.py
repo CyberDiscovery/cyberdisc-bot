@@ -115,6 +115,8 @@ ELITE_DATE_KEYS = {
     }
 }
 
+ELITE_EMBED_COLOUR = 0xae444a
+
 ELITE_LOCATIONS = [
     "London",
     "Birmingham",

@@ -9,8 +9,8 @@ from json import load
 
 from aiohttp import ClientSession
 from cdbot.constants import (
-    BASE_ALIASES, CYBERDISC_ICON_URL, ELITE_ALISES, ELITE_DATE_KEYS, ELITE_LOCATIONS, END_README_MESSAGE, HINTS_LIMIT,
-    HUNDRED_PERCENT_ROLE_ID, ROOT_ROLE_ID, Roles, TRUE_HUNDRED_PERCENT_ROLE_ID
+    BASE_ALIASES, CYBERDISC_ICON_URL, ELITE_ALISES, ELITE_DATE_KEYS, ELITE_EMBED_COLOUR, ELITE_LOCATIONS,
+    END_README_MESSAGE, HINTS_LIMIT, HUNDRED_PERCENT_ROLE_ID, ROOT_ROLE_ID, Roles, TRUE_HUNDRED_PERCENT_ROLE_ID
 )
 from dateutil.parser import parse
 from dateutil.relativedelta import relativedelta
@@ -373,16 +373,16 @@ class Cyber(Cog):
                 try:
                     event_name = ELITE_ALISES[event_name]
                 except KeyError:
-                    content = f"{event_name} is not a valid elite location! " \
+                    content = (
+                        f"{event_name} is not a valid elite location! "
                         f"Please choose from {', '.join(ELITE_LOCATIONS)}"
-                    await ctx.send(content)
-                    return
+                    )
+                    return await ctx.send(content)
 
         if event_level:
             event_level = event_level[0].lower()
             if not (event_level in ["o", "y"]):
-                await ctx.send("Sorry, but that isn't a valid age group! Please choose from 'older', 'younger'")
-                return
+                return await ctx.send("Sorry, but that isn't a valid age group! Please choose from 'older', 'younger'")
 
         # Make array of dates to get
 
@@ -392,36 +392,36 @@ class Cyber(Cog):
             if event_level:
                 events_to_get.append(event_name + event_level)
             else:
-                events_to_get.append(event_name + "o")
-                events_to_get.append(event_name + "y")
+                events_to_get.append([event_name, "Younger"])
+                events_to_get.append([event_name, "Older"])
         else:
             for location in ELITE_LOCATIONS:
-                events_to_get.append(location + "o")
-                events_to_get.append(location + "y")
+                events_to_get.append([location, "Older"])
+                events_to_get.append([location, "Younger"])
 
         # Get dates and send
 
         events = []
         for event in events_to_get:
-            events.append([event, self.get_days_and_months_until(ELITE_DATE_KEYS[event[1]])])
+            events.append([event[0], event[1], self.get_days_and_months_until(ELITE_DATE_KEYS[event[0]][event[1]])])
 
         # Display to user
 
         if len(events) == 1:
             # No need for an embed
-            await ctx.send(f"The {events[0][:-1]} event for the {'older' if events[0][-1:] == 'o' else 'younger'} "
-                           f"age group starts in {events[0][1]}!")
+            await ctx.send(f"The {events[0][0]} event for the {events[0][1]} "
+                           f"age group starts in {events[0][2]}!")
             return
         else:
             embed = Embed(title="Cyberstart Elite: Camp Countdown",
                           description="**Countdown:**\n",
-                          colour=Colour(0xae444a))
+                          colour=Colour(ELITE_EMBED_COLOUR))
 
             embed.set_thumbnail(url=CYBERDISC_ICON_URL)
 
             for event in events:
-                embed.add_field(name=f"{event[:-1]} - {'older' if events[0][-1:] == 'o' else 'younger'}",
-                                value=f"Starting in {event[1]}",
+                embed.add_field(name=f"{event[0]} - {event[1]}",
+                                value=f"Starting in {event[2]}",
                                 inline=True)
 
             ctx.send(embed=embed)
@@ -462,7 +462,7 @@ class Cyber(Cog):
 
         embed = Embed(title=f"CyberStart Elite {year}",
                       description=description,
-                      colour=Colour(0xae444a))  # A nice red
+                      colour=Colour(ELITE_EMBED_COLOUR))  # A nice red
 
         embed.set_thumbnail(url=CYBERDISC_ICON_URL)
 
@@ -508,13 +508,13 @@ class Cyber(Cog):
 
         if today > countdown_target:
             return "Started"
+
         return month_and_day_countdown
 
     async def countdown(self, countdown_target_str: str, stage_name: str, ctx: Context):
         month_and_day_countdown = self.get_days_and_months_until(countdown_target_str)
         if month_and_day_countdown == "Started":
-            await ctx.send(f"{stage_name} has already started!")
-            return
+            return await ctx.send(f"{stage_name} has already started!")
         await ctx.send(f"{stage_name} begins on the {countdown_target_str}.\n"
                        f"That's in {month_and_day_countdown}!")
 
