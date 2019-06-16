@@ -381,7 +381,7 @@ class Cyber(Cog):
         if event_level:
             event_level = event_level[0].lower()
             if not (event_level in ["o", "y"]):
-                await ctx.send(f"Sorry, but that isn't a valid age group! Please choose from 'older', 'younger'")
+                await ctx.send("Sorry, but that isn't a valid age group! Please choose from 'older', 'younger'")
                 return
 
         # Make array of dates to get
