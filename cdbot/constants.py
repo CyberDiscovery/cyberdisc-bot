@@ -99,7 +99,10 @@ ELITE_ALISES = {
     "Brum": "Birmingham",
     "Birm": "Birmingham",
     "Lanc": "Lancaster",
-    "Lon": "London"
+    "Lon": "London",
+    "London": "London",
+    "Lancaster": "Lancaster",
+    "Birmingham": "Birmingham"
 }
 
 ELITE_DATE_KEYS = {

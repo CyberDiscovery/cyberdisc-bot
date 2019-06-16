@@ -369,15 +369,14 @@ class Cyber(Cog):
         # Validate and normalise inputs
         if event_name:
             event_name = event_name.capitalize()
-            if not (event_name in ELITE_LOCATIONS):
-                try:
-                    event_name = ELITE_ALISES[event_name]
-                except KeyError:
-                    content = (
-                        f"{event_name} is not a valid elite location! "
-                        f"Please choose from {', '.join(ELITE_LOCATIONS)}"
-                    )
-                    return await ctx.send(content)
+            try:
+                event_name = ELITE_ALISES[event_name]
+            except KeyError:
+                content = (
+                    f"{event_name} is not a valid elite location! "
+                    f"Please choose from {', '.join(ELITE_LOCATIONS)}"
+                )
+                return await ctx.send(content)
 
         if event_level:
             event_level = event_level[0].lower()
