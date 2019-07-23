@@ -37,12 +37,6 @@ REACT_TRIGGERS = {
     "kali": "\N{ONCOMING POLICE CAR}",
     "duck": "\N{DUCK}",
     "revive": "nou",
-    "child": "fbi open up",
-    "fbi": "fbi open up",
-    "loli": "fbi open up",
-    "hentai": "fbi open up",
-    "illegal": "fbi open up",
-    "maltego": "fbi open up",
     "@here": "who pinged",
     "@everyone": "who pinged"
 }
