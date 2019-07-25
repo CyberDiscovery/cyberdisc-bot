@@ -30,7 +30,7 @@ from discord.ext.commands import (
 from discord.utils import get
 from PIL import Image, ImageDraw, ImageFont
 
-ascii_lowercase += " !?$"
+ascii_lowercase += " !?$()"
 
 REACT_TRIGGERS = {
     "dabato": "\N{THINKING FACE}",
