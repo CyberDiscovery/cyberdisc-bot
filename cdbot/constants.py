@@ -122,7 +122,7 @@ EMOJI_LETTERS = [
     "\u26ab\U0001f535\U0001f534\u26aa",  # Whitespace alternatives
     "\u2755\u2757\u2763",  # !
     "\u2754\u2753",  # ?
-    "\U0001f4b2"  # $
-    "\U00021aa" # (
+    "\U0001f4b2",  # $
+    "\U00021aa", # (
     "\U00021a9" # )
 ]
