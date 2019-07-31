@@ -431,7 +431,7 @@ class Fun(Cog):
         Creates an image of Angry Agent J with the specified text.
         """
         await self.create_text_image(ctx, "AngryJ", text)    
-        
+
     @command()
     async def angrylyne(self, ctx: Context, *, text: str):
         """
