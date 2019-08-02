@@ -432,6 +432,13 @@ class Fun(Cog):
         """
         await self.create_text_image(ctx, "AngryJ", text)
 
+    @command()
+    async def angrylyne(self, ctx: Context, *, text: str):
+        """
+        Creates an image of Angry James Lyne with the specified text.
+        """
+        await self.create_text_image(ctx, "AngryLyne", text)
+
 
 def setup(bot):
     """
