@@ -33,12 +33,8 @@ from PIL import Image, ImageDraw, ImageFont
 ascii_lowercase += " !?$()"
 
 REACT_TRIGGERS = {
-    "dabato": "\N{THINKING FACE}",
     "kali": "\N{ONCOMING POLICE CAR}",
-    "duck": "\N{DUCK}",
-    "revive": "nou",
-    "@here": "who pinged",
-    "@everyone": "who pinged"
+    "duck": "\N{DUCK}"
 }
 
 
