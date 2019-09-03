@@ -9,8 +9,8 @@ from json import load
 
 from aiohttp import ClientSession
 from cdbot.constants import (
-    BASE_ALIASES, CYBERDISC_ICON_URL, END_README_MESSAGE, HINTS_LIMIT, HUNDRED_PERCENT_ROLE_ID, ROOT_ROLE_ID, Roles,
-    TRUE_HUNDRED_PERCENT_ROLE_ID, README_SEND_ALIASES, README_RECV_ALIASES
+    BASE_ALIASES, CYBERDISC_ICON_URL, END_README_MESSAGE, HINTS_LIMIT, HUNDRED_PERCENT_ROLE_ID, README_RECV_ALIASES,
+    README_SEND_ALIASES, ROOT_ROLE_ID, Roles, TRUE_HUNDRED_PERCENT_ROLE_ID
 )
 from dateutil.parser import parse
 from dateutil.relativedelta import relativedelta
