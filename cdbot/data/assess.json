@@ -54,4 +54,8 @@
     "title": "Off balance",
     "description": "A new start-up bank is experiencing a major issue with their hugely successful mobile banking app. Their customers are complaining that they are able to see everything but their balance. Agent, help customers retrieve their balances and stop this start-up from going down!",
     "difficulty": "Extreme"
+}, {
+    "title": "Remote control?",
+    "description": "A supermarket chain has noticed vulnerabilities in their systems. Can you find and exploit one of them?",
+    "difficulty": "Extreme" 
 }]
