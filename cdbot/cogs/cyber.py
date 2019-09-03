@@ -335,7 +335,7 @@ class Cyber(Cog):
         Gets the date of, and days and months until, CyberStart Game
         """
 
-        await self.countdown('15th January 2019', 'CyberStart Game', ctx)
+        await self.countdown('5th November 2019', 'CyberStart Game', ctx)
 
     @command()
     async def essentials(self, ctx: Context):
@@ -343,7 +343,7 @@ class Cyber(Cog):
         Gets the date of, and days and months until, CyberStart Essentials
         """
 
-        await self.countdown('5th March 2019', 'CyberStart Essentials', ctx)
+        await self.countdown('16th December 2019', 'CyberStart Essentials', ctx)
 
     @command()
     async def hundred(self, ctx: Context):
