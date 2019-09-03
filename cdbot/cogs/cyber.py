@@ -318,12 +318,20 @@ class Cyber(Cog):
             if challenge_num > HINTS_LIMIT:
                 challenge_text = NO_HINTS_MSG + '\n' + challenge_text
 
-            embed = Embed(
-                title=f"CyberStart Assess Challenge {challenge_num} - {challenge_title}",
-                description=challenge_text,
-                colour=0x4262f4,
-                url=f"https://assess.joincyberdiscovery.com/challenge-{challenge_num:02d}"
-            )
+            if challenge_num == 15:
+                # Don't link to challenge 15, it will 404 as this isn't the correct way to access it
+                embed = Embed(
+                    title=f"CyberStart Assess Challenge {challenge_num} - {challenge_title}",
+                    description=challenge_text,
+                    colour=0x4262f4
+                )
+            else:
+                embed = Embed(
+                    title=f"CyberStart Assess Challenge {challenge_num} - {challenge_title}",
+                    description=challenge_text,
+                    colour=0x4262f4,
+                    url=f"https://assess.joincyberdiscovery.com/challenge-{challenge_num:02d}"
+                )
             embed.set_author(
                 name="Cyber Discovery",
                 icon_url=CYBERDISC_ICON_URL
