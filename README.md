@@ -49,6 +49,7 @@ Finally, run the command `poetry run cdbot` in the root of the repository to run
 * **`:agentj [text]`** - Creates an image of Agent J with the specified text.
 * **`:agentq [text]`** - Creates an image of Agent Q with the specified text.
 * **`:angryj [text]`** - Creates an image of Angry Agent J with the specified text.
+* **`:angrylyne [text]`** - Creates an image of Angry James Lyne with the specified text.
 * **`:jibhat [text]`** - Creates an image of Jibhat with the specified text.
 * **`:lmgtfy [-d][-ie] [search]`** - Returns a LMGTFY URL for the given question.  Adding `-d` will delete the message that instigated the command and `-ie` will enable the internet explainer feature on lmgtfy.
 * **`:quotes [@mention]`** - Will return a random quote from the #quotes channel. Adding an username/mention will result in a random quote from that user being selected.
