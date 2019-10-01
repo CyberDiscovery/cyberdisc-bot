@@ -71,6 +71,10 @@ class Roles:
 HINTS_LIMIT = 8
 CYBERDISC_ICON_URL = "https://pbs.twimg.com/profile_images/921313066515615745/fLEl2Gfa_400x400.jpg"
 
+# Readme command constants
+README_SEND_ALIASES = ["create", "push", "generate", "send", "make", "build", "upload"]
+README_RECV_ALIASES = ["fetch", "get", "pull", "download", "retrieve", "dm", "dl"]
+
 END_README_MESSAGE = (
     "**Can't see any of the above?**\nIf you can't see any of the rich embeds above, try the"
     " following: `Settings -> Text & Images -> Link Preview (Show website preview info from"

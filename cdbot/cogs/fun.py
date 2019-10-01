@@ -33,12 +33,8 @@ from PIL import Image, ImageDraw, ImageFont
 ascii_lowercase += " !?$()"
 
 REACT_TRIGGERS = {
-    "dabato": "\N{THINKING FACE}",
     "kali": "\N{ONCOMING POLICE CAR}",
-    "duck": "\N{DUCK}",
-    "revive": "nou",
-    "@here": "who pinged",
-    "@everyone": "who pinged"
+    "duck": "\N{DUCK}"
 }
 
 
@@ -386,19 +382,24 @@ class Fun(Cog):
         """
         Creates an image of a given person with the specified text.
         """
-        lines = textwrap.wrap(text, 15)
-        drawing_text = "\n".join(lines)
+        if len(text) > 100:
+            return await ctx.send(":no_entry_sign: Your text must be shorter than 100 characters.")
+        drawing_text = textwrap.fill(text, 20)
+        font = ImageFont.truetype("cdbot/resources/Dosis-SemiBold.ttf", 150)
+
+        text_layer = Image.new("RGBA", (1920, 1080), (0, 0, 0, 0))
+        text_layer_drawing = ImageDraw.Draw(text_layer)
+        text_layer_drawing.text((0, 0), drawing_text, fill=(0, 0, 0), align="center", font=font)
+
+        cropped_text_layer = text_layer.crop(text_layer.getbbox())
+        cropped_text_layer.thumbnail((170, 110))
 
         image = Image.open(f"cdbot/resources/{person}SaysBlank.png")
-        draw = ImageDraw.Draw(image)
-        font = ImageFont.truetype("cdbot/resources/Dosis-SemiBold.ttf", 34)
 
-        possible_size = draw.multiline_textsize(drawing_text, font=font)
-        x = image.width // 5 + 20 - possible_size[0] // 2
-        y = image.height // 5 + 35 / 2 - 35 * len(lines) // 2
+        x = int((image.width / 5 + 20) - (cropped_text_layer.width / 2))
+        y = int((image.height / 5 + 50 / 2) - (cropped_text_layer.height / 2))
 
-        draw.multiline_text((x, y), drawing_text, fill=(0, 0, 0), align="center", font=font)
-
+        image.paste(cropped_text_layer, (x, y), cropped_text_layer)
         image_bytes = BytesIO()
         image.save(image_bytes, format="PNG")
         image_bytes.seek(0)
@@ -431,6 +432,13 @@ class Fun(Cog):
         Creates an image of Angry Agent J with the specified text.
         """
         await self.create_text_image(ctx, "AngryJ", text)
+
+    @command()
+    async def angrylyne(self, ctx: Context, *, text: str):
+        """
+        Creates an image of Angry James Lyne with the specified text.
+        """
+        await self.create_text_image(ctx, "AngryLyne", text)
 
 
 def setup(bot):

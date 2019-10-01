@@ -9,8 +9,8 @@ from json import load
 
 from aiohttp import ClientSession
 from cdbot.constants import (
-    BASE_ALIASES, CYBERDISC_ICON_URL, END_README_MESSAGE, HINTS_LIMIT, HUNDRED_PERCENT_ROLE_ID, ROOT_ROLE_ID, Roles,
-    TRUE_HUNDRED_PERCENT_ROLE_ID
+    BASE_ALIASES, CYBERDISC_ICON_URL, END_README_MESSAGE, HINTS_LIMIT, HUNDRED_PERCENT_ROLE_ID, README_RECV_ALIASES,
+    README_SEND_ALIASES, ROOT_ROLE_ID, Roles, TRUE_HUNDRED_PERCENT_ROLE_ID
 )
 from dateutil.parser import parse
 from dateutil.relativedelta import relativedelta
@@ -31,22 +31,22 @@ class Cyber(Cog):
 
     match_strings = [
         # Assess dates
-        (r"^.*\bassess\b.*(start|begin|open)\b.*$", "Cyberstart Assess began on the 6th November 2018."),
-        (r"^.*\bassess\b.*(end|finish|close)\b.*$", "Cyberstart Assess ended on the 31st January 2019."),
+        (r"^.*\bassess\b.*(start|begin|open)\b.*$", "Cyberstart Assess begins on the 3rd September 2019."),
+        (r"^.*\bassess\b.*(end|finish|close)\b.*$", "Cyberstart Assess ends on the 25th October 2019."),
 
         # Game dates
-        (r"^.*\bgame\b.*(start|begin|open)\b.*$", "Cyberstart Game begins on the 15th January 2019."),
-        (r"^.*\bgame\b.*(end|finish|close)\b.*$", "Cyberstart Game ended on the 15th April 2019."),
+        (r"^.*\bgame\b.*(start|begin|open)\b.*$", "Cyberstart Game begins on the 5th November 2019."),
+        (r"^.*\bgame\b.*(end|finish|close)\b.*$", "Cyberstart Game ends on the 1st May 2020."),
 
         # Essentials dates
-        (r"^.*\bessentials\b.*(start|begin|open)\b.*$", "Cyberstart Essentials begins on the 5th March 2019."),
-        (r"^.*\bessentials\b.*(end|finish|close)\b.*$", "Cyberstart Essentials ended on the 29th April 2019."),
+        (r"^.*\bessentials\b.*(start|begin|open)\b.*$", "Cyberstart Essentials begins on the 16th December 2019."),
+        (r"^.*\bessentials\b.*(end|finish|close)\b.*$", "Cyberstart Essentials ends on the 1st May 2020."),
 
         # Elite questions
         (r"^.*\bhow\b.*\bget\b.*\belite\b.*$", "**Quote from the @CyberDiscUK Twitter: **"
          "Selection for CyberStart Elite will be based on a combination of Game and Essentials results."),
 
-        (r"^.*\belite\b.*\bstart\b.*$", "Cyberstart Elite dates for 2019 are yet to be announced."),
+        (r"^.*\belite\b.*\bstart\b.*$", "Cyberstart Elite dates for 2020 are yet to be announced."),
 
         (r"^.*\bwhat\b.*\belite\b.*\bemail\b.*$", "**Quote from the Cyber Discovery Elite team: **"
          "We’re currently allocating students to their preferred locations so it’s an ongoing process! "
@@ -153,15 +153,12 @@ class Cyber(Cog):
 
     @command()
     @has_role(ROOT_ROLE_ID)
-    async def readme(self, ctx: Context, operand: str = "", channel_id: int = 0, msg_send_interval: int = 0):
+    async def readme(self, ctx: Context, operand: str = "", channel_id: str = "", msg_send_interval: int = 0):
         """
         Allows generating, sending and manipulation of JSON file containing the info needed
         to create and send the embeds for the #readme channel. Only ROOT_ROLE_ID users have
         the permissions need to use this command.
         """
-
-        README_SEND_ALIASES = ["create", "push", "generate", "send", "make", "build", "upload"]
-        README_RECV_ALIASES = ["fetch", "get", "pull", "download", "retrieve", "dm", "dl"]
 
         operand = operand.lower()
 
@@ -175,7 +172,7 @@ class Cyber(Cog):
             await ctx.send(embed=incorrect_operand_embed)
 
         # User missed out the channel_id for certain commands.
-        elif (channel_id == 0 and operand in README_SEND_ALIASES):
+        elif (channel_id == "" and operand in README_SEND_ALIASES):
             misssing_channel_embed = Embed(
                 colour=0xff5722,
                 description=":facepalm: **Whoops, you missed out the channel ID! Try again.**"
@@ -190,6 +187,9 @@ class Cyber(Cog):
             # the default JSONifed readme file and send that into the channel instead.
             if operand in README_SEND_ALIASES:
                 try:
+                    # Much pain was had fixing this. Please, get some help and install mypy type checking.
+                    channel_id: int = int(channel_id[2:-1] if channel_id[0] == "<" else channel_id)
+
                     usr_confirmation_embed = Embed(
                         colour=0x4caf50,
                         description=":white_check_mark: **Creating readme using uploaded config file.**"
@@ -234,8 +234,8 @@ class Cyber(Cog):
                             msg_embed = json_config[section]["embed"]
                             if "title" in msg_embed:
                                 current_embed.title = msg_embed["title"]
-                            if "text" in msg_embed:
-                                current_embed.description = msg_embed["text"]
+                            if "description" in msg_embed:
+                                current_embed.description = msg_embed["description"]
                             if "color" in msg_embed:
                                 current_embed.colour = Colour(int(msg_embed["color"], 16))
 
@@ -275,23 +275,20 @@ class Cyber(Cog):
 
             # Pull the readme JSON constant files and slide it into the user's DMs.
             elif operand in README_RECV_ALIASES:
-                # Get the human-readble readme data.
-                with open("cdbot/data/readme_raw.json", "rb") as readme_json:
-                    raw_json = readme_json.read()
 
-                    # Slide it to the user's DMs.
-                    requesting_user = await self.bot.get_user_info(ctx.message.author.id)
-                    await requesting_user.send(
-                        content="Hey, here's your readme config file!",
-                        file=File(raw_json, 'readme_raw.json')
-                    )
+                # Slide it to the user's DMs.
+                requesting_user = await self.bot.fetch_user(ctx.message.author.id)
 
-                    msg_confirmation = Embed(
-                        colour=0x009688,
-                        description=":airplane: **Flying in, check your DMs!**"
-                    )
-                    await ctx.message.delete()
-                    await ctx.send(embed=msg_confirmation)
+                await requesting_user.send(
+                    content="Hey, here's your config file!",
+                    file=File(fp="cdbot/data/readme.json", filename='readme.json')
+                )
+
+                await ctx.message.delete()
+                await ctx.send(embed=Embed(
+                    colour=0x009688,
+                    description=":airplane: **Flying in, check your DMs!**"
+                ))
 
     @command(aliases=["a", "al"])
     async def assess(self, ctx: Context, challenge_num: int):
@@ -338,7 +335,7 @@ class Cyber(Cog):
         Gets the date of, and days and months until, CyberStart Game
         """
 
-        await self.countdown('15th January 2019', 'CyberStart Game', ctx)
+        await self.countdown('5th November 2019', 'CyberStart Game', ctx)
 
     @command()
     async def essentials(self, ctx: Context):
@@ -346,7 +343,7 @@ class Cyber(Cog):
         Gets the date of, and days and months until, CyberStart Essentials
         """
 
-        await self.countdown('5th March 2019', 'CyberStart Essentials', ctx)
+        await self.countdown('16th December 2019', 'CyberStart Essentials', ctx)
 
     @command()
     async def hundred(self, ctx: Context):
