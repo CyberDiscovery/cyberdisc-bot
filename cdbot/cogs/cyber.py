@@ -360,57 +360,57 @@ class Cyber(Cog):
         await ctx.send(f"There are {len(game_r.members)} that have completed Cyberstart Game. Out of them, "
                        f"{len(true_r.members)} have also completed Essentials and Assess.")
 
-    @command()
-    async def elitecount(self, ctx: Context):
-        """
-        Gets the number of elite users
-        """
+    # @command()
+    # async def elitecount(self, ctx: Context):
+    #     """
+    #     Gets the number of elite users
+    #     """
 
-        preferences = {
-            'London': {
-                'Younger': Roles.Elite.London.YOUNGER,
-                'Older': Roles.Elite.London.OLDER
-            },
-            'Birmingham': {
-                'Younger': Roles.Elite.Birmingham.YOUNGER,
-                'Older': Roles.Elite.Birmingham.OLDER
-            },
-            'Lancaster': {
-                'Younger': Roles.Elite.Lancaster.YOUNGER,
-                'Older': Roles.Elite.Lancaster.OLDER
-            }
-        }
+    #     preferences = {
+    #         'London': {
+    #             'Younger': Roles.Elite.London.YOUNGER,
+    #             'Older': Roles.Elite.London.OLDER
+    #         },
+    #         'Birmingham': {
+    #             'Younger': Roles.Elite.Birmingham.YOUNGER,
+    #             'Older': Roles.Elite.Birmingham.OLDER
+    #         },
+    #         'Lancaster': {
+    #             'Younger': Roles.Elite.Lancaster.YOUNGER,
+    #             'Older': Roles.Elite.Lancaster.OLDER
+    #         }
+    #     }
 
-        elite = len(ctx.guild.get_role(Roles.Elite.MAIN).members)
-        exchange = len(ctx.guild.get_role(Roles.Exchange.SHORTLIST).members)
-        confirmed = len(ctx.guild.get_role(Roles.Exchange.CONFIRMED).members)
+    #     elite = len(ctx.guild.get_role(Roles.Elite.MAIN).members)
+    #     exchange = len(ctx.guild.get_role(Roles.Exchange.SHORTLIST).members)
+    #     confirmed = len(ctx.guild.get_role(Roles.Exchange.CONFIRMED).members)
 
-        year = datetime.datetime.utcnow().year
+    #     year = datetime.datetime.utcnow().year
 
-        description = textwrap.dedent(f"""
-        **Total qualified**: {elite}
+    #     description = textwrap.dedent(f"""
+    #     **Total qualified**: {elite}
 
-        **Camp Statistics**
-        """)
+    #     **Camp Statistics**
+    #     """)
 
-        embed = Embed(title=f"CyberStart Elite {year}",
-                      description=description,
-                      colour=Colour(0xae444a))  # A nice red
+    #     embed = Embed(title=f"CyberStart Elite {year}",
+    #                   description=description,
+    #                   colour=Colour(0xae444a))  # A nice red
 
-        embed.set_thumbnail(url=CYBERDISC_ICON_URL)
+    #     embed.set_thumbnail(url=CYBERDISC_ICON_URL)
 
-        for location, ages in preferences.items():
-            section = ""
-            for age, role in ages.items():
-                r = ctx.guild.get_role(role)
-                section += f"**{age}**: {len(r.members)}\n"
-            embed.add_field(name=location, value=section, inline=True)
+    #     for location, ages in preferences.items():
+    #         section = ""
+    #         for age, role in ages.items():
+    #             r = ctx.guild.get_role(role)
+    #             section += f"**{age}**: {len(r.members)}\n"
+    #         embed.add_field(name=location, value=section, inline=True)
 
-        exchange_text = f"**Shortlisted**: {exchange}\n**Confirmed**: {confirmed}"
+    #     exchange_text = f"**Shortlisted**: {exchange}\n**Confirmed**: {confirmed}"
 
-        embed.add_field(name="Exchange", value=exchange_text, inline=True)
+    #     embed.add_field(name="Exchange", value=exchange_text, inline=True)
 
-        await ctx.send(embed=embed)
+    #     await ctx.send(embed=embed)
 
     async def countdown(self, countdown_target_str: str, stage_name: str, ctx: Context):
         countdown_target = parse(countdown_target_str).date()
