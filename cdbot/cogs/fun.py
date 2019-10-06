@@ -149,7 +149,7 @@ class Fun(Cog):
             except asyncio.TimeoutError:
                 pass
             else:
-                if str(reaction) == "\N{THUMBS UP SIGN}" and user.top_role.name in ADMIN_ROLES:
+                if str(reaction) == "\N{THUMBS UP SIGN}" and message.author.top_role.name in ADMIN_ROLES:
                     # The staff member wants to continue with the ping
                     await self.staff_role.edit(mentionable=True)
                     staff_ping = Embed(
