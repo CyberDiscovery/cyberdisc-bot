@@ -84,8 +84,7 @@ class Fun(Cog):
             colour=0xFF0000, description="⚠ **Please make sure you have taken the following into account:** "
         )
         .set_footer(
-            text="To continue with the ping, react \N{THUMBS UP SIGN}, To delete this message and move on,"
-            " react \N{THUMBS DOWN SIGN}"
+            text="Awaiting staff verfication. React \N{THUMBS DOWN SIGN} to delete this message and move on."
         )
         .add_field(
             name="Cyber Discovery staff will not provide help for challenges.",
@@ -139,9 +138,10 @@ class Fun(Cog):
 
             def check(reaction, user):
                 """Check if the reaction was valid."""
-                return all(
-                    (user == message.author, str(reaction.emoji) in "\N{THUMBS UP SIGN}\N{THUMBS DOWN SIGN}")
-                )
+                return all((
+                    user == message.author or user.top_role.name in ADMIN_ROLES,
+                    str(reaction.emoji) in "\N{THUMBS UP SIGN}\N{THUMBS DOWN SIGN}"
+                ))
 
             try:
                 # Get the user's reaction
@@ -149,8 +149,8 @@ class Fun(Cog):
             except asyncio.TimeoutError:
                 pass
             else:
-                if str(reaction) == "\N{THUMBS UP SIGN}":
-                    # The user wants to continue with the ping
+                if str(reaction) == "\N{THUMBS UP SIGN}" and user.top_role.name in ADMIN_ROLES:
+                    # The staff member wants to continue with the ping
                     await self.staff_role.edit(mentionable=True)
                     staff_ping = Embed(
                         title="This user has requested an official staff ping!",
