@@ -1,11 +1,11 @@
 import re
 
 from cdbot.constants import (
-    ADMIN_MENTOR_ROLE_ID, ADMIN_ROLES, CD_BOT_ROLE_ID, NICKNAME_PATTERNS, PLACEHOLDER_NICKNAME, STATIC_NICKNAME_ROLE_ID,
-    SUDO_ROLE_ID, ROOT_ROLE_ID
+    ADMIN_MENTOR_ROLE_ID, ADMIN_ROLES, CD_BOT_ROLE_ID, NICKNAME_PATTERNS, PLACEHOLDER_NICKNAME,
+    ROOT_ROLE_ID, STATIC_NICKNAME_ROLE_ID, SUDO_ROLE_ID
 )
 from discord import AuditLogAction, Member
-from discord.ext.commands import Bot, Cog, Context, command, has_role
+from discord.ext.commands import Bot, Cog, command, has_role
 
 
 def check_bad_name(nick):
@@ -75,12 +75,10 @@ class Admin(Cog):
             await member.edit(nick=PLACEHOLDER_NICKNAME)
 
     def check_function_enabled(self, mod_name: str):
-        #if self.modules.get(mod_name, False)
         pass
 
     @command()
     @has_role(ROOT_ROLE_ID)
-    @has_role(SUDO_ROLE_ID)
     async def mute(self, member: Member):
         """
         Fallback mute command when Dyno suffers an outage.
@@ -90,7 +88,6 @@ class Admin(Cog):
 
     @command()
     @has_role(ROOT_ROLE_ID)
-    @has_role(SUDO_ROLE_ID)
     async def unmute(self, member: Member):
         """
         Fallback unmute command when Dyno suffers an outage.
@@ -99,7 +96,6 @@ class Admin(Cog):
 
     @command()
     @has_role(ROOT_ROLE_ID)
-    @has_role(SUDO_ROLE_ID)
     async def warn(self, member: Member):
         """
         Fallback warn command when Dyno suffers an outage.
@@ -108,7 +104,6 @@ class Admin(Cog):
 
     @command()
     @has_role(ROOT_ROLE_ID)
-    @has_role(SUDO_ROLE_ID)
     async def purge(self, member: Member):
         """
         Fallback purge command when Dyno suffers an outage.
@@ -136,6 +131,7 @@ class Admin(Cog):
             -> Muted embed to DM?
             -> Sort out *args
         """
+
 
 def setup(bot):
     bot.add_cog(Admin(bot))
