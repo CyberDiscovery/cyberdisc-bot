@@ -1,3 +1,55 @@
+apiVersion: "v1"
+kind: "Service"
+metadata:
+  name: "postgres"
+  labels:
+    app: "postgres"
+spec:
+  ports:
+  - port: 5432
+    name: "postgres"
+  clusterIP: "None"
+  selector:
+    app: "postgres"
+---
+apiVersion: "extensions/v1beta1"
+kind: "Deployment"
+metadata:
+  name: "postgres"
+spec:
+  serviceName: "postgres"
+  replicas: 1
+  selector:
+    matchLabels:
+      app: "postgres"
+  template:
+    metadata:
+      labels:
+        app: "postgres"
+    spec:
+      containers:
+      - name: "postgres"
+        image: "postgres:latest"
+        env:
+        - name: "POSTGRES_DB"
+          valueFrom:
+            secretKeyRef:
+              name: "creds"
+              key: "PGDATABASE"
+        - name: "POSTGRES_USER"
+          valueFrom:
+            secretKeyRef:
+              name: "creds"
+              key: "PGUSER"
+        - name: "POSTGRES_PASSWORD"
+          valueFrom:
+            secretKeyRef:
+              name: "creds"
+              key: "PGPASSWORD"
+        ports:
+        - containerPort: 5432
+          name: postgredb
+---
 apiVersion: "extensions/v1beta1"
 kind: "Deployment"
 metadata:
@@ -22,35 +74,32 @@ spec:
         - name: "BOT_TOKEN"
           valueFrom:
             secretKeyRef:
-              name: 'creds'
-              key: 'BOT_TOKEN'
+              name: "creds"
+              key: "BOT_TOKEN"
         - name: "PGHOST"
-          valueFrom:
-            secretKeyRef:
-              name: 'creds'
-              key: 'PGHOST'
+          value: "postgres"
         - name: "PGPORT"
           valueFrom:
             secretKeyRef:
-              name: 'creds'
-              key: 'PGPORT'
+              name: "creds"
+              key: "PGPORT"
         - name: "PGDATABASE"
           valueFrom:
             secretKeyRef:
-              name: 'creds'
-              key: 'PGDATABASE'
+              name: "creds"
+              key: "PGDATABASE"
         - name: "PGUSER"
           valueFrom:
             secretKeyRef:
-              name: 'creds'
-              key: 'PGUSER'
+              name: "creds"
+              key: "PGUSER"
         - name: "PGPASSWORD"
           valueFrom:
             secretKeyRef:
-              name: 'creds'
-              key: 'PGPASSWORD'
+              name: "creds"
+              key: "PGPASSWORD"
         - name: "SENTRY_URL"
           valueFrom:
             secretKeyRef:
-              name: 'creds'
-              key: 'SENTRY_URL'
+              name: "creds"
+              key: "SENTRY_URL"
