@@ -39,7 +39,7 @@ REACT_TRIGGERS = {
 async def migrate_quotes(self):
     """Create and initialise the `quotes` table with user quotes."""
     conn = await asyncpg.connect(
-        host=PostgreSQL.PGHOST
+        host=PostgreSQL.PGHOST,
         port=PostgreSQL.PGPORT,
         user=PostgreSQL.PGUSER,
         password=PostgreSQL.PGPASSWORD,
@@ -119,7 +119,7 @@ class Fun(Cog):
         self.quote_channel = None
         self.fake_staff_role = None
 
-        await migrate_quotes(self)
+        asyncio.run(migrate_quotes(self))
 
     @Cog.listener()
     async def on_ready(self):
