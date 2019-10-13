@@ -12,7 +12,6 @@ from urllib.parse import urlencode
 import asyncpg
 from aiohttp import ClientSession
 from cdbot.constants import (
-    ADMIN_ROLES,
     EMOJI_LETTERS,
     FAKE_ROLE_ID,
     PostgreSQL,
