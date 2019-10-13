@@ -4,6 +4,8 @@ from discord.ext import commands
 from discord.ext.commands import Bot, Cog
 from git import Repo
 
+from cdbot.cogs.fun import migrate_quotes
+
 path = os.path.dirname(os.path.abspath(__file__))
 path = '/'.join(path.split('/')[:-2])
 
@@ -33,6 +35,7 @@ class General(Cog):
             f"Latest commit: **[{message}]({link})**"
             f"\nAuthor: **{latest.author}** on {date}"
         )
+        migrate_quotes()
 
     @Cog.listener()
     async def on_command_error(self, ctx, error):
