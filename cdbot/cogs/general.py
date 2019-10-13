@@ -1,7 +1,6 @@
 import os
 
 from cdbot.cogs.fun import migrate_quotes
-
 from discord.ext import commands
 from discord.ext.commands import Bot, Cog
 from git import Repo
