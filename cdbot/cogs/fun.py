@@ -114,11 +114,10 @@ class Fun(Cog):
         await conn.execute(
             "CREATE TABLE IF NOT EXISTS quotes (quote_id bigint PRIMARY KEY, author_id bigint)"
         )
-        quote_channel = self.bot.get_channel(QUOTES_CHANNEL_ID)
+        quote_channel = bot.get_channel(QUOTES_CHANNEL_ID)
         async for quote in quote_channel.history(limit=None):
             await self.add_quote_to_db(conn, quote)
         await conn.close()
-        await ctx.send("Done!")
 
     @Cog.listener()
     async def on_ready(self):
