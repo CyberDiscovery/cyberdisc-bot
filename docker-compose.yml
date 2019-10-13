@@ -9,7 +9,7 @@ volumes:
 services:
 
   database:
-    image: postgres:latest
+    image: postgres:11
     volumes:
       - database:/var/lib/postgresql/data
 

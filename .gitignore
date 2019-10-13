@@ -193,3 +193,5 @@ flake8.xml
 
 # VS Code
 .vscode/*
+
+secret-creds.yaml
