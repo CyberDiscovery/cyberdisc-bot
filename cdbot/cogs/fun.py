@@ -119,8 +119,6 @@ class Fun(Cog):
         self.quote_channel = None
         self.fake_staff_role = None
 
-        asyncio.run(migrate_quotes(self))
-
     @Cog.listener()
     async def on_ready(self):
         guild = self.bot.guilds[0]
@@ -130,6 +128,8 @@ class Fun(Cog):
 
         if self.fake_staff_role is None:
             self.fake_staff_role = guild.get_role(FAKE_ROLE_ID)
+
+        asyncio.run(migrate_quotes(self))
 
     @Cog.listener()
     async def on_message(self, message: Message):
