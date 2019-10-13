@@ -34,7 +34,6 @@ Finally, run the command `poetry run cdbot` in the root of the repository to run
 * **`:help`** - Displays information about the usage and syntax of all commands.
 
 ### Admin Commands:
-* **`:migrate_quotes`** - Migrate the existing quotes in the set quotes channel to the PostgreSQL database.
 * **`:readme [push | pull] [channel id] [interval]`** - `pull` will DM the user a copy of the JSON used for #readme. `push` will create the readme channel using the set JSON file.
 
 ### Cyber Discovery Commands:
