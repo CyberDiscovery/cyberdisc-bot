@@ -31,9 +31,9 @@ Finally, run the command `poetry run cdbot` in the root of the repository to run
 
 ## Commands
 ### General Commands:
-* **`:help`** - Displays information about the usage and syntax of the commands
+* **`:help`** - Displays information about the usage and syntax of all commands.
 
-### Admin Commands
+### Admin Commands:
 * **`:migrate_quotes`** - Migrate the existing quotes in the set quotes channel to the PostgreSQL database.
 * **`:readme [push | pull] [channel id] [interval]`** - `pull` will DM the user a copy of the JSON used for #readme. `push` will create the readme channel using the set JSON file.
 
@@ -43,7 +43,7 @@ Finally, run the command `poetry run cdbot` in the root of the repository to run
 * **`:fieldmanual`** - Returns a link to the CyberStart Game field manual.
 * **`:flag [base] [level] [challenge]`** - Generate a very legitimate:tm: flag for CyberStart Game.
 * **`:game`** - Displays the remaining time until the start of CyberStart Game.
-* **`:level [base] [level] [challenge]`** - Display information about challenges from CyberStart Game
+* **`:level [base] [level] [challenge]`** - Display information about challenges from CyberStart Game.
 
 ### Fun Commands:
 * **`:agentj [text]`** - Creates an image of Agent J with the specified text.
@@ -53,5 +53,5 @@ Finally, run the command `poetry run cdbot` in the root of the repository to run
 * **`:jibhat [text]`** - Creates an image of Jibhat with the specified text.
 * **`:lmgtfy [-d][-ie] [search]`** - Returns a LMGTFY URL for the given question.  Adding `-d` will delete the message that instigated the command and `-ie` will enable the internet explainer feature on lmgtfy.
 * **`:quotes [@mention]`** - Will return a random quote from the #quotes channel. Adding an username/mention will result in a random quote from that user being selected.
-* **`:react [emoji `** - Reacts to the previous message with the space seperated emojis in the requesting message.
+* **`:react [emoji] `** - Reacts to the previous message with the space seperated emojis in the requesting message.
 * **`:xkcd [? | 1810]`** - Fetches xkcd comics. If the argument is left blank the latest comic is shown.  A random comic is shown if the argument is a `?`.  Otherwise, a comic number can be used to fetch a specific comic.
