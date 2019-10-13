@@ -60,5 +60,5 @@ jobs:
       destinationFolder: /tmp/kubeval
 
   - bash: '/tmp/kubeval/kubeval deployment.yaml'
-    workingDirectory: '$(System.DefaultWorkingDirectory)/_CyberDiscovery_cyberdisc-bot'
+    workingDirectory: '$(System.DefaultWorkingDirectory)/_CyberDiscovery_cyberdisc-bot/'
     displayName: 'Run Kubeval'
