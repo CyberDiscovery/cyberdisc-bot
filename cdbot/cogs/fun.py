@@ -36,24 +36,6 @@ REACT_TRIGGERS = {
 }
 
 
-async def migrate_quotes(self):
-    """Create and initialise the `quotes` table with user quotes."""
-    conn = await asyncpg.connect(
-        host=PostgreSQL.PGHOST,
-        port=PostgreSQL.PGPORT,
-        user=PostgreSQL.PGUSER,
-        password=PostgreSQL.PGPASSWORD,
-        database=PostgreSQL.PGDATABASE,
-    )
-    await conn.execute(
-        "CREATE TABLE IF NOT EXISTS quotes (quote_id bigint PRIMARY KEY, author_id bigint)"
-    )
-    self.quote_channel = self.bot.get_channel(QUOTES_CHANNEL_ID)
-    async for quote in self.quote_channel.history(limit=None):
-        await self.add_quote_to_db(conn, quote)
-    await conn.close()
-
-
 def convert_emoji(message: str) -> List[str]:
     """Convert a string to a list of emojis."""
     emoji_trans = list(map(iter, EMOJI_LETTERS))
@@ -119,6 +101,23 @@ class Fun(Cog):
         self.quote_channel = None
         self.fake_staff_role = None
 
+    async def migrate_quotes(self):
+        """Create and initialise the `quotes` table with user quotes."""
+        conn = await asyncpg.connect(
+            host=PostgreSQL.PGHOST,
+            port=PostgreSQL.PGPORT,
+            user=PostgreSQL.PGUSER,
+            password=PostgreSQL.PGPASSWORD,
+            database=PostgreSQL.PGDATABASE,
+        )
+        await conn.execute(
+            "CREATE TABLE IF NOT EXISTS quotes (quote_id bigint PRIMARY KEY, author_id bigint)"
+        )
+        quote_channel = self.bot.get_channel(QUOTES_CHANNEL_ID)
+        async for quote in quote_channel.history(limit=None):
+            await self.add_quote_to_db(conn, quote)
+        await conn.close()
+
     @Cog.listener()
     async def on_ready(self):
         guild = self.bot.guilds[0]
@@ -129,7 +128,7 @@ class Fun(Cog):
         if self.fake_staff_role is None:
             self.fake_staff_role = guild.get_role(FAKE_ROLE_ID)
 
-        asyncio.run(migrate_quotes(self))
+        await self.migrate_quotes()
 
     @Cog.listener()
     async def on_message(self, message: Message):
