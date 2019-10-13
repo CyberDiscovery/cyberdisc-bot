@@ -9,7 +9,7 @@ jobs:
   displayName: 'Lint'
 
   pool:
-    vmImage: 'Ubuntu 16.04'
+    vmImage: 'Ubuntu 18.04'
 
   steps:
   - task: UsePythonVersion@0
@@ -34,7 +34,7 @@ jobs:
   displayName: 'Build'
   
   pool:
-    vmImage: 'Ubuntu 16.04'
+    vmImage: 'Ubuntu 18.04'
 
   steps:
   - task: Docker@1
@@ -47,7 +47,7 @@ jobs:
   displayName: Validate
 
   pool:
-    vmImage: 'Ubuntu 16.04'
+    vmImage: 'Ubuntu 18.04'
 
   steps:
   - bash: wget https://github.com/instrumenta/kubeval/releases/latest/download/kubeval-linux-amd64.tar.gz
@@ -60,5 +60,5 @@ jobs:
       destinationFolder: /tmp/kubeval
 
   - bash: '/tmp/kubeval/kubeval deployment.yaml'
-    workingDirectory: '$(System.DefaultWorkingDirectory)/_CyberDiscovery_cyberdisc-bot/'
+    workingDirectory: '$(System.DefaultWorkingDirectory)/_CyberDiscovery_cyberdisc-bot'
     displayName: 'Run Kubeval'
