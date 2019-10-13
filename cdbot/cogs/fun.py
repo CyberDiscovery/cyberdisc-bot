@@ -12,7 +12,6 @@ from urllib.parse import urlencode
 import asyncpg
 from aiohttp import ClientSession
 from cdbot.constants import (
-    ADMIN_ROLES,
     EMOJI_LETTERS,
     FAKE_ROLE_ID,
     PostgreSQL,
@@ -24,8 +23,7 @@ from cdbot.constants import (
 from discord import Embed, File, HTTPException, Message, NotFound, embeds
 from discord.ext.commands import (
     Bot, BucketType, Cog,
-    Context, UserConverter, command,
-    cooldown, has_any_role
+    Context, UserConverter, command, cooldown
 )
 from discord.utils import get
 from PIL import Image, ImageDraw, ImageFont
@@ -103,6 +101,23 @@ class Fun(Cog):
         self.quote_channel = None
         self.fake_staff_role = None
 
+    async def migrate_quotes(self):
+        """Create and initialise the `quotes` table with user quotes."""
+        conn = await asyncpg.connect(
+            host=PostgreSQL.PGHOST,
+            port=PostgreSQL.PGPORT,
+            user=PostgreSQL.PGUSER,
+            password=PostgreSQL.PGPASSWORD,
+            database=PostgreSQL.PGDATABASE,
+        )
+        await conn.execute(
+            "CREATE TABLE IF NOT EXISTS quotes (quote_id bigint PRIMARY KEY, author_id bigint)"
+        )
+        quote_channel = self.bot.get_channel(QUOTES_CHANNEL_ID)
+        async for quote in quote_channel.history(limit=None):
+            await self.add_quote_to_db(conn, quote)
+        await conn.close()
+
     @Cog.listener()
     async def on_ready(self):
         guild = self.bot.guilds[0]
@@ -112,6 +127,8 @@ class Fun(Cog):
 
         if self.fake_staff_role is None:
             self.fake_staff_role = guild.get_role(FAKE_ROLE_ID)
+
+        await self.migrate_quotes()
 
     @Cog.listener()
     async def on_message(self, message: Message):
@@ -354,29 +371,6 @@ class Fun(Cog):
         else:
             await conn.execute("INSERT INTO quotes(quote_id) VALUES($1) ON CONFLICT DO NOTHING;", quote.id)
         print(f"Quote ID: {quote.id} has been added to the database.")
-
-    @command()
-    @has_any_role(*ADMIN_ROLES)
-    async def migrate_quotes(self, ctx: Context):
-        """
-        Pulls all quotes from a quotes channel into a PostgreSQL database.
-        Needs PGHOST, PGPORT, PGUSER, PGDATABASE and PGPASSWORD env vars.
-        """
-        conn = await asyncpg.connect(
-            host=PostgreSQL.PGHOST,
-            port=PostgreSQL.PGPORT,
-            user=PostgreSQL.PGUSER,
-            password=PostgreSQL.PGPASSWORD,
-            database=PostgreSQL.PGDATABASE,
-        )
-        await conn.execute(
-            "CREATE TABLE IF NOT EXISTS quotes (quote_id bigint PRIMARY KEY, author_id bigint)"
-        )
-        quote_channel = self.bot.get_channel(QUOTES_CHANNEL_ID)
-        async for quote in quote_channel.history(limit=None):
-            await self.add_quote_to_db(conn, quote)
-        await conn.close()
-        await ctx.send("Done!")
 
     async def create_text_image(self, ctx: Context, person: str, text: str):
         """
