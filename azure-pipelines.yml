@@ -9,7 +9,7 @@ jobs:
   displayName: 'Lint'
 
   pool:
-    vmImage: 'Ubuntu 16.04'
+    vmImage: 'Ubuntu 18.04'
 
   steps:
   - task: UsePythonVersion@0
@@ -34,7 +34,7 @@ jobs:
   displayName: 'Build'
   
   pool:
-    vmImage: 'Ubuntu 16.04'
+    vmImage: 'Ubuntu 18.04'
 
   steps:
   - task: Docker@1
@@ -43,3 +43,21 @@ jobs:
       dockerFile: '$(System.DefaultWorkingDirectory)/Dockerfile'
       imageName: 'cyberdiscovery/cdbot:latest'
 
+- job: validate
+  displayName: Validate
+
+  pool:
+    vmImage: 'Ubuntu 18.04'
+
+  steps:
+  - script: wget https://github.com/instrumenta/kubeval/releases/latest/download/kubeval-linux-amd64.tar.gz
+    displayName: 'Download Kubeval'
+
+  - task: ExtractFiles@1
+    displayName: 'Extract Kubeval'
+    inputs:
+      archiveFilePatterns: '*.tar.gz'
+      destinationFolder: /tmp/kubeval
+
+  - script: '/tmp/kubeval/kubeval deployment.yaml'
+    displayName: 'Run Kubeval'
