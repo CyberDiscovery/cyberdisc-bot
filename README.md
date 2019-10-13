@@ -37,7 +37,7 @@ Finally, run the command `poetry run cdbot` in the root of the repository to run
 * **`:migrate_quotes`** - Migrate the existing quotes in the set quotes channel to the PostgreSQL database.
 * **`:readme [push | pull] [channel id] [interval]`** - `pull` will DM the user a copy of the JSON used for #readme. `push` will create the readme channel using the set JSON file.
 
-### Cyber Security Commands:
+### Cyber Discovery Commands:
 * **`:assess [1-14]`** - Displays information about the corresponding level in CyberStart Assess.
 * **`:essentials`** - Displays the remaining time until the start of CyberStart Essentials.
 * **`:fieldmanual`** - Returns a link to the CyberStart Game field manual.
