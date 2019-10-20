@@ -5,6 +5,7 @@ from discord.ext.commands import Bot, Cog
 
 from git import Repo
 
+
 path = os.path.dirname(os.path.abspath(__file__))
 path = '/'.join(path.split('/')[:-2])
 
