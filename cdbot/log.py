@@ -6,6 +6,7 @@ import datetime
 import logging
 
 from cdbot.constants import LOGGING_CHANNEL_ID
+
 from discord import Color, Embed
 from discord.ext import commands
 

@@ -9,8 +9,12 @@ from string import ascii_lowercase
 from typing import List
 from urllib.parse import urlencode
 
-import asyncpg
+from PIL import Image, ImageDraw, ImageFont
+
 from aiohttp import ClientSession
+
+import asyncpg
+
 from cdbot.constants import (
     ADMIN_ROLES,
     EMOJI_LETTERS,
@@ -21,6 +25,7 @@ from cdbot.constants import (
     STAFF_ROLE_ID,
     WELCOME_BOT_ID,
 )
+
 from discord import Embed, File, HTTPException, Message, NotFound, embeds
 from discord.ext.commands import (
     Bot, BucketType, Cog,
@@ -28,7 +33,6 @@ from discord.ext.commands import (
     cooldown, has_any_role
 )
 from discord.utils import get
-from PIL import Image, ImageDraw, ImageFont
 
 ascii_lowercase += " !?$()"
 

@@ -2,10 +2,11 @@ import re
 
 from cdbot.constants import (
     ADMIN_MENTOR_ROLE_ID, ADMIN_ROLES, CD_BOT_ROLE_ID, NICKNAME_PATTERNS, PLACEHOLDER_NICKNAME,
-    ROOT_ROLE_ID, STATIC_NICKNAME_ROLE_ID
+    STATIC_NICKNAME_ROLE_ID,
 )
+
 from discord import AuditLogAction, Member
-from discord.ext.commands import Bot, Cog, command, has_role
+from discord.ext.commands import Bot, Cog
 
 
 def check_bad_name(nick):
@@ -22,10 +23,6 @@ class Admin(Cog):
 
     def __init__(self, bot: Bot):
         self.bot = bot
-        self.modules = {
-            "mod_fallback": False,
-            "purge_fallback": False
-        }
 
     @Cog.listener()  # triggered on new/removed nickname
     async def on_member_update(self, member_before: Member, member_after: Member):
@@ -73,64 +70,6 @@ class Admin(Cog):
         if check_bad_name(username):  # bad username
             # assign placeholder nickname
             await member.edit(nick=PLACEHOLDER_NICKNAME)
-
-    def check_function_enabled(self, mod_name: str):
-        pass
-
-    @command()
-    @has_role(ROOT_ROLE_ID)
-    async def mute(self, member: Member):
-        """
-        Fallback mute command when Dyno suffers an outage.
-        Same basic functionality though most other features will be lacking.
-        """
-        pass
-
-    @command()
-    @has_role(ROOT_ROLE_ID)
-    async def unmute(self, member: Member):
-        """
-        Fallback unmute command when Dyno suffers an outage.
-        """
-        pass
-
-    @command()
-    @has_role(ROOT_ROLE_ID)
-    async def warn(self, member: Member):
-        """
-        Fallback warn command when Dyno suffers an outage.
-        """
-        pass
-
-    @command()
-    @has_role(ROOT_ROLE_ID)
-    async def purge(self, member: Member):
-        """
-        Fallback purge command when Dyno suffers an outage.
-        This is dangerous, so a purge specific module has
-        to be enable with :modprobe purge_fallback
-        """
-        pass
-
-    @command()
-    @has_role(ROOT_ROLE_ID)
-    async def modprobe(self, *mod_args):
-        """
-        Hotplug the fallback moderation features in an extended outage scenario.
-        These commands are disabled by default to avoid accidental clashes.
-        """
-        pass
-
-        """
-        Things to sort:
-            -> Mute/Unmute/Warn/Purge
-            -> Timed Mutes
-            -> Modlogs
-            -> Hotplug modules
-            -> Can't mute Sudo's/Root's/Already muted
-            -> Muted embed to DM?
-            -> Sort out *args
-        """
 
 
 def setup(bot):

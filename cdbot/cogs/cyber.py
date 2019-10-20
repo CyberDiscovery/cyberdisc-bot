@@ -6,16 +6,20 @@ import textwrap
 from asyncio import sleep
 from io import StringIO
 from json import load
+from typing import Callable, List, Union
 
 from aiohttp import ClientSession
+
 from cdbot.constants import (
-    BASE_ALIASES, CYBERDISC_ICON_URL, END_README_MESSAGE, HINTS_LIMIT, HUNDRED_PERCENT_ROLE_ID, README_RECV_ALIASES,
-    README_SEND_ALIASES, ROOT_ROLE_ID, Roles, TRUE_HUNDRED_PERCENT_ROLE_ID
+    BASE_ALIASES, CYBERDISC_ICON_URL, END_README_MESSAGE, HINTS_LIMIT, HUNDRED_PERCENT_ROLE_ID, MOG_LOG_ID,
+    README_RECV_ALIASES, README_SEND_ALIASES, ROOT_ROLE_ID, Roles, SUDO_ROLE_ID, TRUE_HUNDRED_PERCENT_ROLE_ID
 )
+
 from dateutil.parser import parse
 from dateutil.relativedelta import relativedelta
-from discord import Colour, Embed, File, Message
-from discord.ext.commands import Bot, Cog, Context, command, has_role
+
+from discord import Colour, Embed, File, Member, Message
+from discord.ext.commands import Bot, CheckFailure, Cog, Context, check, command, has_role
 
 
 async def generatebase64(seed: int) -> str:
@@ -53,6 +57,12 @@ class Cyber(Cog):
          "We’ll send out details of your location as soon as we can. It shouldn’t be too long!"
          )
     ]
+
+    modules = {
+        "mod_fallback": False
+    }
+
+    purge_hardlimit: int = 50
 
     def __init__(self, bot: Bot):
         self.bot = bot
@@ -289,6 +299,104 @@ class Cyber(Cog):
                     colour=0x009688,
                     description=":airplane: **Flying in, check your DMs!**"
                 ))
+
+    async def check_perm(ctx: Context) -> bool:
+        """
+        A check decorator to see if invoking member pocesses
+        the Root role or Sudo role, but the 'module' is enabled for them.
+        """
+        user_roles: List[str] = [msg_author.id for msg_author in ctx.message.author.roles]
+
+        if ROOT_ROLE_ID in user_roles:
+            return True
+
+        elif min(Cyber.modules.get("mod_fallback", False), SUDO_ROLE_ID in user_roles):
+            return True
+
+        else:
+            raise CheckFailure()
+
+    @command()
+    @check(check_perm)
+    async def mute_user(self, ctx: Context, member: Member, time_limit: str = None, mute_reason: str = None):
+        """
+        Fallback mute command when Dyno suffers an outage.
+        Same basic functionality though most other features will be lacking.
+        """
+        pass
+
+    @command()
+    @check(check_perm)
+    async def unmute(self, member: Member, unmute_reason: str):
+        """
+        Fallback unmute command when Dyno suffers an outage.
+        """
+        pass
+
+    @command()
+    @check(check_perm)
+    async def warn_user(self, member: Member, warn_reason: str):
+        """
+        Fallback warn command when Dyno suffers an outage.
+        """
+        pass
+
+    @command()
+    @check(check_perm)
+    async def purge(self, member: Member, msg_count: str):
+        """
+        Fallback purge command when Dyno suffers an outage.
+        """
+        pass
+
+    @command()
+    @has_role(ROOT_ROLE_ID)
+    async def modprobe(self, ctx: Context, *mod_args) -> None:
+        """
+        Hotplug the fallback moderation features in an extended outage scenario.
+        These commands are disabled by default to avoid accidental clashes.
+        """
+
+        check_mod: Callable[str] = lambda _: Cyber.modules.get(_, None) is not None
+
+        mod_is_valid: Union[str, None] = (check_mod(mod_args[0])
+                                          if mod_args[0].lower() != "-r"
+                                          else check_mod(mod_args[1]))
+
+        await ctx.message.delete()
+
+        if "-r" == mod_args[0].lower() and mod_is_valid:
+            Cyber.modules.update({mod_args[1]: False})
+
+            await ctx.send(embed=Embed(
+                colour=0x009688,
+                description=f":white_check_mark: **Disabled {mod_args[1]}**"
+            ))
+
+        elif "-r" not in mod_args and mod_is_valid:
+            Cyber.modules.update({mod_args[0]: True})
+
+            await ctx.send(embed=Embed(
+                colour=0x009688,
+                description=f":white_check_mark: **Enabled {mod_args[0]}**"
+            ))
+
+        else:
+            await ctx.send(embed=Embed(
+                colour=0x673ab7,
+                description=":shrug: **Couldn't find that module, check again.**"
+            ))
+
+        """
+        Things to sort:
+            -> Mute/Unmute/Warn/Purge
+            -> Timed Mutes
+            -> Modlogs
+            -> Hotplug modules
+            -> Can't mute Sudo's/Root's/Already muted
+            -> Muted embed to DM?
+            -> Sort out *args
+        """
 
     @command(aliases=["a", "al"])
     async def assess(self, ctx: Context, challenge_num: int):

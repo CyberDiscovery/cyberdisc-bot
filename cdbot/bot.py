@@ -3,6 +3,7 @@
 import logging
 
 from cdbot.log import DiscordHandler
+
 from discord import Game
 from discord.ext.commands import Bot, when_mentioned_or
 
