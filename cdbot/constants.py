@@ -24,6 +24,8 @@ class PostgreSQL:
 BOT_TOKEN = getenv("BOT_TOKEN")
 SENTRY_URL = getenv("SENTRY_URL")
 
+AIOSQLITE_DB_NAME = environ.get("AIOSQLITE_DB_NAME", ":memory:")
+
 # Fun constants
 QUOTES_CHANNEL_ID = int(environ.get("QUOTES_CHANNEL_ID", "463657120441696256"))
 QUOTES_BOT_ID = 292953664492929025

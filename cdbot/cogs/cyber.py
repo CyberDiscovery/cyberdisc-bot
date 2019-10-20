@@ -6,12 +6,15 @@ import textwrap
 from asyncio import sleep
 from io import StringIO
 from json import load
+from subprocess import check_output  # noqa: S404
 from typing import Callable, List, Union
 
 from aiohttp import ClientSession
 
+import aiosqlite
+
 from cdbot.constants import (
-    BASE_ALIASES, CYBERDISC_ICON_URL, END_README_MESSAGE, HINTS_LIMIT, HUNDRED_PERCENT_ROLE_ID,
+    AIOSQLITE_DB_NAME, BASE_ALIASES, CYBERDISC_ICON_URL, END_README_MESSAGE, HINTS_LIMIT, HUNDRED_PERCENT_ROLE_ID,
     README_RECV_ALIASES, README_SEND_ALIASES, ROOT_ROLE_ID, Roles, SUDO_ROLE_ID, TRUE_HUNDRED_PERCENT_ROLE_ID
 )
 
@@ -26,6 +29,8 @@ async def generatebase64(seed: int) -> str:
     random.seed(seed)
     letters = string.ascii_letters + string.digits + "+/="
     return "".join(random.choices(letters, k=20))
+
+current_datetime: Callable = lambda: check_output("date").strip().decode('utf-8')  # noqa: S607, S603
 
 
 class Cyber(Cog):
@@ -70,6 +75,27 @@ class Cyber(Cog):
         self.matches = [
             (re.compile(i[0], re.IGNORECASE), i[1]) for i in self.match_strings
         ]
+
+        self.fallback_modlogs = await aiosqlite.connect(AIOSQLITE_DB_NAME)
+
+        await self.fallback_modlogs.execute(
+            """CREATE TABLE IF NOT EXISTS SanctionedUsers(
+                    user_id INTEGER PRIMARY KEY NOT NULL,
+                    user_name TEXT NOT NULL
+                );"""
+        )
+
+        await self.fallback_modlogs.execute(
+            """CREATE TABLE IF NOT EXISTS ModerationActions(
+                event_id INTEGER PRIMARY KEY AUTOINCREMENT,
+                event_type TEXT NOT NULL,
+                mod_member TEXT NOT NULL,
+                event_date TEXT NOT NULL,
+                event_reason TEXT,
+                sanction_duration TEXT
+            );""")
+
+        await self.fallback_modlogs.commit()
 
     @command(aliases=["Manual", "manual", "fm"])
     async def fieldmanual(self, ctx: Context):
