@@ -39,6 +39,7 @@ Finally, run the command `poetry run cdbot` in the root of the repository to run
 ### Cyber Discovery Commands:
 * **`:assess [1-14]`** - Displays information about the corresponding level in CyberStart Assess.
 * **`:essentials`** - Displays the remaining time until the start of CyberStart Essentials.
+* **`:essential`** - Also displays the remaining time until the start of CyberStart Essentials.
 * **`:fieldmanual`** - Returns a link to the CyberStart Game field manual.
 * **`:flag [base] [level] [challenge]`** - Generate a very legitimate:tm: flag for CyberStart Game.
 * **`:game`** - Displays the remaining time until the start of CyberStart Game.
