@@ -47,10 +47,11 @@ class Cyber(Cog):
          "Selection for CyberStart Elite will be based on a combination of Game and Essentials results."),
 
         (r"^.*\belite\b.*\bstart\b.*$", "Cyberstart Elite dates for 2020 are yet to be announced."),
-
-        (r"^.*\bwhat\b.*\belite\b.*\bemail\b.*$", "**Quote from the Cyber Discovery Elite team: **"
-         "We’re currently allocating students to their preferred locations so it’s an ongoing process! "
-         "We’ll send out details of your location as soon as we can. It shouldn’t be too long!"
+        
+        #bit too early for emails
+        #(r"^.*\bwhat\b.*\belite\b.*\bemail\b.*$", "**Quote from the Cyber Discovery Elite team: **"
+         #"We’re currently allocating students to their preferred locations so it’s an ongoing process! "
+         #"We’ll send out details of your location as soon as we can. It shouldn’t be too long!"
          )
     ]
 
