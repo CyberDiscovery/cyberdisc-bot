@@ -2,7 +2,7 @@
 name: Emoji Reaction Request
 about: Request the addition of an automatic emoji reaction
 title: ''
-labels: ''
+labels: enhancement
 assignees: ''
 
 ---
