@@ -411,7 +411,7 @@ class Cyber(Cog):
 
             await ctx.send(embed=embed)
         else:
-            await ctx.send(":no_entry_sign: This command is disabled because CyberStart Elite has finished for this year")
+            await ctx.send(":no_entry_sign: This command is disabled because CyberStart Elite is done for this year")
 
     async def countdown(self, countdown_target_str: str, stage_name: str, ctx: Context):
         countdown_target = parse(countdown_target_str).date()
