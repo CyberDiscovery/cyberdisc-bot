@@ -32,7 +32,7 @@ class Cyber(Cog):
     match_strings = [
         # Assess dates
         (r"^.*\bassess\b.*(start|begin|open)\b.*$", "Cyberstart Assess began on the 3rd September 2019."),
-        (r"^.*\bassess\b.*(end|finish|close)\b.*$", "Cyberstart Assess ends on the 25th October 2019."),
+        (r"^.*\bassess\b.*(end|finish|close)\b.*$", "Cyberstart Assess ended on the 25th October 2019."),
 
         # Game dates
         (r"^.*\bgame\b.*(start|begin|open)\b.*$", "Cyberstart Game began on the 5th November 2019."),
