@@ -31,22 +31,22 @@ class Cyber(Cog):
 
     match_strings = [
         # Assess dates
-        (r"^.*\bassess\b.*(start|begin|open)\b.*$", "Cyberstart Assess begins on the 3rd September 2019."),
-        (r"^.*\bassess\b.*(end|finish|close)\b.*$", "Cyberstart Assess ends on the 25th October 2019."),
+        (r"^.*\bassess\b.*(start|begin|open)\b.*$", "CyberStart Assess begins on the 3rd September 2019."),
+        (r"^.*\bassess\b.*(end|finish|close)\b.*$", "CyberStart Assess ends on the 25th October 2019."),
 
         # Game dates
-        (r"^.*\bgame\b.*(start|begin|open)\b.*$", "Cyberstart Game begins on the 5th November 2019."),
-        (r"^.*\bgame\b.*(end|finish|close)\b.*$", "Cyberstart Game ends on the 1st May 2020."),
+        (r"^.*\bgame\b.*(start|begin|open)\b.*$", "CyberStart Game begins on the 5th November 2019."),
+        (r"^.*\bgame\b.*(end|finish|close)\b.*$", "CyberStart Game ends on the 1st May 2020."),
 
         # Essentials dates
-        (r"^.*\bessentials\b.*(start|begin|open)\b.*$", "Cyberstart Essentials begins on the 16th December 2019."),
-        (r"^.*\bessentials\b.*(end|finish|close)\b.*$", "Cyberstart Essentials ends on the 1st May 2020."),
+        (r"^.*\bessentials\b.*(start|begin|open)\b.*$", "CyberStart Essentials begins on the 16th December 2019."),
+        (r"^.*\bessentials\b.*(end|finish|close)\b.*$", "CyberStart Essentials ends on the 1st May 2020."),
 
         # Elite questions
         (r"^.*\bhow\b.*\bget\b.*\belite\b.*$", "**Quote from the @CyberDiscUK Twitter: **"
          "Selection for CyberStart Elite will be based on a combination of Game and Essentials results."),
 
-        (r"^.*\belite\b.*\bstart\b.*$", "Cyberstart Elite dates for 2020 are yet to be announced."),
+        (r"^.*\belite\b.*\bstart\b.*$", "CyberStart Elite dates for 2020 are yet to be announced."),
 
         (r"^.*\bwhat\b.*\belite\b.*\bemail\b.*$", "**Quote from the Cyber Discovery Elite team: **"
          "We’re currently allocating students to their preferred locations so it’s an ongoing process! "
@@ -354,7 +354,7 @@ class Cyber(Cog):
         game_r = ctx.guild.get_role(HUNDRED_PERCENT_ROLE_ID)
         true_r = ctx.guild.get_role(TRUE_HUNDRED_PERCENT_ROLE_ID)
 
-        await ctx.send(f"There are {len(game_r.members)} that have completed Cyberstart Game. Out of them, "
+        await ctx.send(f"There are {len(game_r.members)} that have completed CyberStart Game. Out of them, "
                        f"{len(true_r.members)} have also completed Essentials and Assess.")
 
     @command()
