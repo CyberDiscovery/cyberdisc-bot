@@ -37,6 +37,8 @@ class Cyber(Cog):
         # Game dates
         (r"^.*\bgame\b.*(start|begin|open)\b.*$", "Cyberstart Game begins on the 5th November 2019."),
         (r"^.*\bgame\b.*(end|finish|close)\b.*$", "Cyberstart Game ends on the 1st May 2020."),
+        (r"^.*\bwhen\b.*volcano\b.*$", "Volcano base will open soon™, before Christmas."),
+
 
         # Essentials dates
         (r"^.*\bessentials\b.*(start|begin|open)\b.*$", "Cyberstart Essentials begins on the 16th December 2019."),
