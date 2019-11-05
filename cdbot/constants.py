@@ -70,6 +70,7 @@ class Roles:
 # Cyber Constants
 HINTS_LIMIT = 8
 CYBERDISC_ICON_URL = "https://pbs.twimg.com/profile_images/921313066515615745/fLEl2Gfa_400x400.jpg"
+ELITECOUNT_ENABLED = False
 
 # Readme command constants
 README_SEND_ALIASES = ["create", "push", "generate", "send", "make", "build", "upload"]
