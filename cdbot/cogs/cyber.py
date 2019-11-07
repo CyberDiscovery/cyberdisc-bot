@@ -9,8 +9,8 @@ from json import load
 
 from aiohttp import ClientSession
 from cdbot.constants import (
-    BASE_ALIASES, CYBERDISC_ICON_URL, END_README_MESSAGE, HINTS_LIMIT, HUNDRED_PERCENT_ROLE_ID, README_RECV_ALIASES,
-    README_SEND_ALIASES, ROOT_ROLE_ID, Roles, TRUE_HUNDRED_PERCENT_ROLE_ID
+    BASE_ALIASES, CYBERDISC_ICON_URL, ELITECOUNT_ENABLED, END_README_MESSAGE, HINTS_LIMIT, HUNDRED_PERCENT_ROLE_ID,
+    README_RECV_ALIASES, README_SEND_ALIASES, ROOT_ROLE_ID, Roles, TRUE_HUNDRED_PERCENT_ROLE_ID
 )
 from dateutil.parser import parse
 from dateutil.relativedelta import relativedelta
@@ -31,22 +31,23 @@ class Cyber(Cog):
 
     match_strings = [
         # Assess dates
-        (r"^.*\bassess\b.*(start|begin|open)\b.*$", "Cyberstart Assess began on the 3rd September 2019."),
-        (r"^.*\bassess\b.*(end|finish|close)\b.*$", "Cyberstart Assess ended on the 25th October 2019."),
+        (r"^.*\bassess\b.*(start|begin|open)\b.*$", "CyberStart Assess began on the 3rd September 2019."),
+        (r"^.*\bassess\b.*(end|finish|close)\b.*$", "CyberStart Assess ended on the 25th October 2019."),
 
         # Game dates
-        (r"^.*\bgame\b.*(start|begin|open)\b.*$", "Cyberstart Game began on the 5th November 2019."),
-        (r"^.*\bgame\b.*(end|finish|close)\b.*$", "Cyberstart Game ends on the 1st May 2020."),
+        (r"^.*\bgame\b.*(start|begin|open)\b.*$", "CyberStart Game began on the 5th November 2019."),
+        (r"^.*\bgame\b.*(end|finish|close)\b.*$", "CyberStart Game ends on the 1st May 2020."),
+        (r"^.*\bwhen\b.*volcano\b.*$", "Volcano base will open soon™, before Christmas."),
 
         # Essentials dates
-        (r"^.*\bessentials\b.*(start|begin|open)\b.*$", "Cyberstart Essentials begins on the 16th December 2019."),
-        (r"^.*\bessentials\b.*(end|finish|close)\b.*$", "Cyberstart Essentials ends on the 1st May 2020."),
+        (r"^.*\bessentials\b.*(start|begin|open)\b.*$", "CyberStart Essentials begins on the 16th December 2019."),
+        (r"^.*\bessentials\b.*(end|finish|close)\b.*$", "CyberStart Essentials ends on the 1st May 2020."),
 
         # Elite questions
         (r"^.*\bhow\b.*\bget\b.*\belite\b.*$", "**Quote from the @CyberDiscUK Twitter: **"
          "Selection for CyberStart Elite will be based on a combination of Game and Essentials results."),
 
-        (r"^.*\belite\b.*\bstart\b.*$", "Cyberstart Elite dates for 2020 are yet to be announced."),
+        (r"^.*\belite\b.*\bstart\b.*$", "CyberStart Elite dates for 2020 are yet to be announced."),
 
         (r"^.*\bwhat\b.*\belite\b.*\bemail\b.*$", "**Quote from the Cyber Discovery Elite team: **"
          "We’re currently allocating students to their preferred locations so it’s an ongoing process! "
@@ -354,7 +355,7 @@ class Cyber(Cog):
         game_r = ctx.guild.get_role(HUNDRED_PERCENT_ROLE_ID)
         true_r = ctx.guild.get_role(TRUE_HUNDRED_PERCENT_ROLE_ID)
 
-        await ctx.send(f"There are {len(game_r.members)} that have completed Cyberstart Game. Out of them, "
+        await ctx.send(f"There are {len(game_r.members)} that have completed CyberStart Game. Out of them, "
                        f"{len(true_r.members)} have also completed Essentials and Assess.")
 
     @command()
@@ -362,52 +363,54 @@ class Cyber(Cog):
         """
         Gets the number of elite users
         """
-
-        preferences = {
-            'London': {
-                'Younger': Roles.Elite.London.YOUNGER,
-                'Older': Roles.Elite.London.OLDER
-            },
-            'Birmingham': {
-                'Younger': Roles.Elite.Birmingham.YOUNGER,
-                'Older': Roles.Elite.Birmingham.OLDER
-            },
-            'Lancaster': {
-                'Younger': Roles.Elite.Lancaster.YOUNGER,
-                'Older': Roles.Elite.Lancaster.OLDER
+        if ELITECOUNT_ENABLED:
+            preferences = {
+                'London': {
+                    'Younger': Roles.Elite.London.YOUNGER,
+                    'Older': Roles.Elite.London.OLDER
+                },
+                'Birmingham': {
+                    'Younger': Roles.Elite.Birmingham.YOUNGER,
+                    'Older': Roles.Elite.Birmingham.OLDER
+                },
+                'Lancaster': {
+                    'Younger': Roles.Elite.Lancaster.YOUNGER,
+                    'Older': Roles.Elite.Lancaster.OLDER
+                }
             }
-        }
 
-        elite = len(ctx.guild.get_role(Roles.Elite.MAIN).members)
-        exchange = len(ctx.guild.get_role(Roles.Exchange.SHORTLIST).members)
-        confirmed = len(ctx.guild.get_role(Roles.Exchange.CONFIRMED).members)
+            elite = len(ctx.guild.get_role(Roles.Elite.MAIN).members)
+            exchange = len(ctx.guild.get_role(Roles.Exchange.SHORTLIST).members)
+            confirmed = len(ctx.guild.get_role(Roles.Exchange.CONFIRMED).members)
 
-        year = datetime.datetime.utcnow().year
+            year = datetime.datetime.utcnow().year
 
-        description = textwrap.dedent(f"""
-        **Total qualified**: {elite}
+            description = textwrap.dedent(f"""
+            **Total qualified**: {elite}
 
-        **Camp Statistics**
-        """)
+            **Camp Statistics**
+            """)
 
-        embed = Embed(title=f"CyberStart Elite {year}",
-                      description=description,
-                      colour=Colour(0xae444a))  # A nice red
+            embed = Embed(title=f"CyberStart Elite {year}",
+                          description=description,
+                          colour=Colour(0xae444a))  # A nice red
 
-        embed.set_thumbnail(url=CYBERDISC_ICON_URL)
+            embed.set_thumbnail(url=CYBERDISC_ICON_URL)
 
-        for location, ages in preferences.items():
-            section = ""
-            for age, role in ages.items():
-                r = ctx.guild.get_role(role)
-                section += f"**{age}**: {len(r.members)}\n"
-            embed.add_field(name=location, value=section, inline=True)
+            for location, ages in preferences.items():
+                section = ""
+                for age, role in ages.items():
+                    r = ctx.guild.get_role(role)
+                    section += f"**{age}**: {len(r.members)}\n"
+                embed.add_field(name=location, value=section, inline=True)
 
-        exchange_text = f"**Shortlisted**: {exchange}\n**Confirmed**: {confirmed}"
+            exchange_text = f"**Shortlisted**: {exchange}\n**Confirmed**: {confirmed}"
 
-        embed.add_field(name="Exchange", value=exchange_text, inline=True)
+            embed.add_field(name="Exchange", value=exchange_text, inline=True)
 
-        await ctx.send(embed=embed)
+            await ctx.send(embed=embed)
+        else:
+            await ctx.send(":no_entry_sign: This command is disabled because CyberStart Elite is done for this year")
 
     async def countdown(self, countdown_target_str: str, stage_name: str, ctx: Context):
         countdown_target = parse(countdown_target_str).date()
