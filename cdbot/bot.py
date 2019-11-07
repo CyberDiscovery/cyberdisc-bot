@@ -9,9 +9,6 @@ from discord.ext.commands import Bot, when_mentioned_or
 
 logger = logging.getLogger(__name__)
 
-muted = []
-admins = []
-
 bot = Bot(
     command_prefix=when_mentioned_or(
         "...", ":"
