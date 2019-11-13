@@ -16,7 +16,7 @@ Pillow = "^6.2"
 gitpython = "^2.1"
 
 [tool.poetry.dev-dependencies]
-flake8 = "=3.6.0"
+flake8 = "=3.7.9"
 flake8-bandit = "=1.0.2"
 flake8-bugbear = "=18.8.0"
 flake8-import-order = "=0.18"
