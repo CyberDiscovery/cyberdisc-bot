@@ -1,8 +1,10 @@
 FROM python:3.7-stretch
 
 WORKDIR /app
-ADD ./requirements.txt /app/requirements.txt
-RUN pip install -r requirements.txt
+RUN curl -sSL https://raw.githubusercontent.com/sdispater/poetry/master/get-poetry.py | python
+ADD ./pyproject.toml /app/pyproject.toml
+ADD ./poetry.lock /app/poetry.lock
+RUN poetry install --no-dev
 ADD . /app
 
-CMD python -m cdbot
+CMD poetry run cdbot
