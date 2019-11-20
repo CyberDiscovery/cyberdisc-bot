@@ -1,11 +1,10 @@
 FROM python:3.7-stretch
 
 WORKDIR /app
-RUN curl -sSL https://raw.githubusercontent.com/sdispater/poetry/master/get-poetry.py | python
-RUN source $HOME/.poetry/env
-ADD ./pyproject.toml /app/pyproject.toml
-ADD ./poetry.lock /app/poetry.lock
-RUN poetry install --no-dev
+RUN pip install poetry
+ADD pyproject.toml poetry.lock /app/
+RUN poetry config settings.virtualenvs.create false
+RUN poetry install --no-dev --no-interaction --no-ansi
 ADD . /app
 
-CMD poetry run cdbot
+CMD python -m cdbot
