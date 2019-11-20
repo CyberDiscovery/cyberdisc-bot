@@ -10,6 +10,7 @@ from typing import List
 from urllib.parse import urlencode
 
 import asyncpg
+from PIL import Image, ImageDraw, ImageFont
 from aiohttp import ClientSession
 from cdbot.constants import (
     EMOJI_LETTERS,
@@ -26,7 +27,6 @@ from discord.ext.commands import (
     Context, UserConverter, command, cooldown
 )
 from discord.utils import get
-from PIL import Image, ImageDraw, ImageFont
 
 ascii_lowercase += " !?$()"
 
