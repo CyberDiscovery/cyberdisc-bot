@@ -1,9 +1,10 @@
 import os
 
+from discord import Message
 from discord.ext import commands
 from discord.ext.commands import Bot, Cog
 from git import Repo
-
+import re
 
 path = os.path.dirname(os.path.abspath(__file__))
 path = '/'.join(path.split('/')[:-2])
@@ -17,8 +18,19 @@ class General(Cog):
     General Purpose Commands
     """
 
+    # General match strings
+    match_strings = [
+        # Events
+        (r"(^.*\bgci\b.*$)|(^.*\bgoogle\b.*\bcode\b.*$)", "Google Code-in is a global, open source competition where students aged 13-17 contribute to open source projects and earn prizes. Find out more at https://codein.withgoogle.com/ or join the Discord server at 651156140796674098")
+    ]
+
     def __init__(self, bot: Bot):
         self.bot = bot
+
+        self.matches = [
+            (re.compile(i[0], re.IGNORECASE), i[1]) for i in self.match_strings
+        ]
+
 
     @Cog.listener()
     async def on_ready(self):
@@ -81,6 +93,19 @@ class General(Cog):
 
         self.bot.log.exception(error, extra=extra_context)
 
+    @Cog.listener()
+    async def on_message(self, message: Message):
+        # Check the current command context
+        ctx = await self.bot.get_context(message)
+        # If message is a command, ignore regex responses.
+        if ctx.valid:
+            return
+
+        # Check if the message matches any of the regexes
+        for regex, response in self.matches:
+            if regex.match(message.content):
+                await message.channel.send(f"{message.author.mention}  |  {response}")
+                break
 
 def setup(bot):
     bot.add_cog(General(bot))
