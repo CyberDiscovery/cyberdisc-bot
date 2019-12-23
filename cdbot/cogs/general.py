@@ -21,7 +21,7 @@ class General(Cog):
     # General match strings
     match_strings = [
         # Events
-        (r"(^.*\bgci\b.*$)|(^.*\bgoogle\b.*\bcode\b.*$)", "Google Code-in is a global, open source competition where students aged 13-17 contribute to open source projects and earn prizes. Find out more at https://codein.withgoogle.com/ or join the Discord server at 651156140796674098")
+        (r"^.*\bwhat\b.*\b((gci)|(google\b.*\bcode))\b.*$", "Google Code-in is a global, open source competition where students aged 13-17 contribute to open source projects and earn prizes. Find out more at https://codein.withgoogle.com/ or join the Discord server at 651156140796674098")
     ]
 
     def __init__(self, bot: Bot):
