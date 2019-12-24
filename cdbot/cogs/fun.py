@@ -355,8 +355,8 @@ class Fun(Cog):
                 author_id = int(icon_url.split('/')[4])
             else:
                 author_info = embed.author.name.split("#")
-                if author_info[1] == None:
-                    author_info[1] = "0000"
+                if len(author_info) == 1:
+                    author_info.append("0000")
                 author = get(
                     quote.guild.members,
                     name=author_info[0],
