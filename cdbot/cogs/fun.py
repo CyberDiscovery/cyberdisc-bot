@@ -355,10 +355,7 @@ class Fun(Cog):
                 try:
                     author_id = int(icon_url.split('/')[-2])
                 except ValueError:
-                    try:
-                        author_id = (await FormerUser.convert(embed.author)).id
-                    except:
-                        author_id = 0
+                    author_id = 0
             else:
                 author_info = embed.author.name.split("#")
                 if len(author_info) == 1:
