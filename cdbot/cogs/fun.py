@@ -21,7 +21,7 @@ from cdbot.constants import (
     STAFF_ROLE_ID,
     WELCOME_BOT_ID,
 )
-from discord import Embed, File, guild, HTTPException, Message, NotFound, embeds
+from discord import Embed, File, HTTPException, Message, NotFound, embeds
 from discord.ext.commands import (
     Bot, BucketType, Cog,
     Context, UserConverter, command, cooldown
