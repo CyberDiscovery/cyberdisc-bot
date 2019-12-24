@@ -358,7 +358,7 @@ class Fun(Cog):
                     try:
                         author_id = (await guild.get_member_named(embed.author)).id
                     except:
-                        author_id = "" 
+                        author_id = 0
             else:
                 author_info = embed.author.name.split("#")
                 if len(author_info) == 1:
