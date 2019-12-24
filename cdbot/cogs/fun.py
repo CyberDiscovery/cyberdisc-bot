@@ -114,7 +114,7 @@ class Fun(Cog):
             "CREATE TABLE IF NOT EXISTS quotes (quote_id bigint PRIMARY KEY, author_id bigint)"
         )
         quote_channel = self.bot.get_channel(QUOTES_CHANNEL_ID)
-        async for quote in quote_channel.history(limit=None):
+        async for quote in quote_channel.history():
             await self.add_quote_to_db(conn, quote)
         await conn.close()
 
