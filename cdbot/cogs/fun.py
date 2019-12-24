@@ -21,7 +21,7 @@ from cdbot.constants import (
     STAFF_ROLE_ID,
     WELCOME_BOT_ID,
 )
-from discord import Embed, File, HTTPException, Message, NotFound, embeds
+from discord import Embed, File, guild, HTTPException, Message, NotFound, embeds
 from discord.ext.commands import (
     Bot, BucketType, Cog,
     Context, UserConverter, command, cooldown
@@ -352,7 +352,13 @@ class Fun(Cog):
             if type(icon_url) == embeds._EmptyEmbed or 'twimg' in icon_url:
                 author_id = QUOTES_BOT_ID
             elif 'avatars' in icon_url:
-                author_id = int(icon_url.split('/')[-2])
+                try:
+                    author_id = int(icon_url.split('/')[-2])
+                except ValueError:
+                    try:
+                        author_id = await guild.get_member_named(embed.author).id
+                    except:
+                        author_id = "" 
             else:
                 author_info = embed.author.name.split("#")
                 if len(author_info) == 1:
