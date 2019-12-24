@@ -51,7 +51,10 @@ class Cyber(Cog):
         (r"^.*\bwhat\b.*\belite\b.*\bemail\b.*$", "**Quote from the Cyber Discovery Elite team: **"
          "We’re currently allocating students to their preferred locations so it’s an ongoing process! "
          "We’ll send out details of your location as soon as we can. It shouldn’t be too long!"
-         )
+         ),
+
+        #Other events
+        (r"^.*\bwhat\b.*\b((gci)|(google\b.*\bcode))\b.*$", "Google Code-in is a global, open source competition where students aged 13-17 contribute to open source projects and earn prizes. Find out more at https://codein.withgoogle.com/ or join the Discord server at 651156140796674098")
     ]
 
     def __init__(self, bot: Bot):
