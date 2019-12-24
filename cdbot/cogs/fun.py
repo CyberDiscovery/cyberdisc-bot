@@ -114,7 +114,7 @@ class Fun(Cog):
             "CREATE TABLE IF NOT EXISTS quotes (quote_id bigint PRIMARY KEY, author_id bigint)"
         )
         quote_channel = self.bot.get_channel(QUOTES_CHANNEL_ID)
-        async for quote in quote_channel.history():
+        async for quote in quote_channel.history(limit=None):
             await self.add_quote_to_db(conn, quote)
         await conn.close()
 
@@ -355,6 +355,8 @@ class Fun(Cog):
                 author_id = int(icon_url.split('/')[4])
             else:
                 author_info = embed.author.name.split("#")
+                if author_info[1] == None:
+                    author_info[1] = "0000"
                 author = get(
                     quote.guild.members,
                     name=author_info[0],
