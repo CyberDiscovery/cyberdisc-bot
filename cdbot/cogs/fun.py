@@ -356,7 +356,7 @@ class Fun(Cog):
                     author_id = int(icon_url.split('/')[-2])
                 except ValueError:
                     try:
-                        author_id = await guild.get_member_named(embed.author).id
+                        author_id = (await guild.get_member_named(embed.author)).id
                     except:
                         author_id = "" 
             else:
