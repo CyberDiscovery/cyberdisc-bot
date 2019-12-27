@@ -352,9 +352,14 @@ class Fun(Cog):
             if type(icon_url) == embeds._EmptyEmbed or 'twimg' in icon_url:
                 author_id = QUOTES_BOT_ID
             elif 'avatars' in icon_url:
-                author_id = int(icon_url.split('/')[4])
+                try:
+                    author_id = int(icon_url.split('/')[-2])
+                except ValueError:
+                    author_id = 0
             else:
                 author_info = embed.author.name.split("#")
+                if len(author_info) == 1:
+                    author_info.append("0000")
                 author = get(
                     quote.guild.members,
                     name=author_info[0],
