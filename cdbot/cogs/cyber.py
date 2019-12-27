@@ -54,9 +54,11 @@ class Cyber(Cog):
          ),
 
         # Other events
-        (r"^.*\bwhat\b.*\b((gci)|(google\b.*\bcode))\b.*$", 
-         ("Google Code-in is a global, open source competition where students aged 13-17 contribute to open source projects and earn prizes."
-          " Find out more at https://codein.withgoogle.com/ or join the Discord server at https://discord.gg/rGwYUF9")
+        (r"^.*\bwhat\b.*\b((gci)|(google\b.*\bcode))\b.*$",
+         ("Google Code-in is a global, open source competition where students aged 13-17 contribute"
+          " to open source projects and earn prizes."
+          " Find out more at https://codein.withgoogle.com/ or join the Discord server at https://discord.gg/rGwYUF9"
+         )
         )
     ]
 
