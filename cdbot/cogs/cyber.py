@@ -68,7 +68,7 @@ class Cyber(Cog):
             (re.compile(i[0], re.IGNORECASE), i[1]) for i in self.match_strings
         ]
 
-    @command(aliases=["Manual", "manual", "fm"])
+    @command(aliases=["Manual", "manual", "fm", "rtfm"])
     async def fieldmanual(self, ctx: Context):
         """
         Returns a link to the field manual
