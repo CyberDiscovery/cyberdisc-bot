@@ -86,6 +86,7 @@ BASE_ALIASES = {
     "Headquarters": ["headquarters", "main", "hq", "h"],
     "Moonbase": ["moonbase", "python", "moon", "m"],
     "Forensics": ["forensics", "f"],
+    "Volcano": ["volcano", "v", "volc"]
 }
 
 # Admin Constants
