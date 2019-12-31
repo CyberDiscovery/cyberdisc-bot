@@ -73,12 +73,7 @@ class Cyber(Cog):
     async def level(self, ctx: Context, base: str, level_num: int, challenge_num: int = 0):
         """
         Gets information about a specific CyberStart Game level and challenge.
-        If the date is before the start date of game (15th January 2019) it will redirect to game() instead
         """
-
-        if datetime.date.today() < datetime.date(2019, 1, 15):
-            await self.game.callback(self, ctx)
-            return
 
         # Gather data from CyberStart Game.
         with open("cdbot/data/game.json") as f:
