@@ -139,6 +139,18 @@ flake8 = ">=3.0.0"
 
 [[package]]
 category = "dev"
+description = "JUnit XML Formatter for flake8"
+name = "flake8-formatter-junit-xml"
+optional = false
+python-versions = "*"
+version = "0.0.6"
+
+[package.dependencies]
+flake8 = ">3.0.0"
+junit-xml = ">=1.8"
+
+[[package]]
+category = "dev"
 description = "Flake8 and pylama plugin that checks the ordering of import statements."
 name = "flake8-import-order"
 optional = false
@@ -238,6 +250,17 @@ version = "0.23"
 
 [package.dependencies]
 zipp = ">=0.5"
+
+[[package]]
+category = "dev"
+description = "Creates JUnit XML test result documents that can be read by tools such as Jenkins"
+name = "junit-xml"
+optional = false
+python-versions = "*"
+version = "1.8"
+
+[package.dependencies]
+six = "*"
 
 [[package]]
 category = "dev"
@@ -396,7 +419,7 @@ version = "0.6.0"
 more-itertools = "*"
 
 [metadata]
-content-hash = "81f2fbe188e65425b7447dd4b878c22baba72cbab56d5d744eef391be16db9a5"
+content-hash = "f26e4a9266c5607622548557d884c920df2525dee74633821083f69b7bb8dbf3"
 python-versions = "^3.7"
 
 [metadata.hashes]
@@ -413,6 +436,7 @@ entrypoints = ["589f874b313739ad35be6e0cd7efde2a4e9b6fea91edcc34e58ecbb8dbe56d19
 flake8 = ["45681a117ecc81e870cbf1262835ae4af5e7a8b08e40b944a8a6e6b895914cfb", "49356e766643ad15072a789a20915d3c91dc89fd313ccd71802303fd67e4deca"]
 flake8-bandit = ["687fc8da2e4a239b206af2e54a90093572a60d0954f3054e23690739b0b0de3b"]
 flake8-bugbear = ["d8c466ea79d5020cb20bf9f11cf349026e09517a42264f313d3f6fddb83e0571", "ded4d282778969b5ab5530ceba7aa1a9f1b86fa7618fc96a19a1d512331640f8"]
+flake8-formatter-junit-xml = ["1ddd9356bb30ba736c3f14c769c837cfacf4f79c3d383ab963ef9d38eea05a9c", "6358a44ecafdf0f9c8ee5314859b8d6f553dc2e55e946a24c538185e1eba7ce6"]
 flake8-import-order = ["90a80e46886259b9c396b578d75c749801a41ee969a235e163cfe1be7afd2543", "a28dc39545ea4606c1ac3c24e9d05c849c6e5444a50fb7e9cdd430fc94de6e92"]
 flake8-polyfill = ["12be6a34ee3ab795b19ca73505e7b55826d5f6ad7230d31b18e106400169b9e9", "e44b087597f6da52ec6393a709e7108b2905317d0c0b744cdca6208e670d8eda"]
 flake8-string-format = ["68ea72a1a5b75e7018cae44d14f32473c798cf73d75cbaed86c6a9a907b770b2", "774d56103d9242ed968897455ef49b7d6de272000cfa83de5814273a868832f1"]
@@ -422,6 +446,7 @@ gitdb2 = ["1b6df1433567a51a4a9c1a5a0de977aa351a405cc56d7d35f3388bad1f630350", "9
 gitpython = ["9c2398ffc3dcb3c40b27324b316f08a4f93ad646d5a6328cafbb871aa79f5e42", "c155c6a2653593ccb300462f6ef533583a913e17857cfef8fc617c246b6dc245"]
 idna = ["c357b3f628cf53ae2c4c05627ecc484553142ca23264e593d327bcde5e9c3407", "ea8b7f6188e6fa117537c3df7da9fc686d485087abf6ac197f9c46432f7e4a3c"]
 importlib-metadata = ["aa18d7378b00b40847790e7c27e11673d7fed219354109d0e7b9e5b25dc3ad26", "d5f18a79777f3aa179c145737780282e27b508fc8fd688cb17c7a813e8bd39af"]
+junit-xml = ["602f1c480a19d64edb452bf7632f76b5f2cb92c1938c6e071dcda8ff9541dc21"]
 mccabe = ["ab8a6258860da4b6677da4bd2fe5dc2c659cff31b3ee4f7f5d64e79735b80d42", "dd8d182285a0fe56bace7f45b5e7d1a6ebcbf524e8f3bd87eb0f125271b8831f"]
 more-itertools = ["409cd48d4db7052af495b09dec721011634af3753ae1ef92d2b32f73a745f832", "92b8c4b06dac4f0611c0729b2f2ede52b2e1bac1ab48f089c7ddc12e26bb60c4"]
 multidict = ["08f00f616e4353dcdc0d099f36a41ec97246bf21f8c47bcdc0dded2f7d19a504", "38dc36421645832935221f7e59fb6a28e4b46a8964afe4bcebaf571990cca71d", "56b6d68a491884878f71a9e26cb97938be079676fb085f8918b5c04341d32fcc", "56fb5c003ef5d7b0d4957fe2d36fc29df16e56667ef78ee2a5bc5379c874fff0", "79eb0e87345581ee54517aa992a7ba712992cc49365ebe8dee8941deff8f05fa", "8a8a2d751d6819c78f34e9b0585b6a4bdba48419b974ea4da1f18266f4bf58be", "8f36da9daa09442ce948a62920dd07db79cbfec7e3bbf59aafbf1074cf12a1e6", "9190079aba47b54332bbcc45076c920622178f8df46e518bdbbfdf248c263947", "92c2a0ca7eaac81fd666f62a9020ad076c98b49e2176c1687b00ea736c7f5470", "a832c84e304ccb14dd49c28c04c944700fe6223c6ec3a0a7cb939c54b9c79e1d", "b0949bffd86aa640d3ad7c5dfc87b472097b9de44ff7c00f790eba4e5233f44f", "b949a2c80136aec1b5b68538924c12e13f37f26d10f0ca54ff2cce84368ff8cc", "e74cbadef9c961152c765f64efe959c8051d9fcfb89f18bcdf1fdd6e60facfc7", "ee2a54a197392752ca1bcd9cdb0e2a96fdefe2f0e029b2c09b72e03197c88a52", "eef66d45b31a6419c6ba35a782fcb5c34ffffc92d7a551e56ff30a2000640d8d", "f83cb1ca64da2c3793a3b18998008f451e6898fc07efd44567855378d84251ae", "fb1274ca2fc7a510b85b07923c54ffd2186b8043e191b2b791f9b578a8609504"]
