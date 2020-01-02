@@ -1,0 +1,55 @@
+trigger:
+- master
+
+stages:
+  - stage: Publish
+    jobs:
+      - job: Publish
+        displayName: Publish
+
+        pool:
+          vmImage: Ubuntu 18.04
+
+        steps:
+        - task: Docker@2
+          displayName: 'Publish to Docker Hub'
+          inputs:
+            containerRegistry: 'cdbot dockerhub'
+            repository: cyberdiscovery/cdbot
+            Dockerfile: '$(System.DefaultWorkingDirectory)/Dockerfile'
+            tags: latest
+
+        - task: Docker@2
+          displayName: 'Publish to GitHub Packages'
+          inputs:
+            containerRegistry: 'GitHub Packages'
+            repository: 'CyberDiscovery/cyberdisc-bot/cyberdisc-bot'
+            tags: latest
+  
+  - stage: Deploy
+    jobs:
+      - job: Deploy
+        displayName: Deploy
+
+        pool:
+          vmImage: Ubuntu 18.04
+
+        steps:
+        - task: Kubernetes@1
+          displayName: 'Delete Old Cluster'
+          inputs:
+            kubernetesServiceEndpoint: 'Bot Environment-default-1568896840810'
+            command: delete
+            arguments: 'deployment.extensions/cyberdisc-bot deployment.extensions/postgres'
+            versionSpec: 1.15.0
+
+        - task: Kubernetes@1
+          displayName: 'Deploy to Google Kubernetes Engine'
+          inputs:
+            kubernetesServiceEndpoint: 'Bot Environment-default-1568896840810'
+            command: apply
+            useConfigurationFile: true
+            configuration: '$(System.DefaultWorkingDirectory)/deployment.yaml'
+            secretType: generic
+            forceUpdate: false
+            versionSpec: 1.15.0

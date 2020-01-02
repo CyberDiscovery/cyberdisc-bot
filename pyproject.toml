@@ -11,7 +11,7 @@ aiohttp = "^3"
 python = "^3.7"
 python-dateutil = "^2.8"
 asyncpg = "^0.20.0"
-sentry-sdk = "^0.13.4"
+sentry-sdk = "^0.13.5"
 Pillow = "^6.2"
 gitpython = "^3"
 
@@ -23,6 +23,7 @@ flake8-import-order = "^0.18"
 flake8-string-format = "^0.2.3"
 flake8-tidy-imports = "^3"
 flake8-todo = "^0.7"
+flake8-formatter-junit-xml = "^0.0.6"
 
 [tool.poetry.scripts]
 cdbot = "cdbot:main"
