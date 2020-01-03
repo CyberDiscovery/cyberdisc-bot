@@ -1,6 +1,8 @@
 trigger:
 - master
 
+pr: none
+
 stages:
   - stage: Publish
     jobs:
