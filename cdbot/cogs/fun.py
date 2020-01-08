@@ -19,6 +19,7 @@ from cdbot.constants import (
     QUOTES_BOT_ID,
     QUOTES_CHANNEL_ID,
     STAFF_ROLE_ID,
+    SUDO_ROLE_ID,
     WELCOME_BOT_ID,
 )
 from discord import Embed, File, HTTPException, Message, NotFound, embeds
