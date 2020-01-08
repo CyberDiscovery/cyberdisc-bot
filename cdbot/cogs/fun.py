@@ -18,6 +18,7 @@ from cdbot.constants import (
     PostgreSQL,
     QUOTES_BOT_ID,
     QUOTES_CHANNEL_ID,
+    ROOT_ROLE_ID,
     STAFF_ROLE_ID,
     SUDO_ROLE_ID,
     WELCOME_BOT_ID,
