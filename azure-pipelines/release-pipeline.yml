@@ -1,6 +1,8 @@
 trigger:
 - master
 
+pr: none
+
 stages:
   - stage: Publish
     jobs:
@@ -16,7 +18,7 @@ stages:
           inputs:
             containerRegistry: 'cdbot dockerhub'
             repository: cyberdiscovery/cdbot
-            Dockerfile: '$(System.DefaultWorkingDirectory)/cyberdisc-bot/Dockerfile'
+            Dockerfile: '$(System.DefaultWorkingDirectory)/Dockerfile'
             tags: latest
 
         - task: Docker@2
@@ -49,7 +51,7 @@ stages:
             kubernetesServiceEndpoint: 'Bot Environment-default-1568896840810'
             command: apply
             useConfigurationFile: true
-            configuration: '$(System.DefaultWorkingDirectory)/cyberdisc-bot/deployment.yaml'
+            configuration: '$(System.DefaultWorkingDirectory)/deployment.yaml'
             secretType: generic
             forceUpdate: false
             versionSpec: 1.15.0
