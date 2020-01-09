@@ -356,7 +356,7 @@ class Fun(Cog):
         if member is None:
             ctx.send(f"There are {await conn.fetchval('SELECT count(*) FROM quotes;')} in the database")
         else:
-            ctx.send(f"There are {await conn.fetchval(f'SELECT count(*) FROM quotes WHERE author_id=$1;', member.id)} \
+            ctx.send(f"There are {await conn.fetchval('SELECT count(*) FROM quotes WHERE author_id=$1;', member.id)} \
             in the database")
 
     async def add_quote_to_db(self, conn: asyncpg.connection.Connection, quote: Message):
