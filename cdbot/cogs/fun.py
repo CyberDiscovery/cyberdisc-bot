@@ -342,6 +342,28 @@ class Fun(Cog):
 
         await ctx.send(content, embed=embed)
 
+    @command()
+    async def quotecount(self, ctx: Context, member: FormerUser = None):
+        """
+        Returns the number of quotes in the #quotes channel.
+        A user can be specified to return the number of quotes from that user.
+        """
+        conn = await asyncpg.connect(
+            host=PostgreSQL.PGHOST,
+            port=PostgreSQL.PGPORT,
+            user=PostgreSQL.PGUSER,
+            password=PostgreSQL.PGPASSWORD,
+            database=PostgreSQL.PGDATABASE,
+        )
+        total_quotes = await conn.fetchval('SELECT count(*) FROM quotes;')
+
+        if member is None:
+            await ctx.send(f"There are {total_quotes} quotes in the database")
+        else:
+            user_quotes = await conn.fetchval('SELECT count(*) FROM quotes WHERE author_id=$1;', member.id)
+            await ctx.send(f"There are {user_quotes} quotes from {member} in the database \
+({round((user_quotes / total_quotes) * 100, 2)}%)")
+
     async def add_quote_to_db(self, conn: asyncpg.connection.Connection, quote: Message):
         """
         Adds a quote message ID to the database, and attempts to identify the author of the quote.
