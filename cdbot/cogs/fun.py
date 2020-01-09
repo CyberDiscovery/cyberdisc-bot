@@ -18,7 +18,9 @@ from cdbot.constants import (
     PostgreSQL,
     QUOTES_BOT_ID,
     QUOTES_CHANNEL_ID,
+    ROOT_ROLE_ID,
     STAFF_ROLE_ID,
+    SUDO_ROLE_ID,
     WELCOME_BOT_ID,
 )
 from discord import Embed, File, HTTPException, Message, NotFound, embeds
@@ -157,7 +159,8 @@ class Fun(Cog):
             def check(reaction, user):
                 """Check if the reaction was valid."""
                 return all(
-                    (user == message.author, str(reaction.emoji) in "\N{THUMBS UP SIGN}\N{THUMBS DOWN SIGN}")
+                    (user == message.author or user.top_role.id in [ROOT_ROLE_ID, SUDO_ROLE_ID],
+                        str(reaction.emoji) in "\N{THUMBS UP SIGN}\N{THUMBS DOWN SIGN}")
                 )
 
             try:
