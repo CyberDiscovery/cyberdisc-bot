@@ -340,7 +340,7 @@ class Fun(Cog):
         await ctx.send(content, embed=embed)
 
     @command()
-    async def quotecount(self, ctx: Context, member: FormerUser = None):
+    async def quotecount(self, ctx: Context, member: FormerUser = None, arg: command.clean_content):
         """
         Returns the number of quotes in the #quotes channel.
         A user can be specified to return the number of quotes from that user.
@@ -354,10 +354,10 @@ class Fun(Cog):
         )
 
         if member is None:
-            await ctx.send(f"There are {await conn.fetchval('SELECT count(*) FROM quotes;')} in the database")
+            await ctx.send(f"There are {await conn.fetchval('SELECT count(*) FROM quotes;')} quotes in the database")
         else:
             await ctx.send(f"There are {await conn.fetchval('SELECT count(*) FROM quotes WHERE author_id=$1;', member.id)} \
-            in the database")
+ quotes from {member.mention} in the database")
 
     async def add_quote_to_db(self, conn: asyncpg.connection.Connection, quote: Message):
         """
