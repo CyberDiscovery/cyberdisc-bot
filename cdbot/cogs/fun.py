@@ -160,7 +160,7 @@ class Fun(Cog):
                 """Check if the reaction was valid."""
                 return all(
                     (user == message.author or user.top_role.id in [ROOT_ROLE_ID, SUDO_ROLE_ID],
-                    str(reaction.emoji) in "\N{THUMBS UP SIGN}\N{THUMBS DOWN SIGN}")
+                        str(reaction.emoji) in "\N{THUMBS UP SIGN}\N{THUMBS DOWN SIGN}")
                 )
 
             try:
