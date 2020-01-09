@@ -94,5 +94,5 @@ Finally, run the command `poetry run cdbot` in the root of the repository to run
 * **`:lmgtfy [-d][-ie] [search]`** - Returns a LMGTFY URL for the given question.  Adding `-d` will delete the message that instigated the command and `-ie` will enable the internet explainer feature on lmgtfy.
 * **`:hundred`** - Returns the number of people who have completed all of CyberStart Game.
 * **`:quotes [@mention]`** - Will return a random quote from the #quotes channel. Adding an username/mention will result in a random quote from that user being selected.
-* **`:react [emoji]`** - Reacts to the previous message with the space seperated emojis in the requesting message.
+* **`:react [emoji]`** - Reacts to the previous message with the space separated emojis in the requesting message.
 * **`:xkcd [? | 1810]`** - Fetches xkcd comics. If the argument is left blank the latest comic is shown.  A random comic is shown if the argument is a `?`.  Otherwise, a comic number can be used to fetch a specific comic.
