@@ -352,12 +352,14 @@ class Fun(Cog):
             password=PostgreSQL.PGPASSWORD,
             database=PostgreSQL.PGDATABASE,
         )
+        total_quotes = await conn.fetchval('SELECT count(*) FROM quotes;')
 
         if member is None:
-            await ctx.send(f"There are {await conn.fetchval('SELECT count(*) FROM quotes;')} quotes in the database")
+            await ctx.send(f"There are {total} quotes in the database")
         else:
-            await ctx.send(f"There are {await conn.fetchval('SELECT count(*) FROM quotes WHERE author_id=$1;', member.id)} \
-quotes from {member} in the database")
+            user_quotes = await conn.fetchval('SELECT count(*) FROM quotes WHERE author_id=$1;', member.id)
+            await ctx.send(f"There are {} quotes from {member} in the database \
+({((user_quotes - total_quotes) / total_quotes) * 100}%)")
 
     async def add_quote_to_db(self, conn: asyncpg.connection.Connection, quote: Message):
         """
