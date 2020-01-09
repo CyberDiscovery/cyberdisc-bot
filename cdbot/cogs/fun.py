@@ -355,7 +355,7 @@ class Fun(Cog):
         total_quotes = await conn.fetchval('SELECT count(*) FROM quotes;')
 
         if member is None:
-            await ctx.send(f"There are {total} quotes in the database")
+            await ctx.send(f"There are {total_quotes} quotes in the database")
         else:
             user_quotes = await conn.fetchval('SELECT count(*) FROM quotes WHERE author_id=$1;', member.id)
             await ctx.send(f"There are {total_quotes} quotes from {member} in the database \
