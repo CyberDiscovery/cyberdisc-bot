@@ -386,7 +386,7 @@ class Fun(Cog):
         pos = 0
 
         for i in await conn.fetch("SELECT author_id, COUNT(author_id) as quote_count FROM quotes GROUP BY author_id \
-ORDER BY author_id LIMIT 10 OFFSET $1;", (page - 1) * 10):
+ORDER BY author_id LIMIT 10 OFFSET $1 SORT BY quote_count;", (page - 1) * 10):
             users += f"{page + pos}. <@{i['author_id']}> - {i['quote_count']}\n"
             pos += 1
 
