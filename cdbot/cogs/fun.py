@@ -14,7 +14,7 @@ import asyncpg
 from PIL import Image, ImageDraw, ImageFont
 from aiohttp import ClientSession
 from cdbot.constants import (
-    CYBERDISC_ICON_URL
+    CYBERDISC_ICON_URL,
     EMOJI_LETTERS,
     FAKE_ROLE_ID,
     PostgreSQL,
