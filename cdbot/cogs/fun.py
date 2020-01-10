@@ -392,7 +392,7 @@ ORDER BY author_id LIMIT 10 OFFSET $1;", (page - 1) * 10):
 
         embed = Embed(description="Quotes Leaderboard", colour=Colour(0xae444a)).set_footer(
             text=f"Page {int}/{page_count}").add_field(value=users).set_author(name="Cyber Discovery Community",
-            icon_url=CYBERDISC_ICON_URL)
+                                                                               icon_url=CYBERDISC_ICON_URL)
 
         await ctx.send(embed=embed)
 
