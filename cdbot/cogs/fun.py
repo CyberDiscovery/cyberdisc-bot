@@ -364,6 +364,36 @@ class Fun(Cog):
             await ctx.send(f"There are {user_quotes} quotes from {member} in the database \
 ({round((user_quotes / total_quotes) * 100, 2)}%)")
 
+    @command()
+    async def quoteboard(self, ctx: Context, page: int = 1):
+        conn = await asyncpg.connect(
+            host=PostgreSQL.PGHOST,
+            port=PostgreSQL.PGPORT,
+            user=PostgreSQL.PGUSER,
+            password=PostgreSQL.PGPASSWORD,
+            database=PostgreSQL.PGDATABASE,
+        )
+
+        page_count = ceil((await conn.fetchval("SELECT count(*) FROM quotes;")) / 10)
+
+        if page > page_count:
+            await ctx.send(":no_entry_sign: Invalid page number")
+            return
+
+        users = ""
+        pos = 0
+
+        for i in await conn.fetchall("SELECT author_id, COUNT(author_id) as quote_count FROM quotes GROUP BY author_id ORDER BY author_id LIMIT 10 OFFSET $1;", (page - 1) * 10):
+            users += f"{page + pos}. {Bot.get_all_members(id=str(i["author_id"]).mention()} - {i["quote_count"]}\n"
+            pos += 1
+
+        embed = Embed(description="Quotes Leaderboard", colour=Colour(0xae444a))
+        .set_footer(text=f"Page {int}/{page_count}")
+        .add_field(value=users)
+        .set_author(name="Cyber Discovery Community", icon_url=CYBERDISC_ICON_URL)
+
+        await ctx.send(embed=embed)
+
     async def add_quote_to_db(self, conn: asyncpg.connection.Connection, quote: Message):
         """
         Adds a quote message ID to the database, and attempts to identify the author of the quote.
