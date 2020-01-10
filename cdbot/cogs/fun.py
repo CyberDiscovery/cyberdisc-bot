@@ -378,7 +378,7 @@ class Fun(Cog):
 
         page_count = ceil((await conn.fetchval("SELECT count(DISTINCT author_id) FROM quotes;")) / 10)
 
-        if 0 => page or page > page_count:
+        if 1 > page or page > page_count:
             await ctx.send(":no_entry_sign: Invalid page number")
             return
 
