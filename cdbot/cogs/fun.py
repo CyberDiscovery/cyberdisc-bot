@@ -387,7 +387,7 @@ class Fun(Cog):
 
         for i in await conn.fetch("SELECT author_id, COUNT(author_id) as quote_count FROM quotes GROUP BY author_id \
 ORDER BY quote_count DESC LIMIT 10 OFFSET $1;", (page - 1) * 10):
-            users += f"{page + pos}. <@{i['author_id']}> - {i['quote_count']}\n"
+            users += f"{page * 10 + pos}. <@{i['author_id']}> - {i['quote_count']}\n"
             pos += 1
 
         embed = Embed(colour=Colour(0xae444a))
