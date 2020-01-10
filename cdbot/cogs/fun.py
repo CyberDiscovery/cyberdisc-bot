@@ -376,7 +376,7 @@ class Fun(Cog):
             database=PostgreSQL.PGDATABASE,
         )
 
-        page_count = ceil((await conn.fetchval("SELECT count(DISTINCT author_id) FROM quotes;"))/10)
+        page_count = ceil((await conn.fetchval("SELECT count(DISTINCT author_id) FROM quotes;")) / 10)
 
         if page > page_count:
             await ctx.send(":no_entry_sign: Invalid page number")
