@@ -28,7 +28,7 @@ from cdbot.constants import (
 from discord import Colour, Embed, File, HTTPException, Message, NotFound, embeds
 from discord.ext.commands import (
     Bot, BucketType, Cog,
-    Context, UserConverter, command, cooldown, UserConverter
+    Context, UserConverter, command, cooldown
 )
 from discord.utils import get
 
