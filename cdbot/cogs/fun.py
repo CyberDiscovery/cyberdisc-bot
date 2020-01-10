@@ -4,6 +4,7 @@ Set of bot commands designed for general leisure.
 import asyncio
 import textwrap
 from io import BytesIO
+from math import ceil
 from random import randint
 from string import ascii_lowercase
 from typing import List
@@ -13,6 +14,7 @@ import asyncpg
 from PIL import Image, ImageDraw, ImageFont
 from aiohttp import ClientSession
 from cdbot.constants import (
+    CYBERDISC_ICON_URL,
     EMOJI_LETTERS,
     FAKE_ROLE_ID,
     PostgreSQL,
@@ -23,7 +25,7 @@ from cdbot.constants import (
     SUDO_ROLE_ID,
     WELCOME_BOT_ID,
 )
-from discord import Embed, File, HTTPException, Message, NotFound, embeds
+from discord import Colour, Embed, File, HTTPException, Message, NotFound, embeds
 from discord.ext.commands import (
     Bot, BucketType, Cog,
     Context, UserConverter, command, cooldown
@@ -363,6 +365,36 @@ class Fun(Cog):
             user_quotes = await conn.fetchval('SELECT count(*) FROM quotes WHERE author_id=$1;', member.id)
             await ctx.send(f"There are {user_quotes} quotes from {member} in the database \
 ({round((user_quotes / total_quotes) * 100, 2)}%)")
+
+    @command()
+    async def quoteboard(self, ctx: Context, page: int = 1):
+        conn = await asyncpg.connect(
+            host=PostgreSQL.PGHOST,
+            port=PostgreSQL.PGPORT,
+            user=PostgreSQL.PGUSER,
+            password=PostgreSQL.PGPASSWORD,
+            database=PostgreSQL.PGDATABASE,
+        )
+
+        page_count = ceil((await conn.fetchval("SELECT count(DISTINCT author_id) FROM quotes;")) / 10)
+
+        if 1 > page or page > page_count:
+            await ctx.send(":no_entry_sign: Invalid page number")
+            return
+
+        users = ""
+        pos = 0
+
+        for i in await conn.fetch("SELECT author_id, COUNT(author_id) as quote_count FROM quotes GROUP BY author_id \
+ORDER BY quote_count DESC LIMIT 10 OFFSET $1;", (page - 1) * 10):
+            users += f"{((page - 1) * 10) + 1 + pos}. <@{i['author_id']}> - {i['quote_count']}\n"
+            pos += 1
+
+        embed = Embed(colour=Colour(0xae444a))
+        embed.add_field(name=f"Page {page}/{page_count}", value=users)
+        embed.set_author(name="Quotes Leaderboard", icon_url=CYBERDISC_ICON_URL)
+
+        await ctx.send(embed=embed)
 
     async def add_quote_to_db(self, conn: asyncpg.connection.Connection, quote: Message):
         """
