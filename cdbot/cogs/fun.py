@@ -391,7 +391,7 @@ ORDER BY author_id LIMIT 10 OFFSET $1 SORT BY quote_count;", (page - 1) * 10):
             pos += 1
 
         embed = Embed(colour=Colour(0xae444a))
-        embed.add_field(name=f"Page {int}/{page_count}", value=users)
+        embed.add_field(name=f"Page {page}/{page_count}", value=users)
         embed.set_author(name="Quotes Leaderboard", icon_url=CYBERDISC_ICON_URL)
 
         await ctx.send(embed=embed)
