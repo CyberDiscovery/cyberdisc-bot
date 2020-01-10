@@ -376,7 +376,7 @@ class Fun(Cog):
             database=PostgreSQL.PGDATABASE,
         )
 
-        page_count = ceil((await conn.fetchval("SELECT count(*) FROM quotes;")) / 10)
+        page_count = ceil((await conn.fetchval("SELECT count(author_id) FROM quotes GROUP BY author_id;")) / 10)
 
         if page > page_count:
             await ctx.send(":no_entry_sign: Invalid page number")
@@ -391,7 +391,7 @@ ORDER BY quote_count DESC LIMIT 10 OFFSET $1;", (page - 1) * 10):
             pos += 1
 
         embed = Embed(colour=Colour(0xae444a))
-        embed.add_field(name=f"Page {page}/{await conn.fetchval('SELECT COUNT(author_id) FROM quotes;')}", value=users)
+        embed.add_field(name=f"Page {page}/{page_count}", value=users)
         embed.set_author(name="Quotes Leaderboard", icon_url=CYBERDISC_ICON_URL)
 
         await ctx.send(embed=embed)
