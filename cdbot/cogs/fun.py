@@ -384,7 +384,7 @@ class Fun(Cog):
         pos = 0
 
         for i in await conn.fetchall("SELECT author_id, COUNT(author_id) as quote_count FROM quotes GROUP BY author_id ORDER BY author_id LIMIT 10 OFFSET $1;", (page - 1) * 10):
-            users += f"{page + pos}. {Bot.get_all_members(id=str(i["author_id"]).mention()} - {i["quote_count"]}\n"
+            users += f"{page + pos}. {Bot.get_all_members(id=str(i["author_id"])).mention()} - {i["quote_count"]}\n"
             pos += 1
 
         embed = Embed(description="Quotes Leaderboard", colour=Colour(0xae444a))
