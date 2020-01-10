@@ -28,7 +28,7 @@ from cdbot.constants import (
 from discord import Colour, Embed, File, HTTPException, Message, NotFound, embeds
 from discord.ext.commands import (
     Bot, BucketType, Cog,
-    Context, UserConverter, command, cooldown
+    Context, UserConverter, command, cooldown, UserConverter
 )
 from discord.utils import get
 
@@ -387,7 +387,7 @@ class Fun(Cog):
 
         for i in await conn.fetch("SELECT author_id, COUNT(author_id) as quote_count FROM quotes GROUP BY author_id \
 ORDER BY author_id LIMIT 10 OFFSET $1;", (page - 1) * 10):
-            users += f"{page + pos}. {Bot.get_all_members(id=str(i['author_id'])).mention()} - {i['quote_count']}\n"
+            users += f"{page + pos}. {bot.get_user(int(i['author_id'])).mention()} - {i['quote_count']}\n"
             pos += 1
 
         embed = Embed(description="Quotes Leaderboard", colour=Colour(0xae444a)).set_footer(
