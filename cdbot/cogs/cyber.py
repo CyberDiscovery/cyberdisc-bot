@@ -360,8 +360,8 @@ class Cyber(Cog):
         if ELITECOUNT_ENABLED:
             preferences = {
                 '2019': {
-                    'Cyberist': Roles.Elite.2019.CYBERIST,
-                    'Forensicator': Roles.Elite.2019.FORENSICATOR
+                    'Cyberist': Roles.Elite.VET2019.CYBERIST,
+                    'Forensicator': Roles.Elite.VET2019.FORENSICATOR
                 },
             }
 

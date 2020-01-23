@@ -63,7 +63,7 @@ class Roles:
             YOUNGER = int(environ.get("LAN_Y_MEMBERS_ID", "580387892853997578"))
             OLDER = int(environ.get("LAN_O_MEMBERS_ID", "580387898973618176"))
 
-        class 2019:
+        class VET2019:
             CYBERIST = int(environ.get("2019_CYBERIST_MEMBERS_ID", asd))
             FORENSICATOR = int(environ.get("2019_FORENSICATOR_MEMBERS_ID", asd))
 
