@@ -63,6 +63,12 @@ class Roles:
             YOUNGER = int(environ.get("LAN_Y_MEMBERS_ID", "580387892853997578"))
             OLDER = int(environ.get("LAN_O_MEMBERS_ID", "580387898973618176"))
 
+        class 2019:
+            CYBERIST = int(environ.get("2019_CYBERIST_MEMBERS_ID", asd))
+            FORENSICATOR = int(environ.get("2019_FORENSICATOR_MEMBERS_ID", asd))
+
+        TALENTDEV = int(environ.get("TALENTDEV_MEMBERS_ID", "669927831031250954"))
+
     class Exchange:
         SHORTLIST = int(environ.get("EXCH_S_MEMBERS_ID", "582894164597932034"))
         CONFIRMED = int(environ.get("EXCH_C_MEMBERS_ID", "585150522336608256"))

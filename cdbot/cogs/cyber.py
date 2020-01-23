@@ -359,29 +359,15 @@ class Cyber(Cog):
         """
         if ELITECOUNT_ENABLED:
             preferences = {
-                'London': {
-                    'Younger': Roles.Elite.London.YOUNGER,
-                    'Older': Roles.Elite.London.OLDER
+                '2019': {
+                    'Cyberist': Roles.Elite.2019.CYBERIST,
+                    'Forensicator': Roles.Elite.2019.FORENSICATOR
                 },
-                'Birmingham': {
-                    'Younger': Roles.Elite.Birmingham.YOUNGER,
-                    'Older': Roles.Elite.Birmingham.OLDER
-                },
-                'Lancaster': {
-                    'Younger': Roles.Elite.Lancaster.YOUNGER,
-                    'Older': Roles.Elite.Lancaster.OLDER
-                }
             }
-
-            elite = len(ctx.guild.get_role(Roles.Elite.MAIN).members)
-            exchange = len(ctx.guild.get_role(Roles.Exchange.SHORTLIST).members)
-            confirmed = len(ctx.guild.get_role(Roles.Exchange.CONFIRMED).members)
 
             year = datetime.datetime.utcnow().year
 
             description = textwrap.dedent(f"""
-            **Total qualified**: {elite}
-
             **Camp Statistics**
             """)
 
@@ -398,9 +384,9 @@ class Cyber(Cog):
                     section += f"**{age}**: {len(r.members)}\n"
                 embed.add_field(name=location, value=section, inline=True)
 
-            exchange_text = f"**Shortlisted**: {exchange}\n**Confirmed**: {confirmed}"
-
-            embed.add_field(name="Exchange", value=exchange_text, inline=True)
+            embed.add_field(name="Talent Development Programme",
+                            value=f"**Participants**: {len(ctx.guild.get_role(Roles.Elite.TALENTDEV).members)}",
+                            inline=True)
 
             await ctx.send(embed=embed)
         else:
