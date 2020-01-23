@@ -360,18 +360,16 @@ class Cyber(Cog):
         if ELITECOUNT_ENABLED:
             preferences = {
                 '2019': {
-                    'Cyberist': Roles.Elite.VET2019.CYBERIST,
-                    'Forensicator': Roles.Elite.VET2019.FORENSICATOR
+                    'Cyberists': Roles.Elite.VET2019.CYBERIST,
+                    'Forensicators': Roles.Elite.VET2019.FORENSICATOR
                 },
             }
-
-            year = datetime.datetime.utcnow().year
 
             description = textwrap.dedent(f"""
             **Camp Statistics**
             """)
 
-            embed = Embed(title=f"CyberStart Elite {year}",
+            embed = Embed(title=f"CyberStart Elite {datetime.datetime.utcnow().year}",
                           description=description,
                           colour=Colour(0xae444a))  # A nice red
 
