@@ -63,6 +63,12 @@ class Roles:
             YOUNGER = int(environ.get("LAN_Y_MEMBERS_ID", "580387892853997578"))
             OLDER = int(environ.get("LAN_O_MEMBERS_ID", "580387898973618176"))
 
+        class VET2019:
+            CYBERIST = int(environ.get("2019_CYBERIST_MEMBERS_ID", "610387199300730900"))
+            FORENSICATOR = int(environ.get("2019_FORENSICATOR_MEMBERS_ID", "580387897644023811"))
+
+        TALENTDEV = int(environ.get("TALENTDEV_MEMBERS_ID", "669927831031250954"))
+
     class Exchange:
         SHORTLIST = int(environ.get("EXCH_S_MEMBERS_ID", "582894164597932034"))
         CONFIRMED = int(environ.get("EXCH_C_MEMBERS_ID", "585150522336608256"))
@@ -71,7 +77,7 @@ class Roles:
 # Cyber Constants
 HINTS_LIMIT = 8
 CYBERDISC_ICON_URL = "https://pbs.twimg.com/profile_images/921313066515615745/fLEl2Gfa_400x400.jpg"
-ELITECOUNT_ENABLED = False
+ELITECOUNT_ENABLED = True
 
 # Readme command constants
 README_SEND_ALIASES = ["create", "push", "generate", "send", "make", "build", "upload"]
