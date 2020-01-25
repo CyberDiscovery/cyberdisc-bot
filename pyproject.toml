@@ -11,7 +11,7 @@ aiohttp = "^3"
 python = "^3.7"
 python-dateutil = "^2.8"
 asyncpg = "^0.20.1"
-sentry-sdk = "^0.14.0"
+sentry-sdk = "^0.14.1"
 Pillow = "^7.0"
 gitpython = "^3"
 
