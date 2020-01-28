@@ -129,7 +129,7 @@
                     "value": "Spam clogs up the channels, and we will take action if you post a large number of messages in a short period of time or post long messages unnecessarily."
                 },
                 {
-                    "name": "3. Keep spam or shitposting to <#489217138020712478>",
+                    "name": "3. Keep spam or shitposting to #overflow",
                     "value": "<#489217138020712478> is still subject to other rules - it is not a channel for NSFW content. However, spam, inappropriate discussions, and other content deemed to be unsuitable for other channels yet still maintainable on the server should be moved here. Mention spam is not acceptable."
                 },
                 {
