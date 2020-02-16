@@ -136,6 +136,7 @@ class Fun(Cog):
 
     @cooldown(1, 60, BucketType.user)
     @cooldown(4, 60, BucketType.channel)
+    @cooldown(6, 3600, BucketType.guild)
     @Cog.listener()
     async def on_message(self, message: Message):
         # If a new quote is added, add it to the database.
