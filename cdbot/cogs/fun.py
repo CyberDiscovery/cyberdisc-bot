@@ -134,6 +134,8 @@ class Fun(Cog):
 
         await self.migrate_quotes()
 
+    @cooldown(1, 60, BucketType.user)
+    @cooldown(4, 60, BucketType.channel)
     @Cog.listener()
     async def on_message(self, message: Message):
         # If a new quote is added, add it to the database.
