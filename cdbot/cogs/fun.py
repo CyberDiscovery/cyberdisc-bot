@@ -235,7 +235,7 @@ class Fun(Cog):
         if delete:
             await ctx.message.delete()
 
-    # Ratelimit to two usages per user every minute and 4 usages per minute per channel
+    # Ratelimit to one use per user every minute and 4 usages per minute per channel
     @command(aliases=["emojify"])
     @cooldown(1, 60, BucketType.user)
     @cooldown(4, 60, BucketType.channel)
