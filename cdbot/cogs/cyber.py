@@ -125,7 +125,8 @@ class Cyber(Cog):
     async def five_six(self, ctx, user: User):
         announcement = Embed(
             title=f"Excuse Me",
-            description=f"Are *you* on 5.6, {user.mention}? No, I didn't think so. Please calm down, we've already done that.",
+            description=f"Are *you* on 5.6, {user.mention}? No, I didn't think so. " + 
+                            "Please calm down, we've already done that.",
             colour=Colour.dark_red(),
         )
         await ctx.send(embed=announcement)
