@@ -14,7 +14,7 @@ from cdbot.constants import (
 )
 from dateutil.parser import parse
 from dateutil.relativedelta import relativedelta
-from discord import Colour, Embed, File, Message
+from discord import Colour, Embed, File, Message, User
 from discord.ext.commands import Bot, Cog, Context, command, has_role
 
 
@@ -120,6 +120,15 @@ class Cyber(Cog):
             embed.set_footer(text="  |  ".join(challenge_tip))
 
             await ctx.send(embed=embed)
+
+    @command(name="56", aliases=["5.6"])
+    async def five_six(self, ctx, user: User):
+        announcement = Embed(
+            title=f"Excuse Me",
+            description=f"Are *you* on 5.6, {user.mention}? No, I didn't think so. Please calm down, we've already done that.",
+            colour=Colour.dark_red(),
+        )
+        await ctx.send(embed=announcement)
 
     @command()
     async def flag(self, ctx: Context, base: str, level_num: int, challenge_num: int = 0):
