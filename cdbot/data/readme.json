@@ -74,10 +74,6 @@
                     "value": "Completed volcano base from CyberStart Game"
                 },
                 {
-                    "name": "Partner Server",
-                    "value": "Staff or significant members of affiliated servers"
-                },
-                {
                     "name": "Quote Czar",
                     "value": "Have the ability to quote messages in <#463657120441696256>"
                 },
@@ -104,10 +100,6 @@
                 {
                     "name": "Muted",
                     "value": "Cannot speak in any channel"
-                },
-                {
-                    "name": "Game Support",
-                    "value": "Used for offering assistance with CyberStart Game"
                 }
 
             ]
@@ -142,7 +134,7 @@
                 },
                 {
                     "name": "6. No unauthorised invite links",
-                    "value": "A list of authorised invite links can be found on [meta](https://github.com/CyberDiscovery/meta/RULES.md#authorised-invite-links)."
+                    "value": "A list of authorised invite links can be found on [meta](https://github.com/CyberDiscovery/meta/blob/master/RULES.md#authorised-invite-links)."
                 },
                 {
                     "name": "7. No encouragement of illegal activity",
