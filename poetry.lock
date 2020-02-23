@@ -178,7 +178,7 @@ description = "string format checker, plugin for flake8"
 name = "flake8-string-format"
 optional = false
 python-versions = "*"
-version = "0.2.3"
+version = "0.3.0"
 
 [package.dependencies]
 flake8 = "*"
@@ -419,7 +419,7 @@ version = "0.6.0"
 more-itertools = "*"
 
 [metadata]
-content-hash = "ab018de18c12bbaff21b2815ebb38ce2fb5b750c9fff2d9ac4400ac270bd74e8"
+content-hash = "50bc9cf4c225de947fd8ddde2c3146c5a39d434ac0e1bac7652bad38901c598f"
 python-versions = "^3.7"
 
 [metadata.hashes]
@@ -439,7 +439,7 @@ flake8-bugbear = ["a3ddc03ec28ba2296fc6f89444d1c946a6b76460f859795b35b77d4920a51
 flake8-formatter-junit-xml = ["1ddd9356bb30ba736c3f14c769c837cfacf4f79c3d383ab963ef9d38eea05a9c", "6358a44ecafdf0f9c8ee5314859b8d6f553dc2e55e946a24c538185e1eba7ce6"]
 flake8-import-order = ["90a80e46886259b9c396b578d75c749801a41ee969a235e163cfe1be7afd2543", "a28dc39545ea4606c1ac3c24e9d05c849c6e5444a50fb7e9cdd430fc94de6e92"]
 flake8-polyfill = ["12be6a34ee3ab795b19ca73505e7b55826d5f6ad7230d31b18e106400169b9e9", "e44b087597f6da52ec6393a709e7108b2905317d0c0b744cdca6208e670d8eda"]
-flake8-string-format = ["68ea72a1a5b75e7018cae44d14f32473c798cf73d75cbaed86c6a9a907b770b2", "774d56103d9242ed968897455ef49b7d6de272000cfa83de5814273a868832f1"]
+flake8-string-format = ["65f3da786a1461ef77fca3780b314edb2853c377f2e35069723348c8917deaa2", "812ff431f10576a74c89be4e85b8e075a705be39bc40c4b4278b5b13e2afa9af"]
 flake8-tidy-imports = ["8aa34384b45137d4cf33f5818b8e7897dc903b1d1e10a503fa7dd193a9a710ba", "b26461561bcc80e8012e46846630ecf0aaa59314f362a94cb7800dfdb32fa413"]
 flake8-todo = ["6e4c5491ff838c06fe5a771b0e95ee15fc005ca57196011011280fc834a85915"]
 gitdb2 = ["0375d983fd887d03c8942e81b1b0abc6c320cfb500cd3fe0d9c0eac87fbf2b52", "b2b3a67090c17dc61f8407ca485e79ae811225ab5ebcd98ac5ee01448e8987b5"]
