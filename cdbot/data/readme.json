@@ -1,6 +1,6 @@
 {
     "part1": {
-        "content": "**Welcome to the Cyber Discovery Discord Server!** This is a place to discuss all things Cyber Discovery (and a few things tangentially related as well), to meet like-minded people, and to learn more about cyber security!\nAlthough this server is set up for the UK Cyber Discovery programme, we welcome participants from sister programmes such as the US Cyber FastTrack programme. While we do not have specific channels or roles set up for other programmes, feel free to use <#509080315369881600> for discussion or to ask for help at any time.\n Permanent invite link: https://discord.cyberdiscoverycommunity.uk"
+        "content": "**Welcome to the Cyber Discovery Discord Server!** This is a place to discuss all things Cyber Discovery (and a few things tangentially related as well), to meet like-minded people, and to learn more about cyber security!\nAlthough this server is set up for the UK Cyber Discovery programme, we welcome participants from sister programmes such as the US Cyber FastTrack programme. While we do not have specific channels or roles set up for other programmes, feel free to use <#509080315369881600> for discussion or to ask for help at any time.\nPermanent invite link: <https://discord.cyberdiscoverycommunity.uk>"
     },
 
     "part2": {
@@ -100,10 +100,6 @@
                 {
                     "name": "Muted",
                     "value": "Cannot speak in any channel"
-                },
-                {
-                    "name": "Game Support",
-                    "value": "Used for offering assistance with CyberStart Game"
                 }
 
             ]
@@ -125,7 +121,7 @@
                     "value": "Spam clogs up the channels, and we will take action if you post a large number of messages in a short period of time or post long messages unnecessarily."
                 },
                 {
-                    "name": "3. Keep spam or shitposting to <#489217138020712478>",
+                    "name": "3. Keep spam or shitposting to #overflow",
                     "value": "<#489217138020712478> is still subject to other rules - it is not a channel for NSFW content. However, spam, inappropriate discussions, and other content deemed to be unsuitable for other channels yet still maintainable on the server should be moved here. Mention spam is not acceptable."
                 },
                 {

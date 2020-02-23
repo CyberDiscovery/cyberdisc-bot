@@ -134,6 +134,9 @@ class Fun(Cog):
 
         await self.migrate_quotes()
 
+    @cooldown(1, 60, BucketType.user)
+    @cooldown(4, 60, BucketType.channel)
+    @cooldown(6, 3600, BucketType.guild)
     @Cog.listener()
     async def on_message(self, message: Message):
         # If a new quote is added, add it to the database.
@@ -235,7 +238,7 @@ class Fun(Cog):
         if delete:
             await ctx.message.delete()
 
-    # Ratelimit to two usages per user every minute and 4 usages per minute per channel
+    # Ratelimit to one use per user every minute and 4 usages per minute per channel
     @command(aliases=["emojify"])
     @cooldown(1, 60, BucketType.user)
     @cooldown(4, 60, BucketType.channel)
