@@ -28,7 +28,7 @@ spec:
     spec:
       containers:
       - name: "postgres"
-        image: "postgres:latest"
+        image: "postgres:11"
         env:
         - name: "POSTGRES_DB"
           valueFrom:
