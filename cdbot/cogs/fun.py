@@ -219,6 +219,15 @@ class Fun(Cog):
     async def on_reaction_add(self, reaction: Reaction, user: Member):
         if reaction.emoji == "\N{THUMBS DOWN SIGN}" and reaction.message.channel.id == QUOTES_CHANNEL_ID:
             if reaction.count >= 5:
+                conn = await asyncpg.connect(
+                    host=PostgreSQL.PGHOST,
+                    port=PostgreSQL.PGPORT,
+                    user=PostgreSQL.PGUSER,
+                    password=PostgreSQL.PGPASSWORD,
+                    database=PostgreSQL.PGDATABASE,
+                )
+                await conn.execute("DELETE FROM quotes WHERE quote_id = $1;", reaction.message.id)
+                await conn.close()
                 await reaction.message.delete()
 
     @command()
