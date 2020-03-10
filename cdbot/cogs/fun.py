@@ -25,7 +25,7 @@ from cdbot.constants import (
     SUDO_ROLE_ID,
     WELCOME_BOT_ID,
 )
-from discord import Colour, Embed, File, HTTPException, Message, NotFound, embeds
+from discord import Colour, Embed, File, HTTPException, Member, Message, NotFound, Reaction, embeds
 from discord.ext.commands import (
     Bot, BucketType, Cog,
     Context, UserConverter, command, cooldown
@@ -214,6 +214,12 @@ class Fun(Cog):
         # Adds waving emoji when a new user joins.
         if "Welcome to the Cyber Discovery" in message.content and message.author.id == WELCOME_BOT_ID:
             await message.add_reaction("\N{WAVING HAND SIGN}")
+
+    @Cog.listener()
+    async def on_reaction_add(self, reaction: Reaction, user: Member):
+        if reaction.emoji == "\N{THUMBS DOWN SIGN}" and reaction.message.channel.id == QUOTES_CHANNEL_ID:
+            if reaction.count >= 5:
+                await reaction.message.delete()
 
     @command()
     async def lmgtfy(self, ctx: Context, *args: str):
