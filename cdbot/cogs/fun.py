@@ -226,7 +226,8 @@ class Fun(Cog):
                     password=PostgreSQL.PGPASSWORD,
                     database=PostgreSQL.PGDATABASE,
                 )
-                await conn.execute("DELETE FROM quotes WHERE message_id = $1;", reaction.message.id)
+                await conn.execute("DELETE FROM quotes WHERE quote_id = $1;", reaction.message.id)
+                await conn.close()
                 await reaction.message.delete()
 
     @command()
