@@ -217,7 +217,7 @@ class Fun(Cog):
 
     @Cog.listener()
     async def on_reaction_add(self, reaction: Reaction, user: Member):
-        if str(reaction.message) == "\N{THUMBS DOWN SIGN}" and reaction.message.channel.id == QUOTES_CHANNEL_ID:
+        if reaction.emoji == "\N{THUMBS DOWN SIGN}" and reaction.message.channel.id == QUOTES_CHANNEL_ID:
             if reaction.count >= 5:
                 await reaction.message.delete()
 
