@@ -247,6 +247,9 @@ class Fun(Cog):
         Emojifies a given string, and reacts to a previous message
         with those emojis.
         """
+        if ctx.channel.id == QUOTES_CHANNEL_ID:
+            await ctx.send("This command is disabled in this channel!", delete_after=10)
+            return
         limit, _, output = message.partition(" ")
         if limit.isdigit():
             limit = int(limit)
