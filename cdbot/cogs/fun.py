@@ -107,20 +107,13 @@ class Fun(Cog):
 
     async def migrate_quotes(self):
         """Create and initialise the `quotes` table with user quotes."""
-        conn = await asyncpg.connect(
-            host=PostgreSQL.PGHOST,
-            port=PostgreSQL.PGPORT,
-            user=PostgreSQL.PGUSER,
-            password=PostgreSQL.PGPASSWORD,
-            database=PostgreSQL.PGDATABASE,
-        )
-        await conn.execute(
-            "CREATE TABLE IF NOT EXISTS quotes (quote_id bigint PRIMARY KEY, author_id bigint)"
-        )
+        async with self.bot.pool.acquire() as connection:
+            await connection.execute(
+                "CREATE TABLE IF NOT EXISTS quotes (quote_id bigint PRIMARY KEY, author_id bigint)"
+            )
         quote_channel = self.bot.get_channel(QUOTES_CHANNEL_ID)
         async for quote in quote_channel.history(limit=None):
-            await self.add_quote_to_db(conn, quote)
-        await conn.close()
+            await self.add_quote_to_db(quote)
 
     @Cog.listener()
     async def on_ready(self):
@@ -131,6 +124,14 @@ class Fun(Cog):
 
         if self.fake_staff_role is None:
             self.fake_staff_role = guild.get_role(FAKE_ROLE_ID)
+
+        self.bot.pool = await asyncpg.create_pool(
+            host=PostgreSQL.PGHOST,
+            port=PostgreSQL.PGPORT,
+            user=PostgreSQL.PGUSER,
+            password=PostgreSQL.PGPASSWORD,
+            database=PostgreSQL.PGDATABASE,
+        )
 
         await self.migrate_quotes()
 
@@ -143,16 +144,7 @@ class Fun(Cog):
         if message.channel.id == QUOTES_CHANNEL_ID and (
             message.author.id == QUOTES_BOT_ID or message.mentions is not None
         ):
-            conn = await asyncpg.connect(
-                host=PostgreSQL.PGHOST,
-                port=PostgreSQL.PGPORT,
-                user=PostgreSQL.PGUSER,
-                password=PostgreSQL.PGPASSWORD,
-                database=PostgreSQL.PGDATABASE,
-            )
-
-            await self.add_quote_to_db(conn, message)
-            await conn.close()
+            await self.add_quote_to_db(message)
             print(f"Message #{message.id} added to database.")
 
         if self.fake_staff_role in message.role_mentions and not message.author.bot:
@@ -163,16 +155,18 @@ class Fun(Cog):
 
             def check(reaction, user):
                 """Check if the reaction was valid."""
-                return all(
-                    (user == message.author or user.top_role.id in [ROOT_ROLE_ID, SUDO_ROLE_ID],
-                        str(reaction.emoji) in "\N{THUMBS UP SIGN}\N{THUMBS DOWN SIGN}")
-                )
+                return all((
+                    user == message.author or user.top_role.id in [ROOT_ROLE_ID, SUDO_ROLE_ID],
+                    str(reaction.emoji) in "\N{THUMBS UP SIGN}\N{THUMBS DOWN SIGN}"
+                ))
 
             try:
                 # Get the user's reaction
                 reaction, _ = await self.bot.wait_for("reaction_add", timeout=30, check=check)
+
             except asyncio.TimeoutError:
                 pass
+
             else:
                 if str(reaction) == "\N{THUMBS UP SIGN}":
                     # The user wants to continue with the ping
@@ -190,6 +184,7 @@ class Fun(Cog):
                     await self.staff_role.edit(mentionable=False)
                     # Delete the original message
                     await message.delete()
+
             finally:
                 await sent.delete()
 
@@ -219,15 +214,8 @@ class Fun(Cog):
     async def on_reaction_add(self, reaction: Reaction, user: Member):
         if reaction.emoji == "\N{THUMBS DOWN SIGN}" and reaction.message.channel.id == QUOTES_CHANNEL_ID:
             if reaction.count >= 5:
-                conn = await asyncpg.connect(
-                    host=PostgreSQL.PGHOST,
-                    port=PostgreSQL.PGPORT,
-                    user=PostgreSQL.PGUSER,
-                    password=PostgreSQL.PGPASSWORD,
-                    database=PostgreSQL.PGDATABASE,
-                )
-                await conn.execute("DELETE FROM quotes WHERE quote_id = $1;", reaction.message.id)
-                await conn.close()
+                async with self.bot.pool.acquire() as connection:
+                    await connection.execute("DELETE FROM quotes WHERE quote_id = $1", reaction.message.id)
                 await reaction.message.delete()
 
     @command()
@@ -235,22 +223,16 @@ class Fun(Cog):
         """
         Returns a LMGTFY URL for a given user argument.
         """
-
-        # Flag checking.
-        delete = False
-        ie_flag = False
-        if "-d" in args:
-            delete = True
-        if "-ie" in args:
-            ie_flag = True
-
         # Creates a lmgtfy.com url for the given query.
-        request_data = {"q": " ".join(arg for arg in args if not arg.startswith("-")), "ie": int(ie_flag)}
+        request_data = {
+            "q": " ".join(arg for arg in args if not arg.startswith("-")),
+            "ie": int("-ie" in args)
+        }
         url = "https://lmgtfy.com/?" + urlencode(request_data)
 
         await ctx.send(url)
 
-        if delete:
+        if "-d" in args:
             await ctx.message.delete()
 
     # Ratelimit to one use per user every minute and 4 usages per minute per channel
@@ -326,28 +308,23 @@ class Fun(Cog):
         Returns a random quotation from the #quotes channel.
         A user can be specified to return a random quotation from that user.
         """
-        conn = await asyncpg.connect(
-            host=PostgreSQL.PGHOST,
-            port=PostgreSQL.PGPORT,
-            user=PostgreSQL.PGUSER,
-            password=PostgreSQL.PGPASSWORD,
-            database=PostgreSQL.PGDATABASE,
-        )
         quote_channel = self.bot.get_channel(QUOTES_CHANNEL_ID)
 
-        if member is None:
-            message_id = await conn.fetchval(
-                "SELECT quote_id FROM quotes ORDER BY random() LIMIT 1;"
-            )  # fetchval returns first value by default
-        else:
-            message_id = await conn.fetchval(
-                "SELECT quote_id FROM quotes WHERE author_id=$1 ORDER BY random() LIMIT 1;", member.id
-            )
-            if message_id is None:
-                await ctx.send("No quotes for that user.")
-                return
+        async with self.bot.pool.acquire() as connection:
+            if member is None:
+                # fetchval() returns the first result of a query.
+                message_id = await connection.fetchval(
+                    "SELECT quote_id FROM quotes ORDER BY random() LIMIT 1"
+                )
+            else:
+                message_id = await connection.fetchval(
+                    "SELECT quote_id FROM quotes WHERE author_id=$1 ORDER BY random() LIMIT 1",
+                    member.id
+                )
 
-        await conn.close()
+        if message_id is None:
+            return await ctx.send("No quotes found.")
+
         message = await quote_channel.fetch_message(message_id)
         embed = None
         content = message.clean_content
@@ -371,45 +348,41 @@ class Fun(Cog):
         Returns the number of quotes in the #quotes channel.
         A user can be specified to return the number of quotes from that user.
         """
-        conn = await asyncpg.connect(
-            host=PostgreSQL.PGHOST,
-            port=PostgreSQL.PGPORT,
-            user=PostgreSQL.PGUSER,
-            password=PostgreSQL.PGPASSWORD,
-            database=PostgreSQL.PGDATABASE,
-        )
-        total_quotes = await conn.fetchval('SELECT count(*) FROM quotes;')
+        async with self.bot.pool.acquire() as connection:
+            total_quotes = await connection.fetchval('SELECT count(*) FROM quotes')
 
-        if member is None:
-            await ctx.send(f"There are {total_quotes} quotes in the database")
-        else:
-            user_quotes = await conn.fetchval('SELECT count(*) FROM quotes WHERE author_id=$1;', member.id)
-            await ctx.send(f"There are {user_quotes} quotes from {member} in the database \
-({round((user_quotes / total_quotes) * 100, 2)}%)")
+            if member is None:
+                await ctx.send(f"There are {total_quotes} quotes in the database")
+            else:
+                user_quotes = await connection.fetchval('SELECT count(*) FROM quotes WHERE author_id=$1', member.id)
+                await ctx.send(
+                    f"There are {user_quotes} quotes from {member} in the database "
+                    f"({user_quotes / total_quotes:.2%})"
+                )
 
     @command()
     async def quoteboard(self, ctx: Context, page: int = 1):
-        conn = await asyncpg.connect(
-            host=PostgreSQL.PGHOST,
-            port=PostgreSQL.PGPORT,
-            user=PostgreSQL.PGUSER,
-            password=PostgreSQL.PGPASSWORD,
-            database=PostgreSQL.PGDATABASE,
-        )
-
-        page_count = ceil((await conn.fetchval("SELECT count(DISTINCT author_id) FROM quotes;")) / 10)
-
-        if 1 > page or page > page_count:
-            await ctx.send(":no_entry_sign: Invalid page number")
-            return
-
+        """Show a leaderboard of users with the most quotes."""
         users = ""
-        pos = 0
+        current = 1
+        start_from = (page - 1) * 10
 
-        for i in await conn.fetch("SELECT author_id, COUNT(author_id) as quote_count FROM quotes GROUP BY author_id \
-ORDER BY quote_count DESC LIMIT 10 OFFSET $1;", (page - 1) * 10):
-            users += f"{((page - 1) * 10) + 1 + pos}. <@{i['author_id']}> - {i['quote_count']}\n"
-            pos += 1
+        async with self.bot.pool.acquire() as connection:
+            page_count = ceil(
+                await connection.fetchval("SELECT count(DISTINCT author_id) FROM quotes") / 10
+            )
+
+            if 1 > page > page_count:
+                return await ctx.send(":no_entry_sign: Invalid page number")
+
+            for result in await connection.fetch(
+                "SELECT author_id, COUNT(author_id) as quote_count FROM quotes "
+                "GROUP BY author_id ORDER BY quote_count DESC LIMIT 10 OFFSET $1",
+                start_from
+            ):
+                author, quotes = result.values()
+                users += f"{start_from + current}. <@{author}> - {quotes}\n"
+                current += 1
 
         embed = Embed(colour=Colour(0xae444a))
         embed.add_field(name=f"Page {page}/{page_count}", value=users)
@@ -417,7 +390,7 @@ ORDER BY quote_count DESC LIMIT 10 OFFSET $1;", (page - 1) * 10):
 
         await ctx.send(embed=embed)
 
-    async def add_quote_to_db(self, conn: asyncpg.connection.Connection, quote: Message):
+    async def add_quote_to_db(self, quote: Message):
         """
         Adds a quote message ID to the database, and attempts to identify the author of the quote.
         """
@@ -445,14 +418,20 @@ ORDER BY quote_count DESC LIMIT 10 OFFSET $1;", (page - 1) * 10):
                 author_id = author.id if author is not None else None
         else:
             author_id = quote.mentions[0].id if quote.mentions else None
-        if author_id is not None:
-            await conn.execute(
-                "INSERT INTO quotes(quote_id, author_id) VALUES($1, $2) ON CONFLICT DO NOTHING;",
-                quote.id,
-                author_id,
-            )
-        else:
-            await conn.execute("INSERT INTO quotes(quote_id) VALUES($1) ON CONFLICT DO NOTHING;", quote.id)
+
+        async with self.bot.pool.acquire() as connection:
+            if author_id is not None:
+                await connection.execute(
+                    "INSERT INTO quotes(quote_id, author_id) VALUES($1, $2) ON CONFLICT DO NOTHING",
+                    quote.id,
+                    author_id,
+                )
+            else:
+                await connection.execute(
+                    "INSERT INTO quotes(quote_id) VALUES($1) ON CONFLICT DO NOTHING",
+                    quote.id
+                )
+
         print(f"Quote ID: {quote.id} has been added to the database.")
 
     async def create_text_image(self, ctx: Context, person: str, text: str):
