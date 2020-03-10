@@ -25,7 +25,7 @@ from cdbot.constants import (
     SUDO_ROLE_ID,
     WELCOME_BOT_ID,
 )
-from discord import Colour, Embed, File, HTTPException, Message, NotFound, embeds, Reaction, Member
+from discord import Colour, Embed, File, HTTPException, Member, Message, NotFound, Reaction, embeds
 from discord.ext.commands import (
     Bot, BucketType, Cog,
     Context, UserConverter, command, cooldown
@@ -217,9 +217,10 @@ class Fun(Cog):
 
     @Cog.listener()
     async def on_reaction_add(self, reaction: Reaction, user: Member):
-        if str(reaction.message) == "\N{THUMBS DOWN SIGN}" and reaction.message.channel.id == QUOTES_CHANNEL_ID and reaction.count >= 5:
-            await reaction.message.delete()
-            
+        if str(reaction.message) == "\N{THUMBS DOWN SIGN}" and reaction.message.channel.id == QUOTES_CHANNEL_ID:
+            if reaction.count >= 5:
+                await reaction.message.delete()
+
     @command()
     async def lmgtfy(self, ctx: Context, *args: str):
         """
