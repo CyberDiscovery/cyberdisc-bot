@@ -187,3 +187,11 @@ fabric.properties
 
 # deploy ssh key
 id_rsa
+
+# Flake output
+flake8.xml
+
+# VS Code
+.vscode/*
+
+secret-creds.yaml

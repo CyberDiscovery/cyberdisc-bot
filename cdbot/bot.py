@@ -9,9 +9,6 @@ from discord.ext.commands import Bot, when_mentioned_or
 
 logger = logging.getLogger(__name__)
 
-muted = []
-admins = []
-
 bot = Bot(
     command_prefix=when_mentioned_or(
         "...", ":"
@@ -45,3 +42,4 @@ async def block_muted(ctx):
 bot.load_extension("cdbot.cogs.general")
 bot.load_extension("cdbot.cogs.cyber")
 bot.load_extension("cdbot.cogs.fun")
+bot.load_extension("cdbot.cogs.admin")

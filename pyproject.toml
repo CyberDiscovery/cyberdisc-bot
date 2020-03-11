@@ -6,25 +6,24 @@ authors = ["Cyber Discovery Community <triggerhappymods@cyberdiscoverycommunity.
 license = "MIT"
 
 [tool.poetry.dependencies]
-websockets = ">=7.0"
-aiohttp = "=3.3.0"
-"discord.py" = {git = "https://github.com/Rapptz/discord.py", branch = "rewrite"}
-python = "^3.7"
+aiohttp = "^3"
+"discord.py" = "^1.2.5"
+python = "^3.8"
 python-dateutil = "^2.8"
-asyncpg = "^0.18.3"
-sentry-sdk = "^0.7.3"
-Pillow = "^5.4"
+asyncpg = "^0.20.1"
+sentry-sdk = "^0.14.2"
+Pillow = "^7.0"
+gitpython = "^3"
 
 [tool.poetry.dev-dependencies]
-flake8 = "=3.6.0"
-flake8-bandit = "=1.0.2"
-flake8-bugbear = "=18.8.0"
-flake8-import-order = "=0.18"
-flake8-string-format = "=0.2.3"
-flake8-tidy-imports = "=1.1.0"
-flake8-todo = "=0.7"
-safety = "=1.8.4"
-dodgy = "=0.1.9"
+flake8 = "^3.6.0"
+flake8-bandit = "^2"
+flake8-bugbear = "^20"
+flake8-import-order = "^0.18"
+flake8-string-format = "^0.3.0"
+flake8-tidy-imports = "^4"
+flake8-todo = "^0.7"
+flake8-formatter-junit-xml = "^0.0.6"
 
 [tool.poetry.scripts]
 cdbot = "cdbot:main"

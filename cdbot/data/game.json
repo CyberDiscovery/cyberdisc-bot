@@ -1697,5 +1697,227 @@
         ]
       }
     ]
-  ]
+  ],
+  "Volcano": [
+   [
+      {
+         "title":"Recon",
+         "description":"See if you can find any backup files from http://contacts.nootrino-laboratory.com.",
+         "tips":[
+            "Tip: The flag is the admin access code."
+         ]
+      },
+      {
+         "title":"Easy Access",
+         "description":"Nootrino Labs have a public-facing contacts systems accessible at http://contacts.nootrino-laboratory.com. As a first step, see if you can access the database behind it, gathering the username and password. We're sure that information will be useful later on.",
+         "tips":[
+            "Tip: The flag is the password of Professor Julie Bywater."
+         ]
+      },
+      {
+         "title":"Backdoor",
+         "description":"See if you can find a backdoor somewhere on the network and gain access through it.",
+         "tips":[
+            "Tip: The flag is the file path of the backdoor."
+         ]
+      },
+      {
+         "title":"To the Source",
+         "description":"Now you have access to the reactor system see if you can get access to its source code - we think that's where the gang went next as it contains lots of potentially useful information for them.",
+         "tips":[
+            "Tip: The flag is the database password."
+         ]
+      },
+      {
+         "title":"Cracked Window",
+         "description":"One of our agents thinks the gang must have had an employee username and access code to get to certain systems. Our best guess about where they got that information from is a Windows system on the network. See if you can exploit it.",
+         "tips":[
+            "Tip: The flag is the employee access token."
+         ]
+      },
+      {
+         "title":"Melting Core",
+         "description":"Time is not on our side, agent. The core is melting and needs to be shut down using the control panel. With the information you've gathered so far see if you can regain access and shut it down!",
+         "tips":[
+            "Tip: Get access to get the flag."
+         ]
+      }
+   ],
+   [
+      {
+         "title":"Targets",
+         "description":"Find a list of potential targets for the finalfrontier.agency domain.",
+         "tips":[
+            "Tip: The flag is one of the target domains."
+         ]
+      },
+      {
+         "title":"Password Hunt",
+         "description":"Visit their ||[redacted]|| directory at http://[redacted].finalfrontier.agency and see if you can recover the hashed user passwords.",
+         "tips":[
+            "Tip: The flag is one of the hashed passwords."
+         ]
+      },
+      {
+         "title":"SAHAdmin",
+         "description":"One of their ||[redacted]|| teams built a small holding site intended to eventually become a wiki. We think the server it's on might be vulnerable. Visit http://[redacted].finalfrontier.agency and attempt to recover the server's admin user password and get the plaintext version of the password.",
+         "tips":[
+            "Tip: The password is the flag."
+         ]
+      },
+      {
+         "title":"Terminal Trouble",
+         "description":"Visit their ||[redacted]|| teams internal site at http://redacted.finalfrontier.agency and attempt to gain access to the file system.",
+         "tips":[
+            "Tip: The flag is the subdomain of the hidden vhost in format subdomain.domain.tld."
+         ]
+      },
+      {
+         "title":"Route to Nowhere",
+         "description":"Access the site on the hidden vhost using what you already know.",
+         "tips":[
+            "Tip: The flag is the basic auth challenge message."
+         ]
+      },
+      {
+         "title":"Ready to Launch",
+         "description":"This is the final test for this client. Can we get access to their most important site, the mission control centre, available from the hidden vhost you found previously? It requires the highest admin access level.",
+         "tips":[
+            "Tip: Get access to get the flag."
+         ]
+      }
+   ],
+   [
+      {
+         "title":"Bad Config",
+         "description":"There is a site at http://configuration.securegov-test.com. See if you can find any interesting file paths.",
+         "tips":[
+            "Tip: The flag is the file path to an important shell script."
+         ]
+      },
+      {
+         "title":"Fishing for Files",
+         "description":"See if you can find a way to retrieve the files you found in the previous challenge.",
+         "tips":[
+            "Tip: The flag is the MD5 checksum of the binary file."
+         ]
+      },
+      {
+         "title":"Vulnerable Service",
+         "description":"We think there is a vulnerable service running on the network. See if you can find and exploit it.",
+         "tips":[
+            "Tip: The flag is the username of the user you gain access as after exploiting the target."
+         ]
+      },
+      {
+         "title":"Database Dumping",
+         "description":"Find a way to access a dump of the database that your existing user may not have access to.",
+         "tips":[
+            "Tip: The filename of the database dump is the flag. Look at existing functions in the binary to help you."
+         ]
+      },
+      {
+         "title":"Corrupted User",
+         "description":"The database you were able to dump seems to be corrupted. Find a way to recover the user information from it.",
+         "tips":[
+            "Tip: The flag is a password in the database."
+         ]
+      },
+      {
+         "title":"Secret Service",
+         "description":"See if you can find a sql database service that could contain useful data. Connect to it using the information you've gathered in the previous challenges.",
+         "tips":[
+            "Tip: The flag is a piece of personal client information."
+         ]
+      }
+   ],
+   [
+      {
+         "title":"Unauthenticated",
+         "description":"The networking team at Pencil Factory Investments have a site they can sign in to with an interface for monitoring network uptime at http://uptime.pencilfactoryinvestments.com. It should be secure, but see if you can log in as the administrator.",
+         "tips":[
+            "Tip: The flag is the database password."
+         ]
+      },
+      {
+         "title":"Range Finding",
+         "description":"Based on the work you did in the previous challenge, see if you can find a way to discover the intranet subnet range.",
+         "tips":[
+            "Tip: The flag is the ip address of the web server on the intranet subnet."
+         ]
+      },
+      {
+         "title":"Heading Home",
+         "description":"So you have the intranet subnet range, but can you find the intranet home page?",
+         "tips":[
+            "Tip: Find the home page URL to get the flag."
+         ]
+      },
+      {
+         "title":"Subnet",
+         "description":"The internal site you discovered previously has a protected debug interface, see if there is any way to exploit it.",
+         "tips":[
+            "Tip: The flag is the secret used by the hashing algorithm. A number between 40 and 50 will help you in solving this challenge."
+         ]
+      },
+      {
+         "title":"Going Up",
+         "description":"There is a private network segment containing Pencil Factory's private site. Access the network and exploit the site.",
+         "tips":[
+            "Tip: The flag is the last quarter earnings from the financial report exactly as written in the document."
+         ]
+      },
+      {
+         "title":"Final Report",
+         "description":"It's time to put together the final report for the Pencil Factory Investments senior management team. You should have all the information you need to finish it off.",
+         "tips":[
+            "Tip: Complete the report to get the flag. The secret project is the one that sounds the most suspicious."
+         ]
+      }
+   ],
+   [
+      {
+         "title":"Free Files",
+         "description":"Visit http://files.granitewallsecurity.com and see if you can access the file sharing part of their intranet.",
+         "tips":[
+            "Tip: The flag is the file name of the zip containing the ||[redacted]|| config."
+         ]
+      },
+      {
+         "title":"Open Intranet",
+         "description":"The ||[redacted]|| you discovered previously seems to be encrypted somehow. Decrypt it and gain access to the company intranet.",
+         "tips":[
+            "Tip: The flag is the key used to encrypt the file."
+         ]
+      },
+      {
+         "title":"FTP",
+         "description":"There is an FTP server on the intranet. See if you can find a way to access it.",
+         "tips":[
+            "Tip: The flag is the name of a file served by the FTP server."
+         ]
+      },
+      {
+         "title":"Network Service",
+         "description":"See if you can find an exploitable network service running on the network and then exploit it.",
+         "tips":[
+            "Tip: Exploit the network service to find the flag in flag.txt."
+         ]
+      },
+      {
+         "title":"Web Service",
+         "description":"Try and find the web service accessible from the previous target and exploit it.",
+         "tips":[
+            "Tip: The flag is the MD5 hash of the executable file."
+         ]
+      },
+      {
+         "title":"Missile Launch",
+         "description":"Now you have the missile schematics file you might as well see if you can recover it.",
+         "tips":[
+            "Tip: Get into the file to get the flag."
+         ]
+      }
+   ]
+]
 }

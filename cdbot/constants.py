@@ -1,41 +1,111 @@
-from os import getenv
+import base64
+from os import environ
 
-"""
-A list of constants.
-"""
+
+DEPLOY = bool(environ.get('DEPLOY'))
+
+
+def getenv(name: str, fallback: str = "") -> str:
+    """Return an (optionally base64-encoded) env var."""
+    variable = environ.get(name)
+    if DEPLOY and variable is not None:
+        variable = base64.b64decode(variable).decode()
+    return variable or fallback
+
+
+class PostgreSQL:
+    PGHOST = getenv("PGHOST")
+    PGPORT = getenv("PGPORT")
+    PGUSER = getenv("PGUSER")
+    PGDATABASE = getenv("PGDATABASE")
+    PGPASSWORD = getenv("PGPASSWORD")
+
+
+BOT_TOKEN = getenv("BOT_TOKEN")
+SENTRY_URL = getenv("SENTRY_URL")
+
 # Fun constants
-QUOTES_CHANNEL_ID = int(getenv("QUOTES_CHANNEL_ID", "463657120441696256"))
+QUOTES_CHANNEL_ID = int(environ.get("QUOTES_CHANNEL_ID", "463657120441696256"))
 QUOTES_BOT_ID = 292953664492929025
-LOGGING_CHANNEL_ID = int(getenv("LOGGING_CHANNEL_ID", "538494690601992212"))
+LOGGING_CHANNEL_ID = int(environ.get("LOGGING_CHANNEL_ID", "538494690601992212"))
 WELCOME_BOT_ID = 155149108183695360
+
+# Misc roles
+HUNDRED_PERCENT_ROLE_ID = 640481360766697482
+TRUE_HUNDRED_PERCENT_ROLE_ID = 640481628292120576
 
 # Lists for administration
 STAFF_ROLE_ID = 450063890362138624
 FAKE_ROLE_ID = 533826912712130580
-ROOT_ROLE_ID = int(getenv("ROOT_MEMBERS_ID", "450113490590629888"))
+STATIC_NICKNAME_ROLE_ID = 567259415393075210
+CD_BOT_ROLE_ID = 543768819844251658
+ADMIN_MENTOR_ROLE_ID = 502238208747110411
+ROOT_ROLE_ID = int(environ.get("ROOT_MEMBERS_ID", "450113490590629888"))
+SUDO_ROLE_ID = int(environ.get("SUDO_MEMBERS_ID", "450113682542952451"))
 ADMIN_ROLES = ("Root", "Sudo")
 BANNED_DOMAINS = ["discord.gg"]
 
+
+class Roles:
+
+    class Elite:
+        MAIN = int(environ.get("ELITE_MEMBERS_ID", "580387468336037888"))
+
+        class London:
+            YOUNGER = int(environ.get("LDN_Y_MEMBERS_ID", "580387877385404428"))
+            OLDER = int(environ.get("LDN_O_MEMBERS_ID", "580387897644023811"))
+
+        class Birmingham:
+            YOUNGER = int(environ.get("BRM_Y_MEMBERS_ID", "580387895299276830"))
+            OLDER = int(environ.get("BRM_O_MEMBERS_ID", "580387899833581572"))
+
+        class Lancaster:
+            YOUNGER = int(environ.get("LAN_Y_MEMBERS_ID", "580387892853997578"))
+            OLDER = int(environ.get("LAN_O_MEMBERS_ID", "580387898973618176"))
+
+        class VET2019:
+            CYBERIST = int(environ.get("2019_CYBERIST_MEMBERS_ID", "610387199300730900"))
+            FORENSICATOR = int(environ.get("2019_FORENSICATOR_MEMBERS_ID", "580387897644023811"))
+
+        TALENTDEV = int(environ.get("TALENTDEV_MEMBERS_ID", "669927831031250954"))
+
+    class Exchange:
+        SHORTLIST = int(environ.get("EXCH_S_MEMBERS_ID", "582894164597932034"))
+        CONFIRMED = int(environ.get("EXCH_C_MEMBERS_ID", "585150522336608256"))
+
+
 # Cyber Constants
-
-CYBERDISC_ICON_URL = "https://pbs.twimg.com/profile_images/" "921313066515615745/fLEl2Gfa_400x400.jpg"
-PWNED_ICON_URL = "https://upload.wikimedia.org/wikipedia" "/commons/2/23/Have_I_Been_Pwned_logo.png"
-END_README_MESSAGE = ("**Can't see any of the above?**\nIf you can't see any of the rich embeds above, try the"
-                      " following: `Settings -> Text & Images -> Link Preview (Show website preview info from"
-                      " links pasted into that chat)  -> ON`")
-# Last level for CyberStart Assess where hints are allowed
 HINTS_LIMIT = 8
+CYBERDISC_ICON_URL = "https://pbs.twimg.com/profile_images/921313066515615745/fLEl2Gfa_400x400.jpg"
+ELITECOUNT_ENABLED = True
 
-# Base Aliases
+# Readme command constants
+README_SEND_ALIASES = ["create", "push", "generate", "send", "make", "build", "upload"]
+README_RECV_ALIASES = ["fetch", "get", "pull", "download", "retrieve", "dm", "dl"]
+
+END_README_MESSAGE = (
+    "**Can't see any of the above?**\nIf you can't see any of the rich embeds above, try the"
+    " following: `Settings -> Text & Images -> Link Preview (Show website preview info from"
+    " links pasted into that chat)  -> ON`"
+)
+
 BASE_ALIASES = {
     "Headquarters": ["headquarters", "main", "hq", "h"],
     "Moonbase": ["moonbase", "python", "moon", "m"],
     "Forensics": ["forensics", "f"],
+    "Volcano": ["volcano", "v", "volc"]
 }
 
-# Emoji Alphabet
+# Admin Constants
+PLACEHOLDER_NICKNAME = "Valued server member"
+NICKNAME_PATTERNS = [
+    r'(discord\.gg/)',  # invite links
+    r'(nigg|cunt|ligma|fag|nazi|hitler|\bpaki\b)',  # banned words
+    r'(http(s)?:\/\/.)?(www\.)?[-a-zA-Z0-9@:%._\+~#=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_\+.~#?&//=]*)'  # hyperlinks
+]
 
-EMOJI_LETTERS = [  # Feel free to add to this list
+# Emoji Alphabet
+EMOJI_LETTERS = [
     "\U0001f1e6\U0001f170\U0001F359",  # A
     "\U0001f1e7\U0001f171",  # B
     "\U0001f1e8\u262a\u00A9",  # C
@@ -65,5 +135,7 @@ EMOJI_LETTERS = [  # Feel free to add to this list
     "\u26ab\U0001f535\U0001f534\u26aa",  # Whitespace alternatives
     "\u2755\u2757\u2763",  # !
     "\u2754\u2753",  # ?
-    "\U0001f4b2"  # $
+    "\U0001f4b2",  # $
+    "\U000021aa",  # (
+    "\U000021a9"  # )
 ]

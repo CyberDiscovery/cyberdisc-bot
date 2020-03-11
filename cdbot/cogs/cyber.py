@@ -2,14 +2,15 @@ import datetime
 import random
 import re
 import string
+import textwrap
 from asyncio import sleep
-from hashlib import sha1
 from io import StringIO
 from json import load
 
 from aiohttp import ClientSession
 from cdbot.constants import (
-    BASE_ALIASES, CYBERDISC_ICON_URL, END_README_MESSAGE, HINTS_LIMIT, PWNED_ICON_URL, ROOT_ROLE_ID
+    BASE_ALIASES, CYBERDISC_ICON_URL, ELITECOUNT_ENABLED, END_README_MESSAGE, HINTS_LIMIT, HUNDRED_PERCENT_ROLE_ID,
+    README_RECV_ALIASES, README_SEND_ALIASES, ROOT_ROLE_ID, Roles, TRUE_HUNDRED_PERCENT_ROLE_ID
 )
 from dateutil.parser import parse
 from dateutil.relativedelta import relativedelta
@@ -28,46 +29,39 @@ class Cyber(Cog):
     Cyber Discovery/Security related commands.
     """
 
+    match_strings = [
+        # Assess dates
+        (r"^.*\bassess\b.*(start|begin|open)\b.*$", "CyberStart Assess began on the 3rd September 2019."),
+        (r"^.*\bassess\b.*(end|finish|close)\b.*$", "CyberStart Assess ended on the 25th October 2019."),
+
+        # Game dates
+        (r"^.*\bgame\b.*(start|begin|open)\b.*$", "CyberStart Game began on the 5th November 2019."),
+        (r"^.*\bgame\b.*(end|finish|close)\b.*$", "CyberStart Game ends on the 1st May 2020."),
+
+        # Essentials dates
+        (r"^.*\bessentials\b.*(start|begin|open)\b.*$", "CyberStart Essentials began on the 16th December 2019."),
+        (r"^.*\bessentials\b.*(end|finish|close)\b.*$", "CyberStart Essentials ends on the 1st May 2020."),
+
+        # Elite questions
+        (r"^.*\bhow\b.*\bget\b.*\belite\b.*$", "**Quote from the @CyberDiscUK Twitter: **"
+         "Selection for CyberStart Elite will be based on a combination of Game and Essentials results."),
+
+        (r"^.*\belite\b.*\bstart\b.*$", "CyberStart Elite dates for 2020 are yet to be announced."),
+
+        (r"^.*\bwhat\b.*\belite\b.*\bemail\b.*$", "**Quote from the Cyber Discovery Elite team: **"
+         "We’re currently allocating students to their preferred locations so it’s an ongoing process! "
+         "We’ll send out details of your location as soon as we can. It shouldn’t be too long!"
+         )
+    ]
+
     def __init__(self, bot: Bot):
         self.bot = bot
-        self.assess_start_regex = re.compile(
-            r"^.*\bassess\b.*(start|begin|open)\b.*$",
-            re.IGNORECASE
-        )
-        self.assess_end_regex = re.compile(
-            r"^.*\bassess\b.*(end|finish|close)\b.*$",
-            re.IGNORECASE
-        )
-        self.game_start_regex = re.compile(
-            r"^.*\bgame\b.*(start|begin|open)\b.*$",
-            re.IGNORECASE
-        )
-        self.game_end_regex = re.compile(
-            r"^.*\bgame\b.*(end|finish|close)\b.*$",
-            re.IGNORECASE
-        )
-        self.essentials_start_regex = re.compile(
-            r"^.*\bessentials\b.*(start|begin|open)\b.*$",
-            re.IGNORECASE
-        )
-        self.essentials_end_regex = re.compile(
-            r"^.*\bessentials\b.*(end|finish|close)\b.*$",
-            re.IGNORECASE
-        )
-        self.elite_qualification_regex = re.compile(
-            r"^.*\bhow\b.*\bget\b.*\belite\b.*$",
-            re.IGNORECASE
-        )
-        self.elite_dates_regex = re.compile(
-            r"^.*\belite\b.*\bstart\b.*$",
-            re.IGNORECASE
-        )
-        self.elite_email_regex = re.compile(
-            r"^.*\bwhat\b.*\belite\b.*\bemail\b.*$",
-            re.IGNORECASE
-        )
 
-    @command(aliases=["Manual", "manual", "fm"])
+        self.matches = [
+            (re.compile(i[0], re.IGNORECASE), i[1]) for i in self.match_strings
+        ]
+
+    @command(aliases=["Manual", "manual", "fm", "rtfm"])
     async def fieldmanual(self, ctx: Context):
         """
         Returns a link to the field manual
@@ -79,12 +73,7 @@ class Cyber(Cog):
     async def level(self, ctx: Context, base: str, level_num: int, challenge_num: int = 0):
         """
         Gets information about a specific CyberStart Game level and challenge.
-        If the date is before the start date of game (15th January 2019) it will redirect to game() instead
         """
-
-        if datetime.date.today() < datetime.date(2019, 1, 15):
-            await self.game.callback(self, ctx)
-            return
 
         # Gather data from CyberStart Game.
         with open("cdbot/data/game.json") as f:
@@ -159,15 +148,12 @@ class Cyber(Cog):
 
     @command()
     @has_role(ROOT_ROLE_ID)
-    async def readme(self, ctx: Context, operand: str = "", channel_id: int = 0, msg_send_interval: int = 0):
+    async def readme(self, ctx: Context, operand: str = "", channel_id: str = "", msg_send_interval: int = 0):
         """
         Allows generating, sending and manipulation of JSON file containing the info needed
         to create and send the embeds for the #readme channel. Only ROOT_ROLE_ID users have
         the permissions need to use this command.
         """
-
-        README_SEND_ALIASES = ["create", "push", "generate", "send", "make", "build", "upload"]
-        README_RECV_ALIASES = ["fetch", "get", "pull", "download", "retrieve", "dm", "dl"]
 
         operand = operand.lower()
 
@@ -181,7 +167,7 @@ class Cyber(Cog):
             await ctx.send(embed=incorrect_operand_embed)
 
         # User missed out the channel_id for certain commands.
-        elif (channel_id == 0 and operand in README_SEND_ALIASES):
+        elif (channel_id == "" and operand in README_SEND_ALIASES):
             misssing_channel_embed = Embed(
                 colour=0xff5722,
                 description=":facepalm: **Whoops, you missed out the channel ID! Try again.**"
@@ -196,6 +182,9 @@ class Cyber(Cog):
             # the default JSONifed readme file and send that into the channel instead.
             if operand in README_SEND_ALIASES:
                 try:
+                    # Much pain was had fixing this. Please, get some help and install mypy type checking.
+                    channel_id: int = int(channel_id[2:-1] if channel_id[0] == "<" else channel_id)
+
                     usr_confirmation_embed = Embed(
                         colour=0x4caf50,
                         description=":white_check_mark: **Creating readme using uploaded config file.**"
@@ -240,8 +229,8 @@ class Cyber(Cog):
                             msg_embed = json_config[section]["embed"]
                             if "title" in msg_embed:
                                 current_embed.title = msg_embed["title"]
-                            if "text" in msg_embed:
-                                current_embed.description = msg_embed["text"]
+                            if "description" in msg_embed:
+                                current_embed.description = msg_embed["description"]
                             if "color" in msg_embed:
                                 current_embed.colour = Colour(int(msg_embed["color"], 16))
 
@@ -281,23 +270,20 @@ class Cyber(Cog):
 
             # Pull the readme JSON constant files and slide it into the user's DMs.
             elif operand in README_RECV_ALIASES:
-                # Get the human-readble readme data.
-                with open("cdbot/data/readme_raw.json", "rb") as readme_json:
-                    raw_json = readme_json.read()
 
-                    # Slide it to the user's DMs.
-                    requesting_user = await self.bot.get_user_info(ctx.message.author.id)
-                    await requesting_user.send(
-                        content="Hey, here's your readme config file!",
-                        file=File(raw_json, 'readme_raw.json')
-                    )
+                # Slide it to the user's DMs.
+                requesting_user = await self.bot.fetch_user(ctx.message.author.id)
 
-                    msg_confirmation = Embed(
-                        colour=0x009688,
-                        description=":airplane: **Flying in, check your DMs!**"
-                    )
-                    await ctx.message.delete()
-                    await ctx.send(embed=msg_confirmation)
+                await requesting_user.send(
+                    content="Hey, here's your config file!",
+                    file=File(fp="cdbot/data/readme.json", filename='readme.json')
+                )
+
+                await ctx.message.delete()
+                await ctx.send(embed=Embed(
+                    colour=0x009688,
+                    description=":airplane: **Flying in, check your DMs!**"
+                ))
 
     @command(aliases=["a", "al"])
     async def assess(self, ctx: Context, challenge_num: int):
@@ -339,93 +325,12 @@ class Cyber(Cog):
             await ctx.send(embed=embed)
 
     @command()
-    async def haveibeenpwned(self, ctx: Context, account: str):
-        """
-        Searches haveibeenpwned.com for breached accounts.
-        """
-
-        url = "https://haveibeenpwned.com/api/v2/breachedaccount/"
-
-        data: dict = {}
-
-        # GETs the data on the breached account.
-        async with ClientSession() as session:
-            async with session.get(url + account) as response:
-                if response.status == 200:
-                    data = await response.json()
-
-        # If the page doesn't return 200, it will assume there are no breached accounts of that name.
-        if data:
-            info_string = "Info from `https://haveibeenpwned.com/`. Showing up to **5** breaches"
-            info_string += " (Total: " + str(len(data))
-            await ctx.send(f"{ctx.author.mention}  |  {info_string}")
-            for i in data[:5]:
-                output = "```"
-                output += f"Title: {i['Title']}\n"
-                output += f"Name: {i['Name']}\n"
-                output += f"Breach date: {i['BreachDate']}\n"
-                output += f"PwnCount: {i['PwnCount']}\n"
-
-                # An ugly but working method of getting rid of the HTML formatting.
-                desc = i["Description"]
-                desc = desc.replace("<a href=\"", "")
-                desc = desc.replace("\" target=\"_blank\" rel=\"noopener\">", " ")
-                desc = desc.replace("</a>", "")
-                desc = desc.replace("&quot;", "\"")
-                output += f"Description: {desc}\n"
-
-                output += "Lost data: " + "/".join(i['DataClasses']) + "\n"
-                output += f"Currently active: {i['IsActive']}\n"
-                output += "```"
-                await ctx.send(output)
-
-        else:
-            await ctx.send(f"{ctx.author.mention}  |  This account has never been breached!")
-
-    @command()
-    async def hasitbeenpwned(self, ctx: Context, password: str):
-        """
-        Searches pwnedpasswords.com for breached passwords.
-        """
-
-        url = "https://api.pwnedpasswords.com/range/"
-        digest = sha1(password.encode()).hexdigest().upper()  # NOQA
-        prefix, digest = digest[:5], digest[5:]
-
-        async with ClientSession() as session:
-            async with session.get(url + prefix) as response:
-                result = await response.text()
-
-        match = re.search(fr"{digest}:(\d+)", result)
-        if match is not None:
-            count = int(match.group(1))
-        else:
-            count = 0
-
-        embed = Embed(
-            name="have i been pwned?",
-            description=f"{ctx.author.mention} | This password has ",
-            colour=0x5DBCD2
-        )
-        embed.set_author(
-            name="have i been pwned?",
-            icon_url=PWNED_ICON_URL
-        )
-
-        if count:
-            embed.description += f"been uncovered {count} times."
-        else:
-            embed.description += f"has never been uncovered."
-
-        await ctx.send(embed=embed)
-
-    @command()
     async def game(self, ctx: Context):
         """
         Gets the date of, and days and months until, CyberStart Game
         """
 
-        await self.countdown('15th January 2019', 'CyberStart Game', ctx)
+        await self.countdown('5th November 2019', 'CyberStart Game', ctx)
 
     @command()
     async def essentials(self, ctx: Context):
@@ -433,7 +338,57 @@ class Cyber(Cog):
         Gets the date of, and days and months until, CyberStart Essentials
         """
 
-        await self.countdown('5th March 2019', 'CyberStart Essentials', ctx)
+        await self.countdown('16th December 2019', 'CyberStart Essentials', ctx)
+
+    @command()
+    async def hundred(self, ctx: Context):
+        """
+        Gets the number of 100% and true 100% users
+        """
+
+        game_r = ctx.guild.get_role(HUNDRED_PERCENT_ROLE_ID)
+        true_r = ctx.guild.get_role(TRUE_HUNDRED_PERCENT_ROLE_ID)
+
+        await ctx.send(f"There are {len(game_r.members)} that have completed CyberStart Game. Out of them, "
+                       f"{len(true_r.members)} have also completed Essentials and Assess.")
+
+    @command()
+    async def elitecount(self, ctx: Context):
+        """
+        Gets the number of elite users
+        """
+        if ELITECOUNT_ENABLED:
+            preferences = {
+                '2019': {
+                    'Cyberists': Roles.Elite.VET2019.CYBERIST,
+                    'Forensicators': Roles.Elite.VET2019.FORENSICATOR
+                },
+            }
+
+            description = textwrap.dedent(f"""
+            **Camp Statistics**
+            """)
+
+            embed = Embed(title=f"CyberStart Elite {datetime.datetime.utcnow().year}",
+                          description=description,
+                          colour=Colour(0xae444a))  # A nice red
+
+            embed.set_thumbnail(url=CYBERDISC_ICON_URL)
+
+            for location, ages in preferences.items():
+                section = ""
+                for age, role in ages.items():
+                    r = ctx.guild.get_role(role)
+                    section += f"**{age}**: {len(r.members)}\n"
+                embed.add_field(name=location, value=section, inline=True)
+
+            embed.add_field(name="Talent Development Programme",
+                            value=f"**Participants**: {len(ctx.guild.get_role(Roles.Elite.TALENTDEV).members)}",
+                            inline=True)
+
+            await ctx.send(embed=embed)
+        else:
+            await ctx.send(":no_entry_sign: This command is disabled because CyberStart Elite is done for this year")
 
     async def countdown(self, countdown_target_str: str, stage_name: str, ctx: Context):
         countdown_target = parse(countdown_target_str).date()
@@ -473,47 +428,11 @@ class Cyber(Cog):
         if ctx.valid:
             return
 
-        # CyberStart Assess Dates.
-        if self.assess_start_regex.match(message.content):
-            await message.channel.send(f"{message.author.mention}  |"
-                                       "  Cyberstart Assess began on the 6th November 2018.")
-
-        elif self.assess_end_regex.match(message.content):
-            await message.channel.send(f"{message.author.mention}  |  Cyberstart Assess ends on the 31st January 2019.")
-
-        # CyberStart Game Dates.
-        elif self.game_start_regex.match(message.content):
-            await message.channel.send(f"{message.author.mention}  |  Cyberstart Game begins on the 15th January 2019.")
-
-        elif self.game_end_regex.match(message.content):
-            await message.channel.send(f"{message.author.mention}  |  Cyberstart Game ends on the 15th April 2019.")
-
-        # CyberStart Essentials Dates.
-        elif self.essentials_start_regex.match(message.content):
-            await message.channel.send(f"{message.author.mention}  |"
-                                       "  Cyberstart Essentials begins on the 5th March 2019.")
-
-        elif self.essentials_end_regex.match(message.content):
-            await message.channel.send(f"{message.author.mention}  |"
-                                       "  Cyberstart Essentials ends on the 29th April 2019.")
-
-        # CyberStart Elite qualification requirements.
-        elif self.elite_qualification_regex.match(message.content):
-            text = f"{message.author.mention}  |  **Quote from the @CyberDiscUK Twitter: **"
-            text += "Selection for CyberStart Elite will be based on a combination of Game and Essentials results."
-            await message.channel.send(text)
-
-        # CyberStart Elite Dates.
-        elif self.elite_dates_regex.match(message.content):
-            text = f"{message.author.mention}  |  Cyberstart Elite dates for 2019 are yet to be announced."
-            await message.channel.send(text)
-
-        # CyberStart Elite email.
-        elif self.elite_email_regex.match(message.content):
-            text = f"{message.author.mention}  |  **Quote from the Cyber Discovery Elite team: **"
-            text += "We’re currently allocating students to their preferred locations so it’s an ongoing process!"
-            text += " We’ll send out details of your location as soon as we can. It shouldn’t be too long!"
-            await message.channel.send(text)
+        # Check if the message matches any of the pre-baked regexes
+        for regex, response in self.matches:
+            if regex.match(message.content):
+                await message.channel.send(f"{message.author.mention}  |  {response}")
+                break
 
 
 def setup(bot):
