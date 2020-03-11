@@ -25,7 +25,7 @@ from cdbot.constants import (
     SUDO_ROLE_ID,
     WELCOME_BOT_ID,
 )
-from discord import Colour, Embed, File, HTTPException, Member, Message, NotFound, Reaction, embeds
+from discord import Colour, Embed, File, HTTPException, Member, Message, NotFound, RawReactionActionEvent, Reaction, embeds
 from discord.ext.commands import (
     Bot, BucketType, Cog,
     Context, UserConverter, command, cooldown
@@ -211,8 +211,12 @@ class Fun(Cog):
             await message.add_reaction("\N{WAVING HAND SIGN}")
 
     @Cog.listener()
-    async def on_reaction_add(self, reaction: Reaction, user: Member):
-        if reaction.emoji == "\N{THUMBS DOWN SIGN}" and reaction.message.channel.id == QUOTES_CHANNEL_ID:
+    async def on_raw_reaction_add(self, raw_reaction: RawReactionActionEvent):
+        thumbs_down = "\N{THUMBS DOWN SIGN}"
+        if str(raw_reaction.emoji) == thumbs_down and raw_reaction.channel_id == QUOTES_CHANNEL_ID:
+            quotes_channel = self.bot.get_channel(QUOTES_CHANNEL_ID)
+            message = await quotes_channel.fetch_message(raw_reaction.message_id)
+            reaction = [react for react in message.reactions if str(react.emoji) == thumbs_down][0]
             if reaction.count >= 5:
                 async with self.bot.pool.acquire() as connection:
                     await connection.execute("DELETE FROM quotes WHERE quote_id = $1", reaction.message.id)
