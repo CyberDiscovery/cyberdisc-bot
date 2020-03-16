@@ -26,7 +26,7 @@ from cdbot.constants import (
     WELCOME_BOT_ID,
 )
 from discord import (
-    Colour, Embed, File, HTTPException, 
+    Colour, Embed, File, HTTPException,
     Message, NotFound, RawReactionActionEvent, embeds
 )
 from discord.ext.commands import (
