@@ -25,7 +25,10 @@ from cdbot.constants import (
     SUDO_ROLE_ID,
     WELCOME_BOT_ID,
 )
-from discord import Colour, Embed, File, HTTPException, Member, Message, NotFound, RawReactionActionEvent, Reaction, embeds
+from discord import (
+    Colour, Embed, File, HTTPException, 
+    Message, NotFound, RawReactionActionEvent, embeds
+)
 from discord.ext.commands import (
     Bot, BucketType, Cog,
     Context, UserConverter, command, cooldown
