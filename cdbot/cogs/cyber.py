@@ -31,16 +31,16 @@ class Cyber(Cog):
 
     match_strings = [
         # Assess dates
-        (r"^.*\bassess\b.*(start|begin|open)\b.*$", "CyberStart Assess began on the 3rd September 2019."),
-        (r"^.*\bassess\b.*(end|finish|close)\b.*$", "CyberStart Assess ended on the 25th October 2019."),
+        (r"^.*\bassess\b.*\b(start|begin|open)\b.*$", "CyberStart Assess began on the 3rd September 2019."),
+        (r"^.*\bassess\b.*\b(end|finish|close)\b.*$", "CyberStart Assess ended on the 25th October 2019."),
 
         # Game dates
-        (r"^.*\bgame\b.*(start|begin|open)\b.*$", "CyberStart Game began on the 5th November 2019."),
-        (r"^.*\bgame\b.*(end|finish|close)\b.*$", "CyberStart Game ends on the 22nd May 2020."),
+        (r"^.*\bgame\b.*\b(start|begin|open)\b.*$", "CyberStart Game began on the 5th November 2019."),
+        (r"^.*\bgame\b.*\b(end|finish|close)\b.*$", "CyberStart Game ends on the 22nd May 2020."),
 
         # Essentials dates
-        (r"^.*\bessentials\b.*(start|begin|open)\b.*$", "CyberStart Essentials began on the 16th December 2019."),
-        (r"^.*\bessentials\b.*(end|finish|close)\b.*$", "CyberStart Essentials ends on the 22nd May 2020."),
+        (r"^.*\bessentials\b.*\b(start|begin|open)\b.*$", "CyberStart Essentials began on the 16th December 2019."),
+        (r"^.*\bessentials\b.*\b(end|finish|close)\b.*$", "CyberStart Essentials ends on the 22nd May 2020."),
 
         # Elite questions
         (r"^.*\bhow\b.*\bget\b.*\belite\b.*$", "**Quote from the @CyberDiscUK Twitter: **"
