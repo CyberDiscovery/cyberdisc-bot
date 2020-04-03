@@ -12,7 +12,7 @@ python = "^3.8"
 python-dateutil = "^2.8"
 asyncpg = "^0.20.1"
 sentry-sdk = "^0.14.3"
-Pillow = "^7.0"
+Pillow = "^7.1"
 gitpython = "^3"
 
 [tool.poetry.dev-dependencies]
