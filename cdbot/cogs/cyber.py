@@ -40,7 +40,7 @@ class Cyber(Cog):
 
         # Essentials dates
         (r"^.*\bessentials\b.*\b(start|begin|open)\b.*$", "CyberStart Essentials began on the 16th December 2019."),
-        (r"^.*\bessentials\b.*\b(end|finish|close)\b.*$", "CyberStart Essentials ends on the 22nd May 2020."),
+        (r"^.*\bessentials\b.*\b(end|finish|close)\b.*$", "CyberStart Essentials ends on the 1st May 2020."),
 
         # Elite questions
         (r"^.*\bhow\b.*\bget\b.*\belite\b.*$", "**Quote from the @CyberDiscUK Twitter: **"
