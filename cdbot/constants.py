@@ -13,12 +13,12 @@ def getenv(name: str, fallback: str = "") -> str:
     return variable or fallback
 
 
-class PostgreSQL:
-    PGHOST = getenv("PGHOST")
-    PGPORT = getenv("PGPORT")
-    PGUSER = getenv("PGUSER")
-    PGDATABASE = getenv("PGDATABASE")
-    PGPASSWORD = getenv("PGPASSWORD")
+class MongoDB:
+    MONGOHOST = getenv("MONGOHOST")
+    MONGOPORT = getenv("MONGOPORT")
+    MONGOUSER = getenv("MONGOUSER")
+    MONGODATABASE = getenv("MONGODATABASE")
+    MONGOPASSWORD = getenv("MONGOPASSWORD")
 
 
 BOT_TOKEN = getenv("BOT_TOKEN")
