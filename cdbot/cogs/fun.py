@@ -10,7 +10,6 @@ from string import ascii_lowercase
 from typing import List
 from urllib.parse import urlencode
 
-import asyncpg
 from PIL import Image, ImageDraw, ImageFont
 from aiohttp import ClientSession
 from cdbot.constants import (
@@ -108,15 +107,6 @@ class Fun(Cog):
         self.quote_channel = None
         self.fake_staff_role = None
 
-    async def migrate_quotes(self):
-        """Create and initialise the `quotes` table with user quotes."""
-        async with self.bot.pool.acquire() as connection:
-            await connection.execute(
-                "CREATE TABLE IF NOT EXISTS quotes (quote_id bigint PRIMARY KEY, author_id bigint)"
-            )
-        quote_channel = self.bot.get_channel(QUOTES_CHANNEL_ID)
-        async for quote in quote_channel.history(limit=None):
-            await self.add_quote_to_db(quote)
 
     @Cog.listener()
     async def on_ready(self):
@@ -128,28 +118,11 @@ class Fun(Cog):
         if self.fake_staff_role is None:
             self.fake_staff_role = guild.get_role(FAKE_ROLE_ID)
 
-        self.bot.pool = await asyncpg.create_pool(
-            host=PostgreSQL.PGHOST,
-            port=PostgreSQL.PGPORT,
-            user=PostgreSQL.PGUSER,
-            password=PostgreSQL.PGPASSWORD,
-            database=PostgreSQL.PGDATABASE,
-        )
-
-        await self.migrate_quotes()
-
     @cooldown(1, 60, BucketType.user)
     @cooldown(4, 60, BucketType.channel)
     @cooldown(6, 3600, BucketType.guild)
     @Cog.listener()
     async def on_message(self, message: Message):
-        # If a new quote is added, add it to the database.
-        if message.channel.id == QUOTES_CHANNEL_ID and (
-            message.author.id == QUOTES_BOT_ID or message.mentions is not None
-        ):
-            await self.add_quote_to_db(message)
-            print(f"Message #{message.id} added to database.")
-
         if self.fake_staff_role in message.role_mentions and not message.author.bot:
             # A user has requested to ping official staff
             sent = await message.channel.send(embed=self.ping_embed, delete_after=30)
@@ -221,9 +194,8 @@ class Fun(Cog):
             message = await quotes_channel.fetch_message(raw_reaction.message_id)
             reaction = [react for react in message.reactions if str(react.emoji) == thumbs_down][0]
             if reaction.count >= 5:
-                async with self.bot.pool.acquire() as connection:
-                    await connection.execute("DELETE FROM quotes WHERE quote_id = $1", reaction.message.id)
-                await reaction.message.delete()
+                return
+                # TODO: update this function
 
     @command()
     async def lmgtfy(self, ctx: Context, *args: str):
@@ -315,39 +287,31 @@ class Fun(Cog):
         Returns a random quotation from the #quotes channel.
         A user can be specified to return a random quotation from that user.
         """
-        quote_channel = self.bot.get_channel(QUOTES_CHANNEL_ID)
+        # quote_channel = self.bot.get_channel(QUOTES_CHANNEL_ID)
 
-        async with self.bot.pool.acquire() as connection:
-            if member is None:
-                # fetchval() returns the first result of a query.
-                message_id = await connection.fetchval(
-                    "SELECT quote_id FROM quotes ORDER BY random() LIMIT 1"
-                )
-            else:
-                message_id = await connection.fetchval(
-                    "SELECT quote_id FROM quotes WHERE author_id=$1 ORDER BY random() LIMIT 1",
-                    member.id
-                )
 
-        if message_id is None:
-            return await ctx.send("No quotes found.")
 
-        message = await quote_channel.fetch_message(message_id)
-        embed = None
-        content = message.clean_content
-        attachment_urls = [attachment.url for attachment in message.attachments]
+        # if message_id is None:
+        #     return await ctx.send("No quotes found.")
 
-        if message.embeds:
-            embed = message.embeds[0]
-        elif len(attachment_urls) == 1:
-            image_url = attachment_urls.pop(0)
-            embed = Embed()
-            embed.set_image(url=image_url)
+        # message = await quote_channel.fetch_message(message_id)
+        # embed = None
+        # content = message.clean_content
+        # attachment_urls = [attachment.url for attachment in message.attachments]
 
-        for url in attachment_urls:
-            content += "\n" + url
+        # if message.embeds:
+        #     embed = message.embeds[0]
+        # elif len(attachment_urls) == 1:
+        #     image_url = attachment_urls.pop(0)
+        #     embed = Embed()
+        #     embed.set_image(url=image_url)
 
-        await ctx.send(content, embed=embed)
+        # for url in attachment_urls:
+        #     content += "\n" + url
+
+        # await ctx.send(content, embed=embed)
+        return
+        # TODO: update this function for new quotes
 
     @command()
     async def quotecount(self, ctx: Context, member: FormerUser = None):
@@ -355,91 +319,52 @@ class Fun(Cog):
         Returns the number of quotes in the #quotes channel.
         A user can be specified to return the number of quotes from that user.
         """
-        async with self.bot.pool.acquire() as connection:
-            total_quotes = await connection.fetchval('SELECT count(*) FROM quotes')
+        # async with self.bot.pool.acquire() as connection:
+        #     total_quotes = await connection.fetchval('SELECT count(*) FROM quotes')
 
-            if member is None:
-                await ctx.send(f"There are {total_quotes} quotes in the database")
-            else:
-                user_quotes = await connection.fetchval('SELECT count(*) FROM quotes WHERE author_id=$1', member.id)
-                await ctx.send(
-                    f"There are {user_quotes} quotes from {member} in the database "
-                    f"({user_quotes / total_quotes:.2%})"
-                )
+        #     if member is None:
+        #         await ctx.send(f"There are {total_quotes} quotes in the database")
+        #     else:
+        #         user_quotes = await connection.fetchval('SELECT count(*) FROM quotes WHERE author_id=$1', member.id)
+        #         await ctx.send(
+        #             f"There are {user_quotes} quotes from {member} in the database "
+        #             f"({user_quotes / total_quotes:.2%})"
+        #         )
+        return
+        # TODO: update this function for new quotes
 
     @command()
     async def quoteboard(self, ctx: Context, page: int = 1):
         """Show a leaderboard of users with the most quotes."""
-        users = ""
-        current = 1
-        start_from = (page - 1) * 10
+        # users = ""
+        # current = 1
+        # start_from = (page - 1) * 10
 
-        async with self.bot.pool.acquire() as connection:
-            page_count = ceil(
-                await connection.fetchval("SELECT count(DISTINCT author_id) FROM quotes") / 10
-            )
+        # async with self.bot.pool.acquire() as connection:
+        #     page_count = ceil(
+        #         await connection.fetchval("SELECT count(DISTINCT author_id) FROM quotes") / 10
+        #     )
 
-            if 1 > page > page_count:
-                return await ctx.send(":no_entry_sign: Invalid page number")
+        #     if 1 > page > page_count:
+        #         return await ctx.send(":no_entry_sign: Invalid page number")
 
-            for result in await connection.fetch(
-                "SELECT author_id, COUNT(author_id) as quote_count FROM quotes "
-                "GROUP BY author_id ORDER BY quote_count DESC LIMIT 10 OFFSET $1",
-                start_from
-            ):
-                author, quotes = result.values()
-                users += f"{start_from + current}. <@{author}> - {quotes}\n"
-                current += 1
+        #     for result in await connection.fetch(
+        #         "SELECT author_id, COUNT(author_id) as quote_count FROM quotes "
+        #         "GROUP BY author_id ORDER BY quote_count DESC LIMIT 10 OFFSET $1",
+        #         start_from
+        #     ):
+        #         author, quotes = result.values()
+        #         users += f"{start_from + current}. <@{author}> - {quotes}\n"
+        #         current += 1
 
-        embed = Embed(colour=Colour(0xae444a))
-        embed.add_field(name=f"Page {page}/{page_count}", value=users)
-        embed.set_author(name="Quotes Leaderboard", icon_url=CYBERDISC_ICON_URL)
+        # embed = Embed(colour=Colour(0xae444a))
+        # embed.add_field(name=f"Page {page}/{page_count}", value=users)
+        # embed.set_author(name="Quotes Leaderboard", icon_url=CYBERDISC_ICON_URL)
 
-        await ctx.send(embed=embed)
+        # await ctx.send(embed=embed)
+        return
+        # TODO: update this function for new quotes
 
-    async def add_quote_to_db(self, quote: Message):
-        """
-        Adds a quote message ID to the database, and attempts to identify the author of the quote.
-        """
-        author_id = None
-        if quote.author.id == QUOTES_BOT_ID:
-            if not quote.embeds:
-                return
-            embed = quote.embeds[0]
-            icon_url = embed.author.icon_url
-            if type(icon_url) == embeds._EmptyEmbed or 'twimg' in icon_url:
-                author_id = QUOTES_BOT_ID
-            elif 'avatars' in icon_url:
-                try:
-                    author_id = int(icon_url.split('/')[-2])
-                except ValueError:
-                    author_id = 0
-            else:
-                author_info = embed.author.name.split("#")
-                if len(author_info) == 1:
-                    author_info.append("0000")
-                author = get(
-                    quote.guild.members,
-                    name=author_info[0],
-                    discriminator=author_info[1])
-                author_id = author.id if author is not None else None
-        else:
-            author_id = quote.mentions[0].id if quote.mentions else None
-
-        async with self.bot.pool.acquire() as connection:
-            if author_id is not None:
-                await connection.execute(
-                    "INSERT INTO quotes(quote_id, author_id) VALUES($1, $2) ON CONFLICT DO NOTHING",
-                    quote.id,
-                    author_id,
-                )
-            else:
-                await connection.execute(
-                    "INSERT INTO quotes(quote_id) VALUES($1) ON CONFLICT DO NOTHING",
-                    quote.id
-                )
-
-        print(f"Quote ID: {quote.id} has been added to the database.")
 
     async def create_text_image(self, ctx: Context, person: str, text: str):
         """
