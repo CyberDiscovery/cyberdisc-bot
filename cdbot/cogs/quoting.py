@@ -1,10 +1,17 @@
-from typing import Any, List, Union
+from typing import Any, Callable, List, Union
 
 from discord import utils, Embed, Message, Member, NotFound, TextChannel, User
 from discord.ext import commands
 from discord.ext.commands import Bot, Cog
 
-from cdbot.constants import SERVER_ID, QUOTES_CHANNEL_ID
+from cdbot.constants import SERVER_ID, QUOTES_CHANNEL_ID, QUOTE_CZAR_ID
+
+
+def is_quote_czar() -> Callable:
+    async def predicate(ctx: commands.Context) -> bool:
+        czar_role = utils.get(ctx.guild.roles, id=QUOTE_CZAR_ID)
+        return czar_role in ctx.author.roles or ctx.author.guild_permissions.administrator
+    return commands.check(predicate)
 
 
 class QuoteCog(Cog):
@@ -223,6 +230,7 @@ class QuoteCog(Cog):
         await ctx.invoke(self.quote_range_from, channel, from_message, to_message)
 
     @quote.group(name="save", invoke_without_command=True)
+    @is_quote_czar()
     async def quote_save(self, ctx: commands.Context, message: Message):
         embed, data = await self.generate_single_quote(message, ctx.message)
         await self.save_single_quote(data)
@@ -231,6 +239,7 @@ class QuoteCog(Cog):
         return await ctx.send(content="Saved quote to database", embed=embed)
 
     @quote_save.group("from", invoke_without_command=True)
+    @is_quote_czar()
     async def quote_save_from(self, ctx: commands.Context, channel: TextChannel, message: int):
         message = await channel.fetch_message(message)
         embed, data = await self.generate_single_quote(message, ctx.message)
@@ -240,6 +249,7 @@ class QuoteCog(Cog):
         return await ctx.send(content="Saved quote to database", embed=embed)
 
     @quote_save.group("range", invoke_without_command=True)
+    @is_quote_czar()
     async def quote_save_range(self, ctx: commands.Context, from_message: Message, to_message: Message):
         embeds, data = await self.generate_multi_quote(ctx.channel, from_message, to_message, ctx.message)
         await self.save_multi_quote(data)
@@ -252,6 +262,7 @@ class QuoteCog(Cog):
         return await ctx.send(content="Saved quote to database", embed=embeds)
 
     @quote_save_range.command("from")
+    @is_quote_czar()
     async def quote_save_range_from(
         self, ctx: commands.Context, channel: TextChannel, from_message: int, to_message: int
     ):
@@ -268,6 +279,7 @@ class QuoteCog(Cog):
         return await ctx.send(content="Saved quote to database", embed=embeds)
 
     @quote_save_from.command("range")
+    @is_quote_czar()
     async def quote_save_from_range(
         self, ctx: commands.Context, channel: TextChannel, from_message: int, to_message: int
     ):

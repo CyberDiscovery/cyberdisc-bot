@@ -98,3 +98,17 @@ Finally, run the command `poetry run cdbot` in the root of the repository to run
 * **`:quotecount [@mention]`** - Returns the number of quotes in the DB. Adding a username/mention will return the number of quotes from that user.
 * **`:react [emoji]`** - Reacts to the previous message with the space seperated emojis in the requesting message.
 * **`:xkcd [? | 1810]`** - Fetches xkcd comics. If the argument is left blank the latest comic is shown.  A random comic is shown if the argument is a `?`.  Otherwise, a comic number can be used to fetch a specific comic.
+
+
+### Quoting Commands
+
+* **`:quote [message ID]`** - Creates a quote embed for a message.
+* **`:quote from [channel ID] [message ID]`** - Creates a quote embed for a message in another channel.
+* **`:quote range [from message ID] [to message ID]`** - Creates a quote embed for a range of messages.
+* **`:quote range from [channel ID] [from message ID] [to message ID]`** - Creates a quote embed for a range of messages in another channel.
+* **`:quote from range [channel ID] [from message ID] [to message ID]`** - Alias of `:quote from range`.
+* **`:quote save [message ID]`** - Alias of `:quote` that also saves the quote in the database, the quote czar role is required to run this.
+* **`:quote save from [channel ID] [message ID]`** - Alias of `:quote from` that also saves the quote in the database, the quote czar role is required to run this.
+* **`:quote save range [from message ID] [to message ID]`** - Alias of `:quote range` that also saves the quote in the database, the quote czar role is required to run this.
+* **`:quote save range from [channel ID] [from message ID] [to message ID]`** - Alias of `:quote from range` that also saves the quote in the database, the quote czar role is required to run this.
+* **`:quote save from range [channel ID] [from message ID] [to message ID]`** - Alias of `:quote save from range`.
