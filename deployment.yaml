@@ -71,6 +71,28 @@ spec:
             secretKeyRef:
               name: "creds"
               key: "BOT_TOKEN"
+        - name: "MONGOHOST"
+          value: "cyberdisc-db"
+        - name: "MONGOPORT"
+          valueFrom:
+            secretKeyRef:
+              name: "creds"
+              key: "MONGOPORT"
+        - name: "MONGODATABASE"
+          valueFrom:
+            secretKeyRef:
+              name: "creds"
+              key: "MONGODATABASE"
+        - name: "MONGOUSER"
+          valueFrom:
+            secretKeyRef:
+              name: "creds"
+              key: "MONGOUSER"
+        - name: "MONGOPASSWORD"
+          valueFrom:
+            secretKeyRef:
+              name: "creds"
+              key: "MONGOPASSWORD"
         - name: "SENTRY_URL"
           valueFrom:
             secretKeyRef:
