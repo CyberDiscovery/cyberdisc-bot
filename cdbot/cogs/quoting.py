@@ -1,6 +1,6 @@
 from typing import Any, Callable, List, Union
 
-from discord import utils, Embed, Message, Member, NotFound, TextChannel, User
+from discord import utils, Embed, HTTPException, Message, Member, NotFound, TextChannel, User
 from discord.ext import commands
 from discord.ext.commands import Bot, Cog
 
@@ -12,6 +12,14 @@ def is_quote_czar() -> Callable:
         czar_role = utils.get(ctx.guild.roles, id=QUOTE_CZAR_ID)
         return czar_role in ctx.author.roles or ctx.author.guild_permissions.administrator
     return commands.check(predicate)
+
+
+class FormerUser(UserConverter):
+    async def convert(self, ctx, argument):
+        try:
+            return await ctx.bot.fetch_user(argument)
+        except (NotFound, HTTPException):
+            return await super().convert(ctx, argument)
 
 
 class QuoteCog(Cog):
@@ -27,6 +35,17 @@ class QuoteCog(Cog):
     async def on_command_error(self, ctx: commands.Context, error):
         # temporary for test
         await ctx.send(f"{type(error)}: {error}")
+
+    @Cog.listener()
+    async def on_raw_reaction_add(self, raw_reaction: RawReactionActionEvent):
+        thumbs_down = "\N{THUMBS DOWN SIGN}"
+        if str(raw_reaction.emoji) == thumbs_down and raw_reaction.channel_id == QUOTES_CHANNEL_ID:
+            quotes_channel = self.bot.get_channel(QUOTES_CHANNEL_ID)
+            message = await quotes_channel.fetch_message(raw_reaction.message_id)
+            reaction = [react for react in message.reactions if str(react.emoji) == thumbs_down][0]
+            if reaction.count >= 5:
+                return
+                # TODO: update this function
 
     async def get_member_by_id(self, member_id: int) -> Union[Member, User, None]:
         if (member := utils.get(self.bot.get_all_members(), id=member_id)) is not None:  # noqa: E203, E231
@@ -284,6 +303,90 @@ class QuoteCog(Cog):
         self, ctx: commands.Context, channel: TextChannel, from_message: int, to_message: int
     ):
         await ctx.invoke(self.quote_save_range_from, channel, from_message, to_message)
+
+    @commands.command()
+    async def quotes(self, ctx: Context, member: FormerUser = None):
+        """
+        Returns a random quotation from the #quotes channel.
+        A user can be specified to return a random quotation from that user.
+        """
+        # quote_channel = self.bot.get_channel(QUOTES_CHANNEL_ID)
+
+
+
+        # if message_id is None:
+        #     return await ctx.send("No quotes found.")
+
+        # message = await quote_channel.fetch_message(message_id)
+        # embed = None
+        # content = message.clean_content
+        # attachment_urls = [attachment.url for attachment in message.attachments]
+
+        # if message.embeds:
+        #     embed = message.embeds[0]
+        # elif len(attachment_urls) == 1:
+        #     image_url = attachment_urls.pop(0)
+        #     embed = Embed()
+        #     embed.set_image(url=image_url)
+
+        # for url in attachment_urls:
+        #     content += "\n" + url
+
+        # await ctx.send(content, embed=embed)
+        return
+        # TODO: update this function for new quotes
+
+    @commands.command()
+    async def quotecount(self, ctx: Context, member: FormerUser = None):
+        """
+        Returns the number of quotes in the #quotes channel.
+        A user can be specified to return the number of quotes from that user.
+        """
+        # async with self.bot.pool.acquire() as connection:
+        #     total_quotes = await connection.fetchval('SELECT count(*) FROM quotes')
+
+        #     if member is None:
+        #         await ctx.send(f"There are {total_quotes} quotes in the database")
+        #     else:
+        #         user_quotes = await connection.fetchval('SELECT count(*) FROM quotes WHERE author_id=$1', member.id)
+        #         await ctx.send(
+        #             f"There are {user_quotes} quotes from {member} in the database "
+        #             f"({user_quotes / total_quotes:.2%})"
+        #         )
+        return
+        # TODO: update this function for new quotes
+
+    @commands.command()
+    async def quoteboard(self, ctx: Context, page: int = 1):
+        """Show a leaderboard of users with the most quotes."""
+        # users = ""
+        # current = 1
+        # start_from = (page - 1) * 10
+
+        # async with self.bot.pool.acquire() as connection:
+        #     page_count = ceil(
+        #         await connection.fetchval("SELECT count(DISTINCT author_id) FROM quotes") / 10
+        #     )
+
+        #     if 1 > page > page_count:
+        #         return await ctx.send(":no_entry_sign: Invalid page number")
+
+        #     for result in await connection.fetch(
+        #         "SELECT author_id, COUNT(author_id) as quote_count FROM quotes "
+        #         "GROUP BY author_id ORDER BY quote_count DESC LIMIT 10 OFFSET $1",
+        #         start_from
+        #     ):
+        #         author, quotes = result.values()
+        #         users += f"{start_from + current}. <@{author}> - {quotes}\n"
+        #         current += 1
+
+        # embed = Embed(colour=Colour(0xae444a))
+        # embed.add_field(name=f"Page {page}/{page_count}", value=users)
+        # embed.set_author(name="Quotes Leaderboard", icon_url=CYBERDISC_ICON_URL)
+
+        # await ctx.send(embed=embed)
+        return
+        # TODO: update this function for new quotes
 
 
 def setup(bot: Bot):

@@ -16,22 +16,15 @@ from cdbot.constants import (
     CYBERDISC_ICON_URL,
     EMOJI_LETTERS,
     FAKE_ROLE_ID,
-    PostgreSQL,
-    QUOTES_BOT_ID,
     QUOTES_CHANNEL_ID,
     ROOT_ROLE_ID,
+    SERVER_ID,
     STAFF_ROLE_ID,
     SUDO_ROLE_ID,
     WELCOME_BOT_ID,
 )
-from discord import (
-    Colour, Embed, File, HTTPException,
-    Message, NotFound, RawReactionActionEvent, embeds
-)
-from discord.ext.commands import (
-    Bot, BucketType, Cog,
-    Context, UserConverter, command, cooldown
-)
+from discord import Embed, File, Message
+from discord.ext.commands import Bot, BucketType, Cog, Context, command, cooldown
 from discord.utils import get
 
 ascii_lowercase += " !?$()"
@@ -69,14 +62,6 @@ async def emojify(message: Message, string: str):
             await message.add_reaction(emoji)
 
 
-class FormerUser(UserConverter):
-    async def convert(self, ctx, argument):
-        try:
-            return await ctx.bot.fetch_user(argument)
-        except (NotFound, HTTPException):
-            return await super().convert(ctx, argument)
-
-
 class Fun(Cog):
     """
     Commands for fun!
@@ -104,13 +89,12 @@ class Fun(Cog):
     def __init__(self, bot: Bot):
         self.bot = bot
         self.staff_role = None
-        self.quote_channel = None
         self.fake_staff_role = None
 
 
     @Cog.listener()
     async def on_ready(self):
-        guild = self.bot.guilds[0]
+        guild = get(self.bot.guilds, id=SERVER_ID)
 
         if self.staff_role is None:
             self.staff_role = guild.get_role(STAFF_ROLE_ID)
@@ -185,17 +169,6 @@ class Fun(Cog):
         # Adds waving emoji when a new user joins.
         if "Welcome to the Cyber Discovery" in message.content and message.author.id == WELCOME_BOT_ID:
             await message.add_reaction("\N{WAVING HAND SIGN}")
-
-    @Cog.listener()
-    async def on_raw_reaction_add(self, raw_reaction: RawReactionActionEvent):
-        thumbs_down = "\N{THUMBS DOWN SIGN}"
-        if str(raw_reaction.emoji) == thumbs_down and raw_reaction.channel_id == QUOTES_CHANNEL_ID:
-            quotes_channel = self.bot.get_channel(QUOTES_CHANNEL_ID)
-            message = await quotes_channel.fetch_message(raw_reaction.message_id)
-            reaction = [react for react in message.reactions if str(react.emoji) == thumbs_down][0]
-            if reaction.count >= 5:
-                return
-                # TODO: update this function
 
     @command()
     async def lmgtfy(self, ctx: Context, *args: str):
@@ -280,91 +253,6 @@ class Fun(Cog):
         comic.add_field(name="Explanation:", value=f"https://explainxkcd.com/{number}")
 
         await ctx.send(embed=comic)
-
-    @command()
-    async def quotes(self, ctx: Context, member: FormerUser = None):
-        """
-        Returns a random quotation from the #quotes channel.
-        A user can be specified to return a random quotation from that user.
-        """
-        # quote_channel = self.bot.get_channel(QUOTES_CHANNEL_ID)
-
-
-
-        # if message_id is None:
-        #     return await ctx.send("No quotes found.")
-
-        # message = await quote_channel.fetch_message(message_id)
-        # embed = None
-        # content = message.clean_content
-        # attachment_urls = [attachment.url for attachment in message.attachments]
-
-        # if message.embeds:
-        #     embed = message.embeds[0]
-        # elif len(attachment_urls) == 1:
-        #     image_url = attachment_urls.pop(0)
-        #     embed = Embed()
-        #     embed.set_image(url=image_url)
-
-        # for url in attachment_urls:
-        #     content += "\n" + url
-
-        # await ctx.send(content, embed=embed)
-        return
-        # TODO: update this function for new quotes
-
-    @command()
-    async def quotecount(self, ctx: Context, member: FormerUser = None):
-        """
-        Returns the number of quotes in the #quotes channel.
-        A user can be specified to return the number of quotes from that user.
-        """
-        # async with self.bot.pool.acquire() as connection:
-        #     total_quotes = await connection.fetchval('SELECT count(*) FROM quotes')
-
-        #     if member is None:
-        #         await ctx.send(f"There are {total_quotes} quotes in the database")
-        #     else:
-        #         user_quotes = await connection.fetchval('SELECT count(*) FROM quotes WHERE author_id=$1', member.id)
-        #         await ctx.send(
-        #             f"There are {user_quotes} quotes from {member} in the database "
-        #             f"({user_quotes / total_quotes:.2%})"
-        #         )
-        return
-        # TODO: update this function for new quotes
-
-    @command()
-    async def quoteboard(self, ctx: Context, page: int = 1):
-        """Show a leaderboard of users with the most quotes."""
-        # users = ""
-        # current = 1
-        # start_from = (page - 1) * 10
-
-        # async with self.bot.pool.acquire() as connection:
-        #     page_count = ceil(
-        #         await connection.fetchval("SELECT count(DISTINCT author_id) FROM quotes") / 10
-        #     )
-
-        #     if 1 > page > page_count:
-        #         return await ctx.send(":no_entry_sign: Invalid page number")
-
-        #     for result in await connection.fetch(
-        #         "SELECT author_id, COUNT(author_id) as quote_count FROM quotes "
-        #         "GROUP BY author_id ORDER BY quote_count DESC LIMIT 10 OFFSET $1",
-        #         start_from
-        #     ):
-        #         author, quotes = result.values()
-        #         users += f"{start_from + current}. <@{author}> - {quotes}\n"
-        #         current += 1
-
-        # embed = Embed(colour=Colour(0xae444a))
-        # embed.add_field(name=f"Page {page}/{page_count}", value=users)
-        # embed.set_author(name="Quotes Leaderboard", icon_url=CYBERDISC_ICON_URL)
-
-        # await ctx.send(embed=embed)
-        return
-        # TODO: update this function for new quotes
-
 
     async def create_text_image(self, ctx: Context, person: str, text: str):
         """
