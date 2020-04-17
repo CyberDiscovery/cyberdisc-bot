@@ -20,6 +20,7 @@ from cdbot.constants import (
     PostgreSQL,
     QUOTES_BOT_ID,
     QUOTES_CHANNEL_ID,
+    QUOTES_DELETION_QUOTA,
     ROOT_ROLE_ID,
     STAFF_ROLE_ID,
     SUDO_ROLE_ID,
@@ -220,7 +221,7 @@ class Fun(Cog):
             quotes_channel = self.bot.get_channel(QUOTES_CHANNEL_ID)
             message = await quotes_channel.fetch_message(raw_reaction.message_id)
             reaction = [react for react in message.reactions if str(react.emoji) == thumbs_down][0]
-            if reaction.count >= 5:
+            if reaction.count >= QUOTES_DELETION_QUOTA:
                 async with self.bot.pool.acquire() as connection:
                     await connection.execute("DELETE FROM quotes WHERE quote_id = $1", reaction.message.id)
                 await reaction.message.delete()
