@@ -174,7 +174,7 @@ class QuoteCog(Cog):
     ):
         messages = await self.range_quote(channel, from_message, to_message)
         if len("".join(message.content for message in messages)) > 2000:
-            raise QuoteTooLong()
+            raise QuoteTooLong
         quote = self.multi_quote_dict(messages, message)
         embeds = await self.multi_quote_embed(quote)
         return embeds, quote

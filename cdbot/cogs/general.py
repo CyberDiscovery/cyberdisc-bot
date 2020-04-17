@@ -39,6 +39,10 @@ class General(Cog):
     @Cog.listener()
     async def on_command_error(self, ctx, error):
         # Try provide some user feedback instead of logging all errors.
+        print("\n\n")
+        print(isinstance(error, QuoteTooLong), QuoteTooLong, type(error))
+        print(isinstance(error, QuoteTooLong), id(QuoteTooLong), id(type(error)))
+        print("\n\n")
 
         if isinstance(error, commands.CommandNotFound):
             return  # No need to log unfound commands anywhere or return feedback
@@ -53,6 +57,7 @@ class General(Cog):
             retry_after = round(error.retry_after)
             return await ctx.send(f"\N{HOURGLASS} Command is on cooldown, try again after {retry_after} seconds")
         elif isinstance(error, QuoteTooLong):
+            print("\n\nyeet\n\n")
             return await ctx.send("\N{NO ENTRY SIGN} Your quote exceeds the maximum length.")
 
         # All errors below this need reporting and so do not return
