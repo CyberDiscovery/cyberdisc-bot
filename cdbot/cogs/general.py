@@ -40,7 +40,7 @@ class General(Cog):
     async def on_command_error(self, ctx, error):
         # Try provide some user feedback instead of logging all errors.
 
-        if isinstance(error, commands.CommandNotFound) or hasattr(ctx, "handled"):
+        if isinstance(error, commands.CommandNotFound):
             return  # No need to log unfound commands anywhere or return feedback
 
         if isinstance(error, commands.MissingRequiredArgument):

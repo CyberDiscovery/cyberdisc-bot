@@ -2,7 +2,7 @@ from typing import Any, Callable, List, Union
 
 from discord import utils, Embed, HTTPException, Message, Member, NotFound, RawReactionActionEvent, TextChannel, User
 from discord.ext import commands
-from discord.ext.commands import BadArgument, Bot, MissingPermissions, Cog, UserConverter
+from discord.ext.commands import BadArgument, Bot, CheckFailure, Cog, UserConverter
 
 from cdbot.constants import SERVER_ID, QUOTES_CHANNEL_ID, QUOTE_CZAR_ID
 
@@ -201,7 +201,7 @@ class QuoteCog(Cog):
         Quote a message from another channel.
         """
         if not channel.permissions_for(ctx.author).read_messages:
-            raise MissingPermissions([])
+            raise CheckFailure()
         message = await channel.fetch_message(message)
         if ctx.channel.id == QUOTES_CHANNEL_ID:
             return ctx.invoke(self.quote_save, message)
@@ -223,7 +223,7 @@ class QuoteCog(Cog):
         Quote a range of messages from another channel.
         """
         if not channel.permissions_for(ctx.author).read_messages:
-            raise MissingPermissions([])
+            raise CheckFailure()
         if ctx.channel.id == QUOTES_CHANNEL_ID:
             return ctx.invoke(self.quote_save_range_from, channel, from_message, to_message)
         from_message = await channel.fetch_message(from_message)
@@ -247,7 +247,7 @@ class QuoteCog(Cog):
     @is_quote_czar()
     async def quote_save_from(self, ctx: commands.Context, channel: TextChannel, message: int):
         if not channel.permissions_for(ctx.author).read_messages:
-            raise MissingPermissions([])
+            raise CheckFailure()
         message = await channel.fetch_message(message)
         embed, data = await self.generate_single_quote(message, ctx.message)
         await ctx.message.delete()
@@ -268,7 +268,7 @@ class QuoteCog(Cog):
         self, ctx: commands.Context, channel: TextChannel, from_message: int, to_message: int
     ):
         if not channel.permissions_for(ctx.author).read_messages:
-            raise MissingPermissions([])
+            raise CheckFailure()
         from_message = await channel.fetch_message(from_message)
         to_message = await channel.fetch_message(to_message)
         embed, data = await self.generate_multi_quote(channel, from_message, to_message, ctx.message)
