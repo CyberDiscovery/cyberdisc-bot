@@ -1,8 +1,8 @@
 from typing import Any, Callable, List, Union
 
-from discord import utils, Embed, HTTPException, Message, Member, NotFound, TextChannel, User
+from discord import utils, Embed, HTTPException, Message, Member, NotFound, RawReactionActionEvent, TextChannel, User
 from discord.ext import commands
-from discord.ext.commands import Bot, Cog
+from discord.ext.commands import BadArgument, Bot, MissingPermissions, Cog, UserConverter
 
 from cdbot.constants import SERVER_ID, QUOTES_CHANNEL_ID, QUOTE_CZAR_ID
 
@@ -22,19 +22,30 @@ class FormerUser(UserConverter):
             return await super().convert(ctx, argument)
 
 
+class QuoteTooLong(BadArgument):
+    pass
+
+
 class QuoteCog(Cog):
     def __init__(self, bot: Bot):
         self.bot = bot
 
     @Cog.listener()
     async def on_ready(self):
-        # maybe need do stuff here
-        pass
+        self.quote_channel = utils.get(self.bot.get_all_channels(), guild__id=SERVER_ID, id=QUOTES_CHANNEL_ID)
 
     @Cog.listener()
     async def on_command_error(self, ctx: commands.Context, error):
         # temporary for test
         await ctx.send(f"{type(error)}: {error}")
+        if isinstance(error, MissingPermissions):
+            ctx.handled = True
+            return await ctx.send("\N{NO ENTRY SIGN} You do not have permission to quote from that channel")
+        elif isinstance(error, QuoteTooLong):
+            ctx.handled = True
+            return await ctx.send("\N{NO ENTRY SIGN} Your quote exceeds the maximum length.")
+        else:
+            pass
 
     @Cog.listener()
     async def on_raw_reaction_add(self, raw_reaction: RawReactionActionEvent):
@@ -123,17 +134,8 @@ class QuoteCog(Cog):
             multi_quote["messages"].append(data)
         return multi_quote
 
-    def paginate_lines(self, lines: List[str]) -> List[str]:
-        paginator = commands.Paginator()
-        for line in lines:
-            try:
-                paginator.add_line(line)
-            except RuntimeError:
-                paginator.close_page()
-                paginator.add_line(line)
-        return paginator.pages
 
-    async def multi_quote_embed(self, multi_quote: dict) -> Union[Embed, List[Embed]]:
+    async def multi_quote_embed(self, multi_quote: dict) -> Embed:
         embeds = [message.get("embed", None) for message in multi_quote["messages"]]
         if any(embeds):
             return list(filter(lambda x: x is not None, embeds))
@@ -168,18 +170,8 @@ class QuoteCog(Cog):
                 line_str += "\n"
             line_str += message["content"][:1950]
             lines.append(line_str)
-        pages = self.paginate_lines(lines)
-        if len(pages) < 2:
-            embed.description = pages[0] + f"\n[Jump to content]({multi_quote['content_link']})"
-            return embed
-        else:
-            embeds = []
-            for page in pages:
-                embed = embed.copy()
-                embed.description = page
-                embeds.append(embed)
-            embeds[-1].description = page[-1] + f"\n[Jump to content]({multi_quote['content_link']})"
-            return embeds
+        embed.description = "```" + "\n".join(lines) + f"```\n[Jump to content]({multi_quote['content_link']})"
+        return embed
 
     async def generate_single_quote(self, quoted: Message, original: Message):
         quote = self.quote_dict(quoted, original)
@@ -190,23 +182,25 @@ class QuoteCog(Cog):
         self, channel: TextChannel, from_message: Message, to_message: Message, message: Message
     ):
         messages = await self.range_quote(channel, from_message, to_message)
+        if len("".join(message.content for message in messages)) > 2000:
+            raise QuoteTooLong()
         quote = self.multi_quote_dict(messages, message)
         embeds = await self.multi_quote_embed(quote)
         return embeds, quote
 
-    async def save_single_quote(self, data: dict):
-        # do something.
-        pass
-
-    async def save_multi_quote(self, data: dict):
-        # do something.
-        pass
+    async def save_quote(self, embed: Embed, data: dict):
+        quote = await self.quote_channel.send(embed=embed)
+        await quote.add_reaction("\N{THUMBS DOWN SIGN}")
+        data["_id"] = quote.id
+        # do save
 
     @commands.group(invoke_without_command=True)
     async def quote(self, ctx: commands.Context, message: Message):
         """
         Quote a single message.
         """
+        if ctx.channel.id == QUOTES_CHANNEL_ID:
+            return ctx.invoke(self.quote_save, message)
         embed, _ = await self.generate_single_quote(message, ctx.message)
         return await ctx.send(embed=embed)
 
@@ -215,97 +209,91 @@ class QuoteCog(Cog):
         """
         Quote a message from another channel.
         """
+        if not channel.permissions_for(ctx.author).read_messages:
+            raise MissingPermissions([])
         message = await channel.fetch_message(message)
-        await ctx.invoke(self.quote, message)
+        if ctx.channel.id == QUOTES_CHANNEL_ID:
+            return ctx.invoke(self.quote_save, message)
+        return await ctx.invoke(self.quote, message)
 
     @quote.group(name="range", invoke_without_command=True)
     async def quote_range(self, ctx: commands.Context, from_message: Message, to_message: Message):
         """
         Quote a range of messages from the current channel.
         """
-        embeds, _ = await self.generate_multi_quote(ctx.channel, from_message, to_message, ctx.message)
-        if isinstance(embeds, list):
-            for embed in embeds:
-                await ctx.send(embed=embed)
-            return
-        return await ctx.send(embed=embeds)
+        if ctx.channel.id == QUOTES_CHANNEL_ID:
+            return ctx.invoke(self.quote_save_range, from_message, to_message)
+        embed, _ = await self.generate_multi_quote(ctx.channel, from_message, to_message, ctx.message)
+        return await ctx.send(embed=embed)
 
     @quote_range.command(name="from")
     async def quote_range_from(self, ctx: commands.Context, channel: TextChannel, from_message: int, to_message: int):
         """
         Quote a range of messages from another channel.
         """
+        if not channel.permissions_for(ctx.author).read_messages:
+            raise MissingPermissions([])
+        if ctx.channel.id == QUOTES_CHANNEL_ID:
+            return ctx.invoke(self.quote_save_range_from, channel, from_message, to_message)
         from_message = await channel.fetch_message(from_message)
         to_message = await channel.fetch_message(to_message)
-        embeds, _ = await self.generate_multi_quote(ctx.channel, from_message, to_message, ctx.message)
-        if isinstance(embeds, list):
-            for embed in embeds:
-                await ctx.send(embed=embed)
-            return
-        return await ctx.send(embed=embeds)
+        embed, _ = await self.generate_multi_quote(channel, from_message, to_message, ctx.message)
+        return await ctx.send(embed=embed)
 
     @quote_from.command(name="range")
     async def quote_from_range(self, ctx: commands.Context, channel: TextChannel, from_message: int, to_message: int):
-        await ctx.invoke(self.quote_range_from, channel, from_message, to_message)
+        return await ctx.invoke(self.quote_range_from, channel, from_message, to_message)
 
     @quote.group(name="save", invoke_without_command=True)
     @is_quote_czar()
     async def quote_save(self, ctx: commands.Context, message: Message):
         embed, data = await self.generate_single_quote(message, ctx.message)
-        await self.save_single_quote(data)
-        quote_channel = utils.get(self.bot.get_all_channels(), guild__id=SERVER_ID, id=QUOTES_CHANNEL_ID)
-        await quote_channel.send(embed=embed)
-        return await ctx.send(content="Saved quote to database", embed=embed)
+        await ctx.message.delete()
+        await self.save_quote(embed, data)
+        return await ctx.send(content="Saved quote to database", embed=embed, delete_after=5.0)
 
     @quote_save.group("from", invoke_without_command=True)
     @is_quote_czar()
     async def quote_save_from(self, ctx: commands.Context, channel: TextChannel, message: int):
+        if not channel.permissions_for(ctx.author).read_messages:
+            raise MissingPermissions([])
         message = await channel.fetch_message(message)
         embed, data = await self.generate_single_quote(message, ctx.message)
-        await self.save_single_quote(data)
-        quote_channel = utils.get(self.bot.get_all_channels(), guild__id=SERVER_ID, id=QUOTES_CHANNEL_ID)
-        await quote_channel.send(embed=embed)
-        return await ctx.send(content="Saved quote to database", embed=embed)
+        await ctx.message.delete()
+        await self.save_quote(embed, data)
+        return await ctx.send(content="Saved quote to database", embed=embed, delete_after=5.0)
 
     @quote_save.group("range", invoke_without_command=True)
     @is_quote_czar()
     async def quote_save_range(self, ctx: commands.Context, from_message: Message, to_message: Message):
-        embeds, data = await self.generate_multi_quote(ctx.channel, from_message, to_message, ctx.message)
-        await self.save_multi_quote(data)
-        if isinstance(embeds, list):  # silently doesnt send long multiquotes to # quotes
-            for embed in embeds:
-                await ctx.send(embed=embed)
-                return
-        quote_channel = utils.get(self.bot.get_all_channels(), guild__id=SERVER_ID, id=QUOTES_CHANNEL_ID)
-        await quote_channel.send(embed=embeds)
-        return await ctx.send(content="Saved quote to database", embed=embeds)
+        embed, data = await self.generate_multi_quote(ctx.channel, from_message, to_message, ctx.message)
+        await ctx.message.delete()
+        await self.save_quote(embed, data)
+        return await ctx.send(content="Saved quote to database", embed=embed, delete_after=5.0)
 
     @quote_save_range.command("from")
     @is_quote_czar()
     async def quote_save_range_from(
         self, ctx: commands.Context, channel: TextChannel, from_message: int, to_message: int
     ):
+        if not channel.permissions_for(ctx.author).read_messages:
+            raise MissingPermissions([])
         from_message = await channel.fetch_message(from_message)
         to_message = await channel.fetch_message(to_message)
-        embeds, data = await self.generate_multi_quote(ctx.channel, from_message, to_message, ctx.message)
-        await self.save_multi_quote(data)
-        if isinstance(embeds, list):  # silently doesnt send long multiquotes to # quotes
-            for embed in embeds:
-                await ctx.send(embed=embed)
-                return
-        quote_channel = utils.get(self.bot.get_all_channels(), guild__id=SERVER_ID, id=QUOTES_CHANNEL_ID)
-        await quote_channel.send(embed=embeds)
-        return await ctx.send(content="Saved quote to database", embed=embeds)
+        embed, data = await self.generate_multi_quote(channel, from_message, to_message, ctx.message)
+        await ctx.message.delete()
+        await self.save_quote(embed, data)
+        return await ctx.send(content="Saved quote to database", embed=embed, delete_after=5.0)
 
     @quote_save_from.command("range")
     @is_quote_czar()
     async def quote_save_from_range(
         self, ctx: commands.Context, channel: TextChannel, from_message: int, to_message: int
     ):
-        await ctx.invoke(self.quote_save_range_from, channel, from_message, to_message)
+        return await ctx.invoke(self.quote_save_range_from, channel, from_message, to_message)
 
     @commands.command()
-    async def quotes(self, ctx: Context, member: FormerUser = None):
+    async def quotes(self, ctx: commands.Context, member: FormerUser = None):
         """
         Returns a random quotation from the #quotes channel.
         A user can be specified to return a random quotation from that user.
@@ -337,7 +325,7 @@ class QuoteCog(Cog):
         # TODO: update this function for new quotes
 
     @commands.command()
-    async def quotecount(self, ctx: Context, member: FormerUser = None):
+    async def quotecount(self, ctx: commands.Context, member: FormerUser = None):
         """
         Returns the number of quotes in the #quotes channel.
         A user can be specified to return the number of quotes from that user.
@@ -357,7 +345,7 @@ class QuoteCog(Cog):
         # TODO: update this function for new quotes
 
     @commands.command()
-    async def quoteboard(self, ctx: Context, page: int = 1):
+    async def quoteboard(self, ctx: commands.Context, page: int = 1):
         """Show a leaderboard of users with the most quotes."""
         # users = ""
         # current = 1
