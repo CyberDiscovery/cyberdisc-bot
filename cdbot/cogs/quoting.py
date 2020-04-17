@@ -36,16 +36,7 @@ class QuoteCog(Cog):
 
     @Cog.listener()
     async def on_command_error(self, ctx: commands.Context, error):
-        # temporary for test
         await ctx.send(f"{type(error)}: {error}")
-        if isinstance(error, MissingPermissions):
-            ctx.handled = True
-            return await ctx.send("\N{NO ENTRY SIGN} You do not have permission to quote from that channel")
-        elif isinstance(error, QuoteTooLong):
-            ctx.handled = True
-            return await ctx.send("\N{NO ENTRY SIGN} Your quote exceeds the maximum length.")
-        else:
-            pass
 
     @Cog.listener()
     async def on_raw_reaction_add(self, raw_reaction: RawReactionActionEvent):

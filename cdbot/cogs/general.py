@@ -1,5 +1,6 @@
 import os
 
+from .quoting import QuoteTooLong
 from discord.ext import commands
 from discord.ext.commands import Bot, Cog
 from git import Repo
@@ -39,7 +40,7 @@ class General(Cog):
     async def on_command_error(self, ctx, error):
         # Try provide some user feedback instead of logging all errors.
 
-        if isinstance(error, commands.CommandNotFound) or ctx.handled:
+        if isinstance(error, commands.CommandNotFound) or hasattr(ctx, "handled"):
             return  # No need to log unfound commands anywhere or return feedback
 
         if isinstance(error, commands.MissingRequiredArgument):
@@ -51,6 +52,8 @@ class General(Cog):
         elif isinstance(error, commands.CommandOnCooldown):
             retry_after = round(error.retry_after)
             return await ctx.send(f"\N{HOURGLASS} Command is on cooldown, try again after {retry_after} seconds")
+        elif isinstance(error, QuoteTooLong):
+            return await ctx.send("\N{NO ENTRY SIGN} Your quote exceeds the maximum length.")
 
         # All errors below this need reporting and so do not return
 
