@@ -78,7 +78,9 @@ async def get_challenge(number: int) -> dict:
         "category": challenge["category"][0]["entryTitle"],
         "challenge": convert(question[0]["value"]).replace("&nbsp;", "")[:-1],
         "image": (
-            f"https://www.kingsmathsschool.com{''.join(asset['uri'].rpartition('/')[:2] + (asset['properties']['filename'],))}"
+            (
+                "https://www.kingsmathsschool.com"
+                ''.join(asset['uri'].rpartition('/')[:2] + (asset['properties']['filename'],))
             if asset else ''
         ),
         "description": challenge["description"],
