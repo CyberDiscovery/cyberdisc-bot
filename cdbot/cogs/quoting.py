@@ -2,9 +2,10 @@ from typing import Any, Callable, List, Union
 
 from discord import utils, Embed, HTTPException, Message, Member, NotFound, RawReactionActionEvent, TextChannel, User
 from discord.ext import commands
-from discord.ext.commands import BadArgument, Bot, CheckFailure, Cog, UserConverter
+from discord.ext.commands import ArgumentParsingError, Bot, CheckFailure, Cog, UserConverter
+from motor.motor_asyncio import AsyncIOMotorClient
 
-from cdbot.constants import SERVER_ID, QUOTES_CHANNEL_ID, QUOTE_CZAR_ID
+from cdbot.constants import SERVER_ID, QUOTES_CHANNEL_ID, QUOTE_CZAR_ID, MongoDB
 
 
 def is_quote_czar() -> Callable:
@@ -22,10 +23,6 @@ class FormerUser(UserConverter):
             return await super().convert(ctx, argument)
 
 
-class QuoteTooLong(BadArgument):
-    pass
-
-
 class QuoteCog(Cog):
     def __init__(self, bot: Bot):
         self.bot = bot
@@ -33,21 +30,26 @@ class QuoteCog(Cog):
     @Cog.listener()
     async def on_ready(self):
         self.quote_channel = utils.get(self.bot.get_all_channels(), guild__id=SERVER_ID, id=QUOTES_CHANNEL_ID)
+        self.database = AsyncIOMotorClient(
+            host=MongoDB.MONGOHOST,
+            port=MongoDB.MONGOPORT,
+            username=MongoDB.MONGOUSER,
+            password=MongoDB.MONGOPASSWORD)[MongoDB.MONGODATABASE]
+        
 
     @Cog.listener()
     async def on_command_error(self, ctx: commands.Context, error):
         await ctx.send(f"{type(error)}: {error}")
 
-    @Cog.listener()
-    async def on_raw_reaction_add(self, raw_reaction: RawReactionActionEvent):
-        thumbs_down = "\N{THUMBS DOWN SIGN}"
-        if str(raw_reaction.emoji) == thumbs_down and raw_reaction.channel_id == QUOTES_CHANNEL_ID:
-            quotes_channel = self.bot.get_channel(QUOTES_CHANNEL_ID)
-            message = await quotes_channel.fetch_message(raw_reaction.message_id)
-            reaction = [react for react in message.reactions if str(react.emoji) == thumbs_down][0]
-            if reaction.count >= 5:
-                return
-                # TODO: update this function
+    # @Cog.listener()
+    # async def on_raw_reaction_add(self, raw_reaction: RawReactionActionEvent):
+    #     thumbs_down = "\N{THUMBS DOWN SIGN}"
+    #     if str(raw_reaction.emoji) == thumbs_down and raw_reaction.channel_id == QUOTES_CHANNEL_ID:
+    #         message = await self.quotes_channel.fetch_message(raw_reaction.message_id)
+    #         reaction = [react for react in message.reactions if str(react.emoji) == thumbs_down][0]
+    #         if reaction.count >= 11:
+    #             return
+    #             # TODO: update this function
 
     async def get_member_by_id(self, member_id: int) -> Union[Member, User, None]:
         if (member := utils.get(self.bot.get_all_members(), id=member_id)) is not None:  # noqa: E203, E231
@@ -174,7 +176,7 @@ class QuoteCog(Cog):
     ):
         messages = await self.range_quote(channel, from_message, to_message)
         if len("".join(message.content for message in messages)) > 2000:
-            raise QuoteTooLong
+            raise ArgumentParsingError
         quote = self.multi_quote_dict(messages, message)
         embeds = await self.multi_quote_embed(quote)
         return embeds, quote
@@ -183,7 +185,8 @@ class QuoteCog(Cog):
         quote = await self.quote_channel.send(embed=embed)
         await quote.add_reaction("\N{THUMBS DOWN SIGN}")
         data["_id"] = quote.id
-        # do save
+        res = await self.database.quotes.insert_one(data)
+        print(res)
 
     @commands.group(invoke_without_command=True)
     async def quote(self, ctx: commands.Context, message: Message):

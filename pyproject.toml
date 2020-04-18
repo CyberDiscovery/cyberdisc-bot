@@ -13,6 +13,7 @@ python-dateutil = "^2.8"
 sentry-sdk = "^0.14.3"
 Pillow = "^7.1"
 gitpython = "^3"
+motor = "^2.1.0"
 
 [tool.poetry.dev-dependencies]
 flake8 = "^3.6.0"

@@ -15,7 +15,7 @@ def getenv(name: str, fallback: str = "") -> str:
 
 class MongoDB:
     MONGOHOST = getenv("MONGOHOST")
-    MONGOPORT = getenv("MONGOPORT")
+    MONGOPORT = int(getenv("MONGOPORT"))
     MONGOUSER = getenv("MONGOUSER")
     MONGODATABASE = getenv("MONGODATABASE")
     MONGOPASSWORD = getenv("MONGOPASSWORD")
