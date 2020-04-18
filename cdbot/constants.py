@@ -31,7 +31,7 @@ class Maths:
         TOPIC = 'Nerds, the lot of you | {0}'
         TOPIC_RE = re.compile(r'Challenge (\d+)')
         TOKEN = getenv("MATHS_TOKEN")
-        CHANNEL = int(environ.get("MATHS_CHANNEL"), "457923834893434881")
+        CHANNEL = int(environ.get("MATHS_CHANNEL", "457923834893434881"))
 
 
 class Roles:
