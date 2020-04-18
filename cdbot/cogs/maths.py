@@ -146,7 +146,7 @@ class Maths(Cog):
 
     @command()
     async def latex(self, ctx: Context, expression: str):
-        """Render a LaTeX equation"""
+        """Render a LaTeX expression"""
         options = {
             "auth": {
                 "user": "guest",
