@@ -23,7 +23,6 @@ class PostgreSQL:
 
 
 class Maths:
-
     LATEX_RE = re.compile('.*\$\$(.*)\$\$.*')
 
     class Challenges:
