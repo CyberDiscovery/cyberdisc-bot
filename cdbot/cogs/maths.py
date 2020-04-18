@@ -81,6 +81,7 @@ async def get_challenge(number: int) -> dict:
             (
                 "https://www.kingsmathsschool.com"
                 ''.join(asset['uri'].rpartition('/')[:2] + (asset['properties']['filename'],))
+            )
             if asset else ''
         ),
         "description": challenge["description"],
