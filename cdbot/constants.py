@@ -23,7 +23,7 @@ class PostgreSQL:
 
 
 class Maths:
-    LATEX_RE = re.compile('.*\$\$(.*)\$\$.*')
+    LATEX_RE = re.compile(r'.*\$\$(.*)\$\$.*')
 
     class Challenges:
         URL = "https://cms-kcl.cloud.contensis.com/api/delivery/projects/mathsSchool/entries/search?linkDepth=1"
