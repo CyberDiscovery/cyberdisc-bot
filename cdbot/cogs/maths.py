@@ -105,6 +105,7 @@ class Maths(Cog):
     @tasks.loop(minutes=1)
     async def update_challenge(self):
         """Check the Kings site for the latest challenges."""
+        print('Updating maths challenges...')
         latest_challenge = float('inf')
         latest_challenge = int(self.channel.topic.split("Nerds, the lot of you | Challenge ")[1].split(" ")[0][:-1])
         async with httpx.AsyncClient() as client:
@@ -116,6 +117,12 @@ class Maths(Cog):
                 await self.channel.edit(
                     topic=constants.Challenges.TOPIC.format(title)
                 )
+        print('Maths challenges successfully updated.')
+
+    @update_challenge.before_loop
+    async def wait_until_ready(self):
+        """Wait for bot to become ready."""
+        await self.bot.wait_until_ready()
 
     @Cog.listener()
     async def on_message(self, message):

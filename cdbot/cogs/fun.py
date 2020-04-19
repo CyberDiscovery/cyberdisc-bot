@@ -118,6 +118,7 @@ class Fun(Cog):
         quote_channel = self.bot.get_channel(QUOTES_CHANNEL_ID)
         async for quote in quote_channel.history(limit=None):
             await self.add_quote_to_db(quote)
+        print('Quotes successfully imported.')
 
     @Cog.listener()
     async def on_ready(self):
