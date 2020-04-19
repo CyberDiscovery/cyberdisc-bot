@@ -94,6 +94,7 @@ class Maths(Cog):
 
     def __init__(self, bot: Bot):
         self.bot = bot
+        self.update_challenge.start()
 
     @Cog.listener()
     async def on_ready(self):
