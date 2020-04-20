@@ -31,7 +31,7 @@ class Maths:
         TOPIC = 'Nerds, the lot of you | {0}'
         TOPIC_RE = re.compile(r'Challenge (\d+)')
         TOKEN = getenv("MATHS_TOKEN")
-        CHANNEL = int(environ.get("MATHS_CHANNEL"), "457923834893434881")
+        CHANNEL = int(environ.get("MATHS_CHANNEL", "457923834893434881"))
 
 
 class Roles:
@@ -67,6 +67,7 @@ BOT_TOKEN = getenv("BOT_TOKEN")
 SENTRY_URL = getenv("SENTRY_URL")
 
 # Fun constants
+QUOTES_DELETION_QUOTA = 10
 QUOTES_CHANNEL_ID = int(environ.get("QUOTES_CHANNEL_ID", "463657120441696256"))
 QUOTES_BOT_ID = 292953664492929025
 LOGGING_CHANNEL_ID = int(environ.get("LOGGING_CHANNEL_ID", "538494690601992212"))
