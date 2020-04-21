@@ -294,7 +294,7 @@ description = "Chromium HSTS Preload list as a Python package and updated daily"
 name = "hstspreload"
 optional = false
 python-versions = ">=3.6"
-version = "2020.4.14"
+version = "2020.4.21"
 
 [[package]]
 category = "main"
@@ -668,8 +668,8 @@ hpack = [
     {file = "hpack-3.0.0.tar.gz", hash = "sha256:8eec9c1f4bfae3408a3f30500261f7e6a65912dc138526ea054f9ad98892e9d2"},
 ]
 hstspreload = [
-    {file = "hstspreload-2020.4.14-py3-none-any.whl", hash = "sha256:ca0af58f803598a737d5f325212e488b24de1ac9f0cf6fa12da1a3f4651914e6"},
-    {file = "hstspreload-2020.4.14.tar.gz", hash = "sha256:acbf4d6fd362b363ce567db56a8667c4f0e43073001add9c4e43f449c11e1d81"},
+    {file = "hstspreload-2020.4.21-py3-none-any.whl", hash = "sha256:75a80b9ab81317bdf7780e73ac140be9fbde4bc6b68a942ce002e401df883ec3"},
+    {file = "hstspreload-2020.4.21.tar.gz", hash = "sha256:b7faaa35ccdb747294dc1852f5f6f710da5d44c829fbfa13ed20581caeac4a58"},
 ]
 html2markdown = [
     {file = "html2markdown-0.1.7.tar.gz", hash = "sha256:92baf932c7f216be6d9459a191d45b6401e204bda7a5413febafa875512cfa8c"},
