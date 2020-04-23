@@ -14,7 +14,7 @@ LEVEL_COLORS = {
     logging.CRITICAL: Color.red(),
     logging.ERROR: Color.red(),
     logging.WARNING: Color.gold(),
-    logging.INFO: Color.blurple()
+    logging.INFO: Color.blurple(),
 }
 
 
@@ -22,6 +22,7 @@ class DiscordHandler(logging.Handler):
     """
     A class implementing logging.Handler methods to send logs to a Discord channel.
     """
+
     def __init__(self, bot: commands.Bot, *args, **kwargs):
         super().__init__(*args, **kwargs)
 
@@ -38,7 +39,9 @@ class DiscordHandler(logging.Handler):
 
         # Create an embed with a title like "Info" or "Error" and a color
         # relating to the level of the log message
-        embed = Embed(title=record.levelname.title(), color=self._level_to_color(record.levelno))
+        embed = Embed(
+            title=record.levelname.title(), color=self._level_to_color(record.levelno)
+        )
 
         embed.timestamp = datetime.datetime.utcnow()
 
