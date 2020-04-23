@@ -26,6 +26,9 @@ admin:
 cyber:
   - cdbot/cogs/cyber.py
 
+maths:
+  - cdbot/cogs/maths.py
+
 fun:
   - cdbot/cogs/fun.py
 
