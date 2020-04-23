@@ -24,16 +24,13 @@ bot.log = logger
 async def register_metadata(ctx):
     """Attach additional data to sentry events."""
     with configure_scope() as scope:
-        scope.user = {
-            'id': ctx.author.id,
-            'username': str(ctx.author)
-        }
-        scope.set_tag('client_os.name', system())
-        scope.set_tag('client_os.version', release())
-        scope.set_tag('runtime.name', "Python")
-        scope.set_tag('runtime.version', python_version())
-        scope.set_tag('command', ctx.message.content)
-        scope.set_tag('channel', str(ctx.channel))
+        scope.user = {"id": ctx.author.id, "username": str(ctx.author)}
+        scope.set_context("client_os", {"name": system(), "version": release()})
+        scope.set_context("runtime", {"name": "Python", "version": python_version()})
+        scope.set_tag("runtime.name", "Python")
+        scope.set_tag("runtime.version", python_version())
+        scope.set_tag("command", ctx.message.content)
+        scope.set_tag("channel", str(ctx.channel))
 
 
 @bot.check
