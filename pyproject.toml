@@ -16,6 +16,7 @@ Pillow = "^7.1"
 gitpython = "^3"
 httpx = "^0.12.1"
 html2markdown = "^0.1.7"
+aiocontextvars = "^0.2.2"
 
 [tool.poetry.dev-dependencies]
 flake8 = "^3.6.0"
