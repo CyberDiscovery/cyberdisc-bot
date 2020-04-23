@@ -13,10 +13,25 @@ from urllib.parse import urlencode
 import asyncpg
 from PIL import Image, ImageDraw, ImageFont
 from aiohttp import ClientSession
-from discord import (Colour, Embed, File, HTTPException, Message, NotFound,
-                     RawReactionActionEvent, embeds)
-from discord.ext.commands import (Bot, BucketType, Cog, Context, UserConverter,
-                                  command, cooldown)
+from discord import (
+    Colour,
+    Embed,
+    File,
+    HTTPException,
+    Message,
+    NotFound,
+    RawReactionActionEvent,
+    embeds,
+)
+from discord.ext.commands import (
+    Bot,
+    BucketType,
+    Cog,
+    Context,
+    UserConverter,
+    command,
+    cooldown,
+)
 from discord.utils import get
 
 from cdbot.constants import (
@@ -214,19 +229,23 @@ class Fun(Cog):
                 return  # Only one auto-reaction per message
 
         # Adds waving emoji when a new user joins.
-        if all((
-            "Welcome to the Cyber Discovery" in message.content,
-            message.author.id == WELCOME_BOT_ID
-        )):
+        if all(
+            (
+                "Welcome to the Cyber Discovery" in message.content,
+                message.author.id == WELCOME_BOT_ID,
+            )
+        ):
             await message.add_reaction("\N{WAVING HAND SIGN}")
 
     @Cog.listener()
     async def on_raw_reaction_add(self, raw_reaction: RawReactionActionEvent):
         thumbs_down = "\N{THUMBS DOWN SIGN}"
-        if all((
-            str(raw_reaction.emoji) == thumbs_down,
-            raw_reaction.channel_id == QUOTES_CHANNEL_ID
-        )):
+        if all(
+            (
+                str(raw_reaction.emoji) == thumbs_down,
+                raw_reaction.channel_id == QUOTES_CHANNEL_ID,
+            )
+        ):
             quotes_channel = self.bot.get_channel(QUOTES_CHANNEL_ID)
             message = await quotes_channel.fetch_message(raw_reaction.message_id)
             reaction = [
