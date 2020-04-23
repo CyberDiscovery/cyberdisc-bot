@@ -2,7 +2,6 @@ import base64
 import re
 from os import environ
 
-
 DEPLOY = bool(environ.get('DEPLOY'))
 
 

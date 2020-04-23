@@ -11,30 +11,19 @@ from typing import List
 from urllib.parse import urlencode
 
 import asyncpg
-from PIL import Image, ImageDraw, ImageFont
 from aiohttp import ClientSession
-from cdbot.constants import (
-    CYBERDISC_ICON_URL,
-    EMOJI_LETTERS,
-    FAKE_ROLE_ID,
-    PostgreSQL,
-    QUOTES_BOT_ID,
-    QUOTES_CHANNEL_ID,
-    QUOTES_DELETION_QUOTA,
-    ROOT_ROLE_ID,
-    STAFF_ROLE_ID,
-    SUDO_ROLE_ID,
-    WELCOME_BOT_ID,
-)
-from discord import (
-    Colour, Embed, File, HTTPException,
-    Message, NotFound, RawReactionActionEvent, embeds
-)
-from discord.ext.commands import (
-    Bot, BucketType, Cog,
-    Context, UserConverter, command, cooldown
-)
+from discord import (Colour, Embed, File, HTTPException, Message, NotFound,
+                     RawReactionActionEvent, embeds)
+from discord.ext.commands import (Bot, BucketType, Cog, Context, UserConverter,
+                                  command, cooldown)
 from discord.utils import get
+from PIL import Image, ImageDraw, ImageFont
+
+from cdbot.constants import (CYBERDISC_ICON_URL, EMOJI_LETTERS, FAKE_ROLE_ID,
+                             QUOTES_BOT_ID, QUOTES_CHANNEL_ID,
+                             QUOTES_DELETION_QUOTA, ROOT_ROLE_ID,
+                             STAFF_ROLE_ID, SUDO_ROLE_ID, WELCOME_BOT_ID,
+                             PostgreSQL)
 
 ascii_lowercase += " !?$()"
 

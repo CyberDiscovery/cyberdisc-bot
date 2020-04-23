@@ -2,6 +2,5 @@
 
 import cdbot
 
-
 if __name__ == '__main__':
     cdbot.main()

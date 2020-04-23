@@ -1,10 +1,11 @@
 import re
 
-from cdbot.constants import (
-    ADMIN_MENTOR_ROLE_ID, ADMIN_ROLES, CD_BOT_ROLE_ID, NICKNAME_PATTERNS, PLACEHOLDER_NICKNAME, STATIC_NICKNAME_ROLE_ID
-)
 from discord import AuditLogAction, Member
 from discord.ext.commands import Bot, Cog
+
+from cdbot.constants import (ADMIN_MENTOR_ROLE_ID, ADMIN_ROLES, CD_BOT_ROLE_ID,
+                             NICKNAME_PATTERNS, PLACEHOLDER_NICKNAME,
+                             STATIC_NICKNAME_ROLE_ID)
 
 
 def check_bad_name(nick):
