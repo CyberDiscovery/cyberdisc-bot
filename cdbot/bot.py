@@ -2,21 +2,15 @@
 
 import logging
 
-from cdbot.log import DiscordHandler
 from discord import Game
 from discord.ext.commands import Bot, when_mentioned_or
+from sentry_sdk import configure_scope
 
+from cdbot.log import DiscordHandler
 
 logger = logging.getLogger(__name__)
 
-bot = Bot(
-    command_prefix=when_mentioned_or(
-        "...", ":"
-    ),
-    activity=Game(
-        name=":help"
-    )
-)
+bot = Bot(command_prefix=when_mentioned_or("...", ":"), activity=Game(name=":help"))
 
 logger.addHandler(DiscordHandler(bot))
 logger.setLevel(logging.INFO)
@@ -24,6 +18,16 @@ logger.setLevel(logging.INFO)
 bot.muted = []
 bot.banned_ids = []
 bot.log = logger
+
+
+@bot.before_invoke
+async def register_metadata(ctx):
+    """Attach additional data to sentry events."""
+    with configure_scope() as scope:
+        scope.user = {
+            'id': ctx.author.id,
+            'username': str(ctx.author)
+        }
 
 
 @bot.check
