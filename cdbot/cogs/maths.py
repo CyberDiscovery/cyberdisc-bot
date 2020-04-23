@@ -96,13 +96,6 @@ class Maths(Cog):
         self.bot = bot
         self.update_challenge.start()
 
-    @Cog.listener()
-    async def on_ready(self):
-        """Initialise relevant attributes."""
-        self.channel = self.bot.get_channel(
-            constants.Challenges.CHANNEL
-        )
-
     @tasks.loop(minutes=1)
     async def update_challenge(self):
         """Check the Kings site for the latest challenges."""
@@ -124,6 +117,9 @@ class Maths(Cog):
     async def wait_until_ready(self):
         """Wait for bot to become ready."""
         await self.bot.wait_until_ready()
+        self.channel = self.bot.get_channel(
+            constants.Challenges.CHANNEL
+        )
 
     @Cog.listener()
     async def on_message(self, message):
