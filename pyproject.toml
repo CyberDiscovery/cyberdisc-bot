@@ -26,8 +26,6 @@ flake8-string-format = "^0.3.0"
 flake8-tidy-imports = "^4"
 flake8-todo = "^0.7"
 flake8-formatter-junit-xml = "^0.0.6"
-flake8-mypy = "^17.8.0"
-flake8-annotations = "^2.1.0"
 
 [tool.poetry.scripts]
 cdbot = "cdbot:main"
