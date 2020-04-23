@@ -6,8 +6,6 @@ from io import BytesIO
 
 import aiohttp
 
-import requests
-
 import httpx
 
 from discord import Colour, Embed, File
