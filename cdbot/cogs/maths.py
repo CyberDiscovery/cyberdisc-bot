@@ -124,7 +124,8 @@ class Maths(Cog):
     @Cog.listener()
     async def on_message(self, message):
         """Check if the message contains inline LaTeX."""
-        if match := constants.LATEX_RE.match(message.content):
+        match = constants.LATEX_RE.match(message.content)
+        if match is not None:
             await self.latex(message.channel, match.group(1))
 
     @command()
