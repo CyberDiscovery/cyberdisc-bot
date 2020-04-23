@@ -37,30 +37,13 @@ stages:
         steps:
           - script: curl -sL https://sentry.io/get-cli/ | bash
             displayName: 'Install Sentry CLI'
-            env:
-              SENTRY_AUTH_TOKEN: $(SENTRY_AUTH_TOKEN)
-              SENTRY_ORG: $(SENTRY_ORG)
 
-          - script: VERSION=$(sentry-cli releases propose-version)
-            displayName: 'Set Sentry release version'
-            env:
-              SENTRY_AUTH_TOKEN: $(SENTRY_AUTH_TOKEN)
-              SENTRY_ORG: $(SENTRY_ORG)
-            
-          - script: sentry-cli releases new -p cyberdisc-bot $VERSION
-            displayName: 'Create new Sentry release'
-            env:
-              SENTRY_AUTH_TOKEN: $(SENTRY_AUTH_TOKEN)
-              SENTRY_ORG: $(SENTRY_ORG)
-
-          - script: sentry-cli releases set-commits --auto $VERSION
-            displayName: 'Associate commits with Sentry release'
-            env:
-              SENTRY_AUTH_TOKEN: $(SENTRY_AUTH_TOKEN)
-              SENTRY_ORG: $(SENTRY_ORG)
-            
-          - script: sentry-cli releases finalize $VERSION
-            displayName: 'Finalise Sentry release'
+          - script: >-
+              VERSION=$(sentry-cli releases propose-version) && 
+              sentry-cli releases new -p cyberdisc-bot $VERSION && 
+              sentry-cli releases set-commits --auto $VERSION && 
+              sentry-cli releases finalize $VERSION
+            displayName: 'Publish Sentry release'
             env:
               SENTRY_AUTH_TOKEN: $(SENTRY_AUTH_TOKEN)
               SENTRY_ORG: $(SENTRY_ORG)
