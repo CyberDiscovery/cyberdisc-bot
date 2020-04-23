@@ -28,6 +28,8 @@ async def register_metadata(ctx):
             'id': ctx.author.id,
             'username': str(ctx.author)
         }
+        scope.set_tag('command', ctx.message.content)
+        scope.set_tag('channel', str(ctx.channel))
 
 
 @bot.check
