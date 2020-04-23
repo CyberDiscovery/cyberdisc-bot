@@ -1,28 +1,21 @@
 """
 Set of bot commands designed for Maths Challenges.
 """
-import dateutil.parser
 from io import BytesIO
 
 import aiohttp
-
-import requests
-
+import dateutil.parser
 import httpx
-
 from discord import Colour, Embed, File
 from discord.ext import tasks
 from discord.ext.commands import Bot, Cog, Context, command
-
 from html2markdown import convert
 
 from cdbot.constants import Maths as constants
 
 
 async def get_challenges(
-    client: httpx.AsyncClient,
-    page_index: int = 0,
-    page_size: int = 999
+    client: httpx.AsyncClient, page_index: int = 0, page_size: int = 999
 ):
     """Get challenges, given the relevant parameters."""
     return (
@@ -37,13 +30,7 @@ async def get_challenges(
                     {"field": "sys.versionStatus", "equalTo": "published"},
                     {"field": "sys.contentTypeId", "in": ["mathsQuiz"]},
                 ],
-                "fields": [
-                    "entryTitle",
-                    "category",
-                    "sys",
-                    "description",
-                    "answer",
-                ],
+                "fields": ["entryTitle", "category", "sys", "description", "answer"],
             },
         )
     ).json()["items"]
@@ -51,7 +38,7 @@ async def get_challenges(
 
 async def get_challenge(number: int) -> dict:
     async with httpx.AsyncClient() as client:
-        challenge, *_ = await get_challenges(client, page_index=number-1, page_size=1)
+        challenge, *_ = await get_challenges(client, page_index=number - 1, page_size=1)
 
         question = (
             await client.post(
@@ -66,9 +53,9 @@ async def get_challenge(number: int) -> dict:
                     ],
                 },
             )
-        ).json()["items"][0]['question']
+        ).json()["items"][0]["question"]
 
-    asset = question[1]['value']['asset']['sys'] if len(question) > 1 else None
+    asset = question[1]["value"]["asset"]["sys"] if len(question) > 1 else None
 
     return {
         "title": challenge["entryTitle"],
@@ -80,12 +67,15 @@ async def get_challenge(number: int) -> dict:
         "image": (
             (
                 "https://www.kingsmathsschool.com"
-                ''.join(asset['uri'].rpartition('/')[:2] + (asset['properties']['filename'],))
+                "".join(
+                    asset["uri"].rpartition("/")[:2] + (asset["properties"]["filename"],)
+                )
             )
-            if asset else ''
+            if asset
+            else ""
         ),
         "description": challenge["description"],
-        "slug": challenge["sys"]["slug"]
+        "slug": challenge["sys"]["slug"],
     }
 
 
@@ -99,41 +89,42 @@ class Maths(Cog):
     @tasks.loop(minutes=1)
     async def update_challenge(self):
         """Check the Kings site for the latest challenges."""
-        print('Updating maths challenges...')
-        latest_challenge = float('inf')
-        latest_challenge = int(self.channel.topic.split("Nerds, the lot of you | Challenge ")[1].split(" ")[0][:-1])
+        print("Updating maths challenges...")
+        latest_challenge = float("inf")
+        latest_challenge = int(
+            self.channel.topic.split("Nerds, the lot of you | Challenge ")[1].split(
+                " "
+            )[0][:-1]
+        )
         async with httpx.AsyncClient() as client:
             challenges = await get_challenges(client)
         for number, challenge in enumerate(challenges[::-1], 1):
-            title = challenge['entryTitle']
+            title = challenge["entryTitle"]
             if number > latest_challenge:
                 await self.challenge(self.channel, len(challenges) - number + 1)
-                await self.channel.edit(
-                    topic=constants.Challenges.TOPIC.format(title)
-                )
-        print('Maths challenges successfully updated.')
+                await self.channel.edit(topic=constants.Challenges.TOPIC.format(title))
+        print("Maths challenges successfully updated.")
 
     @update_challenge.before_loop
     async def wait_until_ready(self):
         """Wait for bot to become ready."""
         await self.bot.wait_until_ready()
-        self.channel = self.bot.get_channel(
-            constants.Challenges.CHANNEL
-        )
+        self.channel = self.bot.get_channel(constants.Challenges.CHANNEL)
 
     @Cog.listener()
     async def on_message(self, message):
         """Check if the message contains inline LaTeX."""
-        if match := constants.LATEX_RE.match(message.content):
+        match = constants.LATEX_RE.match(message.content)
+        if match is not None:
             await self.latex(message.channel, match.group(1))
 
     @command()
     async def challenge(self, ctx: Context, number: int = 1):
         """Show the provided challenge number."""
         challenge = await get_challenge(number)
-        description = challenge['challenge']
+        description = challenge["challenge"]
         if len(description) > 2048:
-            description = description[:2045] + '...'
+            description = description[:2045] + "..."
         embed = Embed(
             title=challenge["title"],
             colour=Colour(0xE5E242),
@@ -155,13 +146,10 @@ class Maths(Cog):
     async def latex(self, ctx: Context, expression: str):
         """Render a LaTeX expression"""
         options = {
-            "auth": {
-                "user": "guest",
-                "password": "guest"
-            },
+            "auth": {"user": "guest", "password": "guest"},
             "latex": expression,
             "resolution": 900,
-            "color": "969696"
+            "color": "969696",
         }
         async with aiohttp.ClientSession() as session:
             async with session.post(
@@ -170,7 +158,7 @@ class Maths(Cog):
                 result = await response.json()
             async with session.get("http://latex2png.com" + result["url"]) as response:
                 content = await response.content.read()
-        await ctx.send(file=File(BytesIO(content), filename='result.png'))
+        await ctx.send(file=File(BytesIO(content), filename="result.png"))
 
 
 def setup(bot):

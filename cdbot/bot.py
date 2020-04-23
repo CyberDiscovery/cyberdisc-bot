@@ -2,21 +2,14 @@
 
 import logging
 
-from cdbot.log import DiscordHandler
 from discord import Game
 from discord.ext.commands import Bot, when_mentioned_or
 
+from cdbot.log import DiscordHandler
 
 logger = logging.getLogger(__name__)
 
-bot = Bot(
-    command_prefix=when_mentioned_or(
-        "...", ":"
-    ),
-    activity=Game(
-        name=":help"
-    )
-)
+bot = Bot(command_prefix=when_mentioned_or("...", ":"), activity=Game(name=":help"))
 
 logger.addHandler(DiscordHandler(bot))
 logger.setLevel(logging.INFO)

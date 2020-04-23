@@ -2,8 +2,7 @@ import base64
 import re
 from os import environ
 
-
-DEPLOY = bool(environ.get('DEPLOY'))
+DEPLOY = bool(environ.get("DEPLOY"))
 
 
 def getenv(name: str, fallback: str = "") -> str:
@@ -23,19 +22,18 @@ class PostgreSQL:
 
 
 class Maths:
-    LATEX_RE = re.compile(r'.*\$\$(.*)\$\$.*')
+    LATEX_RE = re.compile(r".*\$\$(.*)\$\$.*")
 
     class Challenges:
         URL = "https://cms-kcl.cloud.contensis.com/api/delivery/projects/mathsSchool/entries/search?linkDepth=1"
-        CHALLENGE_RE = re.compile(r'Challenge (\d+): .*')
-        TOPIC = 'Nerds, the lot of you | {0}'
-        TOPIC_RE = re.compile(r'Challenge (\d+)')
+        CHALLENGE_RE = re.compile(r"Challenge (\d+): .*")
+        TOPIC = "Nerds, the lot of you | {0}"
+        TOPIC_RE = re.compile(r"Challenge (\d+)")
         TOKEN = getenv("MATHS_TOKEN")
         CHANNEL = int(environ.get("MATHS_CHANNEL", "457923834893434881"))
 
 
 class Roles:
-
     class Elite:
         MAIN = int(environ.get("ELITE_MEMBERS_ID", "580387468336037888"))
 
@@ -52,8 +50,12 @@ class Roles:
             OLDER = int(environ.get("LAN_O_MEMBERS_ID", "580387898973618176"))
 
         class VET2019:
-            CYBERIST = int(environ.get("2019_CYBERIST_MEMBERS_ID", "610387199300730900"))
-            FORENSICATOR = int(environ.get("2019_FORENSICATOR_MEMBERS_ID", "580387897644023811"))
+            CYBERIST = int(
+                environ.get("2019_CYBERIST_MEMBERS_ID", "610387199300730900")
+            )
+            FORENSICATOR = int(
+                environ.get("2019_FORENSICATOR_MEMBERS_ID", "580387897644023811")
+            )
 
         TALENTDEV = int(environ.get("TALENTDEV_MEMBERS_ID", "669927831031250954"))
 
@@ -90,7 +92,9 @@ BANNED_DOMAINS = ["discord.gg"]
 
 
 HINTS_LIMIT = 8
-CYBERDISC_ICON_URL = "https://pbs.twimg.com/profile_images/921313066515615745/fLEl2Gfa_400x400.jpg"
+CYBERDISC_ICON_URL = (
+    "https://pbs.twimg.com/profile_images/921313066515615745/fLEl2Gfa_400x400.jpg"
+)
 ELITECOUNT_ENABLED = True
 
 # Readme command constants
@@ -107,15 +111,15 @@ BASE_ALIASES = {
     "Headquarters": ["headquarters", "main", "hq", "h"],
     "Moonbase": ["moonbase", "python", "moon", "m"],
     "Forensics": ["forensics", "f"],
-    "Volcano": ["volcano", "v", "volc"]
+    "Volcano": ["volcano", "v", "volc"],
 }
 
 # Admin Constants
 PLACEHOLDER_NICKNAME = "Valued server member"
 NICKNAME_PATTERNS = [
-    r'(discord\.gg/)',  # invite links
-    r'(nigg|ligma|fag|nazi|hitler|\bpaki\b)',  # banned words
-    r'(http(s)?:\/\/.)?(www\.)?[-a-zA-Z0-9@:%._\+~#=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_\+.~#?&//=]*)'  # hyperlinks
+    r"(discord\.gg/)",  # invite links
+    r"(nigg|ligma|fag|nazi|hitler|\bpaki\b)",  # banned words
+    r"(http(s)?:\/\/.)?(www\.)?[-a-zA-Z0-9@:%._\+~#=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_\+.~#?&//=]*)",  # hyperlinks
 ]
 
 # Emoji Alphabet
@@ -151,5 +155,5 @@ EMOJI_LETTERS = [
     "\u2754\u2753",  # ?
     "\U0001f4b2",  # $
     "\U000021aa",  # (
-    "\U000021a9"  # )
+    "\U000021a9",  # )
 ]
