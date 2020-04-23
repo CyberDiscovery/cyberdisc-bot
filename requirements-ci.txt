@@ -7,3 +7,5 @@ flake8-polyfill==1.0.2
 flake8-string-format==0.2.3
 flake8-tidy-imports==3.1.0
 flake8-todo==0.7
+flake8-mypy==17.8.0
+flake8-annotations==2.1.0
