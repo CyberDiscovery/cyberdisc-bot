@@ -1,7 +1,7 @@
 """Main script to define bot methods, and start the bot."""
 
 import logging
-
+from platform import system, release, python_version
 from discord import Game
 from discord.ext.commands import Bot, when_mentioned_or
 from sentry_sdk import configure_scope
@@ -28,6 +28,10 @@ async def register_metadata(ctx):
             'id': ctx.author.id,
             'username': str(ctx.author)
         }
+        scope.set_tag('client_os.name', system())
+        scope.set_tag('client_os.version', release())
+        scope.set_tag('runtime.name', "Python")
+        scope.set_tag('runtime.version', python_version())
         scope.set_tag('command', ctx.message.content)
         scope.set_tag('channel', str(ctx.channel))
 
