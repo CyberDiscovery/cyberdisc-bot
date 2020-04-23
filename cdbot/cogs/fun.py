@@ -13,6 +13,27 @@ from urllib.parse import urlencode
 import asyncpg
 from PIL import Image, ImageDraw, ImageFont
 from aiohttp import ClientSession
+from discord import (
+    Colour,
+    Embed,
+    File,
+    HTTPException,
+    Message,
+    NotFound,
+    RawReactionActionEvent,
+    embeds,
+)
+from discord.ext.commands import (
+    Bot,
+    BucketType,
+    Cog,
+    Context,
+    UserConverter,
+    command,
+    cooldown,
+)
+from discord.utils import get
+
 from cdbot.constants import (
     CYBERDISC_ICON_URL,
     EMOJI_LETTERS,
@@ -26,22 +47,10 @@ from cdbot.constants import (
     SUDO_ROLE_ID,
     WELCOME_BOT_ID,
 )
-from discord import (
-    Colour, Embed, File, HTTPException,
-    Message, NotFound, RawReactionActionEvent, embeds
-)
-from discord.ext.commands import (
-    Bot, BucketType, Cog,
-    Context, UserConverter, command, cooldown
-)
-from discord.utils import get
 
 ascii_lowercase += " !?$()"
 
-REACT_TRIGGERS = {
-    "kali": "\N{ONCOMING POLICE CAR}",
-    "duck": "\N{DUCK}"
-}
+REACT_TRIGGERS = {"kali": "\N{ONCOMING POLICE CAR}", "duck": "\N{DUCK}"}
 
 
 def convert_emoji(message: str) -> List[str]:
@@ -87,7 +96,8 @@ class Fun(Cog):
     # Embed sent when users try to ping staff
     ping_embed = (
         Embed(
-            colour=0xFF0000, description="⚠ **Please make sure you have taken the following into account:** "
+            colour=0xFF0000,
+            description="⚠ **Please make sure you have taken the following into account:** ",
         )
         .set_footer(
             text="To continue with the ping, react \N{THUMBS UP SIGN}, To delete this message and move on,"
@@ -118,7 +128,7 @@ class Fun(Cog):
         quote_channel = self.bot.get_channel(QUOTES_CHANNEL_ID)
         async for quote in quote_channel.history(limit=None):
             await self.add_quote_to_db(quote)
-        print('Quotes successfully imported.')
+        print("Quotes successfully imported.")
 
     @Cog.listener()
     async def on_ready(self):
@@ -160,14 +170,19 @@ class Fun(Cog):
 
             def check(reaction, user):
                 """Check if the reaction was valid."""
-                return all((
-                    user == message.author or user.top_role.id in [ROOT_ROLE_ID, SUDO_ROLE_ID],
-                    str(reaction.emoji) in "\N{THUMBS UP SIGN}\N{THUMBS DOWN SIGN}"
-                ))
+                user_is_staff = user.top_role.id in (ROOT_ROLE_ID, SUDO_ROLE_ID)
+                return all(
+                    (
+                        user == message.author or user_is_staff,
+                        str(reaction.emoji) in "\N{THUMBS UP SIGN}\N{THUMBS DOWN SIGN}",
+                    )
+                )
 
             try:
                 # Get the user's reaction
-                reaction, _ = await self.bot.wait_for("reaction_add", timeout=30, check=check)
+                reaction, _ = await self.bot.wait_for(
+                    "reaction_add", timeout=30, check=check
+                )
 
             except asyncio.TimeoutError:
                 pass
@@ -185,7 +200,9 @@ class Fun(Cog):
                         icon_url=message.author.avatar_url,
                     )
                     # Send the embed with the user's content
-                    await message.channel.send(self.staff_role.mention, embed=staff_ping)
+                    await message.channel.send(
+                        self.staff_role.mention, embed=staff_ping
+                    )
                     await self.staff_role.edit(mentionable=False)
                     # Delete the original message
                     await message.delete()
@@ -212,19 +229,33 @@ class Fun(Cog):
                 return  # Only one auto-reaction per message
 
         # Adds waving emoji when a new user joins.
-        if "Welcome to the Cyber Discovery" in message.content and message.author.id == WELCOME_BOT_ID:
+        if all(
+            (
+                "Welcome to the Cyber Discovery" in message.content,
+                message.author.id == WELCOME_BOT_ID,
+            )
+        ):
             await message.add_reaction("\N{WAVING HAND SIGN}")
 
     @Cog.listener()
     async def on_raw_reaction_add(self, raw_reaction: RawReactionActionEvent):
         thumbs_down = "\N{THUMBS DOWN SIGN}"
-        if str(raw_reaction.emoji) == thumbs_down and raw_reaction.channel_id == QUOTES_CHANNEL_ID:
+        if all(
+            (
+                str(raw_reaction.emoji) == thumbs_down,
+                raw_reaction.channel_id == QUOTES_CHANNEL_ID,
+            )
+        ):
             quotes_channel = self.bot.get_channel(QUOTES_CHANNEL_ID)
             message = await quotes_channel.fetch_message(raw_reaction.message_id)
-            reaction = [react for react in message.reactions if str(react.emoji) == thumbs_down][0]
+            reaction = [
+                react for react in message.reactions if str(react.emoji) == thumbs_down
+            ][0]
             if reaction.count >= QUOTES_DELETION_QUOTA:
                 async with self.bot.pool.acquire() as connection:
-                    await connection.execute("DELETE FROM quotes WHERE quote_id = $1", reaction.message.id)
+                    await connection.execute(
+                        "DELETE FROM quotes WHERE quote_id = $1", reaction.message.id
+                    )
                 await reaction.message.delete()
 
     @command()
@@ -235,7 +266,7 @@ class Fun(Cog):
         # Creates a lmgtfy.com url for the given query.
         request_data = {
             "q": " ".join(arg for arg in args if not arg.startswith("-")),
-            "ie": int("-ie" in args)
+            "ie": int("-ie" in args),
         }
         url = "https://lmgtfy.com/?" + urlencode(request_data)
 
@@ -304,7 +335,11 @@ class Fun(Cog):
         comic.set_footer(text=data["alt"])
         comic.set_image(url=data["img"])
         comic.url = f"https://xkcd.com/{number}"
-        comic.set_author(name="xkcd", url="https://xkcd.com/", icon_url="https://xkcd.com/s/0b7742.png")
+        comic.set_author(
+            name="xkcd",
+            url="https://xkcd.com/",
+            icon_url="https://xkcd.com/s/0b7742.png",
+        )
         comic.add_field(name="Number:", value=number)
         comic.add_field(name="Date:", value=date)
         comic.add_field(name="Explanation:", value=f"https://explainxkcd.com/{number}")
@@ -328,7 +363,7 @@ class Fun(Cog):
             else:
                 message_id = await connection.fetchval(
                     "SELECT quote_id FROM quotes WHERE author_id=$1 ORDER BY random() LIMIT 1",
-                    member.id
+                    member.id,
                 )
 
         if message_id is None:
@@ -358,12 +393,14 @@ class Fun(Cog):
         A user can be specified to return the number of quotes from that user.
         """
         async with self.bot.pool.acquire() as connection:
-            total_quotes = await connection.fetchval('SELECT count(*) FROM quotes')
+            total_quotes = await connection.fetchval("SELECT count(*) FROM quotes")
 
             if member is None:
                 await ctx.send(f"There are {total_quotes} quotes in the database")
             else:
-                user_quotes = await connection.fetchval('SELECT count(*) FROM quotes WHERE author_id=$1', member.id)
+                user_quotes = await connection.fetchval(
+                    "SELECT count(*) FROM quotes WHERE author_id=$1", member.id
+                )
                 await ctx.send(
                     f"There are {user_quotes} quotes from {member} in the database "
                     f"({user_quotes / total_quotes:.2%})"
@@ -378,7 +415,9 @@ class Fun(Cog):
 
         async with self.bot.pool.acquire() as connection:
             page_count = ceil(
-                await connection.fetchval("SELECT count(DISTINCT author_id) FROM quotes") / 10
+                await connection.fetchval(
+                    "SELECT count(DISTINCT author_id) FROM quotes"
+                ) / 10
             )
 
             if 1 > page > page_count:
@@ -387,13 +426,13 @@ class Fun(Cog):
             for result in await connection.fetch(
                 "SELECT author_id, COUNT(author_id) as quote_count FROM quotes "
                 "GROUP BY author_id ORDER BY quote_count DESC LIMIT 10 OFFSET $1",
-                start_from
+                start_from,
             ):
                 author, quotes = result.values()
                 users += f"{start_from + current}. <@{author}> - {quotes}\n"
                 current += 1
 
-        embed = Embed(colour=Colour(0xae444a))
+        embed = Embed(colour=Colour(0xAE444A))
         embed.add_field(name=f"Page {page}/{page_count}", value=users)
         embed.set_author(name="Quotes Leaderboard", icon_url=CYBERDISC_ICON_URL)
 
@@ -409,11 +448,11 @@ class Fun(Cog):
                 return
             embed = quote.embeds[0]
             icon_url = embed.author.icon_url
-            if type(icon_url) == embeds._EmptyEmbed or 'twimg' in icon_url:
+            if type(icon_url) == embeds._EmptyEmbed or "twimg" in icon_url:
                 author_id = QUOTES_BOT_ID
-            elif 'avatars' in icon_url:
+            elif "avatars" in icon_url:
                 try:
-                    author_id = int(icon_url.split('/')[-2])
+                    author_id = int(icon_url.split("/")[-2])
                 except ValueError:
                     author_id = 0
             else:
@@ -423,7 +462,8 @@ class Fun(Cog):
                 author = get(
                     quote.guild.members,
                     name=author_info[0],
-                    discriminator=author_info[1])
+                    discriminator=author_info[1],
+                )
                 author_id = author.id if author is not None else None
         else:
             author_id = quote.mentions[0].id if quote.mentions else None
@@ -438,7 +478,7 @@ class Fun(Cog):
             else:
                 await connection.execute(
                     "INSERT INTO quotes(quote_id) VALUES($1) ON CONFLICT DO NOTHING",
-                    quote.id
+                    quote.id,
                 )
 
         print(f"Quote ID: {quote.id} has been added to the database.")
@@ -448,13 +488,17 @@ class Fun(Cog):
         Creates an image of a given person with the specified text.
         """
         if len(text) > 100:
-            return await ctx.send(":no_entry_sign: Your text must be shorter than 100 characters.")
+            return await ctx.send(
+                ":no_entry_sign: Your text must be shorter than 100 characters."
+            )
         drawing_text = textwrap.fill(text, 20)
         font = ImageFont.truetype("cdbot/resources/Dosis-SemiBold.ttf", 150)
 
         text_layer = Image.new("RGBA", (1920, 1080), (0, 0, 0, 0))
         text_layer_drawing = ImageDraw.Draw(text_layer)
-        text_layer_drawing.text((0, 0), drawing_text, fill=(0, 0, 0), align="center", font=font)
+        text_layer_drawing.text(
+            (0, 0), drawing_text, fill=(0, 0, 0), align="center", font=font
+        )
 
         cropped_text_layer = text_layer.crop(text_layer.getbbox())
         cropped_text_layer.thumbnail((170, 110))
