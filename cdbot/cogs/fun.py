@@ -11,33 +11,19 @@ from typing import List
 from urllib.parse import urlencode
 
 import asyncpg
-from aiohttp import ClientSession
-from discord import (
-    Colour,
-    Embed,
-    File,
-    HTTPException,
-    Message,
-    NotFound,
-    RawReactionActionEvent,
-    embeds,
-)
-from discord.ext.commands import (
-    Bot,
-    BucketType,
-    Cog,
-    Context,
-    UserConverter,
-    command,
-    cooldown,
-)
-from discord.utils import get
 from PIL import Image, ImageDraw, ImageFont
+from aiohttp import ClientSession
+from discord import (Colour, Embed, File, HTTPException, Message, NotFound,
+                     RawReactionActionEvent, embeds)
+from discord.ext.commands import (Bot, BucketType, Cog, Context, UserConverter,
+                                  command, cooldown)
+from discord.utils import get
 
 from cdbot.constants import (
     CYBERDISC_ICON_URL,
     EMOJI_LETTERS,
     FAKE_ROLE_ID,
+    PostgreSQL,
     QUOTES_BOT_ID,
     QUOTES_CHANNEL_ID,
     QUOTES_DELETION_QUOTA,
@@ -45,7 +31,6 @@ from cdbot.constants import (
     STAFF_ROLE_ID,
     SUDO_ROLE_ID,
     WELCOME_BOT_ID,
-    PostgreSQL,
 )
 
 ascii_lowercase += " !?$()"
@@ -170,10 +155,10 @@ class Fun(Cog):
 
             def check(reaction, user):
                 """Check if the reaction was valid."""
+                user_is_staff = user.top_role.id in (ROOT_ROLE_ID, SUDO_ROLE_ID)
                 return all(
                     (
-                        user == message.author
-                        or user.top_role.id in [ROOT_ROLE_ID, SUDO_ROLE_ID],
+                        user == message.author or user_is_staff,
                         str(reaction.emoji) in "\N{THUMBS UP SIGN}\N{THUMBS DOWN SIGN}",
                     )
                 )
@@ -229,19 +214,19 @@ class Fun(Cog):
                 return  # Only one auto-reaction per message
 
         # Adds waving emoji when a new user joins.
-        if (
-            "Welcome to the Cyber Discovery" in message.content
-            and message.author.id == WELCOME_BOT_ID
-        ):
+        if all((
+            "Welcome to the Cyber Discovery" in message.content,
+            message.author.id == WELCOME_BOT_ID
+        )):
             await message.add_reaction("\N{WAVING HAND SIGN}")
 
     @Cog.listener()
     async def on_raw_reaction_add(self, raw_reaction: RawReactionActionEvent):
         thumbs_down = "\N{THUMBS DOWN SIGN}"
-        if (
-            str(raw_reaction.emoji) == thumbs_down
-            and raw_reaction.channel_id == QUOTES_CHANNEL_ID
-        ):
+        if all((
+            str(raw_reaction.emoji) == thumbs_down,
+            raw_reaction.channel_id == QUOTES_CHANNEL_ID
+        )):
             quotes_channel = self.bot.get_channel(QUOTES_CHANNEL_ID)
             message = await quotes_channel.fetch_message(raw_reaction.message_id)
             reaction = [
@@ -413,8 +398,7 @@ class Fun(Cog):
             page_count = ceil(
                 await connection.fetchval(
                     "SELECT count(DISTINCT author_id) FROM quotes"
-                )
-                / 10
+                ) / 10
             )
 
             if 1 > page > page_count:

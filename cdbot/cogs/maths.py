@@ -30,7 +30,7 @@ async def get_challenges(
                     {"field": "sys.versionStatus", "equalTo": "published"},
                     {"field": "sys.contentTypeId", "in": ["mathsQuiz"]},
                 ],
-                "fields": ["entryTitle", "category", "sys", "description", "answer",],
+                "fields": ["entryTitle", "category", "sys", "description", "answer"],
             },
         )
     ).json()["items"]
@@ -68,8 +68,7 @@ async def get_challenge(number: int) -> dict:
             (
                 "https://www.kingsmathsschool.com"
                 "".join(
-                    asset["uri"].rpartition("/")[:2]
-                    + (asset["properties"]["filename"],)
+                    asset["uri"].rpartition("/")[:2] + (asset["properties"]["filename"],)
                 )
             )
             if asset

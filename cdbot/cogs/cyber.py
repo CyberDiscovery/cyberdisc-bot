@@ -23,8 +23,8 @@ from cdbot.constants import (
     README_RECV_ALIASES,
     README_SEND_ALIASES,
     ROOT_ROLE_ID,
-    TRUE_HUNDRED_PERCENT_ROLE_ID,
     Roles,
+    TRUE_HUNDRED_PERCENT_ROLE_ID,
 )
 
 
@@ -167,9 +167,8 @@ class Cyber(Cog):
         else:
             # Generates random, but unique and identical per challenge, base 64 "flag"
             content = (
-                "The flag is: ||"
-                + (await generatebase64(ord(base[0]) + level_num + challenge_num))
-                + "||"
+                "The flag is:"
+                f"||{await generatebase64(ord(base[0]) + level_num + challenge_num)}||"
             )
 
         embed = Embed(
