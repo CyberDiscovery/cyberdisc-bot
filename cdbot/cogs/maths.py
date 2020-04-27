@@ -155,8 +155,13 @@ class Maths(Cog):
                 "http://latex2png.com/api/convert", json=options
             ) as response:
                 result = await response.json()
-            async with session.get("http://latex2png.com" + result["url"]) as response:
-                content = await response.content.read()
+            if result.get('url'):
+                async with session.get("http://latex2png.com" + result["url"]) as response:
+                    content = await response.content.read()
+            else:
+                return await ctx.send(
+                    "\N{NO ENTRY SIGN} You provided invalid LaTeX."
+                )
         await ctx.send(file=File(BytesIO(content), filename="result.png"))
 
 
