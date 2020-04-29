@@ -56,7 +56,7 @@ class Cyber(Cog):
         ),
         (
             r"^.*\bgame\b.*\b(end|finish|close)\b.*$",
-            "CyberStart Game ends on the 1st May 2020.",
+            "CyberStart Game ends on the 31st May 2020.",
         ),
         # Essentials dates
         (
@@ -65,7 +65,7 @@ class Cyber(Cog):
         ),
         (
             r"^.*\bessentials\b.*\b(end|finish|close)\b.*$",
-            "CyberStart Essentials ends on the 1st May 2020.",
+            "CyberStart Essentials ends on the 31st May 2020.",
         ),
         # Elite questions
         (
