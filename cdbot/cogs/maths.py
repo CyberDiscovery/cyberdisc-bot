@@ -114,11 +114,8 @@ class Maths(Cog):
     @Cog.listener()
     async def on_message(self, message):
         """Check if the message contains inline LaTeX."""
-        matches = constants.LATEX_RE.findall(message.content)
-        for match in matches:
-            for expression in match:
-                if expression:
-                    await self.latex(message.channel, expression)
+        for expression in constants.LATEX_RE.findall(message.content):
+            await self.latex(message.channel, expression)
 
     @command()
     async def challenge(self, ctx: Context, number: int = 1):
@@ -158,8 +155,13 @@ class Maths(Cog):
                 "http://latex2png.com/api/convert", json=options
             ) as response:
                 result = await response.json()
-            async with session.get("http://latex2png.com" + result["url"]) as response:
-                content = await response.content.read()
+            if result.get('url'):
+                async with session.get("http://latex2png.com" + result["url"]) as response:
+                    content = await response.content.read()
+            else:
+                return await ctx.send(
+                    "\N{NO ENTRY SIGN} You provided invalid LaTeX."
+                )
         await ctx.send(file=File(BytesIO(content), filename="result.png"))
 
 
