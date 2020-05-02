@@ -159,9 +159,7 @@ class Maths(Cog):
                 async with session.get("http://latex2png.com" + result["url"]) as response:
                     content = await response.content.read()
             else:
-                return await ctx.send(
-                    "\N{NO ENTRY SIGN} You provided invalid LaTeX."
-                )
+                return
         await ctx.send(file=File(BytesIO(content), filename="result.png"))
 
 
