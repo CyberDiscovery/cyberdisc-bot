@@ -22,7 +22,7 @@ class PostgreSQL:
 
 
 class Maths:
-    LATEX_RE = re.compile(r'(\$\$(.*?)\$\$|\$(.*?)\$)')
+    LATEX_RE = re.compile(r'\${1,2}(.*?)\${1,2}', re.DOTALL)
 
     class Challenges:
         URL = "https://cms-kcl.cloud.contensis.com/api/delivery/projects/mathsSchool/entries/search?linkDepth=1"

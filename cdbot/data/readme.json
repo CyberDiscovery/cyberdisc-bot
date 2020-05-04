@@ -2,7 +2,6 @@
     "part1": {
         "content": "**Welcome to the Cyber Discovery Discord Server!** This is a place to discuss all things Cyber Discovery (and a few things tangentially related as well), to meet like-minded people, and to learn more about cyber security!\nAlthough this server is set up for the UK Cyber Discovery programme, we welcome participants from sister programmes such as the US Cyber FastTrack programme. While we do not have specific channels or roles set up for other programmes, feel free to use <#509080315369881600> for discussion or to ask for help at any time.\nPermanent invite link: <https://discord.cyberdiscoverycommunity.uk>"
     },
-
     "part2": {
         "content": "What follows is an explanation of some of the **roles** and their purposes on this server. If you qualify for one of these roles, please ask a member of @Root or Sudo (explained below!); for certain roles, we may ask you to DM proof for verification.",
         "embed": {
@@ -105,8 +104,6 @@
             ]
         }
     },
-
-
     "part3": {
         "embed": {
             "title": "**RULES**",
@@ -147,7 +144,6 @@
             ]
         }
     },
-
     "part4": {
         "content": "Infractions are measured by severity and punished accordingly.\n\nAttempting to evade a sanction by using another account will result in that account being permanently banned. The originally punished account may also receive an increased sanction.",
         "embed": {
@@ -175,19 +171,26 @@
     },
     "part5": {
         "embed": {
-            "title": "**Doxing**",
-            "description": "1. Do not expose any personal information about other people without express permission. Personal information is any info pertaining to their identity, e.g. locations, names, contact details - anything that is linked to that person.\n2. Ask the person in question first. Do not do it if you’re not sure. Do not try and find information that can dox someone else either without their permission either.\n3. Releasing your own information means it can be re-quoted. If you say something on the server, unless it is removed then anyone can re-quote it. If you want something deleted, ask a moderator. Do not harass someone else based on their information.",
-            "color": "0xffd500"
+            "title": "**Be Respectful**",
+            "description": "Other people are on the other side of a screen, and this server is aimed mostly at young people. Different people often feel differently about various remarks, and as moderators, we reserve the right to take action if you're explicitly making someone else's experience of the server difficult and miserable. We have a zero-tolerance policy on bullying or harassment, and targeting other members of the server with hurtful or offensive remarks is simply not on, and can lead to mutes or bans.",
+            "color": "0x9B69FF"
         }
     },
     "part6": {
+        "embed": {
+            "title": "**Doxing**",
+            "description": "1. Do not expose any personal information about other people without express permission. Personal information is any info pertaining to their identity, e.g. locations, names, contact details - anything that is linked to that person.\n2. Ask the person in question first. Do not do it if you’re not sure. Do not try and find information that can dox someone else either without their permission either.\n3. Releasing your own information means it can be re-quoted. If you say something on the server, unless it is removed then anyone can re-quote it. If you want something deleted, ask a moderator. Do not harass someone else based on their information.",
+            "color": "0xFFD500"
+        }
+    },
+    "part7": {
         "embed": {
             "title": "**Suggesting Changes to the Community**",
             "description": "If you feel that something on the server could/should be improved, make an issue on the meta repository at https://github.com/CyberDiscovery/meta/. This is a platform for constructive discussion around the future of our community - however, this is not the place to appeal punishments or to report moderators so please see below.",
             "color": "0xFCAF8E"
         }
     },
-    "part7": {
+    "part8": {
         "embed": {
             "title": "**Reporting a Moderator/Appealing Punishments**",
             "description": "If you have a serious complaint to make about a moderator, then DM an @Root in order to get this addressed. Please do not DM unless entirely required. Do not harass a moderator about decisions they make - **we reserve the right to make decisions not covered entirely by these rules if the situation requires it.**\n\nModerators are @Root and @Sudo and are here to answer any queries you may have in DMs. We can also be DMed in order to appeal punishments. Please note that we are not Cyber Discovery staff - any personal queries regarding the program should be sent to `support@joincyberdiscovery.com`, not us. If you have any enquiry to make around the above rules, or wish to discuss a punishment or deletion, we will be happy to discuss the exact reasoning in DMs. Harassing moderators is not on - we are people as well, and any sort of malicious activity towards us, will be met with appropriate punishment.",
