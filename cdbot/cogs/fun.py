@@ -553,8 +553,8 @@ class Fun(Cog):
     async def l33tify(self, ctx: Context, text: str):
         """Converts a message to l33t."""
         l33t_map = {
-            'multi': {'ck': 'x'}, # these take precedence over single characters
-            'single': {'a': '4', 'b': '8', 'e': '3', 'i': '!', 'l': '1', 'o': '0', 's': '5', 't': '7', 'z': '2', ' ': '_'}
+            'multi': {'ck': 'x'},  # these take precedence over single characters
+            'single': {'a': '4', 'e': '3', 'i': '!', 'l': '1', 'o': '0', 's': '5', 't': '7', 'z': '2', ' ': '_'}
         }
 
         l33t = text.lower()
