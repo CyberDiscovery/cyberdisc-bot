@@ -549,6 +549,23 @@ class Fun(Cog):
         """
         await self.create_text_image(ctx, "AngryLyne", text)
 
+    @command()
+    async def l33tify(self, ctx: Context, text: str):
+        """Converts a message to l33t."""
+        l33t_map = {
+            'multi': {'ck': 'x'}, # these take precedence over single characters
+            'single': {'a': '4', 'b': '8', 'e': '3', 'i': '!', 'l': '1', 'o': '0', 's': '5', 't': '7', 'z': '2', ' ': '_'}
+        }
+
+        l33t = text.lower()
+
+        for substring, replacement in l33t_map['multi'].items():
+            l33t = l33t.replace(substring, replacement)
+
+        l33t = ''.join(l33t_map['single'][x] if x in l33t_map['single'] else x for x in l33t)
+
+        await ctx.send(content=l33t)
+
 
 def setup(bot):
     """
