@@ -114,7 +114,8 @@ class Maths(Cog):
     @Cog.listener()
     async def on_message(self, message):
         """Check if the message contains inline LaTeX."""
-        for expression in constants.LATEX_RE.findall(message.content):
+        # Cap the number processed in a single message to 3 for now, to reduce spam.
+        for expression in constants.LATEX_RE.findall(message.content)[:3]:
             await self.latex(message.channel, expression)
 
     @command()
