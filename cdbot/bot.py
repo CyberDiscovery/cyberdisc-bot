@@ -26,7 +26,6 @@ async def register_metadata(ctx):
     with configure_scope() as scope:
         scope.user = {"id": ctx.author.id, "username": str(ctx.author)}
         scope.set_context("client_os", {"name": system(), "version": release()})
-        scope.set_extra("runtime", {"name": "Python", "version": python_version()})
         scope.set_tag("command", ctx.message.content)
         scope.set_tag("channel", str(ctx.channel))
 
