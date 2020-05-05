@@ -8,7 +8,7 @@ import dateutil.parser
 import httpx
 from discord import Colour, Embed, File
 from discord.ext import tasks
-from discord.ext.commands import Bot, BucketType, Cog, Context, command
+from discord.ext.commands import Bot, BucketType, Cog, Context, command, cooldown
 from html2markdown import convert
 
 from cdbot.constants import Maths as constants
