@@ -8,7 +8,7 @@ import dateutil.parser
 import httpx
 from discord import Colour, Embed, File
 from discord.ext import tasks
-from discord.ext.commands import Bot, Cog, Context, command
+from discord.ext.commands import Bot, BucketType, Cog, Context, command
 from html2markdown import convert
 
 from cdbot.constants import Maths as constants
@@ -119,6 +119,9 @@ class Maths(Cog):
             await self.latex(message.channel, expression)
 
     @command()
+    @cooldown(1, 60, BucketType.user)
+    @cooldown(4, 60, BucketType.channel)
+    @cooldown(6, 3600, BucketType.guild)
     async def challenge(self, ctx: Context, number: int = 1):
         """Show the provided challenge number."""
         challenge = await get_challenge(number)
