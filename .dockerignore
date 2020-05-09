@@ -1,0 +1,13 @@
+.github
+.vscode
+azure-pipelines
+.gitignore
+.security.txt
+CODE_OF_CONDUCT.md
+deployment.yaml
+docker-compose.yml
+LICENSE
+README.md
+requirements-ci.txt
+SECURITY.md
+tox.ini
