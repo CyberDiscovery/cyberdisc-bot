@@ -13,6 +13,9 @@ stages:
           vmImage: Ubuntu 18.04
 
         steps:
+        - script: sudo chmod 777 /var/lib/docker
+          displayName: Make Docker cache readable
+
         - task: Cache@2
           inputs:
             key: 'docker | "$(Agent.OS)"'
