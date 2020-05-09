@@ -13,6 +13,12 @@ stages:
           vmImage: Ubuntu 18.04
 
         steps:
+        - task: Cache@2
+          inputs:
+            key: 'docker | "$(Agent.OS)"'
+            path:  /var/lib/docker
+            displayName: "Cache Docker images"
+
         - task: Docker@2
           displayName: 'Publish to Docker Hub'
           inputs:
