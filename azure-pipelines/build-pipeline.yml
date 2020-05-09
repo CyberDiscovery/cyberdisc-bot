@@ -25,7 +25,7 @@ jobs:
         python | "$(Agent.OS)"
         python
       path:  /home/vsts/.cache/pip
-      displayName: Cache Python packages
+      displayName: "Cache Python packages"
 
   - script: pip install -r requirements-ci.txt
     displayName: 'Install project using pip'
