@@ -46,15 +46,6 @@ jobs:
     vmImage: 'Ubuntu 18.04'
 
   steps:
-  - script: sudo chmod -R 777 /var/lib/docker
-    displayName: Make Docker cache readable
-
-  - task: Cache@2
-    inputs:
-      key: 'docker | "$(Agent.OS)"'
-      path:  /var/lib/docker
-      displayName: "Cache Docker images"
-
   - task: Docker@1
     displayName: 'Build an image'
     inputs:
