@@ -24,7 +24,7 @@ jobs:
       restoreKeys: |
         python | "$(Agent.OS)"
         python
-      path: ~/.cache/pip
+      path:  /home/vsts/.cache/pip
       displayName: Cache Python packages
 
   - script: pip install -r requirements-ci.txt
