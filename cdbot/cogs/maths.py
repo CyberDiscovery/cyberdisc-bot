@@ -147,7 +147,7 @@ class Maths(Cog):
         """Render a LaTeX expression"""
         if ctx.channel.id in constants.BLOCKED_CHANNELS:
             return await ctx.send(
-                "\N{NO ENTRY SIGN} You cannot use this command in this channel!"
+                "\N{NO ENTRY SIGN} You cannot use this command in this channel!", delete_after=10
             )
         options = {
             "auth": {"user": "guest", "password": "guest"},
