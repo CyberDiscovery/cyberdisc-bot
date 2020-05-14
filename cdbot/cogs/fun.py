@@ -549,6 +549,13 @@ class Fun(Cog):
         """
         await self.create_text_image(ctx, "AngryLyne", text)
 
+    @command()
+    async def baldj(self, ctx: Context, *, text: str):
+        """
+        Creates an image of Bald Agent J with the specified text.
+        """
+        await self.create_text_image(ctx, "AgentJBadHairDay", text)
+
 
 def setup(bot):
     """
