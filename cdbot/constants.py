@@ -24,6 +24,8 @@ class PostgreSQL:
 class Maths:
     LATEX_RE = re.compile(r'\${1,2}(.*?)\${1,2}', re.DOTALL)
 
+    BLOCKED_CHANNELS = [411573884597436416]
+
     class Challenges:
         URL = "https://cms-kcl.cloud.contensis.com/api/delivery/projects/mathsSchool/entries/search?linkDepth=1"
         CHALLENGE_RE = re.compile(r"Challenge (\d+): .*")
