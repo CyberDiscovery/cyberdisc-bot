@@ -119,9 +119,6 @@ class Maths(Cog):
             await self.latex(message.channel, expression)
 
     @command()
-    @cooldown(1, 60, BucketType.user)
-    @cooldown(4, 60, BucketType.channel)
-    @cooldown(6, 3600, BucketType.guild)
     async def challenge(self, ctx: Context, number: int = 1):
         """Show the provided challenge number."""
         challenge = await get_challenge(number)
@@ -146,6 +143,9 @@ class Maths(Cog):
         return await ctx.send(embed=embed)
 
     @command()
+    @cooldown(1, 60, BucketType.user)
+    @cooldown(4, 60, BucketType.channel)
+    @cooldown(6, 3600, BucketType.guild)
     async def latex(self, ctx: Context, expression: str):
         """Render a LaTeX expression."""
         channel = ctx.channel.id if type(ctx) is Context else ctx.id
