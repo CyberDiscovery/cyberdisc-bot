@@ -144,8 +144,7 @@ class Maths(Cog):
 
     @command()
     async def latex(self, ctx: Context, expression: str):
-        """Render a LaTeX expression"""
-        
+        """Render a LaTeX expression."""
         channel = ctx.channel.id if type(ctx) is Context else ctx.id
         
         if channel in constants.BLOCKED_CHANNELS:
