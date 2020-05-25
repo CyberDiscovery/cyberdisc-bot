@@ -6,7 +6,7 @@ from io import BytesIO
 import aiohttp
 import dateutil.parser
 import httpx
-from discord import Colour, Embed, File, TextChannel
+from discord import Colour, Embed, File
 from discord.ext import tasks
 from discord.ext.commands import Bot, Cog, Context, command
 from html2markdown import convert
@@ -146,7 +146,7 @@ class Maths(Cog):
     async def latex(self, ctx: Context, expression: str):
         """Render a LaTeX expression."""
         channel = ctx.channel.id if type(ctx) is Context else ctx.id
-        
+
         if channel in constants.BLOCKED_CHANNELS:
             return await ctx.send(
                 "\N{NO ENTRY SIGN} You cannot use this command in this channel!", delete_after=10
