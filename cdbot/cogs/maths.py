@@ -188,9 +188,12 @@ class Maths(Cog):
                     content = await response.content.read()
                     error = False
             else:
-                return await ctx.send(
-                    "\N{WARNING SIGN} **LaTeX Error** \N{WARNING SIGN}\n"+errmsg, delete_after=30
+                embed = Embed(
+                    title="\N{WARNING SIGN} **LaTeX Compile Error** \N{WARNING SIGN}",
+                    colour=Colour(0xB33A3A),
+                    description=errmsg.replace("@","")
                 )
+                return await ctx.send(embed=embed, delete_after=30)
         await ctx.send(file=File(BytesIO(content), filename="result.png"))
 
 
