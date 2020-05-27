@@ -114,9 +114,8 @@ class Maths(Cog):
     @Cog.listener()
     async def on_message(self, message):
         """Check if the message contains inline LaTeX."""
-        # Cap the number processed in a single message to 3 for now, to reduce spam.
-        for expression in constants.LATEX_RE.findall(message.content)[:3]:
-            await self.latex(message.channel, expression)
+        if constants.LATEX_RE.findall(message.content):
+            await self.latexRender(message.channel,message.content)
 
     @command()
     async def challenge(self, ctx: Context, number: int = 1):
@@ -143,8 +142,13 @@ class Maths(Cog):
         return await ctx.send(embed=embed)
 
     @command()
-    async def latex(self, ctx: Context, expression: str):
-        """Render a LaTeX expression."""
+    async def latex(self, ctx: Context, *, expression: str):
+        """
+        Render a LaTeX expression with https://quicklatex.com/
+        """
+        await self.latexRender(ctx, expression)
+
+    async def latexRender(self, ctx: Context, expression: str):
         channel = ctx.channel.id if type(ctx) is Context else ctx.id
 
         if channel in constants.BLOCKED_CHANNELS:
@@ -152,22 +156,43 @@ class Maths(Cog):
                 "\N{NO ENTRY SIGN} You cannot use this command in this channel!", delete_after=10
             )
 
-        options = {
-            "auth": {"user": "guest", "password": "guest"},
-            "latex": expression,
-            "resolution": 900,
-            "color": "969696",
-        }
+        # Code and regexes taken from https://quicklatex.com/js/quicklatex.js
+        # aiohttp seems to URL-encode things in a way quicklatex doesn't like
+
+        if expression.startswith("...latex"):
+            expression = expression[len("...latex"):]
+        if expression.startswith(":latex"):
+            expression = expression[len(":latex"):]
+
+        formula = expression.replace("%","%25").replace("&","%26")
+
+        preamble = constants.LATEX_PREAMBLE.replace("%","%25").replace("&","%26")
+        
+        body =        'formula=' + formula
+        body = body + '$$$$&fsize=50px'
+        body = body + '&fcolor=969696'
+        body = body + '&mode=0';
+        body = body + '&out=1';
+        body = body + '&errors=1';
+        body = body + '&preamble=' + preamble;
+
         async with aiohttp.ClientSession() as session:
             async with session.post(
-                "http://latex2png.com/api/convert", json=options
+                "https://www.quicklatex.com/latex3.f", data=body
             ) as response:
-                result = await response.json()
-            if result.get('url'):
-                async with session.get("http://latex2png.com" + result["url"]) as response:
-                    content = await response.content.read()
-            else:
+                result = await response.text()
+            m = constants.LATEX_RESPONSE_RE.match(result)
+            if not m:
                 return
+            status, url, valign, imgw, imgh, errmsg = m.groups()
+            if status == '0':
+                async with session.get(url) as response:
+                    content = await response.content.read()
+                    error = False
+            else:
+                return await ctx.send(
+                    "\N{WARNING SIGN} **LaTeX Error** \N{WARNING SIGN}\n"+errmsg, delete_after=30
+                )
         await ctx.send(file=File(BytesIO(content), filename="result.png"))
 
 
