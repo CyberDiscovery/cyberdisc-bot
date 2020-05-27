@@ -33,7 +33,6 @@ class Maths:
     "\\usepackage{stmaryrd}\n"
     "\\usepackage[utf8]{inputenc}\n"
     "\\usepackage{longtable}\n"
-    "\\usepackage{hyperref}\n"
     "\n"
     "\\usepackage{graphicx}\n"
     "\\usepackage{subcaption}\n"
