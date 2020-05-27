@@ -115,7 +115,7 @@ class Maths(Cog):
     async def on_message(self, message):
         """Check if the message contains inline LaTeX."""
         if constants.LATEX_RE.findall(message.content):
-            await self.latexRender(message.channel,message.content)
+            await self.latex_render(message.channel,message.content)
 
     @command()
     async def challenge(self, ctx: Context, number: int = 1):
@@ -146,9 +146,9 @@ class Maths(Cog):
         """
         Render a LaTeX expression with https://quicklatex.com/
         """
-        await self.latexRender(ctx, expression)
+        await self.latex_render(ctx, expression)
 
-    async def latexRender(self, ctx: Context, expression: str):
+    async def latex_render(self, ctx: Context, expression: str):
         channel = ctx.channel.id if type(ctx) is Context else ctx.id
 
         if channel in constants.BLOCKED_CHANNELS:
@@ -169,10 +169,10 @@ class Maths(Cog):
         body =        'formula=' + formula
         body = body + '$$$$&fsize=50px'
         body = body + '&fcolor=969696'
-        body = body + '&mode=0';
-        body = body + '&out=1';
-        body = body + '&errors=1';
-        body = body + '&preamble=' + preamble;
+        body = body + '&mode=0'
+        body = body + '&out=1'
+        body = body + '&errors=1'
+        body = body + '&preamble=' + preamble
 
         async with aiohttp.ClientSession() as session:
             async with session.post(
