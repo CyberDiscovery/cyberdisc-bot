@@ -159,10 +159,8 @@ class Maths(Cog):
         # Code and regexes taken from https://quicklatex.com/js/quicklatex.js
         # aiohttp seems to URL-encode things in a way quicklatex doesn't like
 
-        if expression.startswith("...latex"):
-            expression = expression[len("...latex"):]
-        if expression.startswith(":latex"):
-            expression = expression[len(":latex"):]
+        if expression.startswith("...latex") or expression.startswith(":latex"):
+            return
 
         formula = expression.replace("%","%25").replace("&","%26")
 
