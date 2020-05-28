@@ -115,7 +115,7 @@ class Maths(Cog):
     async def on_message(self, message):
         """Check if the message contains inline LaTeX."""
         if constants.LATEX_RE.findall(message.content):
-            await self.latex_render(message.channel,message.content)
+            await self.latex_render(message.channel, message.content)
 
     @command()
     async def challenge(self, ctx: Context, number: int = 1):
@@ -162,9 +162,9 @@ class Maths(Cog):
         if expression.startswith("...latex") or expression.startswith(":latex"):
             return
 
-        formula = expression.replace("%","%25").replace("&","%26")
+        formula = expression.replace("%", "%25").replace("&", "%26")
 
-        preamble = constants.LATEX_PREAMBLE.replace("%","%25").replace("&","%26")
+        preamble = constants.LATEX_PREAMBLE.replace("%", "%25").replace("&", "%26")
         
         body =        'formula=' + formula
         body = body + '$$$$&fsize=50px'
