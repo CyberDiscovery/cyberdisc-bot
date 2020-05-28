@@ -2,9 +2,10 @@
 import sentry_sdk
 from sentry_sdk.integrations.aiohttp import AioHttpIntegration
 
+from git import Repo
+
 from .bot import bot
 from .constants import BOT_TOKEN, SENTRY_URL
-from git import Repo
 
 
 def main():
