@@ -10,9 +10,12 @@ from string import ascii_lowercase
 from typing import List
 from urllib.parse import urlencode
 
-import asyncpg
 from PIL import Image, ImageDraw, ImageFont
+
 from aiohttp import ClientSession
+
+import asyncpg
+
 from discord import (
     Colour,
     Embed,

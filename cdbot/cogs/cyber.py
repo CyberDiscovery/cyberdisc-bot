@@ -8,8 +8,10 @@ from io import StringIO
 from json import load
 
 from aiohttp import ClientSession
+
 from dateutil.parser import parse
 from dateutil.relativedelta import relativedelta
+
 from discord import Colour, Embed, File, Message
 from discord.ext.commands import Bot, Cog, Context, command, has_role
 
@@ -415,7 +417,7 @@ class Cyber(Cog):
             }
 
             description = textwrap.dedent(
-                f"""
+                """
             **Camp Statistics**
             """
             )

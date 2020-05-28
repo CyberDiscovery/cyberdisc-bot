@@ -4,12 +4,16 @@ Set of bot commands designed for Maths Challenges.
 from io import BytesIO
 
 import aiohttp
+
 import dateutil.parser
-import httpx
+
 from discord import Colour, Embed, File
 from discord.ext import tasks
 from discord.ext.commands import Bot, Cog, Context, command
+
 from html2markdown import convert
+
+import httpx
 
 from cdbot.constants import Maths as constants
 

@@ -5,6 +5,7 @@ from platform import release, system
 
 from discord import Game
 from discord.ext.commands import Bot, when_mentioned_or
+
 from sentry_sdk import configure_scope
 
 from cdbot.log import DiscordHandler
