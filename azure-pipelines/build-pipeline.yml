@@ -9,7 +9,7 @@ jobs:
   displayName: 'Lint'
 
   pool:
-    vmImage: 'Ubuntu 20.04'
+    vmImage: 'Ubuntu 18.04'
 
   steps:
   - task: UsePythonVersion@0
