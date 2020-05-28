@@ -9,7 +9,7 @@ jobs:
   displayName: 'Lint'
 
   pool:
-    vmImage: 'Ubuntu 18.04'
+    vmImage: 'Ubuntu 20.04'
 
   steps:
   - task: UsePythonVersion@0
@@ -41,7 +41,7 @@ jobs:
 
 - job: build
   displayName: 'Build'
-  
+
   pool:
     vmImage: 'Ubuntu 18.04'
 
