@@ -186,7 +186,6 @@ class Maths(Cog):
             if status == '0':
                 async with session.get(url) as response:
                     content = await response.content.read()
-                    error = False
             else:
                 embed = Embed(
                     title="\N{WARNING SIGN} **LaTeX Compile Error** \N{WARNING SIGN}",

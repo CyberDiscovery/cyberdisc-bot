@@ -415,7 +415,7 @@ class Cyber(Cog):
             }
 
             description = textwrap.dedent(
-                f"""
+                """
             **Camp Statistics**
             """
             )
