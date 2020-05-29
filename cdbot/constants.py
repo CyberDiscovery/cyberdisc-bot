@@ -22,7 +22,7 @@ class PostgreSQL:
 
 
 class Maths:
-    LATEX_RE = re.compile(r'\${1,2}(.*?)\${1,2}', re.DOTALL)
+    LATEX_RE = re.compile(r"\${1,2}(.*?)\${1,2}", re.DOTALL)
 
     BLOCKED_CHANNELS = [411573884597436416]
 
@@ -37,21 +37,12 @@ class Maths:
 
 class Roles:
     class Elite:
-        MAIN = int(environ.get("ELITE_MEMBERS_ID", "580387468336037888"))
-
-        class London:
-            YOUNGER = int(environ.get("LDN_Y_MEMBERS_ID", "580387877385404428"))
-            OLDER = int(environ.get("LDN_O_MEMBERS_ID", "580387897644023811"))
-
-        class Birmingham:
-            YOUNGER = int(environ.get("BRM_Y_MEMBERS_ID", "580387895299276830"))
-            OLDER = int(environ.get("BRM_O_MEMBERS_ID", "580387899833581572"))
-
-        class Lancaster:
-            YOUNGER = int(environ.get("LAN_Y_MEMBERS_ID", "580387892853997578"))
-            OLDER = int(environ.get("LAN_O_MEMBERS_ID", "580387898973618176"))
+        class VET2018:
+            ATTENDEES = int(environ.get("2018_MEMBERS_ID", "453581429528461313"))
 
         class VET2019:
+            ATTENDEES = int(environ.get("2019_MEMBERS_ID", "580387468336037888"))
+
             CYBERIST = int(
                 environ.get("2019_CYBERIST_MEMBERS_ID", "610387199300730900")
             )
@@ -61,7 +52,9 @@ class Roles:
 
         class VET2020:
             TALENTDEV = int(environ.get("TALENTDEV_MEMBERS_ID", "669927831031250954"))
-            ELITEONLINE = int(environ.get("2020_ONLINE_MEMBERS_ID", "715852962664153168"))
+            ELITEONLINE = int(
+                environ.get("2020_ONLINE_MEMBERS_ID", "715852962664153168")
+            )
 
     class Exchange:
         SHORTLIST = int(environ.get("EXCH_S_MEMBERS_ID", "582894164597932034"))

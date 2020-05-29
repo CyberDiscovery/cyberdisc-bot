@@ -408,14 +408,16 @@ class Cyber(Cog):
         """
         if ELITECOUNT_ENABLED:
             preferences = {
+                "2018": {"Attendees": Roles.Elite.VET2018.ATTENDEES},
                 "2019": {
+                    "Attendees": Roles.Elite.VET2019.ATTENDEES,
                     "Cyberists": Roles.Elite.VET2019.CYBERIST,
                     "Forensicators": Roles.Elite.VET2019.FORENSICATOR,
                 },
                 "2020": {
                     "Talent Development": Roles.Elite.VET2020.TALENTDEV,
                     "Online": Roles.Elite.VET2020.ELITEONLINE,
-                }
+                },
             }
 
             description = textwrap.dedent(
