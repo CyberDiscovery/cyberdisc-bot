@@ -34,22 +34,22 @@ class QuoteCog(Cog):
             host=MongoDB.MONGOHOST,
             port=MongoDB.MONGOPORT,
             username=MongoDB.MONGOUSER,
-            password=MongoDB.MONGOPASSWORD)[MongoDB.MONGODATABASE]
-        
+            password=MongoDB.MONGOPASSWORD,
+        )[MongoDB.MONGODATABASE]["quotes"]
 
     @Cog.listener()
     async def on_command_error(self, ctx: commands.Context, error):
         await ctx.send(f"{type(error)}: {error}")
 
-    # @Cog.listener()
-    # async def on_raw_reaction_add(self, raw_reaction: RawReactionActionEvent):
-    #     thumbs_down = "\N{THUMBS DOWN SIGN}"
-    #     if str(raw_reaction.emoji) == thumbs_down and raw_reaction.channel_id == QUOTES_CHANNEL_ID:
-    #         message = await self.quotes_channel.fetch_message(raw_reaction.message_id)
-    #         reaction = [react for react in message.reactions if str(react.emoji) == thumbs_down][0]
-    #         if reaction.count >= 11:
-    #             return
-    #             # TODO: update this function
+    @Cog.listener()
+    async def on_raw_reaction_add(self, raw_reaction: RawReactionActionEvent):
+        thumbs_down = "\N{THUMBS DOWN SIGN}"
+        if str(raw_reaction.emoji) == thumbs_down and raw_reaction.channel_id == QUOTES_CHANNEL_ID:
+            message = await self.quote_channel.fetch_message(raw_reaction.message_id)
+            reaction = [react for react in message.reactions if str(react.emoji) == thumbs_down][0]
+            if reaction.count > 12:
+                await self.database.delete_one({"_id": message.id})
+                await message.delete()
 
     async def get_member_by_id(self, member_id: int) -> Union[Member, User, None]:
         if (member := utils.get(self.bot.get_all_members(), id=member_id)) is not None:  # noqa: E203, E231
@@ -185,7 +185,7 @@ class QuoteCog(Cog):
         quote = await self.quote_channel.send(embed=embed)
         await quote.add_reaction("\N{THUMBS DOWN SIGN}")
         data["_id"] = quote.id
-        res = await self.database.quotes.insert_one(data)
+        res = await self.database.insert_one(data)
         print(res)
 
     @commands.group(invoke_without_command=True)
@@ -292,31 +292,27 @@ class QuoteCog(Cog):
         Returns a random quotation from the #quotes channel.
         A user can be specified to return a random quotation from that user.
         """
-        # quote_channel = self.bot.get_channel(QUOTES_CHANNEL_ID)
-
-
-
-        # if message_id is None:
-        #     return await ctx.send("No quotes found.")
-
-        # message = await quote_channel.fetch_message(message_id)
-        # embed = None
-        # content = message.clean_content
-        # attachment_urls = [attachment.url for attachment in message.attachments]
-
-        # if message.embeds:
-        #     embed = message.embeds[0]
-        # elif len(attachment_urls) == 1:
-        #     image_url = attachment_urls.pop(0)
-        #     embed = Embed()
-        #     embed.set_image(url=image_url)
-
-        # for url in attachment_urls:
-        #     content += "\n" + url
-
-        # await ctx.send(content, embed=embed)
-        return
-        # TODO: update this function for new quotes
+        pipeline = []
+        if member:
+            pipeline.append(
+                {
+                    "$match": {
+                        "$or": [
+                            {
+                                "author.id": member.id
+                            },
+                            {
+                                "messages.author.id": member.id
+                            }
+                        ]
+                    }
+                }
+            )
+        pipeline.append({"$sample": {"size": 1 }})
+        async for doc in self.database.aggregate(pipeline):
+            quote = await self.quote_channel.fetch_message(doc["_id"])
+            return await ctx.send(embed=quote.embeds[0])
+        return await ctx.send("No quotes found.")
 
     @commands.command()
     async def quotecount(self, ctx: commands.Context, member: FormerUser = None):
@@ -324,19 +320,25 @@ class QuoteCog(Cog):
         Returns the number of quotes in the #quotes channel.
         A user can be specified to return the number of quotes from that user.
         """
-        # async with self.bot.pool.acquire() as connection:
-        #     total_quotes = await connection.fetchval('SELECT count(*) FROM quotes')
-
-        #     if member is None:
-        #         await ctx.send(f"There are {total_quotes} quotes in the database")
-        #     else:
-        #         user_quotes = await connection.fetchval('SELECT count(*) FROM quotes WHERE author_id=$1', member.id)
-        #         await ctx.send(
-        #             f"There are {user_quotes} quotes from {member} in the database "
-        #             f"({user_quotes / total_quotes:.2%})"
-        #         )
-        return
-        # TODO: update this function for new quotes
+        total_quotes = await self.database.count_documents({})
+        if not member:
+            return await ctx.send(f"There are {total_quotes} quotes in the database")
+        user_quotes = await self.database.count_documents(
+            {
+                "$or": [
+                    {
+                        "author.id": member.id
+                    },
+                    {
+                        "messages.author.id": member.id
+                    }
+                ]
+            }
+        )
+        return await ctx.send(
+            f"There are {user_quotes} quotes from {member} in the database "
+            f"({user_quotes / total_quotes:.2%})"
+        )
 
     @commands.command()
     async def quoteboard(self, ctx: commands.Context, page: int = 1):
