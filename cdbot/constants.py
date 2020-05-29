@@ -22,7 +22,7 @@ class PostgreSQL:
 
 
 class Maths:
-    LATEX_RE = re.compile(r'\${1,2}(.*?)\${1,2}', re.DOTALL)
+    LATEX_RE = re.compile(r"\${1,2}(.*?)\${1,2}", re.DOTALL)
 
     BLOCKED_CHANNELS = [411573884597436416]
 
@@ -52,7 +52,9 @@ class Roles:
 
         class VET2020:
             TALENTDEV = int(environ.get("TALENTDEV_MEMBERS_ID", "669927831031250954"))
-            ELITEONLINE = int(environ.get("2020_ONLINE_MEMBERS_ID", "715852962664153168"))
+            ELITEONLINE = int(
+                environ.get("2020_ONLINE_MEMBERS_ID", "715852962664153168")
+            )
 
     class Exchange:
         SHORTLIST = int(environ.get("EXCH_S_MEMBERS_ID", "582894164597932034"))
