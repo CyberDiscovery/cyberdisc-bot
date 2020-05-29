@@ -412,6 +412,10 @@ class Cyber(Cog):
                     "Cyberists": Roles.Elite.VET2019.CYBERIST,
                     "Forensicators": Roles.Elite.VET2019.FORENSICATOR,
                 },
+                "2020": {
+                    "Talent Development": Roles.Elite.VET2020.TALENTDEV,
+                    "Online": Roles.Elite.VET2020.ELITEONLINE,
+                }
             }
 
             description = textwrap.dedent(
@@ -434,12 +438,6 @@ class Cyber(Cog):
                     r = ctx.guild.get_role(role)
                     section += f"**{age}**: {len(r.members)}\n"
                 embed.add_field(name=location, value=section, inline=True)
-
-            embed.add_field(
-                name="Talent Development Programme",
-                value=f"**Participants**: {len(ctx.guild.get_role(Roles.Elite.TALENTDEV).members)}",
-                inline=True,
-            )
 
             await ctx.send(embed=embed)
         else:
