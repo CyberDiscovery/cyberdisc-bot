@@ -6,7 +6,7 @@ from io import BytesIO
 import aiohttp
 import dateutil.parser
 import httpx
-from discord import Colour, Embed, File, NotFound, Client
+from discord import Colour, Embed, File, Client
 from discord.ext import tasks
 from discord.ext.commands import Bot, Cog, Context, command
 from html2markdown import convert
