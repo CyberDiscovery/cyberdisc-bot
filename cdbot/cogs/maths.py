@@ -6,7 +6,7 @@ from io import BytesIO
 import aiohttp
 import dateutil.parser
 import httpx
-from discord import Colour, Embed, File, Client
+from discord import Colour, Embed, File
 from discord.ext import tasks
 from discord.ext.commands import Bot, Cog, Context, command
 from html2markdown import convert
@@ -180,6 +180,7 @@ class Maths(Cog):
             user = await self.bot.fetch_user(payload.user_id)
             if str(user).replace("#", "") == filename[:-4]:
                 await msg.delete()
+
 
 def setup(bot):
     """
