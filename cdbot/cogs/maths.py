@@ -6,7 +6,7 @@ from io import BytesIO
 import aiohttp
 import dateutil.parser
 import httpx
-from discord import Colour, Embed, File
+from discord import Colour, Embed, File, NotFound, Client
 from discord.ext import tasks
 from discord.ext.commands import Bot, Cog, Context, command
 from html2markdown import convert
@@ -168,8 +168,18 @@ class Maths(Cog):
                     content = await response.content.read()
             else:
                 return
-        await ctx.send(file=File(BytesIO(content), filename="result.png"))
+        msg = await ctx.send(file=File(BytesIO(content), filename=f"{ctx.message.author}.png"))
+        await msg.add_reaction("🗑️")
 
+    @Cog.listener()
+    async def on_raw_reaction_add(self, payload):
+        if ord(str(payload.emoji)[0]) == 128465:
+            channel = await self.bot.fetch_channel(channel_id=payload.channel_id)
+            msg = await channel.fetch_message(payload.message_id)
+            filename = msg.attachments[0].filename
+            user = await self.bot.fetch_user(payload.user_id)
+            if str(user).replace("#", "") == filename[:-4]:
+                await msg.delete()
 
 def setup(bot):
     """
