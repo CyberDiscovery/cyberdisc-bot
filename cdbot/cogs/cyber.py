@@ -459,7 +459,7 @@ class Cyber(Cog):
             fileHash = readme["oldHash"]
 
         if readmeHash == fileHash:
-            pass           
+            pass
         else:
             readme["oldHash"] = readmeHash
             with open(readmeFile, "w") as f:
@@ -472,10 +472,9 @@ class Cyber(Cog):
 
             with open("cdbot/data/readme.json", "r") as default_json:
                 json_config = load(default_json)
-                
+
             await self._sendReadme(json_config, README_CHANNEL_ID, True)
-                
-                
+
     async def _sendReadme(self, json_config, channel_id, msg_send_interval=0, no_ctx=False):
         for section in json_config:
             
