@@ -21,12 +21,12 @@ from cdbot.constants import (
     END_README_MESSAGE,
     HINTS_LIMIT,
     HUNDRED_PERCENT_ROLE_ID,
+    README_CHANNEL_ID,
     README_RECV_ALIASES,
     README_SEND_ALIASES,
     ROOT_ROLE_ID,
     Roles,
     TRUE_HUNDRED_PERCENT_ROLE_ID,
-    README_CHANNEL_ID,
 )
 
 
@@ -260,7 +260,7 @@ class Cyber(Cog):
 
                     await ctx.message.delete()
 
-                    _sendReadme(json_config, channel_id, msg_send_interval, no_ctx=False)
+                    self._sendReadme(json_config, channel_id, msg_send_interval, no_ctx=False)
 
                 except (Exception):
                     parse_fail_embed = Embed(
@@ -450,8 +450,8 @@ class Cyber(Cog):
     @Cog.listener()
     async def on_ready(self):
         readmeFile = "cdbot/data/readme.json"
-        with open(readmeFile,"rb") as f:
-            bytes = f.read() 
+        with open(readmeFile, "rb") as f:
+            bytes = f.read()
             readmeHash = hashlib.sha256(bytes[94:]).hexdigest()
             
         with open(readmeFile, "r") as f:
