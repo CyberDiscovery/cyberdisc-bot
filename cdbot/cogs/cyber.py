@@ -477,7 +477,7 @@ class Cyber(Cog):
 
     async def _sendReadme(self, json_config, channel_id, msg_send_interval=0, no_ctx=False):
         for section in json_config:
-            
+
             # Initialise our message and embed variables each loop.
             # This is to prevent leftover data from being re-sent.
             msg_content, current_embed = None, None
@@ -512,7 +512,7 @@ class Cyber(Cog):
                 requested_channel = await self.bot.fetch_channel(channel_id)
             else:
                 requested_channel = self.bot.get_channel(channel_id)
-            
+
             # Send the message. 
             if msg_content is not None and current_embed is None:
                 await requested_channel.send(content=msg_content)
@@ -530,8 +530,8 @@ class Cyber(Cog):
                 await sleep(msg_send_interval)
 
         # Send the trailing embed message constant.
-        await requested_channel.send(content=END_README_MESSAGE)             
-        
+        await requested_channel.send(content=END_README_MESSAGE)       
+
 
 def setup(bot):
     bot.add_cog(Cyber(bot))
