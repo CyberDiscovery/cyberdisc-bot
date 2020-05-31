@@ -98,7 +98,7 @@ class Cyber(Cog):
     @command(aliases=["Manual", "manual", "fm", "rtfm"])
     async def fieldmanual(self, ctx: Context):
         """
-        # Returns a link to the field manual
+        Returns a link to the field manual
         """
 
         await ctx.send("https://game.joincyberdiscovery.com/manual")
