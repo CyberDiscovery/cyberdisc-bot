@@ -513,7 +513,7 @@ class Cyber(Cog):
             else:
                 requested_channel = self.bot.get_channel(channel_id)
 
-            # Send the message. 
+            # Send the message.
             if msg_content is not None and current_embed is None:
                 await requested_channel.send(content=msg_content)
             elif current_embed is not None and msg_content is None:
@@ -530,7 +530,7 @@ class Cyber(Cog):
                 await sleep(msg_send_interval)
 
         # Send the trailing embed message constant.
-        await requested_channel.send(content=END_README_MESSAGE)       
+        await requested_channel.send(content=END_README_MESSAGE)
 
 
 def setup(bot):
