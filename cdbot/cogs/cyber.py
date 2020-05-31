@@ -43,30 +43,30 @@ class Cyber(Cog):
         # Assess dates
         (
             r"^.*\bassess\b.*\b(start|begin|open)\b.*$",
-            "CyberStart Assess began on the 3rd September 2019.",
+            "CyberStart Assess began on the 2nd June 2020.",
         ),
         (
             r"^.*\bassess\b.*\b(end|finish|close)\b.*$",
-            "CyberStart Assess ended on the 25th October 2019.",
+            "CyberStart Assess ends on the 30th September 2020.",
         ),
         # Game dates
         (
             r"^.*\bgame\b.*\b(start|begin|open)\b.*$",
-            "CyberStart Game began on the 5th November 2019.",
+            "CyberStart Game began on the 2nd June 2020.",
         ),
         (
             r"^.*\bgame\b.*\b(end|finish|close)\b.*$",
-            "CyberStart Game ends on the 31st May 2020 for those participating in Year 3 of "
+            "CyberStart Game ends on the 31st March 2021 for those participating in Year 4 of "
             "Cyber Discovery, or the 31st August 2020 for those participating in the Virtual Cyber School.",
         ),
         # Essentials dates
         (
             r"^.*\bessentials\b.*\b(start|begin|open)\b.*$",
-            "CyberStart Essentials began on the 16th December 2019.",
+            "CyberStart Essentials begins on the 15th September 2020.",
         ),
         (
             r"^.*\bessentials\b.*\b(end|finish|close)\b.*$",
-            "CyberStart Essentials ends on the 31st May 2020.",
+            "CyberStart Essentials ends on the 31st March 2021.",
         ),
         # Elite questions
         (
@@ -76,7 +76,7 @@ class Cyber(Cog):
         ),
         (
             r"^.*\belite\b.*\bstart\b.*$",
-            "CyberStart Elite will run throughout 27th July - 8th August.",
+            "CyberStart Elite Y3 will run throughout 27th July - 8th August. Y4 dates are yet to be announced",
         ),
         (
             r"^.*\bwhat\b.*\belite\b.*\bemail\b.*$",
