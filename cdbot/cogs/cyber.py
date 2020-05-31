@@ -82,7 +82,7 @@ class Cyber(Cog):
             r"^.*\bwhat\b.*\belite\b.*\bemail\b.*$",
             "**Quote from the Cyber Discovery Elite team: **"
             "We’re currently allocating students to their preferred locations so it’s an ongoing process! "
-            "We’ll send out details of your location as soon as we can. It shouldn’t be too long!",
+            "We’ll send out details of your course as soon as we can. It shouldn’t be too long!",
         ),
     ]
 
@@ -409,9 +409,15 @@ class Cyber(Cog):
         """
         if ELITECOUNT_ENABLED:
             preferences = {
+                "2018": {"Attendees": Roles.Elite.VET2018.ATTENDEES},
                 "2019": {
+                    "Attendees": Roles.Elite.VET2019.ATTENDEES,
                     "Cyberists": Roles.Elite.VET2019.CYBERIST,
                     "Forensicators": Roles.Elite.VET2019.FORENSICATOR,
+                },
+                "2020": {
+                    "Talent Development": Roles.Elite.VET2020.TALENTDEV,
+                    "Online": Roles.Elite.VET2020.ELITEONLINE,
                 },
             }
 
@@ -435,12 +441,6 @@ class Cyber(Cog):
                     r = ctx.guild.get_role(role)
                     section += f"**{age}**: {len(r.members)}\n"
                 embed.add_field(name=location, value=section, inline=True)
-
-            embed.add_field(
-                name="Talent Development Programme",
-                value=f"**Participants**: {len(ctx.guild.get_role(Roles.Elite.TALENTDEV).members)}",
-                inline=True,
-            )
 
             await ctx.send(embed=embed)
         else:
