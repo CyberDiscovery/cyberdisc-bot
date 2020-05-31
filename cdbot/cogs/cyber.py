@@ -453,23 +453,23 @@ class Cyber(Cog):
         with open(readmeFile, "rb") as f:
             bytes = f.read()
             readmeHash = hashlib.sha256(bytes[94:]).hexdigest()
-            
+
         with open(readmeFile, "r") as f:
             readme = load(f)
             fileHash = readme["oldHash"]
 
         if readmeHash == fileHash:
-            pass            
+            pass           
         else:
             readme["oldHash"] = readmeHash
             with open(readmeFile, "w") as f:
                 dump(readme, f, indent=4)
-            
+
             channel = await self.bot.fetch_channel(README_CHANNEL_ID)
             messages = await channel.history().flatten()
             for msg in messages:
                 await msg.delete()
-            
+
             with open("cdbot/data/readme.json", "r") as default_json:
                 json_config = load(default_json)
                 
