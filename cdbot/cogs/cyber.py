@@ -56,7 +56,8 @@ class Cyber(Cog):
         ),
         (
             r"^.*\bgame\b.*\b(end|finish|close)\b.*$",
-            "CyberStart Game ends on the 31st May 2020.",
+            "CyberStart Game ends on the 31st May 2020 for those participating in Year 3 of "
+            "Cyber Discovery, or the 31st August 2020 for those participating in the Virtual Cyber School.",
         ),
         # Essentials dates
         (
