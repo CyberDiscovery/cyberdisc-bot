@@ -98,6 +98,9 @@ ELITECOUNT_ENABLED = True
 README_SEND_ALIASES = ["create", "push", "generate", "send", "make", "build", "upload"]
 README_RECV_ALIASES = ["fetch", "get", "pull", "download", "retrieve", "dm", "dl"]
 
+#Readme auto update constants
+README_CHANNEL_ID = "409853512185282561"
+
 END_README_MESSAGE = (
     "**Can't see any of the above?**\nIf you can't see any of the rich embeds above, try the"
     " following: `Settings -> Text & Images -> Link Preview (Show website preview info from"

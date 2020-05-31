@@ -1,11 +1,12 @@
 import datetime
+import hashlib
 import random
 import re
 import string
 import textwrap
 from asyncio import sleep
 from io import StringIO
-from json import load
+from json import dump, load
 
 from aiohttp import ClientSession
 from dateutil.parser import parse
@@ -25,6 +26,7 @@ from cdbot.constants import (
     ROOT_ROLE_ID,
     Roles,
     TRUE_HUNDRED_PERCENT_ROLE_ID,
+    README_CHANNEL_ID,
 )
 
 
@@ -195,7 +197,6 @@ class Cyber(Cog):
         to create and send the embeds for the #readme channel. Only ROOT_ROLE_ID users have
         the permissions need to use this command.
         """
-
         operand = operand.lower()
 
         # The supplied operand is incorrect.
@@ -259,55 +260,7 @@ class Cyber(Cog):
 
                     await ctx.message.delete()
 
-                    for section in json_config:
-                        # Initialise our message and embed variables each loop.
-                        # This is to prevent leftover data from being re-sent.
-                        msg_content, current_embed = None, None
-
-                        # The part which handles general messages.
-                        if "content" in json_config[section]:
-                            msg_content = json_config[section]["content"]
-
-                        # We have an embed. Call in the Seahawks.
-                        if "embed" in json_config[section]:
-                            current_embed = Embed()
-                            msg_embed = json_config[section]["embed"]
-                            if "title" in msg_embed:
-                                current_embed.title = msg_embed["title"]
-                            if "description" in msg_embed:
-                                current_embed.description = msg_embed["description"]
-                            if "color" in msg_embed:
-                                current_embed.colour = Colour(
-                                    int(msg_embed["color"], 16)
-                                )
-
-                            # Parse the fields, if there are any.
-                            if "fields" in msg_embed:
-                                for current_field in msg_embed["fields"]:
-                                    # Add the fields to the current embed.
-                                    current_embed.add_field(
-                                        name=current_field["name"],
-                                        value=current_field["value"],
-                                    )
-
-                        # Send the message.
-                        requested_channel = self.bot.get_channel(channel_id)
-
-                        if msg_content is not None and current_embed is None:
-                            await requested_channel.send(content=msg_content)
-                        elif current_embed is not None and msg_content is None:
-                            await requested_channel.send(embed=current_embed)
-                        else:
-                            await requested_channel.send(
-                                content=msg_content, embed=current_embed
-                            )
-
-                        # User has requested a delay between each message being sent.
-                        if 0 < msg_send_interval < 901:
-                            await sleep(msg_send_interval)
-
-                    # Send the trailing embed message constant.
-                    await requested_channel.send(content=END_README_MESSAGE)
+                    _sendReadme(json_config, channel_id, msg_send_interval, no_ctx=False)
 
                 except (Exception):
                     parse_fail_embed = Embed(
@@ -494,6 +447,92 @@ class Cyber(Cog):
                 await message.channel.send(f"{message.author.mention}  |  {response}")
                 break
 
+    @Cog.listener()
+    async def on_ready(self):
+        readmeFile = "cdbot/data/readme.json"
+        with open(readmeFile,"rb") as f:
+            bytes = f.read() 
+            readmeHash = hashlib.sha256(bytes[94:]).hexdigest()
+            
+        with open(readmeFile, "r") as f:
+            readme = load(f)
+            fileHash = readme["oldHash"]
+
+        if readmeHash == fileHash:
+            pass            
+        else:
+            readme["oldHash"] = readmeHash
+            with open(readmeFile, "w") as f:
+                dump(readme, f, indent=4)
+            
+            channel = await self.bot.fetch_channel(README_CHANNEL_ID)
+            messages = await channel.history().flatten()
+            for msg in messages:
+                await msg.delete()
+            
+            with open("cdbot/data/readme.json", "r") as default_json:
+                json_config = load(default_json)
+                
+            await self._sendReadme(json_config, README_CHANNEL_ID, True)
+                
+                
+    async def _sendReadme(self, json_config, channel_id, msg_send_interval=0, no_ctx=False):
+        for section in json_config:
+            
+            # Initialise our message and embed variables each loop.
+            # This is to prevent leftover data from being re-sent.
+            msg_content, current_embed = None, None
+
+            # The part which handles general messages.
+            if "content" in json_config[section]:
+                msg_content = json_config[section]["content"]
+
+            # We have an embed. Call in the Seahawks.
+            if "embed" in json_config[section]:
+                current_embed = Embed()
+                msg_embed = json_config[section]["embed"]
+                if "title" in msg_embed:
+                    current_embed.title = msg_embed["title"]
+                if "description" in msg_embed:
+                    current_embed.description = msg_embed["description"]
+                if "color" in msg_embed:
+                    current_embed.colour = Colour(
+                        int(msg_embed["color"], 16)
+                    )
+
+                # Parse the fields, if there are any.
+                if "fields" in msg_embed:
+                    for current_field in msg_embed["fields"]:
+                        # Add the fields to the current embed.
+                        current_embed.add_field(
+                            name=current_field["name"],
+                            value=current_field["value"],
+                        )
+
+            if not no_ctx:
+                requested_channel = await self.bot.fetch_channel(channel_id)
+            else:
+                requested_channel = self.bot.get_channel(channel_id)
+            
+            # Send the message. 
+            if msg_content is not None and current_embed is None:
+                await requested_channel.send(content=msg_content)
+            elif current_embed is not None and msg_content is None:
+                await requested_channel.send(embed=current_embed)
+            elif section == "oldHash":
+                pass
+            else:
+                await requested_channel.send(
+                    content=msg_content, embed=current_embed
+                )
+
+            # User has requested a delay between each message being sent.
+            if 0 < msg_send_interval < 901:
+                await sleep(msg_send_interval)
+
+        # Send the trailing embed message constant.
+        await requested_channel.send(content=END_README_MESSAGE)             
+        
 
 def setup(bot):
     bot.add_cog(Cyber(bot))
