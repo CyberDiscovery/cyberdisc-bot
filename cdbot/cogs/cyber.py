@@ -1,5 +1,4 @@
 import datetime
-import git
 import hashlib
 import random
 import re
