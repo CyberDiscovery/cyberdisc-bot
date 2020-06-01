@@ -4,10 +4,9 @@ import random
 import re
 import string
 import textwrap
-import urllib
 from asyncio import sleep
 from io import StringIO
-from json import dump, load
+from json import load
 
 from aiohttp import ClientSession
 from dateutil.parser import parse
