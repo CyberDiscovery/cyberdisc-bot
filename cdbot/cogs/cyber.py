@@ -1,9 +1,11 @@
 import datetime
+import git
 import hashlib
 import random
 import re
 import string
 import textwrap
+import urllib
 from asyncio import sleep
 from io import StringIO
 from json import dump, load
@@ -17,6 +19,7 @@ from discord.ext.commands import Bot, Cog, Context, command, has_role
 from cdbot.constants import (
     BASE_ALIASES,
     CYBERDISC_ICON_URL,
+    DEV_TESTING_CHANNEL_ID,
     ELITECOUNT_ENABLED,
     END_README_MESSAGE,
     HINTS_LIMIT,
@@ -452,28 +455,30 @@ class Cyber(Cog):
         readmeFile = "cdbot/data/readme.json"
         with open(readmeFile, "rb") as f:
             bytes = f.read()
-            readmeHash = hashlib.sha256(bytes[94:]).hexdigest()
+            readmeHash = hashlib.sha256(bytes).hexdigest()
 
-        with open(readmeFile, "r") as f:
-            readme = load(f)
-            fileHash = readme["oldHash"]
+        fileHash = None
+        testChannel = await self.bot.fetch_channel(DEV_TESTING_CHANNEL_ID)
+        messages = await testChannel.history().flatten()
+        for msg in messages:
+            if msg.content[:6] == "/hash/" and msg.author == self.bot.user:
+                fileHash = msg.content[6:]
+                await msg.delete()
+                break
 
         if readmeHash == fileHash:
             pass
         else:
-            readme["oldHash"] = readmeHash
-            with open(readmeFile, "w") as f:
-                dump(readme, f, indent=4)
-
-            channel = await self.bot.fetch_channel(README_CHANNEL_ID)
-            messages = await channel.history().flatten()
+            readmeChannel = await self.bot.fetch_channel(README_CHANNEL_ID)
+            messages = await readmeChannel.history().flatten()
             for msg in messages:
                 await msg.delete()
 
-            with open("cdbot/data/readme.json", "r") as default_json:
-                json_config = load(default_json)
+            with open("cdbot/data/readme.json", "r") as f:
+                json_config = load(f)
 
             await self._sendReadme(json_config, README_CHANNEL_ID, True)
+            await testChannel.send(f"/hash/{readmeHash}")
 
     async def _sendReadme(self, json_config, channel_id, msg_send_interval=0, no_ctx=False):
         for section in json_config:
@@ -518,8 +523,6 @@ class Cyber(Cog):
                 await requested_channel.send(content=msg_content)
             elif current_embed is not None and msg_content is None:
                 await requested_channel.send(embed=current_embed)
-            elif section == "oldHash":
-                pass
             else:
                 await requested_channel.send(
                     content=msg_content, embed=current_embed
