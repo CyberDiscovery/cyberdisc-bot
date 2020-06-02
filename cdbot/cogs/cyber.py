@@ -43,29 +43,30 @@ class Cyber(Cog):
         # Assess dates
         (
             r"^.*\bassess\b.*\b(start|begin|open)\b.*$",
-            "CyberStart Assess began on the 3rd September 2019.",
+            "CyberStart Assess began on the 2nd June 2020.",
         ),
         (
             r"^.*\bassess\b.*\b(end|finish|close)\b.*$",
-            "CyberStart Assess ended on the 25th October 2019.",
+            "CyberStart Assess ends on the 30th September 2020.",
         ),
         # Game dates
         (
             r"^.*\bgame\b.*\b(start|begin|open)\b.*$",
-            "CyberStart Game began on the 5th November 2019.",
+            "CyberStart Game began on the 2nd June 2020.",
         ),
         (
             r"^.*\bgame\b.*\b(end|finish|close)\b.*$",
-            "CyberStart Game ends on the 31st May 2020.",
+            "CyberStart Game ends on the 31st March 2021 for those participating in Year 4 of "
+            "Cyber Discovery, or the 31st August 2020 for those participating in the Virtual Cyber School.",
         ),
         # Essentials dates
         (
             r"^.*\bessentials\b.*\b(start|begin|open)\b.*$",
-            "CyberStart Essentials began on the 16th December 2019.",
+            "CyberStart Essentials begins on the 15th September 2020.",
         ),
         (
             r"^.*\bessentials\b.*\b(end|finish|close)\b.*$",
-            "CyberStart Essentials ends on the 31st May 2020.",
+            "CyberStart Essentials ends on the 31st March 2021.",
         ),
         # Elite questions
         (
@@ -75,13 +76,13 @@ class Cyber(Cog):
         ),
         (
             r"^.*\belite\b.*\bstart\b.*$",
-            "CyberStart Elite will run throughout 27th July - 8th August.",
+            "CyberStart Elite Y3 will run throughout 27th July - 8th August. Y4 dates are yet to be announced",
         ),
         (
             r"^.*\bwhat\b.*\belite\b.*\bemail\b.*$",
             "**Quote from the Cyber Discovery Elite team: **"
             "We’re currently allocating students to their preferred locations so it’s an ongoing process! "
-            "We’ll send out details of your location as soon as we can. It shouldn’t be too long!",
+            "We’ll send out details of your course as soon as we can. It shouldn’t be too long!",
         ),
     ]
 
@@ -377,7 +378,7 @@ class Cyber(Cog):
         Gets the date of, and days and months until, CyberStart Game
         """
 
-        await self.countdown("5th November 2019", "CyberStart Game", ctx)
+        await self.countdown("2nd June 2020", "CyberStart Game", ctx)
 
     @command()
     async def essentials(self, ctx: Context):
@@ -385,7 +386,7 @@ class Cyber(Cog):
         Gets the date of, and days and months until, CyberStart Essentials
         """
 
-        await self.countdown("16th December 2019", "CyberStart Essentials", ctx)
+        await self.countdown("15th September 2020", "CyberStart Essentials", ctx)
 
     @command()
     async def hundred(self, ctx: Context):
@@ -408,9 +409,15 @@ class Cyber(Cog):
         """
         if ELITECOUNT_ENABLED:
             preferences = {
+                "2018": {"Attendees": Roles.Elite.VET2018.ATTENDEES},
                 "2019": {
+                    "Attendees": Roles.Elite.VET2019.ATTENDEES,
                     "Cyberists": Roles.Elite.VET2019.CYBERIST,
                     "Forensicators": Roles.Elite.VET2019.FORENSICATOR,
+                },
+                "2020": {
+                    "Talent Development": Roles.Elite.VET2020.TALENTDEV,
+                    "Online": Roles.Elite.VET2020.ELITEONLINE,
                 },
             }
 
@@ -434,12 +441,6 @@ class Cyber(Cog):
                     r = ctx.guild.get_role(role)
                     section += f"**{age}**: {len(r.members)}\n"
                 embed.add_field(name=location, value=section, inline=True)
-
-            embed.add_field(
-                name="Talent Development Programme",
-                value=f"**Participants**: {len(ctx.guild.get_role(Roles.Elite.TALENTDEV).members)}",
-                inline=True,
-            )
 
             await ctx.send(embed=embed)
         else:
