@@ -100,7 +100,7 @@ README_RECV_ALIASES = ["fetch", "get", "pull", "download", "retrieve", "dm", "dl
 
 #Readme auto update constants
 README_CHANNEL_ID = "409853512185282561"
-DEV_TESTING_CHANNEL_ID = "<DEV_TESTING_CHANNEL_ID>"
+DEV_TESTING_CHANNEL_ID = "543766802174443531"
 
 END_README_MESSAGE = (
     "**Can't see any of the above?**\nIf you can't see any of the rich embeds above, try the"
