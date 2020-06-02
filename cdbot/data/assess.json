@@ -1,57 +1,57 @@
 [{
-    "title": "Mirror mirror on the wall",
-    "description": "We've recently been working with a chain of high street mirror shops that had their e-commerce site hacked. After conducting some forensic analysis we found a cryptic message they left on the system for another hacker with the site password in it. Can you figure out what it says and get the password?",
+    "title": "You spin me right round",
+    "description": "One of our agents who has a love for vinyl has come across a rather unique record with a very odd looking album name. The band are known for their use of cryptic lyrics. Can you help figure out what decrypted album title is?",
     "difficulty": "Easy"
 }, {
-    "title": "Inspect & prevent",
-    "description": "Our agents have observed a string of attacks on websites selling cute dog products. They also discovered that for each attack the hacker leaves a comment behind that hints of their next target. Can you find the name of the next target so we can prevent any further attacks?",
+    "title": "Movie time",
+    "description": "Have you ever hidden something so well to only forget where you put it? One of our agents has done exactly this and can't remember where they have hidden the code needed to log in to their online streaming account. Help the agent find the code so they can start watching their playlist of movies.",
     "difficulty": "Easy"
 }, {
-    "title": "What lies beneath",
-    "description": "There are rumours that a recently published website is providing criminals with access codes to a variety of bank vaults across the city. Agents have tracked down what we believe to be the offending website but we can't seem to find anything suspicious. Help us uncover this mystery and stop any further vault break-ins!",
+    "title": "On close inspection",
+    "description": "The agency has been looking to purchase fidget spinners online for all of its employees. Whilst browsing around, we came across a website that sells the perfect spinner but we're curious to find out what all of the reviews say and not all of them are viewable. Can you help us uncover what the final reviewer is saying?",
     "difficulty": "Easy"
 }, {
-    "title": "Social engineering",
-    "description": "Permission has been granted to try and log into a social media account of a hacker who goes by the name of D4YDR3AM. Luckily for us, they have been rather clumsy with their personal data. We know that their favourite holiday destination is Japan and that they were born in 1995. Can you help us guess their password?",
+    "title": "Bon voyage?",
+    "description": "We've received intel that a lone hacker has somehow managed to sign into a staff portal at a major tour operator. The hacker seems to be helping themselves to staff discounts on flights all around the world. Can you help us find out how they are doing it before they book their next flight?",
     "difficulty": "Easy"
 }, {
-    "title": "Exam time!",
-    "description": "To help keep your mind sharp, the agency back at **base** have put together a small maths test for you to solve. But remember, you're in the world of cyber security, so not all is as it seems. Can you figure out the answer?",
+    "title": "One smart cookie",
+    "description": "One of our agents fancies themselves as a master baker and recently purchased a 3D printer to print a custom set of cookie cutters. The trouble is, the software used for the 3D printer seems to be malfunctioning and doesn't print out the shapes in their entirety. Can you find out what is going wrong so we can request a batch of cookies for the office?",
     "difficulty": "Medium"
 }, {
-    "title": "Meeting point",
-    "description": "Our agents have been intercepting messages between two hackers trying to organise a face-to-face. We've identified a particular message that we think shares the location of their next meeting. The problem we have is that they have encrypted their messages using a cipher. Can you help decipher it and uncover the location?",
+    "title": "Level up",
+    "description": "One of the internets largest online retailers of retro games has asked for our help. It has come to light that a handful of users have been able to download games that are still on pre-release and should not yet be available for public download. We've gone ahead and purchased a few games, one of which is on pre-release. Can you figure out how we might download it so we can help fix this flaw? The flag is the filename of the download.",
     "difficulty": "Medium"
 }, {
-    "title": "Warehouse down!",
-    "description": "An online retailer selling mobile accessories have had their warehouse operations put on halt. It looks like a hacker has managed to prevent something from running that sends orders from the website to the warehouse for dispatch. Can you help get things going again?",
+    "title": "Night at the museum",
+    "description": "The Museum of History has gotten in touch with the agency in regards to some odd-looking text discovered under a carving of Julius Caesar. Historians have told us that part of the text is written in ancient Latin but not all of it. Agent, can you help the museum decipher the text and uncover the mystery?",
     "difficulty": "Medium"
 }, {
-    "title": "Traffic jam",
-    "description": "Agents have been trying to find the URL of a forum being used by a group of hackers with an agenda to disrupt the flow of traffic in their city. The link to the forum used to be active on the homepage of the menu below but has recently been disabled. Can you figure out what the URL is?",
+    "title": "610enC0de'd Password",
+    "description": "Our agents have found a server ran by black hat hackers they've been chasing for a while now. The hackers hide their illegal activities by encoding everything they do to cover their tracks ...we know we've got the username right but don't have the password and so can't login, can you help, agent?",
     "difficulty": "Medium"
 }, {
-    "title": "Start-up troubles",
-    "description": "A successful new start-up that sells electric scooters have found out that a handful of their customers' accounts have been hacked! Having only just entered the market and keen to maintain their otherwise excellent reputation, they have hired us to run a security audit of their login system. Can you spot any security holes?",
+    "title": "Missing in action",
+    "description": "We've got an emergency here agent! A hacker has gained access to a very old system of ours with some pretty poor code and made it even worse by breaking the output. Agents are securing the server but can you get it showing location data again? The hackers left some malware in place which only allows a single character change, else it resets. We need to see all agent locations ASAP, please help agent!",
     "difficulty": "Medium"
 }, {
-    "title": "Agent Picasso",
-    "description": "A talented agent of ours with a side hobby of selling abstract pieces of art, has asked for help debugging an issue with a form on her website. For whatever reason the form is unable to submit the information entered. We must help our fellow agent and her ambitions of becoming the next Picasso and fix that form! Can you figure out what the issue is?",
+    "title": "The thrill of the race",
+    "description": "Three-time winner of the Go-Kart Grand Prix, Max Pitstop has been maliciously locked out of his changing room locker during a championship race by a rival driver! He's desperately in need of some lunch before the next session. We're lucky you are at the race, agent! Help Max get access to his locker before the next session begins!",
     "difficulty": "Hard"
 }, {
-    "title": "Head scratcher",
-    "description": "Agents have been scratching their heads for days trying to figure out which parameters to pass in order to receive output from this suspicious looking piece of javascript (also embedded on this page). Can you find out which of the outputs is the flag?",
+    "title": "LOL sandwich",
+    "description": "A package containing ripped up pieces of paper with nothing but the letters 'L' and 'O' written on them has been received by the agency. A handful of recent graduates have tried to figure out what the code might mean but are having no luck in doing so. We need someone with a knowledge of older encryption methods to help, could this be you, agent?",
     "difficulty": "Hard"
 }, {
-    "title": "Star struck",
-    "description": "A fellow agent of ours who also happens to be a bit of a movie buff needs your help solving a challenge that will win them the prize of meeting a famous movie star over dinner. It's been rumoured that the numbers sitting in the corner of each ticket equate to a winning code. What do you think agent, can you solve it?",
+    "title": "Beep boop beep",
+    "description": "Agent, we've located a factory in an abandoned industrial complex that has been taken over by robots! Intelligence suggests that they are using the factory to manufacture more robots to create an army and take over the world! We've got an agent at the scene trying to gain access to the factory floor via an entry panel but they're having no luck! We need you to assist them and crack the code before the robots take over!",
     "difficulty": "Hard"
 }, {
-    "title": "Feel the thirst",
-    "description": "A pipe directly below critical construction work has burst causing chaos and panic above the surface. At the city's digital command centre, staff have tried disconnecting the pipe from its main water supply but failed. It seems as if someone has hacked into the system and cut-off communication to the pipe. Agent, can you find out what the problem is and disconnect the pipe before anything more serious happens?",
+    "title": "Watt's up?",
+    "description": "We've got an emergency on our hands! The National Power Network have called us in to help fix a problem affecting a group of power plants in the south east of the country. Their main dashboard of operations is not receiving the correct information for each of the power plants which could result in a huge black-out across the region! Agent, we need you to figure out what's going on and fix it quick!",
     "difficulty": "Extreme"
 }, {
-    "title": "Off balance",
-    "description": "A new start-up bank is experiencing a major issue with their hugely successful mobile banking app. Their customers are complaining that they are able to see everything but their balance. Agent, help customers retrieve their balances and stop this start-up from going down!",
+    "title": "A test of intelligence",
+    "description": "We've got some thrilling news to share with you, agent! Archaeologists in Egypt have uncovered what appears to be a gate capable of interstellar transportation! You can imagine how excited the archaeologists were to try it out only to find that there is a test needed to pass before they can step through it and visit new worlds. There are teams all over the world working on how to pass this 'test of intelligence' and are yet to figure it out. This is a tough one agent, and we're sending you, our best to crack this puzzle! We believe in you!",
     "difficulty": "Extreme"
 }]
