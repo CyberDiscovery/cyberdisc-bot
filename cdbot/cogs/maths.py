@@ -6,6 +6,7 @@ from io import BytesIO
 import aiohttp
 import dateutil.parser
 import httpx
+from PIL import Image
 from discord import Colour, Embed, File
 from discord.ext import tasks
 from discord.ext.commands import Bot, Cog, Context, command
@@ -165,14 +166,16 @@ class Maths(Cog):
         formula = expression.replace("%", "%25").replace("&", "%26")
 
         preamble = constants.LATEX_PREAMBLE.replace("%", "%25").replace("&", "%26")
-        
-        body =        'formula=' + formula
+
+        body = 'formula=' + formula
         body = body + '$$$$&fsize=50px'
-        body = body + '&fcolor=969696'
+        body = body + '&fcolor=ffffff'
         body = body + '&mode=0'
         body = body + '&out=1'
         body = body + '&errors=1'
         body = body + '&preamble=' + preamble
+
+        border_width = 20
 
         async with aiohttp.ClientSession() as session:
             async with session.post(
@@ -186,14 +189,25 @@ class Maths(Cog):
             if status == '0':
                 async with session.get(url) as response:
                     content = await response.content.read()
+                img = Image.open(BytesIO(content))
+                alpha = img.convert('RGBA').split()[-1]
+                image = Image.new(
+                    "RGB",
+                    (img.size[0] + 2 * border_width, img.size[1] + 2 * border_width),
+                    "#36393F"
+                )
+                image.paste(img, (border_width, border_width), mask=alpha)
+                image_bytes = BytesIO()
+                image.save(image_bytes, format="PNG")
+                image_bytes.seek(0)
+                await ctx.send(file=File(image_bytes, filename="result.png"))
             else:
                 embed = Embed(
                     title="\N{WARNING SIGN} **LaTeX Compile Error** \N{WARNING SIGN}",
                     colour=Colour(0xB33A3A),
-                    description=errmsg.replace("@","")
+                    description=errmsg.replace("@", "")
                 )
                 return await ctx.send(embed=embed, delete_after=30)
-        await ctx.send(file=File(BytesIO(content), filename="result.png"))
 
 
 def setup(bot):
