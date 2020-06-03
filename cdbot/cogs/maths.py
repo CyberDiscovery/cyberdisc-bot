@@ -220,6 +220,7 @@ class Maths(Cog):
             if str(user).replace("#", "") == filename[:-4]:
                 await msg.delete()
 
+
 def setup(bot):
     """
     Required boilerplate for adding functionality of cog to bot.
