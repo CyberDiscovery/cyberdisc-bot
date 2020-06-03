@@ -200,7 +200,8 @@ class Maths(Cog):
                 image_bytes = BytesIO()
                 image.save(image_bytes, format="PNG")
                 image_bytes.seek(0)
-                await ctx.send(file=File(image_bytes, filename="result.png"))
+                msg = await ctx.send(file=File(image_bytes, filename=f"{ctx.message.author}.png"))
+                await msg.add_reaction("🗑️")
             else:
                 embed = Embed(
                     title="\N{WARNING SIGN} **LaTeX Compile Error** \N{WARNING SIGN}",
@@ -209,6 +210,15 @@ class Maths(Cog):
                 )
                 return await ctx.send(embed=embed, delete_after=30)
 
+    @Cog.listener()
+    async def on_raw_reaction_add(self, payload):
+        if ord(str(payload.emoji)[0]) == 128465:
+            channel = await self.bot.fetch_channel(channel_id=payload.channel_id)
+            msg = await channel.fetch_message(payload.message_id)
+            filename = msg.attachments[0].filename
+            user = await self.bot.fetch_user(payload.user_id)
+            if str(user).replace("#", "") == filename[:-4]:
+                await msg.delete()
 
 def setup(bot):
     """
