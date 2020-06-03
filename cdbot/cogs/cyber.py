@@ -480,7 +480,6 @@ class Cyber(Cog):
             if hashMsg:
                 await hashMsg.delete()
             await testChannel.send(f"/hash/{readmeHash}")
-            
 
     async def _sendReadme(self, json_config, channel_id, msg_send_interval=0, no_ctx=False):
         for section in json_config:
