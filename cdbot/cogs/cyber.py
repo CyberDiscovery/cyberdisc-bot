@@ -458,10 +458,11 @@ class Cyber(Cog):
         fileHash = None
         testChannel = await self.bot.fetch_channel(DEV_TESTING_CHANNEL_ID)
         messages = await testChannel.history().flatten()
+        hashMsg = None
         for msg in messages:
             if msg.content[:6] == "/hash/" and msg.author == self.bot.user:
                 fileHash = msg.content[6:]
-                await msg.delete()
+                hashMsg = msg
                 break
 
         if readmeHash == fileHash:
@@ -476,7 +477,10 @@ class Cyber(Cog):
                 json_config = load(f)
 
             await self._sendReadme(json_config, README_CHANNEL_ID, True)
+            if hashMsg:
+                await hashMsg.delete()
             await testChannel.send(f"/hash/{readmeHash}")
+            
 
     async def _sendReadme(self, json_config, channel_id, msg_send_interval=0, no_ctx=False):
         for section in json_config:
