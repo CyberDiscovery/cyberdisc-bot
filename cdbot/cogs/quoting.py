@@ -1,11 +1,12 @@
+from math import ceil
 from typing import Any, Callable, List, Union
 
-from discord import utils, Embed, HTTPException, Message, Member, NotFound, RawReactionActionEvent, TextChannel, User
+from discord import utils, Colour, Embed, HTTPException, Message, Member, NotFound, RawReactionActionEvent, TextChannel, User
 from discord.ext import commands
 from discord.ext.commands import ArgumentParsingError, Bot, CheckFailure, Cog, UserConverter
 from motor.motor_asyncio import AsyncIOMotorClient
 
-from cdbot.constants import SERVER_ID, QUOTES_CHANNEL_ID, QUOTE_CZAR_ID, MongoDB
+from cdbot.constants import CYBERDISC_ICON_URL, SERVER_ID, QUOTES_CHANNEL_ID, QUOTE_CZAR_ID, MongoDB
 
 
 def is_quote_czar() -> Callable:
@@ -72,6 +73,7 @@ class QuoteCog(Cog):
         )
         if len(quoted.embeds) > 0:
             quote["embed"] = quoted.embeds[0].to_dict()
+        # if len(quoted.attachments) > 
         return quote
 
     async def quote_embed(self, quote: dict) -> Embed:
@@ -320,21 +322,10 @@ class QuoteCog(Cog):
         Returns the number of quotes in the #quotes channel.
         A user can be specified to return the number of quotes from that user.
         """
-        total_quotes = await self.database.count_documents({})
+        total_quotes = await self.database.count_documents({"author": {"$exists": True}})
         if not member:
             return await ctx.send(f"There are {total_quotes} quotes in the database")
-        user_quotes = await self.database.count_documents(
-            {
-                "$or": [
-                    {
-                        "author.id": member.id
-                    },
-                    {
-                        "messages.author.id": member.id
-                    }
-                ]
-            }
-        )
+        user_quotes = await self.database.count_documents({"author.id": member.id})
         return await ctx.send(
             f"There are {user_quotes} quotes from {member} in the database "
             f"({user_quotes / total_quotes:.2%})"
@@ -343,34 +334,30 @@ class QuoteCog(Cog):
     @commands.command()
     async def quoteboard(self, ctx: commands.Context, page: int = 1):
         """Show a leaderboard of users with the most quotes."""
-        # users = ""
-        # current = 1
-        # start_from = (page - 1) * 10
+        page_count = ceil(len(await self.database.distinct("author.id")) / 10)
+        if 1 > page > page_count:
+            return await ctx.send(":no_entry_sign: Invalid page number")
+        users = ""
+        start_from = (page - 1) * 10
+        current = start_from + 1
+        agg = self.database.aggregate(
+            [
+                {"$match": {"author": {"$ne": None}}}, # Filter multiquotes out.
+                {"$sortByCount": "$author.id"},
+                {"$limit": 10},
+                {"$skip": start_from},
+            ]
+        )
+        async for result in agg:
+            author, quotes = result.values()
+            users += f"{current}. <@{author}> - {quotes}\n"
+            current += 1
 
-        # async with self.bot.pool.acquire() as connection:
-        #     page_count = ceil(
-        #         await connection.fetchval("SELECT count(DISTINCT author_id) FROM quotes") / 10
-        #     )
+        embed = Embed(colour=Colour(0xae444a))
+        embed.add_field(name=f"Page {page}/{page_count}", value=users)
+        embed.set_author(name="Quotes Leaderboard", icon_url=CYBERDISC_ICON_URL)
 
-        #     if 1 > page > page_count:
-        #         return await ctx.send(":no_entry_sign: Invalid page number")
-
-        #     for result in await connection.fetch(
-        #         "SELECT author_id, COUNT(author_id) as quote_count FROM quotes "
-        #         "GROUP BY author_id ORDER BY quote_count DESC LIMIT 10 OFFSET $1",
-        #         start_from
-        #     ):
-        #         author, quotes = result.values()
-        #         users += f"{start_from + current}. <@{author}> - {quotes}\n"
-        #         current += 1
-
-        # embed = Embed(colour=Colour(0xae444a))
-        # embed.add_field(name=f"Page {page}/{page_count}", value=users)
-        # embed.set_author(name="Quotes Leaderboard", icon_url=CYBERDISC_ICON_URL)
-
-        # await ctx.send(embed=embed)
-        return
-        # TODO: update this function for new quotes
+        return await ctx.send(embed=embed)
 
 
 def setup(bot: Bot):
