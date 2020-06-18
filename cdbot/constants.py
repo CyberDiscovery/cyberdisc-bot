@@ -129,7 +129,7 @@ ELITECOUNT_ENABLED = True
 README_SEND_ALIASES = ["create", "push", "generate", "send", "make", "build", "upload"]
 README_RECV_ALIASES = ["fetch", "get", "pull", "download", "retrieve", "dm", "dl"]
 
-#Readme auto update constants
+# Readme auto update constants
 README_CHANNEL_ID = "409853512185282561"
 DEV_TESTING_CHANNEL_ID = "543766802174443531"
 
