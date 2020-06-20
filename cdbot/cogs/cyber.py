@@ -465,9 +465,7 @@ class Cyber(Cog):
                 hashMsg = msg
                 break
 
-        if readmeHash == fileHash:
-            pass
-        else:
+        if readmeHash != fileHash:
             readmeChannel = await self.bot.fetch_channel(README_CHANNEL_ID)
             messages = await readmeChannel.history().flatten()
             for msg in messages:
