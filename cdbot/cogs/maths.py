@@ -7,7 +7,7 @@ import aiohttp
 import dateutil.parser
 import httpx
 from PIL import Image
-from discord import Colour, Embed, File, Reaction, Member
+from discord import Colour, Embed, File, Member, Reaction
 from discord.ext import tasks
 from discord.ext.commands import Bot, Cog, Context, command
 from html2markdown import convert
@@ -200,7 +200,7 @@ class Maths(Cog):
                 image_bytes = BytesIO()
                 image.save(image_bytes, format="PNG")
                 image_bytes.seek(0)
-                
+
                 # send the resulting image and add a cross reaction
                 message = await ctx.send(file=File(image_bytes, filename="result.png"))
                 await message.add_reaction("❌")
@@ -210,7 +210,7 @@ class Maths(Cog):
                     return ctx.message.author == user and reaction.emoji == "❌"
 
                 # if the latex author reacts with a cross within 30 secs of sending, delete the rendered image
-                await wait_for("reaction_add", check=should_delete, timeout=30)
+                await self.bot.wait_for("reaction_add", check=should_delete, timeout=30)
                 await message.delete()
 
             else:
