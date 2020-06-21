@@ -1,10 +1,10 @@
 """
 Set of bot commands designed for Maths Challenges.
 """
+import asyncio
 from io import BytesIO
 
 import aiohttp
-import asyncio
 import dateutil.parser
 import httpx
 from PIL import Image
