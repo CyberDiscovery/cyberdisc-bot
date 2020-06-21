@@ -210,8 +210,13 @@ class Maths(Cog):
                     return ctx.message.author == user and reaction.emoji == "❌"
 
                 # if the latex author reacts with a cross within 30 secs of sending, delete the rendered image
-                await self.bot.wait_for("reaction_add", check=should_delete, timeout=30)
-                await message.delete()
+                # otherwise delete the cross reaction
+                try:
+                    await self.bot.wait_for("reaction_add", check=should_delete, timeout=30)
+                except asyncio.TimeoutError:
+                    await message.remove_reaction("❌", self.bot.user)
+                else:
+                    await message.delete()
 
             else:
                 embed = Embed(
