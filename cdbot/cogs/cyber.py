@@ -450,22 +450,18 @@ class Cyber(Cog):
 
     @Cog.listener()
     async def on_ready(self):
+        # Gets hash of up to date readme.json file
         readmeFile = "cdbot/data/readme.json"
         with open(readmeFile, "rb") as f:
             bytes = f.read()
             readmeHash = hashlib.sha256(bytes).hexdigest()
 
-        fileHash = None
+        # Gets has of old readme.json file
         testChannel = await self.bot.fetch_channel(DEV_TESTING_CHANNEL_ID)
-        messages = await testChannel.pins()
-        hashMsg = None
-        for msg in messages:
-            if msg.content[:6] == "/hash/" and msg.author == self.bot.user:
-                fileHash = msg.content[6:]
-                hashMsg = msg
-                break
+        fileHash = testChannel.topic
 
         if readmeHash != fileHash:
+            # Deletes old readme 
             readmeChannel = await self.bot.fetch_channel(README_CHANNEL_ID)
             messages = await readmeChannel.history().flatten()
             for msg in messages:
@@ -473,12 +469,10 @@ class Cyber(Cog):
 
             with open("cdbot/data/readme.json", "r") as f:
                 json_config = load(f)
-
+            # Sends new readme to the readme channel
             await self._sendReadme(json_config, README_CHANNEL_ID, True)
-            if hashMsg:
-                await hashMsg.delete()
-            msgHash = await testChannel.send(f"/hash/{readmeHash}")
-            await msgHash.pin()
+            # Edits dev testing channel topic with the new hash
+            await testChannel.edit(topic=readmeHash)
 
     async def _sendReadme(self, json_config, channel_id, msg_send_interval=0, no_ctx=False):
         for section in json_config:
