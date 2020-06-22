@@ -8,7 +8,7 @@ import aiohttp
 import dateutil.parser
 import httpx
 from PIL import Image
-from discord import Colour, Embed, File, Member, Reaction
+from discord import Colour, Embed, File, Member, Message, Reaction
 from discord.ext import tasks
 from discord.ext.commands import Bot, Cog, Context, command
 from html2markdown import convert
@@ -117,7 +117,7 @@ class Maths(Cog):
     async def on_message(self, message):
         """Check if the message contains inline LaTeX."""
         if constants.LATEX_RE.findall(message.content):
-            await self.latex_render(message.channel, message.content)
+            await self.latex_render(message.channel, message)
 
     @command()
     async def challenge(self, ctx: Context, number: int = 1):
@@ -144,14 +144,25 @@ class Maths(Cog):
         return await ctx.send(embed=embed)
 
     @command()
-    async def latex(self, ctx: Context, *, expression: str):
+    async def latex(self, ctx: Context):
         """
         Render a LaTeX expression with https://quicklatex.com/
         """
-        await self.latex_render(ctx, expression)
+        await self.latex_render(ctx, ctx.message)
 
-    async def latex_render(self, ctx: Context, expression: str):
+    async def latex_render(self, ctx: Context, message: Message):
+        
+        # When invoked with the word latex, it is run as a command so ctx is type Context
+        # but when invoked with just $$$$ the context is a TextChannel
+        # so we need to check ctx's type
         channel = ctx.channel.id if type(ctx) is Context else ctx.id
+
+        # get the latex expression to be rendered
+        expression = message.content
+        if message.content.startswith("...latex "):
+            expression = re.sub("...latex ", "", message.content)
+        elif message.content.startswith(":latex "):
+            expression = re.sub(":latex ", "", message.content)
 
         if channel in constants.BLOCKED_CHANNELS:
             return await ctx.send(
@@ -202,22 +213,22 @@ class Maths(Cog):
                 image.save(image_bytes, format="PNG")
                 image_bytes.seek(0)
 
-                # send the resulting image and add a bin reaction
-                message = await ctx.send(file=File(image_bytes, filename="result.png"))
-                await message.add_reaction("\N{WASTEBASKET}")
+               # send the resulting image and add a bin reaction
+                rendered_message = await ctx.send(file=File(image_bytes, filename="result.png"))
+                await rendered_message.add_reaction("\N{WASTEBASKET}")
 
                 # checks if the person who reacted was the original latex author and that they reacted with a bin
                 def should_delete(reaction: Reaction, user: Member):
-                    return ctx.message.author == user and reaction.emoji == "\N{WASTEBASKET}"
+                    return message.author == user and reaction.emoji == "\N{WASTEBASKET}" and reaction.message.id == rendered_message.id
 
                 # if the latex author reacts with a bin within 30 secs of sending, delete the rendered image
                 # otherwise delete the bin reaction
                 try:
                     await self.bot.wait_for("reaction_add", check=should_delete, timeout=30)
                 except asyncio.TimeoutError:
-                    await message.remove_reaction("\N{WASTEBASKET}", self.bot.user)
+                    await rendered_message.remove_reaction("\N{WASTEBASKET}", self.bot.user)
                 else:
-                    await message.delete()
+                    await rendered_message.delete()
 
             else:
                 embed = Embed(
