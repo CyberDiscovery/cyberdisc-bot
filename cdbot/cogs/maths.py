@@ -208,7 +208,7 @@ class Maths(Cog):
 
                 # checks if the person who reacted was the original latex author and that they reacted with a cross
                 def should_delete(reaction: Reaction, user: Member):
-                    return ctx.message.author == user and reaction.emoji == "❌"
+                    return ctx.message.author == user and reaction.emoji == "🗑️"
 
                 # if the latex author reacts with a cross within 30 secs of sending, delete the rendered image
                 # otherwise delete the cross reaction
