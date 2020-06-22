@@ -219,7 +219,10 @@ class Maths(Cog):
 
                 # checks if the person who reacted was the original latex author and that they reacted with a bin
                 def should_delete(reaction: Reaction, user: Member):
-                    return message.author == user and reaction.emoji == "\N{WASTEBASKET}" and reaction.message.id == rendered_message.id
+                    is_right_message = reaction.message.id == rendered_message.id
+                    is_right_user = message.author == user
+                    is_right_emoji = reaction.emoji == "\N{WASTEBASKET}"
+                    return is_right_message and is_right_user and is_right_emoji
 
                 # if the latex author reacts with a bin within 30 secs of sending, delete the rendered image
                 # otherwise delete the bin reaction
