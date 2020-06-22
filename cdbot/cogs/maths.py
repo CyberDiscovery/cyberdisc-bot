@@ -204,18 +204,18 @@ class Maths(Cog):
 
                 # send the resulting image and add a bin reaction
                 message = await ctx.send(file=File(image_bytes, filename="result.png"))
-                await message.add_reaction("🗑️")
+                await message.add_reaction("\N{WASTEBASKET}")
 
                 # checks if the person who reacted was the original latex author and that they reacted with a bin
                 def should_delete(reaction: Reaction, user: Member):
-                    return ctx.message.author == user and reaction.emoji == "🗑️"
+                    return ctx.message.author == user and reaction.emoji == "\N{WASTEBASKET}"
 
                 # if the latex author reacts with a bin within 30 secs of sending, delete the rendered image
-                # otherwise delete the cross reaction
+                # otherwise delete the bin reaction
                 try:
                     await self.bot.wait_for("reaction_add", check=should_delete, timeout=30)
                 except asyncio.TimeoutError:
-                    await message.remove_reaction("🗑️", self.bot.user)
+                    await message.remove_reaction("\N{WASTEBASKET}", self.bot.user)
                 else:
                     await message.delete()
 
