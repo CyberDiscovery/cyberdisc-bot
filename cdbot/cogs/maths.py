@@ -1,13 +1,14 @@
 """
 Set of bot commands designed for Maths Challenges.
 """
+import asyncio
 from io import BytesIO
 
 import aiohttp
 import dateutil.parser
 import httpx
 from PIL import Image
-from discord import Colour, Embed, File
+from discord import Colour, Embed, File, Member, Reaction
 from discord.ext import tasks
 from discord.ext.commands import Bot, Cog, Context, command
 from html2markdown import convert
@@ -200,7 +201,24 @@ class Maths(Cog):
                 image_bytes = BytesIO()
                 image.save(image_bytes, format="PNG")
                 image_bytes.seek(0)
-                await ctx.send(file=File(image_bytes, filename="result.png"))
+
+                # send the resulting image and add a bin reaction
+                message = await ctx.send(file=File(image_bytes, filename="result.png"))
+                await message.add_reaction("🗑️")
+
+                # checks if the person who reacted was the original latex author and that they reacted with a bin
+                def should_delete(reaction: Reaction, user: Member):
+                    return ctx.message.author == user and reaction.emoji == "🗑️"
+
+                # if the latex author reacts with a bin within 30 secs of sending, delete the rendered image
+                # otherwise delete the cross reaction
+                try:
+                    await self.bot.wait_for("reaction_add", check=should_delete, timeout=30)
+                except asyncio.TimeoutError:
+                    await message.remove_reaction("🗑️", self.bot.user)
+                else:
+                    await message.delete()
+
             else:
                 embed = Embed(
                     title="\N{WARNING SIGN} **LaTeX Compile Error** \N{WARNING SIGN}",
