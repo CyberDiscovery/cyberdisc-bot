@@ -151,7 +151,7 @@ class Maths(Cog):
         await self.latex_render(ctx, ctx.message)
 
     async def latex_render(self, ctx: Context, message: Message):
-        
+
         # When invoked with the word latex, it is run as a command so ctx is type Context
         # but when invoked with just $$$$ the context is a TextChannel
         # so we need to check ctx's type
@@ -160,9 +160,9 @@ class Maths(Cog):
         # get the latex expression to be rendered
         expression = message.content
         if message.content.startswith("...latex "):
-            expression = re.sub("...latex ", "", message.content)
+            expression = message.content.replace("...latex ", "")
         elif message.content.startswith(":latex "):
-            expression = re.sub(":latex ", "", message.content)
+            expression = message.content.replace(":latex ", "")
 
         if channel in constants.BLOCKED_CHANNELS:
             return await ctx.send(
@@ -213,7 +213,7 @@ class Maths(Cog):
                 image.save(image_bytes, format="PNG")
                 image_bytes.seek(0)
 
-               # send the resulting image and add a bin reaction
+                # send the resulting image and add a bin reaction
                 rendered_message = await ctx.send(file=File(image_bytes, filename="result.png"))
                 await rendered_message.add_reaction("\N{WASTEBASKET}")
 
