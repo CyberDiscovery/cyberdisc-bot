@@ -204,7 +204,7 @@ class Maths(Cog):
 
                 # send the resulting image and add a cross reaction
                 message = await ctx.send(file=File(image_bytes, filename="result.png"))
-                await message.add_reaction("❌")
+                await message.add_reaction("🗑️")
 
                 # checks if the person who reacted was the original latex author and that they reacted with a cross
                 def should_delete(reaction: Reaction, user: Member):
