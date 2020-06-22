@@ -215,7 +215,7 @@ class Maths(Cog):
                 try:
                     await self.bot.wait_for("reaction_add", check=should_delete, timeout=30)
                 except asyncio.TimeoutError:
-                    await message.remove_reaction("❌", self.bot.user)
+                    await message.remove_reaction("🗑️", self.bot.user)
                 else:
                     await message.delete()
 
