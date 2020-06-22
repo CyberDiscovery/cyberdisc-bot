@@ -461,7 +461,7 @@ class Cyber(Cog):
         fileHash = testChannel.topic
 
         if readmeHash != fileHash:
-            # Deletes old readme 
+            # Deletes old readme
             readmeChannel = await self.bot.fetch_channel(README_CHANNEL_ID)
             messages = await readmeChannel.history().flatten()
             for msg in messages:
