@@ -117,7 +117,7 @@ class Maths(Cog):
     async def on_message(self, message):
         """Check if the message contains inline LaTeX."""
         if constants.LATEX_RE.findall(message.content):
-            await self.latex_render(message.channel, message)
+            await self.latex_render(message.channel, message.channel.id, message, message.content)
 
     @command()
     async def challenge(self, ctx: Context, number: int = 1):
@@ -144,25 +144,13 @@ class Maths(Cog):
         return await ctx.send(embed=embed)
 
     @command()
-    async def latex(self, ctx: Context):
+    async def latex(self, ctx: Context, *, expression: str):
         """
         Render a LaTeX expression with https://quicklatex.com/
         """
-        await self.latex_render(ctx, ctx.message)
+        await self.latex_render(ctx, ctx.channel.id, ctx.message, expression)
 
-    async def latex_render(self, ctx: Context, message: Message):
-
-        # When invoked with the word latex, it is run as a command so ctx is type Context
-        # but when invoked with just $$$$ the context is a TextChannel
-        # so we need to check ctx's type
-        channel = ctx.channel.id if type(ctx) is Context else ctx.id
-
-        # get the latex expression to be rendered
-        expression = message.content
-        if message.content.startswith("...latex "):
-            expression = message.content.replace("...latex ", "")
-        elif message.content.startswith(":latex "):
-            expression = message.content.replace(":latex ", "")
+    async def latex_render(self, ctx: Context, channel: int, message: Message, expression: str):
 
         if channel in constants.BLOCKED_CHANNELS:
             return await ctx.send(
@@ -219,10 +207,11 @@ class Maths(Cog):
 
                 # checks if the person who reacted was the original latex author and that they reacted with a bin
                 def should_delete(reaction: Reaction, user: Member):
-                    is_right_message = reaction.message.id == rendered_message.id
-                    is_right_user = message.author == user
-                    is_right_emoji = reaction.emoji == "\N{WASTEBASKET}"
-                    return is_right_message and is_right_user and is_right_emoji
+                    return all((
+                        message.author == user,
+                        reaction.emoji == "\N{WASTEBASKET}",
+                        reaction.message == rendered_message,
+                    ))
 
                 # if the latex author reacts with a bin within 30 secs of sending, delete the rendered image
                 # otherwise delete the bin reaction
