@@ -6,7 +6,7 @@ from discord.ext import commands
 from discord.ext.commands import ArgumentParsingError, Bot, CheckFailure, Cog, UserConverter
 from motor.motor_asyncio import AsyncIOMotorClient
 
-from cdbot.constants import CYBERDISC_ICON_URL, SERVER_ID, QUOTES_CHANNEL_ID, QUOTE_CZAR_ID, MongoDB
+from cdbot.constants import CYBERDISC_ICON_URL, SERVER_ID, QUOTES_CHANNEL_ID, QUOTE_CZAR_ID, QUOTES_DELETION_QUOTA, MongoDB
 
 
 def is_quote_czar() -> Callable:
@@ -48,7 +48,7 @@ class QuoteCog(Cog):
         if str(raw_reaction.emoji) == thumbs_down and raw_reaction.channel_id == QUOTES_CHANNEL_ID:
             message = await self.quote_channel.fetch_message(raw_reaction.message_id)
             reaction = [react for react in message.reactions if str(react.emoji) == thumbs_down][0]
-            if reaction.count > 12:
+            if reaction.count >= QUOTES_DELETION_QUOTA + 1:
                 await self.database.delete_one({"_id": message.id})
                 await message.delete()
 
