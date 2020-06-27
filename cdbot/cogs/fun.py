@@ -242,10 +242,10 @@ class Fun(Cog):
     async def on_raw_reaction_add(self, raw_reaction: RawReactionActionEvent):
         thumbs_down = "\N{THUMBS DOWN SIGN}"
         if all(
-                (
-                        str(raw_reaction.emoji) == thumbs_down,
-                        raw_reaction.channel_id == QUOTES_CHANNEL_ID,
-                )
+            (
+                str(raw_reaction.emoji) == thumbs_down,
+                raw_reaction.channel_id == QUOTES_CHANNEL_ID,
+            )
         ):
             quotes_channel = self.bot.get_channel(QUOTES_CHANNEL_ID)
             logs_channel = self.bot.get_channel(LOGGING_CHANNEL_ID)
