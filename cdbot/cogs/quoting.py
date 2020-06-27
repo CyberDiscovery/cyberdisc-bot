@@ -87,7 +87,8 @@ class QuoteCog(Cog):
         )
         if len(quoted.embeds) > 0:
             quote["embed"] = quoted.embeds[0].to_dict()
-        # if len(quoted.attachments) >
+        if len(quoted.attachments) > 0:
+            quote["image"] = quoted.attachments[0].url
         return quote
 
     async def quote_embed(self, quote: dict) -> Embed:
@@ -116,11 +117,15 @@ class QuoteCog(Cog):
         else:
             embed = embed.set_footer(text=footer_text)
         if "```" in quote["content"]:
-            embed.description = quote["content"]
+            embed.description = quote["content"] + "\n"
+        elif len(quote["content"]) > 0:
+            embed.description = f"```{quote['content']}```\n"
         else:
-            embed.description = f"```{quote['content']}```"
-        embed.description += f"\n[Jump to orignal]({quote['content_link']})"
+            embed.description = ""
+        embed.description += f"[Jump to orignal]({quote['content_link']})"
         embed.timestamp = quote["quoted_at"]
+        if quote.get("image", None):
+            embed.set_image(url=quote["image"])
         return embed
 
     async def range_quote(self, channel: TextChannel, after: Message, before: Message) -> List[Message]:
@@ -209,7 +214,7 @@ class QuoteCog(Cog):
         Quote a single message.
         """
         if ctx.channel.id == QUOTES_CHANNEL_ID:
-            return ctx.invoke(self.quote_save, message)
+            return await ctx.invoke(self.quote_save, message)
         embed, _ = await self.generate_single_quote(message, ctx.message)
         return await ctx.send(embed=embed)
 
@@ -222,7 +227,7 @@ class QuoteCog(Cog):
             raise CheckFailure()
         message = await channel.fetch_message(message)
         if ctx.channel.id == QUOTES_CHANNEL_ID:
-            return ctx.invoke(self.quote_save, message)
+            return await ctx.invoke(self.quote_save, message)
         return await ctx.invoke(self.quote, message)
 
     @quote.group(name="range", invoke_without_command=True)
@@ -243,7 +248,7 @@ class QuoteCog(Cog):
         if not channel.permissions_for(ctx.author).read_messages:
             raise CheckFailure()
         if ctx.channel.id == QUOTES_CHANNEL_ID:
-            return ctx.invoke(self.quote_save_range_from, channel, from_message, to_message)
+            return await ctx.invoke(self.quote_save_range_from, channel, from_message, to_message)
         from_message = await channel.fetch_message(from_message)
         to_message = await channel.fetch_message(to_message)
         embed, _ = await self.generate_multi_quote(channel, from_message, to_message, ctx.message)
