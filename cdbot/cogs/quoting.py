@@ -1,12 +1,14 @@
 from math import ceil
-from typing import Any, Callable, List, Union
+from typing import Callable, List, Union
 
-from discord import Colour, Embed, HTTPException, Message, Member, NotFound, RawReactionActionEvent, TextChannel, User
+from discord import Colour, Embed, HTTPException, Member, Message, NotFound, RawReactionActionEvent, TextChannel, User
 from discord.ext import commands
 from discord.ext.commands import ArgumentParsingError, Bot, CheckFailure, Cog, UserConverter
 from motor.motor_asyncio import AsyncIOMotorClient
 
-from cdbot.constants import CYBERDISC_ICON_URL, SERVER_ID, QUOTES_CHANNEL_ID, QUOTE_CZAR_ID, QUOTES_DELETION_QUOTA, MongoDB
+from cdbot.constants import (
+    CYBERDISC_ICON_URL, LOGGING_CHANNEL_ID, MongoDB, QUOTES_CHANNEL_ID, QUOTES_DELETION_QUOTA, QUOTE_CZAR_ID, SERVER_ID
+)
 
 
 def is_quote_czar() -> Callable:
@@ -32,6 +34,7 @@ class QuoteCog(Cog):
     async def on_ready(self):
         self.guild = self.bot.get_guild(SERVER_ID)
         self.quote_channel = self.bot.get_channel(QUOTES_CHANNEL_ID)
+        self.logs_channel = self.bot.get_channel(LOGGING_CHANNEL_ID)
         self.database = AsyncIOMotorClient(
             host=MongoDB.MONGOHOST,
             port=MongoDB.MONGOPORT,
@@ -53,15 +56,15 @@ class QuoteCog(Cog):
                 await self.database.delete_one({"_id": message.id})
                 mentions = ", ".join(user.mention async for user in reaction.users())
                 for quote_embed in reaction.message.embeds:
-                        embed = Embed(
-                            color=Colour.blue(),
-                            title="Quote Deleted",
-                            description=quote_embed.description
-                        )
-                        embed.add_field(name="Deleted By", value=mentions)
-                        embed.set_author(name=quote_embed.author.name, icon_url=quote_embed.author.icon_url)
+                    embed = Embed(
+                        color=Colour.blue(),
+                        title="Quote Deleted",
+                        description=quote_embed.description
+                    )
+                    embed.add_field(name="Deleted By", value=mentions)
+                    embed.set_author(name=quote_embed.author.name, icon_url=quote_embed.author.icon_url)
                 await reaction.message.delete()
-                await logs_channel.send(embed=embed)
+                await self.logs_channel.send(embed=embed)
 
     async def get_member_by_id(self, member_id: int) -> Union[Member, User, None]:
         if self.guild.get_member(member_id) is not None:
@@ -84,7 +87,7 @@ class QuoteCog(Cog):
         )
         if len(quoted.embeds) > 0:
             quote["embed"] = quoted.embeds[0].to_dict()
-        # if len(quoted.attachments) > 
+        # if len(quoted.attachments) >
         return quote
 
     async def quote_embed(self, quote: dict) -> Embed:
@@ -139,7 +142,6 @@ class QuoteCog(Cog):
                 data["embed"] = line.embeds[0].to_dict()
             multi_quote["messages"].append(data)
         return multi_quote
-
 
     async def multi_quote_embed(self, multi_quote: dict) -> Embed:
         embeds = [message.get("embed", None) for message in multi_quote["messages"]]
@@ -321,7 +323,7 @@ class QuoteCog(Cog):
                     }
                 }
             )
-        pipeline.append({"$sample": {"size": 1 }})
+        pipeline.append({"$sample": {"size": 1}})
         async for doc in self.database.aggregate(pipeline):
             quote = await self.quote_channel.fetch_message(doc["_id"])
             return await ctx.send(embed=quote.embeds[0])
@@ -353,7 +355,7 @@ class QuoteCog(Cog):
         current = start_from + 1
         agg = self.database.aggregate(
             [
-                {"$match": {"author": {"$ne": None}}}, # Filter multiquotes out.
+                {"$match": {"author": {"$ne": None}}},  # Filter multiquotes out.
                 {"$sortByCount": "$author.id"},
                 {"$limit": 10},
                 {"$skip": start_from},
