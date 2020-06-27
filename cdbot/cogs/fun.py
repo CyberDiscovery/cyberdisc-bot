@@ -258,16 +258,14 @@ class Fun(Cog):
                     await connection.execute(
                         "DELETE FROM quotes WHERE quote_id = $1", reaction.message.id
                     )
-                reaction_users = set()
-                async for user in reaction.users():
-                    reaction_users.add(user)
+                mentions = ", ".join(user.mention async for user in reaction.users())
                 for quote_embed in reaction.message.embeds:
                     embed = Embed(
                         color=Colour.blue(),
                         title="Quote Deleted",
                         description=quote_embed.description
                     )
-                    embed.add_field(name="Deleted By", value=f"{', '.join(user.mention for user in reaction_users)}")
+                    embed.add_field(name="Deleted By", value=mentions)
                     embed.set_author(name=quote_embed.author.name, icon_url=quote_embed.author.icon_url)
 
                 await reaction.message.delete()
