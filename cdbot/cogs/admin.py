@@ -6,6 +6,8 @@ from discord.ext.commands import Bot, Cog
 from cdbot.constants import (
     ADMIN_MENTOR_ROLE_ID,
     ADMIN_ROLES,
+    BANNED_DOMAINS,
+    BANNED_WORDS,
     CD_BOT_ROLE_ID,
     NICKNAME_PATTERNS,
     PLACEHOLDER_NICKNAME,
@@ -88,6 +90,23 @@ class Admin(Cog):
         if check_bad_name(username):  # bad username
             # assign placeholder nickname
             await member.edit(nick=PLACEHOLDER_NICKNAME)
+
+    @Cog.listener()
+    async def on_message(self, message):
+        # Checks if message contains banned word.
+        if any([word in message.content for word in BANNED_WORDS]):
+            await message.delete()
+            await message.channel.send(f"{message.author.mention} Watch your language!", delete_after=5)
+        # Checks if message contains banned domain.
+        if any([word in message.content for word in BANNED_DOMAINS]):
+            await message.delete()
+            await message.channel.send(f"{message.author.mention} No invite links!", delete_after=5)
+        # Checks if message contains mass mention
+        if len(message.mentions) > 8:
+            await message.delete()
+            await message.channel.send(f"{message.author.mention} Don't spam mentions!", delete_after=5)
+        # Checks if message was sent to quickly
+        # Not quite sure how to do this yet.
 
 
 def setup(bot):
