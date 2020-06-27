@@ -15,8 +15,17 @@ jobs:
   - task: UsePythonVersion@0
     displayName: 'Set Python version'
     inputs:
-      versionSpec: '3.7.x'
+      versionSpec: '3.8.x'
       addToPath: true
+
+  - task: Cache@2
+    inputs:
+      key: 'python | "$(Agent.OS)" | poetry.lock'
+      restoreKeys: |
+        python | "$(Agent.OS)"
+        python
+      path:  /home/vsts/.cache/pip
+      displayName: "Cache Python packages"
 
   - script: pip install -r requirements-ci.txt
     displayName: 'Install project using pip'

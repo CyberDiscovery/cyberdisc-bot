@@ -1,8 +1,8 @@
 import base64
+import re
 from os import environ
 
-
-DEPLOY = bool(environ.get('DEPLOY'))
+DEPLOY = bool(environ.get("DEPLOY"))
 
 
 def getenv(name: str, fallback: str = "") -> str:
@@ -21,14 +21,90 @@ class MongoDB:
     MONGOPASSWORD = getenv("MONGOPASSWORD")
 
 
+class Maths:
+    LATEX_RE = re.compile(r"\${1,2}(.*?)\${1,2}", re.DOTALL)
+    LATEX_RESPONSE_RE = re.compile(r"^([-]?\d+)\r?\n?(\S+)\s([-]?\d+)\s(\d+)\s(\d+)\r?\n?([\s\S]*)")
+
+    LATEX_PREAMBLE = (
+        "\\usepackage{amsmath}\n"
+        "\\usepackage{amssymb}\n"
+        "\\usepackage{amsthm}\n"
+        "\\usepackage{amsfonts}\n"
+        "\\usepackage{mathtools}\n"
+        "\\usepackage{stmaryrd}\n"
+        "\\usepackage[utf8]{inputenc}\n"
+        "\\usepackage{longtable}\n"
+        "\n"
+        "\\usepackage{graphicx}\n"
+        "\\usepackage{subcaption}\n"
+        "\\usepackage{caption}\n"
+        "\n"
+        "\\usepackage{booktabs}\n"
+        "\\usepackage[separate-uncertainty]{siunitx}\n"
+        "\\usepackage[version=4]{mhchem}\n"
+        "\\usepackage{mathabx}\n"
+        "\n"
+        "\\newtheorem{theorem}{Theorem}[section]\n"
+        "\\newtheorem{corollary}{Corollary}[theorem]\n"
+        "\\newtheorem{procedure}{Procedure}[section]\n"
+        "\\newtheorem{lemma}[theorem]{Lemma}\n"
+        "\n"
+        "\\theoremstyle{remark}\n"
+        "\\newtheorem*{remark}{Remark}\n"
+        "\n"
+        "\\theoremstyle{definition}\n"
+        "\\newtheorem{definition}{Definition}[section]")
+
+    BLOCKED_CHANNELS = [411573884597436416]
+
+    class Challenges:
+        URL = "https://cms-kcl.cloud.contensis.com/api/delivery/projects/mathsSchool/entries/search?linkDepth=1"
+        CHALLENGE_RE = re.compile(r"Challenge (\d+): .*")
+        TOPIC = "Nerds, the lot of you | {0}"
+        TOPIC_RE = re.compile(r"Challenge (\d+)")
+        TOKEN = getenv("MATHS_TOKEN")
+        CHANNEL = int(environ.get("MATHS_CHANNEL", "457923834893434881"))
+
+
+class Roles:
+    class Elite:
+        class VET2018:
+            ATTENDEES = int(environ.get("2018_MEMBERS_ID", "453581429528461313"))
+
+        class VET2019:
+            ATTENDEES = int(environ.get("2019_MEMBERS_ID", "580387468336037888"))
+
+            CYBERIST = int(
+                environ.get("2019_CYBERIST_MEMBERS_ID", "610387199300730900")
+            )
+            FORENSICATOR = int(
+                environ.get("2019_FORENSICATOR_MEMBERS_ID", "580387897644023811")
+            )
+
+        class VET2020:
+            TALENTDEV = int(environ.get("TALENTDEV_MEMBERS_ID", "669927831031250954"))
+            ELITEONLINE = int(
+                environ.get("2020_ONLINE_MEMBERS_ID", "715852962664153168")
+            )
+
+    class Exchange:
+        SHORTLIST = int(environ.get("EXCH_S_MEMBERS_ID", "582894164597932034"))
+        CONFIRMED = int(environ.get("EXCH_C_MEMBERS_ID", "585150522336608256"))
+
+
+# Cyber Constants
 BOT_TOKEN = getenv("BOT_TOKEN")
 SENTRY_URL = getenv("SENTRY_URL")
 
 # Fun constants
+
 SERVER_ID = int(environ.get("SERVER_ID", "409851296116375565"))
+QUOTES_DELETION_QUOTA = 10
+
 QUOTES_CHANNEL_ID = int(environ.get("QUOTES_CHANNEL_ID", "463657120441696256"))
 QUOTES_BOT_ID = 292953664492929025
 QUOTE_CZAR_ID = int(environ.get("QUOTES_CZAR_ID", "471681927439712287"))
+
 LOGGING_CHANNEL_ID = int(environ.get("LOGGING_CHANNEL_ID", "538494690601992212"))
 WELCOME_BOT_ID = 155149108183695360
 
@@ -48,37 +124,10 @@ ADMIN_ROLES = ("Root", "Sudo")
 BANNED_DOMAINS = ["discord.gg"]
 
 
-class Roles:
-
-    class Elite:
-        MAIN = int(environ.get("ELITE_MEMBERS_ID", "580387468336037888"))
-
-        class London:
-            YOUNGER = int(environ.get("LDN_Y_MEMBERS_ID", "580387877385404428"))
-            OLDER = int(environ.get("LDN_O_MEMBERS_ID", "580387897644023811"))
-
-        class Birmingham:
-            YOUNGER = int(environ.get("BRM_Y_MEMBERS_ID", "580387895299276830"))
-            OLDER = int(environ.get("BRM_O_MEMBERS_ID", "580387899833581572"))
-
-        class Lancaster:
-            YOUNGER = int(environ.get("LAN_Y_MEMBERS_ID", "580387892853997578"))
-            OLDER = int(environ.get("LAN_O_MEMBERS_ID", "580387898973618176"))
-
-        class VET2019:
-            CYBERIST = int(environ.get("2019_CYBERIST_MEMBERS_ID", "610387199300730900"))
-            FORENSICATOR = int(environ.get("2019_FORENSICATOR_MEMBERS_ID", "580387897644023811"))
-
-        TALENTDEV = int(environ.get("TALENTDEV_MEMBERS_ID", "669927831031250954"))
-
-    class Exchange:
-        SHORTLIST = int(environ.get("EXCH_S_MEMBERS_ID", "582894164597932034"))
-        CONFIRMED = int(environ.get("EXCH_C_MEMBERS_ID", "585150522336608256"))
-
-
-# Cyber Constants
 HINTS_LIMIT = 8
-CYBERDISC_ICON_URL = "https://pbs.twimg.com/profile_images/921313066515615745/fLEl2Gfa_400x400.jpg"
+CYBERDISC_ICON_URL = (
+    "https://pbs.twimg.com/profile_images/921313066515615745/fLEl2Gfa_400x400.jpg"
+)
 ELITECOUNT_ENABLED = True
 
 # Readme command constants
@@ -95,15 +144,15 @@ BASE_ALIASES = {
     "Headquarters": ["headquarters", "main", "hq", "h"],
     "Moonbase": ["moonbase", "python", "moon", "m"],
     "Forensics": ["forensics", "f"],
-    "Volcano": ["volcano", "v", "volc"]
+    "Volcano": ["volcano", "v", "volc"],
 }
 
 # Admin Constants
 PLACEHOLDER_NICKNAME = "Valued server member"
 NICKNAME_PATTERNS = [
-    r'(discord\.gg/)',  # invite links
-    r'(nigg|ligma|fag|nazi|hitler|\bpaki\b)',  # banned words
-    r'(http(s)?:\/\/.)?(www\.)?[-a-zA-Z0-9@:%._\+~#=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_\+.~#?&//=]*)'  # hyperlinks
+    r"(discord\.gg/)",  # invite links
+    r"(nigg|ligma|fag|nazi|hitler|\bpaki\b)",  # banned words
+    r"(http(s)?:\/\/.)?(www\.)?[-a-zA-Z0-9@:%._\+~#=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_\+.~#?&//=]*)",  # hyperlinks
 ]
 
 # Emoji Alphabet
@@ -139,5 +188,5 @@ EMOJI_LETTERS = [
     "\u2754\u2753",  # ?
     "\U0001f4b2",  # $
     "\U000021aa",  # (
-    "\U000021a9"  # )
+    "\U000021a9",  # )
 ]

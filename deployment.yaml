@@ -98,3 +98,8 @@ spec:
             secretKeyRef:
               name: "creds"
               key: "SENTRY_URL"
+        - name: "MATHS_TOKEN"
+          valueFrom:
+            secretKeyRef:
+              name: "creds"
+              key: "MATHS_TOKEN"

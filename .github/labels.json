@@ -66,5 +66,15 @@
         "name": "dependencies",
         "color": "035fc7",
         "description": "Update or change dependencies"
+    },
+    {
+        "name": "maths",
+        "color": "03aaaa",
+        "description": "Changes to the maths cog"
+    },
+    {
+        "name": "bug",
+        "color": "ff5d40",
+        "description": "Errors in the source code"
     }
 ]

@@ -12,27 +12,47 @@ from urllib.parse import urlencode
 
 from PIL import Image, ImageDraw, ImageFont
 from aiohttp import ClientSession
+from discord import (
+    Colour,
+    Embed,
+    File,
+    HTTPException,
+    Message,
+    NotFound,
+    RawReactionActionEvent,
+    embeds,
+)
+from discord.ext.commands import (
+    Bot,
+    BucketType,
+    Cog,
+    Context,
+    UserConverter,
+    command,
+    cooldown,
+)
+from discord.utils import get
+
 from cdbot.constants import (
     CYBERDISC_ICON_URL,
     EMOJI_LETTERS,
     FAKE_ROLE_ID,
     QUOTES_CHANNEL_ID,
+    QUOTES_DELETION_QUOTA,
     ROOT_ROLE_ID,
     SERVER_ID,
     STAFF_ROLE_ID,
     SUDO_ROLE_ID,
     WELCOME_BOT_ID,
 )
+
 from discord import Embed, File, Message
 from discord.ext.commands import Bot, BucketType, Cog, Context, command, cooldown
 from discord.utils import get
 
 ascii_lowercase += " !?$()"
 
-REACT_TRIGGERS = {
-    "kali": "\N{ONCOMING POLICE CAR}",
-    "duck": "\N{DUCK}"
-}
+REACT_TRIGGERS = {"kali": "\N{ONCOMING POLICE CAR}", "duck": "\N{DUCK}"}
 
 
 def convert_emoji(message: str) -> List[str]:
@@ -70,7 +90,8 @@ class Fun(Cog):
     # Embed sent when users try to ping staff
     ping_embed = (
         Embed(
-            colour=0xFF0000, description="⚠ **Please make sure you have taken the following into account:** "
+            colour=0xFF0000,
+            description="⚠ **Please make sure you have taken the following into account:** ",
         )
         .set_footer(
             text="To continue with the ping, react \N{THUMBS UP SIGN}, To delete this message and move on,"
@@ -90,7 +111,6 @@ class Fun(Cog):
         self.bot = bot
         self.staff_role = None
         self.fake_staff_role = None
-
 
     @Cog.listener()
     async def on_ready(self):
@@ -115,14 +135,19 @@ class Fun(Cog):
 
             def check(reaction, user):
                 """Check if the reaction was valid."""
-                return all((
-                    user == message.author or user.top_role.id in [ROOT_ROLE_ID, SUDO_ROLE_ID],
-                    str(reaction.emoji) in "\N{THUMBS UP SIGN}\N{THUMBS DOWN SIGN}"
-                ))
+                user_is_staff = user.top_role.id in (ROOT_ROLE_ID, SUDO_ROLE_ID)
+                return all(
+                    (
+                        user == message.author or user_is_staff,
+                        str(reaction.emoji) in "\N{THUMBS UP SIGN}\N{THUMBS DOWN SIGN}",
+                    )
+                )
 
             try:
                 # Get the user's reaction
-                reaction, _ = await self.bot.wait_for("reaction_add", timeout=30, check=check)
+                reaction, _ = await self.bot.wait_for(
+                    "reaction_add", timeout=30, check=check
+                )
 
             except asyncio.TimeoutError:
                 pass
@@ -140,7 +165,9 @@ class Fun(Cog):
                         icon_url=message.author.avatar_url,
                     )
                     # Send the embed with the user's content
-                    await message.channel.send(self.staff_role.mention, embed=staff_ping)
+                    await message.channel.send(
+                        self.staff_role.mention, embed=staff_ping
+                    )
                     await self.staff_role.edit(mentionable=False)
                     # Delete the original message
                     await message.delete()
@@ -167,7 +194,12 @@ class Fun(Cog):
                 return  # Only one auto-reaction per message
 
         # Adds waving emoji when a new user joins.
-        if "Welcome to the Cyber Discovery" in message.content and message.author.id == WELCOME_BOT_ID:
+        if all(
+            (
+                "Welcome to the Cyber Discovery" in message.content,
+                message.author.id == WELCOME_BOT_ID,
+            )
+        ):
             await message.add_reaction("\N{WAVING HAND SIGN}")
 
     @command()
@@ -178,7 +210,7 @@ class Fun(Cog):
         # Creates a lmgtfy.com url for the given query.
         request_data = {
             "q": " ".join(arg for arg in args if not arg.startswith("-")),
-            "ie": int("-ie" in args)
+            "ie": int("-ie" in args),
         }
         url = "https://lmgtfy.com/?" + urlencode(request_data)
 
@@ -247,7 +279,11 @@ class Fun(Cog):
         comic.set_footer(text=data["alt"])
         comic.set_image(url=data["img"])
         comic.url = f"https://xkcd.com/{number}"
-        comic.set_author(name="xkcd", url="https://xkcd.com/", icon_url="https://xkcd.com/s/0b7742.png")
+        comic.set_author(
+            name="xkcd",
+            url="https://xkcd.com/",
+            icon_url="https://xkcd.com/s/0b7742.png",
+        )
         comic.add_field(name="Number:", value=number)
         comic.add_field(name="Date:", value=date)
         comic.add_field(name="Explanation:", value=f"https://explainxkcd.com/{number}")
@@ -259,13 +295,17 @@ class Fun(Cog):
         Creates an image of a given person with the specified text.
         """
         if len(text) > 100:
-            return await ctx.send(":no_entry_sign: Your text must be shorter than 100 characters.")
+            return await ctx.send(
+                ":no_entry_sign: Your text must be shorter than 100 characters."
+            )
         drawing_text = textwrap.fill(text, 20)
         font = ImageFont.truetype("cdbot/resources/Dosis-SemiBold.ttf", 150)
 
         text_layer = Image.new("RGBA", (1920, 1080), (0, 0, 0, 0))
         text_layer_drawing = ImageDraw.Draw(text_layer)
-        text_layer_drawing.text((0, 0), drawing_text, fill=(0, 0, 0), align="center", font=font)
+        text_layer_drawing.text(
+            (0, 0), drawing_text, fill=(0, 0, 0), align="center", font=font
+        )
 
         cropped_text_layer = text_layer.crop(text_layer.getbbox())
         cropped_text_layer.thumbnail((170, 110))
@@ -315,6 +355,13 @@ class Fun(Cog):
         Creates an image of Angry James Lyne with the specified text.
         """
         await self.create_text_image(ctx, "AngryLyne", text)
+
+    @command()
+    async def baldj(self, ctx: Context, *, text: str):
+        """
+        Creates an image of Bald Agent J with the specified text.
+        """
+        await self.create_text_image(ctx, "AgentJBadHairDay", text)
 
 
 def setup(bot):
