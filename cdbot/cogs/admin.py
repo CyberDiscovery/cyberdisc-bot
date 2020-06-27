@@ -1,5 +1,4 @@
 import re
-import asyncio
 
 from discord import AuditLogAction, Member
 from discord.ext.commands import Bot, Cog
@@ -10,7 +9,6 @@ from cdbot.constants import (
     BANNED_DOMAINS,
     BANNED_WORDS,
     CD_BOT_ROLE_ID,
-    MUTED_ROLE_ID,
     NICKNAME_PATTERNS,
     PLACEHOLDER_NICKNAME,
     STATIC_NICKNAME_ROLE_ID,
@@ -95,7 +93,6 @@ class Admin(Cog):
 
     @Cog.listener()
     async def on_message(self, message):
-        muted_role = message.guild.get_role(MUTED_ROLE_ID)
         # Checks if message contains banned word.
         if any([word in message.content for word in BANNED_WORDS]):
             await message.delete()
