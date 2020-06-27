@@ -1,7 +1,7 @@
 from math import ceil
 from typing import Any, Callable, List, Union
 
-from discord import utils, Colour, Embed, HTTPException, Message, Member, NotFound, RawReactionActionEvent, TextChannel, User
+from discord import Colour, Embed, HTTPException, Message, Member, NotFound, RawReactionActionEvent, TextChannel, User
 from discord.ext import commands
 from discord.ext.commands import ArgumentParsingError, Bot, CheckFailure, Cog, UserConverter
 from motor.motor_asyncio import AsyncIOMotorClient
@@ -11,7 +11,7 @@ from cdbot.constants import CYBERDISC_ICON_URL, SERVER_ID, QUOTES_CHANNEL_ID, QU
 
 def is_quote_czar() -> Callable:
     async def predicate(ctx: commands.Context) -> bool:
-        czar_role = utils.get(ctx.guild.roles, id=QUOTE_CZAR_ID)
+        czar_role = ctx.guild.get_role(QUOTE_CZAR_ID)
         return czar_role in ctx.author.roles or ctx.author.guild_permissions.administrator
     return commands.check(predicate)
 
@@ -30,7 +30,8 @@ class QuoteCog(Cog):
 
     @Cog.listener()
     async def on_ready(self):
-        self.quote_channel = utils.get(self.bot.get_all_channels(), guild__id=SERVER_ID, id=QUOTES_CHANNEL_ID)
+        self.guild = self.bot.get_guild(SERVER_ID)
+        self.quote_channel = self.bot.get_channel(QUOTES_CHANNEL_ID)
         self.database = AsyncIOMotorClient(
             host=MongoDB.MONGOHOST,
             port=MongoDB.MONGOPORT,
@@ -52,14 +53,14 @@ class QuoteCog(Cog):
                 await self.database.delete_one({"_id": message.id})
                 await message.delete()
 
-        async def get_member_by_id(self, member_id: int) -> Union[Member, User, None]:
-            if utils.get(self.bot.get_all_members(), id=member_id) is not None:  # noqa: E203, E231
-                return utils.get(self.bot.get_all_members(), id=member_id)
-            try:
-                user = await self.bot.fetch_user(member_id)
-                return user
-            except NotFound:
-                return None
+    async def get_member_by_id(self, member_id: int) -> Union[Member, User, None]:
+        if self.guild.get_member(member_id) is not None:
+            return self.guild.get_member(member_id)
+        try:
+            user = await self.bot.fetch_user(member_id)
+            return user
+        except NotFound:
+            return None
 
     def quote_dict(self, quoted: Message, message: Message) -> dict:
         quote = dict(
@@ -79,7 +80,7 @@ class QuoteCog(Cog):
     async def quote_embed(self, quote: dict) -> Embed:
         if quote.get("embed", None):
             return Embed.from_dict(quote["embed"])
-        channel = utils.get(self.bot.get_all_channels(), guild__id=SERVER_ID, id=quote["channel"])
+        channel = self.bot.get_channel(quote["channel"])
         quoted = await self.get_member_by_id(quote["author"]["id"])
         quoter = await self.get_member_by_id(quote["quoted_by"])
         embed = Embed()
@@ -136,7 +137,7 @@ class QuoteCog(Cog):
             return list(filter(lambda x: x is not None, embeds))
         embed = Embed().set_author(name=str(self.bot.user), icon_url=self.bot.user.avatar_url)
         quoter = await self.get_member_by_id(multi_quote["quoted_by"])
-        channel = utils.get(self.bot.get_all_channels(), guild__id=SERVER_ID, id=multi_quote["channel"])
+        channel = self.bot.get_channel(multi_quote["channel"])
         footer_text = "Quoted by "
         if quoter:
             footer_text += str(quoter)
