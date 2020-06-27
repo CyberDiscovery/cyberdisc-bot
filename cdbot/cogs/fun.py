@@ -4,7 +4,6 @@ Set of bot commands designed for general leisure.
 import asyncio
 import textwrap
 from io import BytesIO
-from math import ceil
 from random import randint
 from string import ascii_lowercase
 from typing import List
@@ -12,29 +11,18 @@ from urllib.parse import urlencode
 
 from PIL import Image, ImageDraw, ImageFont
 from aiohttp import ClientSession
-from discord import (
-    Colour,
-    Embed,
-    File,
-    HTTPException,
-    Message,
-    NotFound,
-    RawReactionActionEvent,
-    embeds,
-)
+from discord import Embed, File, Message
 from discord.ext.commands import (
     Bot,
     BucketType,
     Cog,
     Context,
-    UserConverter,
     command,
     cooldown,
 )
 from discord.utils import get
 
 from cdbot.constants import (
-    CYBERDISC_ICON_URL,
     EMOJI_LETTERS,
     FAKE_ROLE_ID,
     QUOTES_CHANNEL_ID,
@@ -44,10 +32,6 @@ from cdbot.constants import (
     SUDO_ROLE_ID,
     WELCOME_BOT_ID,
 )
-
-from discord import Embed, File, Message
-from discord.ext.commands import Bot, BucketType, Cog, Context, command, cooldown
-from discord.utils import get
 
 ascii_lowercase += " !?$()"
 
