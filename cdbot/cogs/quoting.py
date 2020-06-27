@@ -52,14 +52,14 @@ class QuoteCog(Cog):
                 await self.database.delete_one({"_id": message.id})
                 await message.delete()
 
-    async def get_member_by_id(self, member_id: int) -> Union[Member, User, None]:
-        if (member := utils.get(self.bot.get_all_members(), id=member_id)) is not None:  # noqa: E203, E231
-            return member
-        try:
-            user = await self.bot.fetch_user(member_id)
-            return user
-        except NotFound:
-            return None
+        async def get_member_by_id(self, member_id: int) -> Union[Member, User, None]:
+            if utils.get(self.bot.get_all_members(), id=member_id) is not None:  # noqa: E203, E231
+                return utils.get(self.bot.get_all_members(), id=member_id)
+            try:
+                user = await self.bot.fetch_user(member_id)
+                return user
+            except NotFound:
+                return None
 
     def quote_dict(self, quoted: Message, message: Message) -> dict:
         quote = dict(
