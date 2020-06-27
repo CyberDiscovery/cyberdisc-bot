@@ -49,9 +49,19 @@ class QuoteCog(Cog):
         if str(raw_reaction.emoji) == thumbs_down and raw_reaction.channel_id == QUOTES_CHANNEL_ID:
             message = await self.quote_channel.fetch_message(raw_reaction.message_id)
             reaction = [react for react in message.reactions if str(react.emoji) == thumbs_down][0]
-            if reaction.count >= QUOTES_DELETION_QUOTA + 1:
+            if reaction.count > QUOTES_DELETION_QUOTA:
                 await self.database.delete_one({"_id": message.id})
-                await message.delete()
+                mentions = ", ".join(user.mention async for user in reaction.users())
+                for quote_embed in reaction.message.embeds:
+                        embed = Embed(
+                            color=Colour.blue(),
+                            title="Quote Deleted",
+                            description=quote_embed.description
+                        )
+                        embed.add_field(name="Deleted By", value=mentions)
+                        embed.set_author(name=quote_embed.author.name, icon_url=quote_embed.author.icon_url)
+                await reaction.message.delete()
+                await logs_channel.send(embed=embed)
 
     async def get_member_by_id(self, member_id: int) -> Union[Member, User, None]:
         if self.guild.get_member(member_id) is not None:
