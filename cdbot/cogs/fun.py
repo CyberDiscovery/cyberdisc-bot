@@ -38,7 +38,6 @@ from cdbot.constants import (
     EMOJI_LETTERS,
     FAKE_ROLE_ID,
     QUOTES_CHANNEL_ID,
-    QUOTES_DELETION_QUOTA,
     ROOT_ROLE_ID,
     SERVER_ID,
     STAFF_ROLE_ID,
