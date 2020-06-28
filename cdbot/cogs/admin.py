@@ -1,5 +1,5 @@
 import re
-
+import datetime
 from discord import AuditLogAction, Member
 from discord.ext.commands import Bot, Cog
 
@@ -93,20 +93,29 @@ class Admin(Cog):
 
     @Cog.listener()
     async def on_message(self, message):
-        # Checks if message contains banned word.
-        if any([word in message.content for word in BANNED_WORDS]):
-            await message.delete()
-            await message.channel.send(f"{message.author.mention} Watch your language!", delete_after=5)
-        # Checks if message contains banned domain.
-        if any([word in message.content for word in BANNED_DOMAINS]):
-            await message.delete()
-            await message.channel.send(f"{message.author.mention} No invite links!", delete_after=5)
-        # Checks if message contains mass mention
-        if len(message.mentions) > 8:
-            await message.delete()
-            await message.channel.send(f"{message.author.mention} Don't spam mentions!", delete_after=5)
-        # Checks if message was sent to quickly
-        # Not quite sure how to do this yet.
+        def check(m):
+            return m.author == message.author and (datetime.datetime.utcnow() - m.created_at).seconds < 4
+
+        def who(m):
+            return m.author == message.author
+
+        if not message.author.bot:
+            # Checks if message contains banned word.
+            if any([word in message.content for word in BANNED_WORDS]):
+                await message.delete()
+                await message.channel.send(f"{message.author.mention} Watch your language!", delete_after=5)
+            # Checks if message contains banned domain.
+            if any([word in message.content for word in BANNED_DOMAINS]):
+                await message.delete()
+                await message.channel.send(f"{message.author.mention} No invite links!", delete_after=5)
+            # Checks if message contains mass mention.
+            if len(message.mentions) > 8:
+                await message.delete()
+                await message.channel.send(f"{message.author.mention} Don't spam mentions!", delete_after=5)
+            # Checks if message was sent too quickly.
+            if len(list(filter(lambda m: check(m), self.client.cached_messages))) >= 4:
+                await message.channel.purge(limit=4, check=who)
+                await message.channel.send(f"{message.author.mention} Your sending messages too fast!", delete_after=5)
 
 
 def setup(bot):
