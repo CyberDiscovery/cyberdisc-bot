@@ -116,7 +116,7 @@ class Admin(Cog):
             # Checks if message was sent too quickly.
             if len(list(filter(lambda m: check(m), self.client.cached_messages))) >= 4:
                 await message.channel.purge(limit=4, check=who)
-                await message.channel.send(f"{message.author.mention} Your sending messages too fast!", delete_after=5)
+                await message.channel.send(f"{message.author.mention} You're sending messages too quick!", delete_after=5)
 
 
 def setup(bot):
