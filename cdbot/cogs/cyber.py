@@ -79,7 +79,7 @@ class Cyber(Cog):
         ),
         (
             r"^.*\belite\b.*\bstart\b.*$",
-            "CyberStart Elite Y3 will run throughout 27th July - 8th August. Y4 dates are yet to be announced",
+            "CyberStart Elite Y3 will run throughout 27th July - 8th August. Y4 dates are yet to be announced.",
         ),
         (
             r"^.*\bwhat\b.*\belite\b.*\bemail\b.*$",
