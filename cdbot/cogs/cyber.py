@@ -261,7 +261,7 @@ class Cyber(Cog):
 
                     await ctx.message.delete()
 
-                    self._sendReadme(json_config, channel_id, msg_send_interval, no_ctx=False)
+                    await self._send_readme(json_config, channel_id, msg_send_interval, no_ctx=False)
 
                 except (Exception):
                     parse_fail_embed = Embed(
@@ -451,30 +451,30 @@ class Cyber(Cog):
     @Cog.listener()
     async def on_ready(self):
         # Gets hash of up to date readme.json file
-        readmeFile = "cdbot/data/readme.json"
-        with open(readmeFile, "rb") as f:
+        readme_file = "cdbot/data/readme.json"
+        with open(readme_file, "rb") as f:
             bytes = f.read()
-            readmeHash = hashlib.sha256(bytes).hexdigest()
+            readme_hash = hashlib.sha256(bytes).hexdigest()
 
         # Gets has of old readme.json file
-        testChannel = await self.bot.fetch_channel(DEV_TESTING_CHANNEL_ID)
-        fileHash = testChannel.topic
+        test_channel = await self.bot.fetch_channel(DEV_TESTING_CHANNEL_ID)
+        file_hash = test_channel.topic
 
-        if readmeHash != fileHash:
+        if readme_hash != file_hash:
             # Deletes old readme
-            readmeChannel = await self.bot.fetch_channel(README_CHANNEL_ID)
-            messages = await readmeChannel.history().flatten()
+            readme_channel = await self.bot.fetch_channel(README_CHANNEL_ID)
+            messages = await readme_channel.history().flatten()
             for msg in messages:
                 await msg.delete()
 
             with open("cdbot/data/readme.json", "r") as f:
                 json_config = load(f)
             # Sends new readme to the readme channel
-            await self._sendReadme(json_config, README_CHANNEL_ID, True)
+            await self._send_readme(json_config, README_CHANNEL_ID, True)
             # Edits dev testing channel topic with the new hash
-            await testChannel.edit(topic=readmeHash)
+            await test_channel.edit(topic=readme_hash)
 
-    async def _sendReadme(self, json_config, channel_id, msg_send_interval=0, no_ctx=False):
+    async def _send_readme(self, json_config, channel_id, msg_send_interval=0, no_ctx=False):
         for section in json_config:
 
             # Initialise our message and embed variables each loop.
