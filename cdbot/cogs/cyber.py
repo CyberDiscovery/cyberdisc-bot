@@ -169,7 +169,7 @@ class Cyber(Cog):
             # Generates random, but unique and identical per challenge, base 64 "flag"
             content = (
                 "The flag is:"
-                f"||{await generatebase64(ord(base[0]) + level_num + challenge_num)}||"
+                f"https://game.joincyberdiscovery.com/assets/videos/cheating_message.mp4?version=4.2.0"
             )
 
         embed = Embed(
