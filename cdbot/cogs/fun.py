@@ -38,6 +38,7 @@ from cdbot.constants import (
     CYBERDISC_ICON_URL,
     EMOJI_LETTERS,
     FAKE_ROLE_ID,
+    LOCAL_DEBUGGING,
     PostgreSQL,
     QUOTES_BOT_ID,
     QUOTES_CHANNEL_ID,
@@ -140,15 +141,16 @@ class Fun(Cog):
         if self.fake_staff_role is None:
             self.fake_staff_role = guild.get_role(FAKE_ROLE_ID)
 
-        self.bot.pool = await asyncpg.create_pool(
-            host=PostgreSQL.PGHOST,
-            port=PostgreSQL.PGPORT,
-            user=PostgreSQL.PGUSER,
-            password=PostgreSQL.PGPASSWORD,
-            database=PostgreSQL.PGDATABASE,
-        )
+        if not LOCAL_DEBUGGING:
+            self.bot.pool = await asyncpg.create_pool(
+                host=PostgreSQL.PGHOST,
+                port=PostgreSQL.PGPORT,
+                user=PostgreSQL.PGUSER,
+                password=PostgreSQL.PGPASSWORD,
+                database=PostgreSQL.PGDATABASE,
+            )
+            await self.migrate_quotes()
 
-        await self.migrate_quotes()
 
     @cooldown(1, 60, BucketType.user)
     @cooldown(4, 60, BucketType.channel)
