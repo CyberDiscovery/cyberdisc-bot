@@ -88,6 +88,12 @@ class Admin(Cog):
         if check_bad_name(username):  # bad username
             # assign placeholder nickname
             await member.edit(nick=PLACEHOLDER_NICKNAME)
+            
+    @Cog.listener()
+    async def on_message(self, message):
+        #Checks if message contains spam.
+        if True:
+            await message.delete()
 
 
 def setup(bot):
