@@ -261,6 +261,12 @@ class Cyber(Cog):
 
                     await ctx.message.delete()
 
+                    # Nukes channel
+                    deploy_channel = await self.bot.fetch_channel(channel_id)
+                    messages = await deploy_channel.history().flatten()
+                    for msg in messages:
+                        await msg.delete()
+
                     await self._send_readme(json_config, channel_id, msg_send_interval, no_ctx=False)
 
                 except (Exception):
