@@ -167,10 +167,18 @@ class Cyber(Cog):
             content = "13.1 is a No Flag Zone™ 🙅⛔⚔️"
         else:
             # Generates random, but unique and identical per challenge, base 64 "flag"
-            content = (
-                "The flag is:"
-                f"||{await generatebase64(ord(base[0]) + level_num + challenge_num)}||"
-            )
+            if random.randint(1, 5) == 5:
+                content = (
+                    "The flag is:"
+                    "||https://game.joincyberdiscovery.com/assets/videos/"
+                    "cheating_message.mp4?version=4.2.0||"
+                    # Line break to make PEP8 happy
+                )
+            else:
+                content = (
+                    "The flag is:"
+                    f"||{await generatebase64(ord(base[0]) + level_num + challenge_num)}||"
+                )
 
         embed = Embed(
             title=(f"{base} - Level {level_num} Challenge {challenge_num}"),
