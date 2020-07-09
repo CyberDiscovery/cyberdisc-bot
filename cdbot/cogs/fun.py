@@ -152,7 +152,6 @@ class Fun(Cog):
             )
             await self.migrate_quotes()
 
-
     @cooldown(1, 60, BucketType.user)
     @cooldown(4, 60, BucketType.channel)
     @cooldown(6, 3600, BucketType.guild)
