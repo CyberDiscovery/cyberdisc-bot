@@ -171,7 +171,7 @@ class Cyber(Cog):
 
                 await ctx.send(
                     "The flag is:" +
-                    "||https://game.joincyberdiscovery.com/assets/videos/"+
+                    "||https://game.joincyberdiscovery.com/assets/videos/" +
                     "cheating_message.mp4?version=4.2.0||"
                     # Line break to make PEP8 happy
                 )
