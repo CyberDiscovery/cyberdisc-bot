@@ -175,7 +175,7 @@ class Cyber(Cog):
                     "cheating_message.mp4?version=4.2.0||"
                     # Line break to make PEP8 happy
                 )
-                break
+                return
             else:
                 content = (
                     "The flag is:"
