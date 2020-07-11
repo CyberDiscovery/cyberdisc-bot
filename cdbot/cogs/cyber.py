@@ -421,6 +421,7 @@ class Cyber(Cog):
                     "SEC503": Roles.Elite.VET2020.ELITE503,
                     "SEC504": Roles.Elite.VET2020.ELITE504,
                     "FOR500": Roles.Elite.VET2020.ELITE500,
+                    "EHF": Roles.Elite.VET2020.ELITEEHF,
                 },
             }
 
