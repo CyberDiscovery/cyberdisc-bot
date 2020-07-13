@@ -169,13 +169,12 @@ class Cyber(Cog):
             # Generates random, but unique and identical per challenge, base 64 "flag"
             if random.randint(1, 5) == 5:
 
-                await ctx.send(
+                return await ctx.send(
                     "The flag is:"
                     "||https://game.joincyberdiscovery.com/assets/videos/"
                     "cheating_message.mp4?version=4.2.0||"
                     # Line break to make PEP8 happy
                 )
-                return
             else:
                 content = (
                     "The flag is:"
