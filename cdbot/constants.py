@@ -91,7 +91,6 @@ class Roles:
         SHORTLIST = int(environ.get("EXCH_S_MEMBERS_ID", "582894164597932034"))
         CONFIRMED = int(environ.get("EXCH_C_MEMBERS_ID", "585150522336608256"))
 
-
 # Cyber Constants
 BOT_TOKEN = getenv("BOT_TOKEN")
 SENTRY_URL = getenv("SENTRY_URL")
