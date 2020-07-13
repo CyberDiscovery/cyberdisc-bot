@@ -210,7 +210,7 @@ class Maths(Cog):
                     return all((
                         message.author == user,
                         reaction.emoji == "\N{WASTEBASKET}",
-                        reaction.message == rendered_message,
+                        reaction.message.id == rendered_message.id,
                     ))
 
                 # if the latex author reacts with a bin within 30 secs of sending, delete the rendered image
