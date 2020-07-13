@@ -93,7 +93,6 @@ class Roles:
 BOT_TOKEN = getenv("BOT_TOKEN")
 SENTRY_URL = getenv("SENTRY_URL")
 
-
 # Fun constants
 QUOTES_DELETION_QUOTA = 10
 QUOTES_CHANNEL_ID = int(environ.get("QUOTES_CHANNEL_ID", "463657120441696256"))
