@@ -83,15 +83,17 @@ class Roles:
             ELITE504 = int(environ.get("2020_504_MEMBERS_ID", "719957222657884200"))
             ELITE500 = int(environ.get("2020_500_MEMBERS_ID", "719957182308679822"))
             ELITEEHF = int(environ.get("2020_EHF_MEMBERS_ID", "722188749378683020"))
-            
+
 
     class Exchange:
         SHORTLIST = int(environ.get("EXCH_S_MEMBERS_ID", "582894164597932034"))
         CONFIRMED = int(environ.get("EXCH_C_MEMBERS_ID", "585150522336608256"))
 
+
 # Cyber Constants
 BOT_TOKEN = getenv("BOT_TOKEN")
 SENTRY_URL = getenv("SENTRY_URL")
+
 
 # Fun constants
 QUOTES_DELETION_QUOTA = 10
