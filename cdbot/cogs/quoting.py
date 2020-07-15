@@ -43,17 +43,15 @@ class QuoteCog(Cog):
         )[MongoDB.MONGODATABASE]["quotes"]
 
     @Cog.listener()
-    async def on_command_error(self, ctx: commands.Context, error):
-        await ctx.send(f"{type(error)}: {error}")
-
-    @Cog.listener()
     async def on_raw_reaction_add(self, raw_reaction: RawReactionActionEvent):
         thumbs_down = "\N{THUMBS DOWN SIGN}"
         if str(raw_reaction.emoji) == thumbs_down and raw_reaction.channel_id == QUOTES_CHANNEL_ID:
+            # Checking for downvote emoji for quote removal.
             message = await self.quote_channel.fetch_message(raw_reaction.message_id)
             reaction = [react for react in message.reactions if str(react.emoji) == thumbs_down][0]
             if reaction.count > QUOTES_DELETION_QUOTA:
-                await self.database.delete_one({"_id": message.id})
+                # Check that the count is greater than the required amount.
+                await self.database.delete_one({"_id": message.id})  # Delete the quote
                 mentions = ", ".join(user.mention async for user in reaction.users())
                 for quote_embed in reaction.message.embeds:
                     embed = Embed(
@@ -64,7 +62,7 @@ class QuoteCog(Cog):
                     embed.add_field(name="Deleted By", value=mentions)
                     embed.set_author(name=quote_embed.author.name, icon_url=quote_embed.author.icon_url)
                 await reaction.message.delete()
-                await self.logs_channel.send(embed=embed)
+                await self.logs_channel.send(embed=embed)  # Send an embed to log quote deletion.
 
     async def get_member_by_id(self, member_id: int) -> Union[Member, User, None]:
         if self.guild.get_member(member_id) is not None:
