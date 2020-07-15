@@ -13,12 +13,12 @@ def getenv(name: str, fallback: str = "") -> str:
     return variable or fallback
 
 
-class PostgreSQL:
-    PGHOST = getenv("PGHOST")
-    PGPORT = getenv("PGPORT")
-    PGUSER = getenv("PGUSER")
-    PGDATABASE = getenv("PGDATABASE")
-    PGPASSWORD = getenv("PGPASSWORD")
+class MongoDB:
+    MONGOHOST = getenv("MONGOHOST")
+    MONGOPORT = int(getenv("MONGOPORT", 27017))
+    MONGOUSER = getenv("MONGOUSER")
+    MONGODATABASE = getenv("MONGODATABASE")
+    MONGOPASSWORD = getenv("MONGOPASSWORD")
 
 
 class Maths:
@@ -97,9 +97,14 @@ BOT_TOKEN = getenv("BOT_TOKEN")
 SENTRY_URL = getenv("SENTRY_URL")
 
 # Fun constants
+
+SERVER_ID = int(environ.get("SERVER_ID", "409851296116375565"))
 QUOTES_DELETION_QUOTA = 10
+
 QUOTES_CHANNEL_ID = int(environ.get("QUOTES_CHANNEL_ID", "463657120441696256"))
 QUOTES_BOT_ID = 292953664492929025
+QUOTE_CZAR_ID = int(environ.get("QUOTES_CZAR_ID", "471681927439712287"))
+
 LOGGING_CHANNEL_ID = int(environ.get("LOGGING_CHANNEL_ID", "538494690601992212"))
 WELCOME_BOT_ID = 155149108183695360
 
