@@ -179,9 +179,14 @@ class QuoteCog(Cog):
         lines = []
         for message in messages:
             line_str = message["user"] + ": "
-            if "```" in message["content"]:
+            if message["content"].startswith("```"):
                 line_str += "\n"
-            line_str += message["content"][:1950]
+            line_str += message["content"]
+            if len(line_str) > 200:
+                if line_str.endswith("```"):
+                    line_str = line_str[:200] + "...```"
+                else:
+                    line_str = line_str[:200] + "..."
             lines.append(line_str)
         embed.description = "```" + "\n".join(lines) + f"```\n[Jump to content]({multi_quote['content_link']})"
         return embed
