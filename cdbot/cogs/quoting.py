@@ -10,6 +10,8 @@ from cdbot.constants import (
     CYBERDISC_ICON_URL, LOGGING_CHANNEL_ID, MongoDB, QUOTES_CHANNEL_ID, QUOTES_DELETION_QUOTA, QUOTE_CZAR_ID, SERVER_ID
 )
 
+JUMP_URL_FORMAT = "https://discord.com/channels/{}/{}/{}"
+
 
 def user_can_quote() -> Callable:
     async def predicate(ctx: commands.Context) -> bool:
@@ -76,7 +78,6 @@ class QuoteCog(Cog):
     def quote_dict(self, quoted: Message, message: Message) -> dict:
         quote = dict(
             content_id=quoted.id,
-            content_link=quoted.jump_url,
             channel=quoted.channel.id,
             content=quoted.content,
             author=dict(id=quoted.author.id, name=str(quoted.author), avatar=str(quoted.author.avatar_url_as(size=32))),
@@ -120,7 +121,7 @@ class QuoteCog(Cog):
             embed.description = f"```{quote['content']}```\n"
         else:
             embed.description = ""
-        embed.description += f"[Jump to orignal]({quote['content_link']})"
+        embed.description += f"[Jump to orignal]({JUMP_URL_FORMAT.format(SERVER_ID, channel.id, quote['content_id'])})"
         embed.timestamp = quote["quoted_at"]
         if quote.get("image", None):
             embed.set_image(url=quote["image"])
@@ -133,7 +134,6 @@ class QuoteCog(Cog):
     def multi_quote_dict(self, messages: List[Message], message: Message) -> dict:
         multi_quote = dict(
             content_id=messages[0].id,
-            content_link=messages[0].jump_url,
             channel=messages[0].channel.id,
             quoted_at=message.created_at,
             quoted_by=message.author.id,
@@ -153,6 +153,7 @@ class QuoteCog(Cog):
         embed = Embed().set_author(name=str(self.bot.user), icon_url=self.bot.user.avatar_url)
         quoter = await self.get_member_by_id(multi_quote["quoted_by"])
         channel = self.bot.get_channel(multi_quote["channel"])
+        jump_to_link = f"[Jump to content]({JUMP_URL_FORMAT.format(SERVER_ID, channel.id, multi_quote['content_id'])})"
         footer_text = "Quoted by "
         if quoter:
             footer_text += str(quoter)
@@ -186,7 +187,7 @@ class QuoteCog(Cog):
                 else:
                     line_str = line_str[:200] + "..."
             lines.append(line_str)
-        embed.description = "```" + "\n".join(lines) + f"```\n[Jump to content]({multi_quote['content_link']})"
+        embed.description = "```" + "\n".join(lines) + "```\n" + jump_to_link
         return embed
 
     async def generate_single_quote(self, quoted: Message, original: Message):
