@@ -121,7 +121,7 @@ class QuoteCog(Cog):
             embed.description = f"```{quote['content']}```\n"
         else:
             embed.description = ""
-        embed.description += f"[Jump to orignal]({JUMP_URL_FORMAT.format(SERVER_ID, channel.id, quote['content_id'])})"
+        embed.description += f"[Jump to original]({JUMP_URL_FORMAT.format(SERVER_ID, channel.id, quote['content_id'])})"
         embed.timestamp = quote["quoted_at"]
         if quote.get("image", None):
             embed.set_image(url=quote["image"])
