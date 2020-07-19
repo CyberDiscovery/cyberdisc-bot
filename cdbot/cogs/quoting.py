@@ -10,7 +10,7 @@ from cdbot.constants import (
     CYBERDISC_ICON_URL, LOGGING_CHANNEL_ID, MongoDB, QUOTES_CHANNEL_ID, QUOTES_DELETION_QUOTA, QUOTE_CZAR_ID, SERVER_ID
 )
 
-JUMP_URL_FORMAT = "https://discord.com/channels/{}/{}/{}"
+JUMP_URL_FORMAT = "https://discord.com/channels/{0}/{1}/{2}"
 
 
 def user_can_quote() -> Callable:
