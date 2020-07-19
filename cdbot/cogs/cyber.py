@@ -427,6 +427,10 @@ class Cyber(Cog):
                 "2020": {
                     "Talent Development": Roles.Elite.VET2020.TALENTDEV,
                     "Online": Roles.Elite.VET2020.ELITEONLINE,
+                    "SEC503": Roles.Elite.VET2020.ELITE503,
+                    "SEC504": Roles.Elite.VET2020.ELITE504,
+                    "FOR500": Roles.Elite.VET2020.ELITE500,
+                    "EHF": Roles.Elite.VET2020.ELITEEHF,
                 },
             }
 
