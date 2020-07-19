@@ -1,5 +1,0 @@
-Contact: thebeanogamer@gmail.com
-Encryption: https://keybase.io/thebeanogamer/pgp_keys.asc
-Preferred-Languages: en
-Canonical: https://raw.githubusercontent.com/CyberDiscovery/cyberdisc-bot/master/.security.txt
-Policy: https://github.com/CyberDiscovery/cyberdisc-bot/blob/master/SECURITY.md
