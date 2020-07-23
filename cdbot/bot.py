@@ -11,7 +11,7 @@ from cdbot.log import DiscordHandler
 
 logger = logging.getLogger(__name__)
 
-bot = Bot(command_prefix=when_mentioned_or("...", ":"), activity=Game(name=":help"))
+bot = Bot(command_prefix=when_mentioned_or("...", ":"),activity=Game(name=":help"))
 
 logger.addHandler(DiscordHandler(bot))
 logger.setLevel(logging.INFO)
