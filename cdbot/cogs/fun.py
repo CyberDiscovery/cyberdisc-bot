@@ -21,6 +21,7 @@ from discord import (
     Message,
     NotFound,
     RawReactionActionEvent,
+    Status,
     embeds,
 )
 from discord.ext.commands import (
@@ -33,7 +34,6 @@ from discord.ext.commands import (
     cooldown,
 )
 from discord.utils import get
-from discord import Status
 
 from cdbot.constants import (
     CYBERDISC_ICON_URL,
@@ -154,7 +154,7 @@ class Fun(Cog):
 
     @Cog.listener()
     async def on_member_update(self, before, after):
-        if before.status == Status.offline and after.status == Status.online
+        if before.status == Status.offline and after.status == Status.online:
             if any(i.id == STAFF_ROLE_ID for i in after.roles):
                 alert_channel = self.bot.get_channel(LOGGING_CHANNEL_ID)
                 await alert_channel.send("A CD staff member came online :eyes:")
