@@ -144,7 +144,7 @@ BASE_ALIASES = {
 # Admin Constants
 PLACEHOLDER_NICKNAME = "Valued server member"
 NICKNAME_PATTERNS = [
-    r"(discord\.gg/)",  # invite links
+    r"(discord\.gg/|discord\.com/invite/)",  # invite links
     r"(nigg|ligma|fag|nazi|hitler|\bpaki\b)",  # banned words
     r"(http(s)?:\/\/.)?(www\.)?[-a-zA-Z0-9@:%._\+~#=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_\+.~#?&//=]*)",  # hyperlinks
 ]
