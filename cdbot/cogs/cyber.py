@@ -25,6 +25,7 @@ from cdbot.constants import (
     ROOT_ROLE_ID,
     Roles,
     TRUE_HUNDRED_PERCENT_ROLE_ID,
+    CHEATING_VIDEO,
 )
 
 
@@ -170,9 +171,8 @@ class Cyber(Cog):
             if random.randint(1, 5) == 5:
 
                 return await ctx.send(
-                    "The flag is:"
-                    "||https://game.joincyberdiscovery.com/assets/videos/"
-                    "cheating_message.mp4?version=4.2.0||"
+                    "The flag is: "
+                    f"||{CHEATING_VIDEO}||"
                 )
             else:
                 content = (
