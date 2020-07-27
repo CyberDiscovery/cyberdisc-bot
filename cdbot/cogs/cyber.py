@@ -15,6 +15,7 @@ from discord.ext.commands import Bot, Cog, Context, command, has_role
 
 from cdbot.constants import (
     BASE_ALIASES,
+    CHEATING_VIDEO,
     CYBERDISC_ICON_URL,
     ELITECOUNT_ENABLED,
     END_README_MESSAGE,
@@ -25,7 +26,6 @@ from cdbot.constants import (
     ROOT_ROLE_ID,
     Roles,
     TRUE_HUNDRED_PERCENT_ROLE_ID,
-    CHEATING_VIDEO,
 )
 
 
