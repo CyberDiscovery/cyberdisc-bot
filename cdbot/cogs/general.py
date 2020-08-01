@@ -35,6 +35,14 @@ class General(Cog):
         )
 
     @Cog.listener()
+    async def on_member_join(self, member):
+        join_msg_channel = self.bot.get_channel(411573884597436416)
+        join_msg = await join_msg_channel.send(f"{member.mention}, Welcome to the Cyber Discovery discussion discord! "
+                                               f"Please check the rules, roles and information in #readme to answer "
+                                               f"any questions, and before you begin.")
+        await join_msg.add_reaction('👋')
+
+    @Cog.listener()
     async def on_command_error(self, ctx, error):
         # Try provide some user feedback instead of logging all errors.
 
