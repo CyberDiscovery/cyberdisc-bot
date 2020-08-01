@@ -129,7 +129,7 @@ ELITECOUNT_ENABLED = True
 LOCAL_DEBUGGING = bool(environ.get("LOCAL_DEBUGGING", False))
 
 # Readme command constants
-README_SEND_ALIASES = ["create", "push", "g`enerate", "send", "make", "build", "upload"]
+README_SEND_ALIASES = ["create", "push", "generate", "send", "make", "build", "upload"]
 README_RECV_ALIASES = ["fetch", "get", "pull", "download", "retrieve", "dm", "dl"]
 
 END_README_MESSAGE = (
