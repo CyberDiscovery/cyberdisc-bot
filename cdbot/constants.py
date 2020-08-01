@@ -102,7 +102,7 @@ WELCOME_BOT_ID = 155149108183695360
 
 # General constants
 WELCOME_MESSAGE = "Welcome to the Cyber Discovery discussion discord! Please check the rules, roles and information in #readme to answer any questions, and before you begin."
-WELCOME_CHANNEL = 712465591482580996
+WELCOME_CHANNEL = 411573884597436416
 
 # Misc roles
 HUNDRED_PERCENT_ROLE_ID = 640481360766697482
