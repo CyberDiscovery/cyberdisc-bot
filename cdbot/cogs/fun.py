@@ -40,6 +40,11 @@ from cdbot.constants import (
     FAKE_ROLE_ID,
     LOCAL_DEBUGGING,
     LOGGING_CHANNEL_ID,
+    NEGATIVE_EMOJI,
+    NEUTRAL_EMOJI,
+    POLL_CHANNEL_ID,
+    POLL_WEBHOOK_ID,
+    POSITIVE_EMOJI,
     PostgreSQL,
     QUOTES_BOT_ID,
     QUOTES_CHANNEL_ID,
@@ -101,15 +106,15 @@ class Fun(Cog):
             colour=0xFF0000,
             description="⚠ **Please make sure you have taken the following into account:** ",
         )
-        .set_footer(
+            .set_footer(
             text="To continue with the ping, react \N{THUMBS UP SIGN}, To delete this message and move on,"
-            " react \N{THUMBS DOWN SIGN}"
+                 " react \N{THUMBS DOWN SIGN}"
         )
-        .add_field(
+            .add_field(
             name="Cyber Discovery staff will not provide help for challenges.",
             value="If you're looking for help, feel free to ask questions in one of our topical channels.",
         )
-        .add_field(
+            .add_field(
             name="Make sure you have emailed support before pinging here.",
             value="`support@joincyberdiscovery.com` are available to answer any and all questions!",
         )
@@ -159,7 +164,7 @@ class Fun(Cog):
     async def on_message(self, message: Message):
         # If a new quote is added, add it to the database.
         if message.channel.id == QUOTES_CHANNEL_ID and (
-            message.author.id == QUOTES_BOT_ID or message.mentions is not None
+                message.author.id == QUOTES_BOT_ID or message.mentions is not None
         ):
             await self.add_quote_to_db(message)
             print(f"Message #{message.id} added to database.")
@@ -232,10 +237,10 @@ class Fun(Cog):
 
         # Adds waving emoji when a new user joins.
         if all(
-            (
-                "Welcome to the Cyber Discovery" in message.content,
-                message.author.id == WELCOME_BOT_ID,
-            )
+                (
+                        "Welcome to the Cyber Discovery" in message.content,
+                        message.author.id == WELCOME_BOT_ID,
+                )
         ):
             await message.add_reaction("\N{WAVING HAND SIGN}")
 
@@ -243,10 +248,10 @@ class Fun(Cog):
     async def on_raw_reaction_add(self, raw_reaction: RawReactionActionEvent):
         thumbs_down = "\N{THUMBS DOWN SIGN}"
         if all(
-            (
-                str(raw_reaction.emoji) == thumbs_down,
-                raw_reaction.channel_id == QUOTES_CHANNEL_ID,
-            )
+                (
+                        str(raw_reaction.emoji) == thumbs_down,
+                        raw_reaction.channel_id == QUOTES_CHANNEL_ID,
+                )
         ):
             quotes_channel = self.bot.get_channel(QUOTES_CHANNEL_ID)
             logs_channel = self.bot.get_channel(LOGGING_CHANNEL_ID)
@@ -438,9 +443,9 @@ class Fun(Cog):
                 return await ctx.send(":no_entry_sign: Invalid page number")
 
             for result in await connection.fetch(
-                "SELECT author_id, COUNT(author_id) as quote_count FROM quotes "
-                "GROUP BY author_id ORDER BY quote_count DESC LIMIT 10 OFFSET $1",
-                start_from,
+                    "SELECT author_id, COUNT(author_id) as quote_count FROM quotes "
+                    "GROUP BY author_id ORDER BY quote_count DESC LIMIT 10 OFFSET $1",
+                    start_from,
             ):
                 author, quotes = result.values()
                 users += f"{start_from + current}. <@{author}> - {quotes}\n"
@@ -570,6 +575,27 @@ class Fun(Cog):
         """
         await self.create_text_image(ctx, "AgentJBadHairDay", text)
 
+    # Polls
+    @command()
+    async def suggest(self, ctx: Context, *, poll_question: str):
+        confirm_msg = Embed(
+            description=f":white_check_mark: Your suggestion has been sent to <#{POLL_CHANNEL_ID}> to be voted on.",
+            color=0x6ABE6C)
+        confirm_msg.set_author(name=ctx.message.author.name, icon_url=ctx.message.author.avatar_url)
+        await ctx.send(embed=confirm_msg)
+
+        poll_channel = self.bot.get_channel(POLL_CHANNEL_ID)
+        poll_webhook = await self.bot.fetch_webhook(POLL_WEBHOOK_ID)
+        poll_embed = Embed(description=poll_question, color=0x37A7F3)
+        poll_embed.set_footer(text=f"User ID: {ctx.message.author.id}")
+        poll = await poll_webhook.send(embed=poll_embed, username=ctx.message.author.name,
+                                       avatar_url=ctx.message.author.avatar_url, wait=True)
+        await poll.add_reaction(POSITIVE_EMOJI)
+        await poll.add_reaction(NEUTRAL_EMOJI)
+        await poll.add_reaction(NEGATIVE_EMOJI)
+
+    @command()
+    async def poll(self):
 
 def setup(bot):
     """
