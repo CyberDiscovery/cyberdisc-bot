@@ -39,6 +39,7 @@ from cdbot.constants import (
     CYBERDISC_ICON_URL,
     EMOJI_LETTERS,
     FAKE_ROLE_ID,
+    LOCAL_DEBUGGING,
     LOGGING_CHANNEL_ID,
     PostgreSQL,
     QUOTES_BOT_ID,
@@ -142,15 +143,15 @@ class Fun(Cog):
         if self.fake_staff_role is None:
             self.fake_staff_role = guild.get_role(FAKE_ROLE_ID)
 
-        self.bot.pool = await asyncpg.create_pool(
-            host=PostgreSQL.PGHOST,
-            port=PostgreSQL.PGPORT,
-            user=PostgreSQL.PGUSER,
-            password=PostgreSQL.PGPASSWORD,
-            database=PostgreSQL.PGDATABASE,
-        )
-
-        await self.migrate_quotes()
+        if not LOCAL_DEBUGGING:
+            self.bot.pool = await asyncpg.create_pool(
+                host=PostgreSQL.PGHOST,
+                port=PostgreSQL.PGPORT,
+                user=PostgreSQL.PGUSER,
+                password=PostgreSQL.PGPASSWORD,
+                database=PostgreSQL.PGDATABASE,
+            )
+            await self.migrate_quotes()
 
     @Cog.listener()
     async def on_member_update(self, before, after):
