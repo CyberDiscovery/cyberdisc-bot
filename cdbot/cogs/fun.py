@@ -157,7 +157,7 @@ class Fun(Cog):
         if before.status == Status.offline and after.status == Status.online:
             if any(i.id == STAFF_ROLE_ID for i in after.roles):
                 alert_channel = self.bot.get_channel(LOGGING_CHANNEL_ID)
-                await alert_channel.send("A CD staff member came online :eyes:")
+                await alert_channel.send(f"**{after.name}**, a CD staff member came online :eyes:")
 
     @cooldown(1, 60, BucketType.user)
     @cooldown(4, 60, BucketType.channel)
