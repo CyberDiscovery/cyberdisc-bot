@@ -1,5 +1,6 @@
 import os
 
+from cdbot.constants import WELCOME_MESSAGE, WELCOME_CHANNEL
 from discord.ext import commands
 from discord.ext.commands import Bot, Cog
 from git import Repo
@@ -36,11 +37,15 @@ class General(Cog):
 
     @Cog.listener()
     async def on_member_join(self, member):
-        join_msg_channel = self.bot.get_channel(411573884597436416)
-        join_msg = await join_msg_channel.send(f"{member.mention}, Welcome to the Cyber Discovery discussion discord! "
-                                               f"Please check the rules, roles and information in #readme to answer "
-                                               f"any questions, and before you begin.")
+        join_msg_channel = self.bot.get_channel(WELCOME_CHANNEL)
+        join_msg = await join_msg_channel.send(f"{member.mention}, {WELCOME_MESSAGE}")
         await join_msg.add_reaction('👋')
+
+    @Cog.listener()
+    async def on_member_remove(self, member):
+        leave_msg_channel = self.bot.get_channel(WELCOME_CHANNEL)
+        await leave_msg_channel.send(f"**{member}** just left Cyber Discovery. Bye bye **{member}**...")
+
 
     @Cog.listener()
     async def on_command_error(self, ctx, error):

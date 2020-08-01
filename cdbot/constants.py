@@ -100,6 +100,10 @@ QUOTES_BOT_ID = 292953664492929025
 LOGGING_CHANNEL_ID = int(environ.get("LOGGING_CHANNEL_ID", "538494690601992212"))
 WELCOME_BOT_ID = 155149108183695360
 
+# General constants
+WELCOME_MESSAGE = "Welcome to the Cyber Discovery discussion discord! Please check the rules, roles and information in #readme to answer any questions, and before you begin."
+WELCOME_CHANNEL = 712465591482580996
+
 # Misc roles
 HUNDRED_PERCENT_ROLE_ID = 640481360766697482
 TRUE_HUNDRED_PERCENT_ROLE_ID = 640481628292120576
@@ -125,7 +129,7 @@ ELITECOUNT_ENABLED = True
 LOCAL_DEBUGGING = bool(environ.get("LOCAL_DEBUGGING", False))
 
 # Readme command constants
-README_SEND_ALIASES = ["create", "push", "generate", "send", "make", "build", "upload"]
+README_SEND_ALIASES = ["create", "push", "g`enerate", "send", "make", "build", "upload"]
 README_RECV_ALIASES = ["fetch", "get", "pull", "download", "retrieve", "dm", "dl"]
 
 END_README_MESSAGE = (
