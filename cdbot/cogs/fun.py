@@ -584,7 +584,6 @@ class Fun(Cog):
         confirm_msg.set_author(name=ctx.message.author.name, icon_url=ctx.message.author.avatar_url)
         await ctx.send(embed=confirm_msg)
 
-        poll_channel = self.bot.get_channel(POLL_CHANNEL_ID)
         poll_webhook = await self.bot.fetch_webhook(POLL_WEBHOOK_ID)
         poll_embed = Embed(description=poll_question, color=0x37A7F3)
         poll_embed.set_footer(text=f"User ID: {ctx.message.author.id}")
