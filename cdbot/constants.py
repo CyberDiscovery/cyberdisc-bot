@@ -113,7 +113,7 @@ ADMIN_MENTOR_ROLE_ID = 502238208747110411
 ROOT_ROLE_ID = int(environ.get("ROOT_MEMBERS_ID", "450113490590629888"))
 SUDO_ROLE_ID = int(environ.get("SUDO_MEMBERS_ID", "450113682542952451"))
 ADMIN_ROLES = ("Root", "Sudo")
-BANNED_DOMAINS = ["discord.gg"]
+BANNED_DOMAINS = ["discord.gg", "discord.com"]
 
 
 HINTS_LIMIT = 8
@@ -144,7 +144,7 @@ BASE_ALIASES = {
 # Admin Constants
 PLACEHOLDER_NICKNAME = "Valued server member"
 NICKNAME_PATTERNS = [
-    r"(discord\.gg/)",  # invite links
+    r"(discord\.gg/|discord\.com/invite/)",  # invite links
     r"(nigg|ligma|fag|nazi|hitler|\bpaki\b)",  # banned words
     r"(http(s)?:\/\/.)?(www\.)?[-a-zA-Z0-9@:%._\+~#=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_\+.~#?&//=]*)",  # hyperlinks
 ]
