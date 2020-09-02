@@ -260,14 +260,21 @@ class Fun(Cog):
                         "DELETE FROM quotes WHERE quote_id = $1", reaction.message.id
                     )
                 mentions = ", ".join([user.mention async for user in reaction.users()])
-                for quote_embed in reaction.message.embeds:
-                    embed = Embed(
-                        color=Colour.blue(),
-                        title="Quote Deleted",
-                        description=quote_embed.description
-                    )
-                    embed.add_field(name="Deleted By", value=mentions)
-                    embed.set_author(name=quote_embed.author.name, icon_url=quote_embed.author.icon_url)
+                
+                embed = Embed(
+                    color=Colour.blue(),
+                    title="Quote Deleted"
+                )
+                if reaction.message.embeds:
+                    quote_embed = reaction.message.embeds[-1] # Using last item has same effect as for loop
+                    quote_auth = quote_embed.author
+                    embed.description = quote_embed.description
+                else: # message doesn't have an embed, MUST be from a user
+                    quote_auth = message.author
+                    embed.description = message.content
+                
+                embed.add_field(name="Deleted By", value=mentions)
+                embed.set_author(name=quote_auth.name, icon_url=quote_auth.icon_url)
 
                 await reaction.message.delete()
                 await logs_channel.send(embed=embed)
