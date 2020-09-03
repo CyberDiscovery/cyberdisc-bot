@@ -267,14 +267,12 @@ class Fun(Cog):
                 )
                 if reaction.message.embeds:
                     quote_embed = reaction.message.embeds[-1]  # Using last item has same effect as for loop
-                    quote_auth = quote_embed.author
                     embed.description = quote_embed.description
+                    embed.set_author(name=quote_embed.author.name, icon_url=quote_embed.author.icon_url)
                 else:  # message doesn't have an embed, MUST be from a user
-                    quote_auth = message.author
                     embed.description = message.content
-
+                    embed.set_author(name=message.author.name, icon_url=message.author.avatar_url)
                 embed.add_field(name="Deleted By", value=mentions)
-                embed.set_author(name=quote_auth.name, icon_url=quote_auth.icon_url)
 
                 await reaction.message.delete()
                 await logs_channel.send(embed=embed)
