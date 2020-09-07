@@ -56,8 +56,7 @@ class Cyber(Cog):
         ),
         (
             r"^.*\bgame\b.*\b(end|finish|close)\b.*$",
-            "CyberStart Game ends on the 31st March 2021 for those participating in Year 4 of "
-            "Cyber Discovery, or the 31st August 2020 for those participating in the Virtual Cyber School.",
+            "CyberStart Game ends on the 31st March 2021.",
         ),
         # Essentials dates
         (
@@ -76,7 +75,7 @@ class Cyber(Cog):
         ),
         (
             r"^.*\belite\b.*\bstart\b.*$",
-            "CyberStart Elite Y3 will run throughout 27th July - 8th August. Y4 dates are yet to be announced.",
+            "CyberStart Elite Year 4 dates are yet to be announced.",
         ),
         (
             r"^.*\bwhat\b.*\belite\b.*\bemail\b.*$",
