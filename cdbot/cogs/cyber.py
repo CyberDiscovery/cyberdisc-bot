@@ -48,7 +48,7 @@ class Cyber(Cog):
         ),
         (
             r"^.*\bassess\b.*\b(end|finish|close)\b.*$",
-            "CyberStart Assess ends on the 30th September 2020.",
+            "CyberStart Assess ends on the 31st October 2020.",
         ),
         # Game dates
         (
