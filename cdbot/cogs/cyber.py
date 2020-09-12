@@ -63,7 +63,7 @@ class Cyber(Cog):
         # Essentials dates
         (
             r"^.*\bessentials\b.*\b(start|begin|open)\b.*$",
-            "CyberStart Essentials begins on the 15th September 2020.",
+            "CyberStart Essentials begins on the 16th November 2020.",
         ),
         (
             r"^.*\bessentials\b.*\b(end|finish|close)\b.*$",
