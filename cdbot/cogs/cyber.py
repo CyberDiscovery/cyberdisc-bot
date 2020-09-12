@@ -15,6 +15,7 @@ from discord.ext.commands import Bot, Cog, Context, command, has_role
 
 from cdbot.constants import (
     BASE_ALIASES,
+    CHEATING_VIDEO,
     CYBERDISC_ICON_URL,
     ELITECOUNT_ENABLED,
     END_README_MESSAGE,
@@ -167,10 +168,17 @@ class Cyber(Cog):
             content = "13.1 is a No Flag Zone™ 🙅⛔⚔️"
         else:
             # Generates random, but unique and identical per challenge, base 64 "flag"
-            content = (
-                "The flag is:"
-                f"||{await generatebase64(ord(base[0]) + level_num + challenge_num)}||"
-            )
+            if random.randint(1, 5) == 5:
+
+                return await ctx.send(
+                    "The flag is: "
+                    f"||{CHEATING_VIDEO}||"
+                )
+            else:
+                content = (
+                    "The flag is:"
+                    f"||{await generatebase64(ord(base[0]) + level_num + challenge_num)}||"
+                )
 
         embed = Embed(
             title=(f"{base} - Level {level_num} Challenge {challenge_num}"),

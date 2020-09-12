@@ -184,3 +184,5 @@ EMOJI_LETTERS = [
     "\U000021aa",  # (
     "\U000021a9",  # )
 ]
+
+CHEATING_VIDEO = "https://game.joincyberdiscovery.com/assets/videos/cheating_message.mp4?version=4.2.0"
