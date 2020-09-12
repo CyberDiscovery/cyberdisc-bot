@@ -488,20 +488,21 @@ class Fun(Cog):
         else:
             author_id = quote.mentions[0].id if quote.mentions else None
 
-        async with self.bot.pool.acquire() as connection:
-            if author_id is not None:
-                await connection.execute(
-                    "INSERT INTO quotes(quote_id, author_id) VALUES($1, $2) ON CONFLICT DO NOTHING",
-                    quote.id,
-                    author_id,
-                )
-            else:
-                await connection.execute(
-                    "INSERT INTO quotes(quote_id) VALUES($1) ON CONFLICT DO NOTHING",
-                    quote.id,
-                )
+        if not LOCAL_DEBUGGING:
+            async with self.bot.pool.acquire() as connection:
+                if author_id is not None:
+                    await connection.execute(
+                        "INSERT INTO quotes(quote_id, author_id) VALUES($1, $2) ON CONFLICT DO NOTHING",
+                        quote.id,
+                        author_id,
+                    )
+                else:
+                    await connection.execute(
+                        "INSERT INTO quotes(quote_id) VALUES($1) ON CONFLICT DO NOTHING",
+                        quote.id,
+                    )
 
-        print(f"Quote ID: {quote.id} has been added to the database.")
+            print(f"Quote ID: {quote.id} has been added to the database.")
 
     async def create_text_image(self, ctx: Context, person: str, text: str):
         """
