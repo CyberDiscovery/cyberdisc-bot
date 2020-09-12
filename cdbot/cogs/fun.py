@@ -255,10 +255,11 @@ class Fun(Cog):
                 react for react in message.reactions if str(react.emoji) == thumbs_down
             ][0]
             if reaction.count >= QUOTES_DELETION_QUOTA:
-                async with self.bot.pool.acquire() as connection:
-                    await connection.execute(
-                        "DELETE FROM quotes WHERE quote_id = $1", reaction.message.id
-                    )
+                if not LOCAL_DEBUGGING:
+                    async with self.bot.pool.acquire() as connection:
+                        await connection.execute(
+                            "DELETE FROM quotes WHERE quote_id = $1", reaction.message.id
+                        )
                 mentions = ", ".join([user.mention async for user in reaction.users()])
 
                 embed = Embed(
