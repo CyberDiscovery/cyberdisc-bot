@@ -9,6 +9,7 @@ from random import randint
 from string import ascii_lowercase
 from typing import List
 from urllib.parse import urlencode
+from randfacts import getFact
 
 import asyncpg
 from PIL import Image, ImageDraw, ImageFont
@@ -576,6 +577,19 @@ class Fun(Cog):
         Creates an image of Bald Agent J with the specified text.
         """
         await self.create_text_image(ctx, "AgentJBadHairDay", text)
+        
+    @command()
+    async def randomfact(self, ctx: Context, *, text: str):
+        """
+        Returns a random Fun fact.
+        """
+        randomfact = getFact(True)
+        await ctx.send(embed=Embed(
+            title="Did You Know?",
+            description=randomfact["text"],
+            color=Color.blurple()
+        ))
+    
 
 
 def setup(bot):
