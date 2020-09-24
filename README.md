@@ -49,7 +49,7 @@ Or on Windows:
 poetry install
 ```
 
-If you don't already have the required Python version (currently 3.7.2) installed, install [pyenv](https://github.com/pyenv/pyenv) before running the above commands.
+If you don't already have the required Python version (currently 3.8+) installed, install [pyenv](https://github.com/pyenv/pyenv) before running the above commands.
 
 You will then need to set the bot token as an environment variable:
 
