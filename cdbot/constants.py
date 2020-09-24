@@ -94,7 +94,7 @@ BOT_TOKEN = getenv("BOT_TOKEN")
 SENTRY_URL = getenv("SENTRY_URL")
 
 # Fun constants
-QUOTES_DELETION_QUOTA = 10
+QUOTES_DELETION_QUOTA = int(environ.get("QUOTES_DELETION_QUOTA", "10"))
 QUOTES_CHANNEL_ID = int(environ.get("QUOTES_CHANNEL_ID", "463657120441696256"))
 QUOTES_BOT_ID = 292953664492929025
 LOGGING_CHANNEL_ID = int(environ.get("LOGGING_CHANNEL_ID", "538494690601992212"))
@@ -184,3 +184,5 @@ EMOJI_LETTERS = [
     "\U000021aa",  # (
     "\U000021a9",  # )
 ]
+
+CHEATING_VIDEO = "https://game.joincyberdiscovery.com/assets/videos/cheating_message.mp4?version=4.2.0"
