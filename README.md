@@ -49,7 +49,7 @@ Or on Windows:
 poetry install
 ```
 
-If you don't already have the required Python version (currently 3.7.2) installed, install [pyenv](https://github.com/pyenv/pyenv) before running the above commands.
+If you don't already have the required Python version (currently 3.8+) installed, install [pyenv](https://github.com/pyenv/pyenv) before running the above commands.
 
 You will then need to set the bot token as an environment variable:
 
@@ -90,6 +90,7 @@ Finally, run the command `poetry run cdbot` in the root of the repository to run
 * **`:agentq [text]`** - Creates an image of Agent Q with the specified text.
 * **`:angryj [text]`** - Creates an image of Angry Agent J with the specified text.
 * **`:angrylyne [text]`** - Creates an image of Angry James Lyne with the specified text.
+* **`:baldj [text]`** - Creates an image of Bald James Lyne with the specified text.
 * **`:jibhat [text]`** - Creates an image of Jibhat with the specified text.
 * **`:lmgtfy [-d][-ie] [search]`** - Returns a LMGTFY URL for the given question.  Adding `-d` will delete the message that instigated the command and `-ie` will enable the internet explainer feature on lmgtfy.
 * **`:hundred`** - Returns the number of people who have completed all of CyberStart Game.
