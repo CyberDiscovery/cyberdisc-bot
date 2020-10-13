@@ -2,7 +2,7 @@ import os
 
 from discord import Colour, Embed
 from discord.ext import commands
-from discord.ext.commands import Bot, Cog
+from discord.ext.commands import Bot, Context, Cog
 from git import Repo
 
 from cdbot.constants import WELCOME_CHANNEL_ID, WELCOME_MESSAGE
@@ -42,7 +42,7 @@ class General(Cog):
         join_msg_channel = self.bot.get_channel(WELCOME_CHANNEL_ID)
         join_msg = await join_msg_channel.send(f"{member.mention}, {WELCOME_MESSAGE}")
         await join_msg.add_reaction('👋')
-        WELCOME_EMBED = Embed(
+        welcome_embed = Embed(
             color=Colour.blue(),
             title="Welcome to the Cyber Discovery Server!",
             url="https://cyberdiscoverycommunity.uk",
@@ -53,8 +53,10 @@ class General(Cog):
                          "groups. To get "
                          "access, run the corresponding commands in <#409860647170342919>:\n```.rank Year 9\n.rank Year"
                          " 10\n.rank Year 11\n.rank Year 12\n.rank Year 13\n.rank Technically Adults``` "))
-        WELCOME_EMBED.set_author(name="Cyber Discovery")
-        await member.send("- Sent from the Cyber Discovery server.", embed=WELCOME_EMBED)
+        welcome_embed.set_author(name="Cyber Discovery", icon_url="https://cdn.discordapp.com/icons"
+                                                                  "/409851296116375565"
+                                                                  "/a981f6834a403ea72b8aa80cd91eee26.webp")
+        await member.send("- Sent from the Cyber Discovery server.", embed=welcome_embed)
 
     @Cog.listener()
     async def on_member_remove(self, member):
