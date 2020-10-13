@@ -5,7 +5,7 @@ from discord.ext import commands
 from discord.ext.commands import Bot, Cog
 from git import Repo
 
-from cdbot.constants import WELCOME_CHANNEL, WELCOME_MESSAGE
+from cdbot.constants import WELCOME_MESSAGE
 
 path = os.path.dirname(os.path.abspath(__file__))
 path = "/".join(path.split("/")[:-2])
