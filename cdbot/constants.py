@@ -94,7 +94,7 @@ BOT_TOKEN = getenv("BOT_TOKEN")
 SENTRY_URL = getenv("SENTRY_URL")
 
 # Fun constants
-QUOTES_DELETION_QUOTA = 10
+QUOTES_DELETION_QUOTA = int(environ.get("QUOTES_DELETION_QUOTA", "10"))
 QUOTES_CHANNEL_ID = int(environ.get("QUOTES_CHANNEL_ID", "463657120441696256"))
 QUOTES_BOT_ID = 292953664492929025
 LOGGING_CHANNEL_ID = int(environ.get("LOGGING_CHANNEL_ID", "538494690601992212"))
@@ -118,7 +118,7 @@ ADMIN_MENTOR_ROLE_ID = 502238208747110411
 ROOT_ROLE_ID = int(environ.get("ROOT_MEMBERS_ID", "450113490590629888"))
 SUDO_ROLE_ID = int(environ.get("SUDO_MEMBERS_ID", "450113682542952451"))
 ADMIN_ROLES = ("Root", "Sudo")
-BANNED_DOMAINS = ["discord.gg"]
+BANNED_DOMAINS = ["discord.gg", "discord.com"]
 
 HINTS_LIMIT = 8
 CYBERDISC_ICON_URL = (
@@ -148,7 +148,7 @@ BASE_ALIASES = {
 # Admin Constants
 PLACEHOLDER_NICKNAME = "Valued server member"
 NICKNAME_PATTERNS = [
-    r"(discord\.gg/)",  # invite links
+    r"(discord\.gg/|discord\.com/invite/)",  # invite links
     r"(nigg|ligma|fag|nazi|hitler|\bpaki\b)",  # banned words
     r"(http(s)?:\/\/.)?(www\.)?[-a-zA-Z0-9@:%._\+~#=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_\+.~#?&//=]*)",  # hyperlinks
 ]
@@ -188,3 +188,5 @@ EMOJI_LETTERS = [
     "\U000021aa",  # (
     "\U000021a9",  # )
 ]
+
+CHEATING_VIDEO = "https://game.joincyberdiscovery.com/assets/videos/cheating_message.mp4?version=4.2.0"
