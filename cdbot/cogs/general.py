@@ -1,6 +1,6 @@
 import os
 
-
+from discord import Colour, Embed
 from discord.ext import commands
 from discord.ext.commands import Bot, Cog
 from git import Repo
@@ -42,11 +42,30 @@ class General(Cog):
         join_msg_channel = self.bot.get_channel(WELCOME_CHANNEL_ID)
         join_msg = await join_msg_channel.send(f"{member.mention}, {WELCOME_MESSAGE}")
         await join_msg.add_reaction('👋')
+        WELCOME_EMBED = Embed(
+                        color=Colour.blue(),
+                        title="Welcome to the Cyber Discovery Server!",
+                        url="https://cyberdiscoverycommunity.uk",
+                        description="""Welcome to the Cyber Discovery Community server! Please take a moment to read 
+                        the rules in <#409853512185282561> and click the link above to check out our website! Have a 
+                        good one! 
+
+                Whilst you do have access to most channels, there are hidden channels for school year groups. To get 
+                access, run the corresponding commands in <#409860647170342919>: ```.rank Year 9 .rank Year 10 .rank 
+                Year 11 .rank Year 12 .rank Year 13 .rank Technically Adults``` """
+        )
+        WELCOME_EMBED.set_author(name="Cyber Discovery")
+        await member.send("-fsdsdf", embed=WELCOME_EMBED)
 
     @Cog.listener()
     async def on_member_remove(self, member):
         leave_msg_channel = self.bot.get_channel(WELCOME_CHANNEL_ID)
-        await leave_msg_channel.send(f"**{member}** just left Cyber Discovery. Bye bye **{member}**...")
+        await leave_msg_channel.send(f"**{member}** just left **Cyber Discovery**. Bye bye **{member}**...")
+
+    @Cog.listener()
+    async def on_member_ban(self, guild, user):
+        ban_msg_channel = self.bot.get_channel(WELCOME_CHANNEL_ID)
+        await ban_msg_channel.send(f"**{user}** was banned...")
 
     @Cog.listener()
     async def on_command_error(self, ctx, error):
