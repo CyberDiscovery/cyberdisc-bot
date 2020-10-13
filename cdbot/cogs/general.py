@@ -39,13 +39,13 @@ class General(Cog):
 
     @Cog.listener()
     async def on_member_join(self, member):
-        join_msg_channel = self.bot.get_channel(WELCOME_CHANNEL)
+        join_msg_channel = self.bot.get_channel(411573884597436416)
         join_msg = await join_msg_channel.send(f"{member.mention}, {WELCOME_MESSAGE}")
         await join_msg.add_reaction('👋')
 
     @Cog.listener()
     async def on_member_remove(self, member):
-        leave_msg_channel = self.bot.get_channel(WELCOME_CHANNEL)
+        leave_msg_channel = self.bot.get_channel(411573884597436416)
         await leave_msg_channel.send(f"**{member}** just left Cyber Discovery. Bye bye **{member}**...")
 
     @Cog.listener()

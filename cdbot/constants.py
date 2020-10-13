@@ -101,10 +101,8 @@ LOGGING_CHANNEL_ID = int(environ.get("LOGGING_CHANNEL_ID", "538494690601992212")
 WELCOME_BOT_ID = 155149108183695360
 
 # General constants
-WELCOME_MESSAGE = "Welcome to the Cyber Discovery discussion discord! Please check the rules, roles and information " \
-                  "in <#409853512185282561> to answer any questions, and before you begin. "
-WELCOME_CHANNEL = 411573884597436416
-
+WELCOME_MESSAGE = ("Welcome to the Cyber Discovery discussion discord! Please check the rules, roles and information in"
+                   " <#409853512185282561> to answer any questions, and before you begin.")
 # Misc roles
 HUNDRED_PERCENT_ROLE_ID = 640481360766697482
 TRUE_HUNDRED_PERCENT_ROLE_ID = 640481628292120576
@@ -119,7 +117,6 @@ ROOT_ROLE_ID = int(environ.get("ROOT_MEMBERS_ID", "450113490590629888"))
 SUDO_ROLE_ID = int(environ.get("SUDO_MEMBERS_ID", "450113682542952451"))
 ADMIN_ROLES = ("Root", "Sudo")
 BANNED_DOMAINS = ["discord.gg"]
-
 
 HINTS_LIMIT = 8
 CYBERDISC_ICON_URL = (
