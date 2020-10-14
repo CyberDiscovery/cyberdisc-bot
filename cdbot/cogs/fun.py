@@ -260,19 +260,25 @@ class Fun(Cog):
                 react for react in message.reactions if str(react.emoji) == thumbs_down
             ][0]
             if reaction.count >= QUOTES_DELETION_QUOTA:
-                async with self.bot.pool.acquire() as connection:
-                    await connection.execute(
-                        "DELETE FROM quotes WHERE quote_id = $1", reaction.message.id
-                    )
-                mentions = ", ".join(user.mention async for user in reaction.users())
-                for quote_embed in reaction.message.embeds:
-                    embed = Embed(
-                        color=Colour.blue(),
-                        title="Quote Deleted",
-                        description=quote_embed.description
-                    )
-                    embed.add_field(name="Deleted By", value=mentions)
+                if not LOCAL_DEBUGGING:
+                    async with self.bot.pool.acquire() as connection:
+                        await connection.execute(
+                            "DELETE FROM quotes WHERE quote_id = $1", reaction.message.id
+                        )
+                mentions = ", ".join([user.mention async for user in reaction.users()])
+
+                embed = Embed(
+                    color=Colour.blue(),
+                    title="Quote Deleted"
+                )
+                if reaction.message.embeds:
+                    quote_embed = reaction.message.embeds[-1]  # Using last item has same effect as for loop
+                    embed.description = quote_embed.description
                     embed.set_author(name=quote_embed.author.name, icon_url=quote_embed.author.icon_url)
+                else:  # message doesn't have an embed, MUST be from a user
+                    embed.description = message.content
+                    embed.set_author(name=message.author.name, icon_url=message.author.avatar_url)
+                embed.add_field(name="Deleted By", value=mentions)
 
                 await reaction.message.delete()
                 await logs_channel.send(embed=embed)
@@ -487,20 +493,21 @@ class Fun(Cog):
         else:
             author_id = quote.mentions[0].id if quote.mentions else None
 
-        async with self.bot.pool.acquire() as connection:
-            if author_id is not None:
-                await connection.execute(
-                    "INSERT INTO quotes(quote_id, author_id) VALUES($1, $2) ON CONFLICT DO NOTHING",
-                    quote.id,
-                    author_id,
-                )
-            else:
-                await connection.execute(
-                    "INSERT INTO quotes(quote_id) VALUES($1) ON CONFLICT DO NOTHING",
-                    quote.id,
-                )
+        if not LOCAL_DEBUGGING:
+            async with self.bot.pool.acquire() as connection:
+                if author_id is not None:
+                    await connection.execute(
+                        "INSERT INTO quotes(quote_id, author_id) VALUES($1, $2) ON CONFLICT DO NOTHING",
+                        quote.id,
+                        author_id,
+                    )
+                else:
+                    await connection.execute(
+                        "INSERT INTO quotes(quote_id) VALUES($1) ON CONFLICT DO NOTHING",
+                        quote.id,
+                    )
 
-        print(f"Quote ID: {quote.id} has been added to the database.")
+            print(f"Quote ID: {quote.id} has been added to the database.")
 
     async def create_text_image(self, ctx: Context, person: str, text: str):
         """

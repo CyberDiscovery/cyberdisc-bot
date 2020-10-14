@@ -15,6 +15,7 @@ from discord.ext.commands import Bot, Cog, Context, command, has_role
 
 from cdbot.constants import (
     BASE_ALIASES,
+    CHEATING_VIDEO,
     CYBERDISC_ICON_URL,
     ELITECOUNT_ENABLED,
     END_README_MESSAGE,
@@ -47,7 +48,7 @@ class Cyber(Cog):
         ),
         (
             r"^.*\bassess\b.*\b(end|finish|close)\b.*$",
-            "CyberStart Assess ends on the 30th September 2020.",
+            "CyberStart Assess ends on the 31st October 2020.",
         ),
         # Game dates
         (
@@ -56,13 +57,12 @@ class Cyber(Cog):
         ),
         (
             r"^.*\bgame\b.*\b(end|finish|close)\b.*$",
-            "CyberStart Game ends on the 31st March 2021 for those participating in Year 4 of "
-            "Cyber Discovery, or the 31st August 2020 for those participating in the Virtual Cyber School.",
+            "CyberStart Game ends on the 31st March 2021.",
         ),
         # Essentials dates
         (
             r"^.*\bessentials\b.*\b(start|begin|open)\b.*$",
-            "CyberStart Essentials begins on the 15th September 2020.",
+            "CyberStart Essentials begins on the 16th November 2020.",
         ),
         (
             r"^.*\bessentials\b.*\b(end|finish|close)\b.*$",
@@ -76,7 +76,7 @@ class Cyber(Cog):
         ),
         (
             r"^.*\belite\b.*\bstart\b.*$",
-            "CyberStart Elite Y3 will run throughout 27th July - 8th August. Y4 dates are yet to be announced.",
+            "CyberStart Elite Year 4 dates are yet to be announced.",
         ),
         (
             r"^.*\bwhat\b.*\belite\b.*\bemail\b.*$",
@@ -167,10 +167,17 @@ class Cyber(Cog):
             content = "13.1 is a No Flag Zone™ 🙅⛔⚔️"
         else:
             # Generates random, but unique and identical per challenge, base 64 "flag"
-            content = (
-                "The flag is:"
-                f"||{await generatebase64(ord(base[0]) + level_num + challenge_num)}||"
-            )
+            if random.randint(1, 5) == 5:
+
+                return await ctx.send(
+                    "The flag is: "
+                    f"||{CHEATING_VIDEO}||"
+                )
+            else:
+                content = (
+                    "The flag is:"
+                    f"||{await generatebase64(ord(base[0]) + level_num + challenge_num)}||"
+                )
 
         embed = Embed(
             title=(f"{base} - Level {level_num} Challenge {challenge_num}"),
