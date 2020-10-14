@@ -578,18 +578,21 @@ class Fun(Cog):
         await self.create_text_image(ctx, "AgentJBadHairDay", text)
 
     @command()
-    async def cma(self, ctx: Context, *, section: str = None):
+    async def cma(self, ctx: Context, *, section: int = None):
         """
-        Returns a link to the Computer Misuse Act or a screenshot of a specific section.
+        Returns a link to the Computer Misuse Act or a screenshot of one of the first three sections.
         """
-        if section == "1":
+        if section == 1:
             await ctx.send("https://cdn.discordapp.com/attachments/450107193820446722/492649412560945164/unknown.png")
-        elif section == "2":
+        elif section == 2:
             await ctx.send("https://cdn.discordapp.com/attachments/450107193820446722/492649644623659014/unknown.png")
-        elif section == "3":
+        elif section == 3:
             await ctx.send("https://cdn.discordapp.com/attachments/450107193820446722/492649912035573770/unknown.png")
         elif section is None:
             await ctx.send("https://www.legislation.gov.uk/ukpga/1990/18/contents")
+        else:
+            await ctx.send("That section is not in our database. The full Computer Misuse Act can be read at: "
+                           "https://www.legislation.gov.uk/ukpga/1990/18/contents")
 
 
 def setup(bot):
