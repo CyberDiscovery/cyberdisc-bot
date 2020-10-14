@@ -580,7 +580,7 @@ class Fun(Cog):
     @command()
     async def cma(self, ctx: Context):
         """
-        Returns a link to the Computer Misuse Act
+        Returns a link to the Computer Misuse Act.
         """
         await ctx.send("https://www.legislation.gov.uk/ukpga/1990/18/contents")
 
