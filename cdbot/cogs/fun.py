@@ -101,15 +101,15 @@ class Fun(Cog):
             colour=0xFF0000,
             description="⚠ **Please make sure you have taken the following into account:** ",
         )
-            .set_footer(
+        .set_footer(
             text="To continue with the ping, react \N{THUMBS UP SIGN}, To delete this message and move on,"
                  " react \N{THUMBS DOWN SIGN}"
         )
-            .add_field(
+        .add_field(
             name="Cyber Discovery staff will not provide help for challenges.",
             value="If you're looking for help, feel free to ask questions in one of our topical channels.",
         )
-            .add_field(
+        .add_field(
             name="Make sure you have emailed support before pinging here.",
             value="`support@joincyberdiscovery.com` are available to answer any and all questions!",
         )
@@ -159,7 +159,7 @@ class Fun(Cog):
     async def on_message(self, message: Message):
         # If a new quote is added, add it to the database.
         if message.channel.id == QUOTES_CHANNEL_ID and (
-                message.author.id == QUOTES_BOT_ID or message.mentions is not None
+            message.author.id == QUOTES_BOT_ID or message.mentions is not None
         ):
             await self.add_quote_to_db(message)
             print(f"Message #{message.id} added to database.")
@@ -232,10 +232,10 @@ class Fun(Cog):
 
         # Adds waving emoji when a new user joins.
         if all(
-                (
-                        "Welcome to the Cyber Discovery" in message.content,
-                        message.author.id == WELCOME_BOT_ID,
-                )
+            (
+                "Welcome to the Cyber Discovery" in message.content,
+                message.author.id == WELCOME_BOT_ID,
+            )
         ):
             await message.add_reaction("\N{WAVING HAND SIGN}")
 
