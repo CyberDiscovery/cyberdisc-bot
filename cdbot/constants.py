@@ -99,15 +99,16 @@ QUOTES_CHANNEL_ID = int(environ.get("QUOTES_CHANNEL_ID", "463657120441696256"))
 QUOTES_BOT_ID = 292953664492929025
 LOGGING_CHANNEL_ID = int(environ.get("LOGGING_CHANNEL_ID", "538494690601992212"))
 WELCOME_BOT_ID = 155149108183695360
-POLL_WEBHOOK_ID = None
+POLL_CHANNEL_ID = int(environ.get("POLL_CHANNEL_ID", "574878887625097227"))
+POLL_WEBHOOK_ID = int(environ.get("POLL_WEBHOOK_ID"))
+POSITIVE_EMOJI = str(environ.get("POSITIVE_EMOJI", "<:this:586246261552840705>"))
+NEUTRAL_EMOJI = str(environ.get("NEUTRAL_EMOJI", "<:somewhatthis:639201446356713502>"))
+NEGATIVE_EMOJI = str(environ.get("NEGATIVE_EMOJI", "<:notthis:485489378999926794>"))
 
 # General constants
 WELCOME_MESSAGE = ("Welcome to the Cyber Discovery discussion discord! Please check the rules, roles and information in"
                    " <#409853512185282561> to answer any questions, and before you begin.")
 WELCOME_CHANNEL_ID = int(environ.get("WELCOME_CHANNEL_ID", "411573884597436416"))
-POSITIVE_EMOJI = None
-NEUTRAL_EMOJI = None
-NEGATIVE_EMOJI = None
 
 # Misc roles
 HUNDRED_PERCENT_ROLE_ID = 640481360766697482
