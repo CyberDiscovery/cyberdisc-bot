@@ -577,6 +577,13 @@ class Fun(Cog):
         """
         await self.create_text_image(ctx, "AgentJBadHairDay", text)
 
+    @command()
+    async def cma(self, ctx: Context):
+        """
+        Returns a link to the Computer Misuse Act
+        """
+        await ctx.send("https://www.legislation.gov.uk/ukpga/1990/18/contents")
+
 
 def setup(bot):
     """
