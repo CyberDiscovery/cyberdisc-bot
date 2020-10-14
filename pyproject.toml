@@ -14,7 +14,7 @@ asyncpg = "^0.21.0"
 sentry-sdk = "^0.18.0"
 Pillow = "^7.2"
 gitpython = "^3"
-httpx = "^0.15.5"
+httpx = "^0.16.1"
 html2markdown = "^0.1.7"
 aiocontextvars = "^0.2.2"
 
