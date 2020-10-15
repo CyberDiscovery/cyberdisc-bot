@@ -99,7 +99,7 @@ QUOTES_CHANNEL_ID = int(environ.get("QUOTES_CHANNEL_ID", "463657120441696256"))
 QUOTES_BOT_ID = 292953664492929025
 LOGGING_CHANNEL_ID = int(environ.get("LOGGING_CHANNEL_ID", "538494690601992212"))
 WELCOME_BOT_ID = 155149108183695360
-
+# lol stop being weird azure
 # General constants
 WELCOME_MESSAGE = ("Welcome to the Cyber Discovery discussion discord! Please check the rules, roles and information in"
                    " <#409853512185282561> to answer any questions, and before you begin.")
