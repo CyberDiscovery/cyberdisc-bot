@@ -10,8 +10,8 @@ class EmbeddedHelpCommand(commands.HelpCommand):
         ctx = self.context
         embed = Embed(
             color=Colour.blue(),
-            description=("Type ``:help command`` for more info on a command.\n"
-                         "You can also type ``:help [category]`` for more info on a category.")
+            description=f"Type ``{self.clean_prefix}help command`` for more info on a command.\n""You can also type "
+                        f"``{self.clean_prefix}help [category]`` for more info on a category."
         )
         for cog in mapping.keys():
             if cog is not None:
@@ -26,8 +26,8 @@ class EmbeddedHelpCommand(commands.HelpCommand):
         embed = Embed(
             color=Colour.blue(),
             title=cog.description,
-            description=("Type ``:help command`` for more info on a command.\n"
-                         "You can also type ``:help category`` for more info on a different category.")
+            description=f"Type ``{self.clean_prefix}help command`` for more info on a command.\n You can also type "
+                        f"``{self.clean_prefix}help category`` for more info on a different category."
         )
         for command in cog.get_commands():
             embed.add_field(name=f"``{self.clean_prefix}{command.name}``", value=command.help)
