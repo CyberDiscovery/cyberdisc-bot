@@ -41,8 +41,9 @@ class EmbeddedHelpCommand(commands.HelpCommand):
             title=f"``{self.clean_prefix}{command.name}``",
             description=command.help
         )
-        embed.add_field(name="Usage", value=str(f"``{self.clean_prefix}{command.name} {command.signature}``"),
+        embed.add_field(name="Usage", value=f"``{self.clean_prefix}{command.name} {command.signature}``",
                         inline=False)
+        embed.add_field(name="Aliases", value=", ".join(f'``:{alias}``' for alias in command.aliases), inline=False)
 
         await ctx.send(embed=embed)
 
