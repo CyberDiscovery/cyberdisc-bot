@@ -27,7 +27,7 @@ class EmbeddedHelpCommand(commands.HelpCommand):
             color=Colour.blue(),
             title=cog.description,
             description=("Type ``:help command`` for more info on a command.\n"
-                         "You can also type ``:help category``git status for more info on a different category.")
+                         "You can also type ``:help category`` for more info on a different category.")
         )
         for command in cog.get_commands():
             embed.add_field(name=f"``{self.clean_prefix}{command.name}``", value=command.help)
