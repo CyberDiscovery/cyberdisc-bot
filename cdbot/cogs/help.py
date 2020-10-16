@@ -2,7 +2,7 @@ from discord import Colour, Embed
 from discord.ext import commands
 
 
-class MyHelpCommand(commands.HelpCommand):
+class EmbeddedHelpCommand(commands.HelpCommand):
     def __init__(self):
         super().__init__(command_attrs={'brief': 'Gives detailed information about a command.'})
 
@@ -51,7 +51,7 @@ class Help(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
         self.bot._original_help_command = bot.help_command
-        bot.help_command = MyHelpCommand()
+        bot.help_command = EmbeddedHelpCommand()
         bot.help_command.cog = self
 
     def cog_unload(self):
