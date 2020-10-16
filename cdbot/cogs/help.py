@@ -4,7 +4,7 @@ from discord.ext import commands
 
 class EmbeddedHelpCommand(commands.HelpCommand):
     def __init__(self):
-        super().__init__(command_attrs={'brief': 'Gives detailed information about a command.'})
+        super().__init__(command_attrs={'help': 'Gives detailed information about a command.'})
 
     async def send_bot_help(self, mapping):
         ctx = self.context
