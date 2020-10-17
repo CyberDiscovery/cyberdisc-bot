@@ -577,6 +577,28 @@ class Fun(Cog):
         """
         await self.create_text_image(ctx, "AgentJBadHairDay", text)
 
+    @command()
+    async def neveragoodtime(self, ctx: Context):
+        """
+        Returns the "as always it's never a good time to pop in" quote.
+        """
+        await ctx.send("https://cdn.discordapp.com/attachments/450107193820446722/546655387886157824/unknown.png")
+
+    @command()
+    async def tryharder(self, ctx: Context):
+        """
+        Returns the "Try Harder" music video.
+        """
+        await ctx.send("https://www.youtube.com/watch?v=t-bgRQfeW64")
+
+    @command()
+    async def whosthatalt(self, ctx: Context):
+        """
+        Returns the "WHO'S THAT ALT" image.
+        """
+        await ctx.send("**WHO'S THAT ALT?!**")
+        await ctx.send("https://cdn.discordapp.com/attachments/411573884597436416/767093622897639434/CveO6GXh.jpg")
+
 
 def setup(bot):
     """
