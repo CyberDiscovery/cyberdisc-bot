@@ -577,6 +577,13 @@ class Fun(Cog):
         """
         await self.create_text_image(ctx, "AgentJBadHairDay", text)
 
+    @command()
+    async def flowchart(self, ctx: Context):
+        """
+        Sends the image of the challenge solving flowchart.
+        """
+        await ctx.send("https://discord.com/channels/409851296116375565/411573884597436416/767122368610828298")
+
 
 def setup(bot):
     """
