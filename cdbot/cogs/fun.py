@@ -101,15 +101,15 @@ class Fun(Cog):
             colour=0xFF0000,
             description="⚠ **Please make sure you have taken the following into account:** ",
         )
-        .set_footer(
+            .set_footer(
             text="To continue with the ping, react \N{THUMBS UP SIGN}, To delete this message and move on,"
-            " react \N{THUMBS DOWN SIGN}"
+                 " react \N{THUMBS DOWN SIGN}"
         )
-        .add_field(
+            .add_field(
             name="Cyber Discovery staff will not provide help for challenges.",
             value="If you're looking for help, feel free to ask questions in one of our topical channels.",
         )
-        .add_field(
+            .add_field(
             name="Make sure you have emailed support before pinging here.",
             value="`support@joincyberdiscovery.com` are available to answer any and all questions!",
         )
@@ -159,7 +159,7 @@ class Fun(Cog):
     async def on_message(self, message: Message):
         # If a new quote is added, add it to the database.
         if message.channel.id == QUOTES_CHANNEL_ID and (
-            message.author.id == QUOTES_BOT_ID or message.mentions is not None
+                message.author.id == QUOTES_BOT_ID or message.mentions is not None
         ):
             await self.add_quote_to_db(message)
             print(f"Message #{message.id} added to database.")
@@ -232,10 +232,10 @@ class Fun(Cog):
 
         # Adds waving emoji when a new user joins.
         if all(
-            (
-                "Welcome to the Cyber Discovery" in message.content,
-                message.author.id == WELCOME_BOT_ID,
-            )
+                (
+                        "Welcome to the Cyber Discovery" in message.content,
+                        message.author.id == WELCOME_BOT_ID,
+                )
         ):
             await message.add_reaction("\N{WAVING HAND SIGN}")
 
@@ -243,10 +243,10 @@ class Fun(Cog):
     async def on_raw_reaction_add(self, raw_reaction: RawReactionActionEvent):
         thumbs_down = "\N{THUMBS DOWN SIGN}"
         if all(
-            (
-                str(raw_reaction.emoji) == thumbs_down,
-                raw_reaction.channel_id == QUOTES_CHANNEL_ID,
-            )
+                (
+                        str(raw_reaction.emoji) == thumbs_down,
+                        raw_reaction.channel_id == QUOTES_CHANNEL_ID,
+                )
         ):
             quotes_channel = self.bot.get_channel(QUOTES_CHANNEL_ID)
             logs_channel = self.bot.get_channel(LOGGING_CHANNEL_ID)
@@ -444,9 +444,9 @@ class Fun(Cog):
                 return await ctx.send(":no_entry_sign: Invalid page number")
 
             for result in await connection.fetch(
-                "SELECT author_id, COUNT(author_id) as quote_count FROM quotes "
-                "GROUP BY author_id ORDER BY quote_count DESC LIMIT 10 OFFSET $1",
-                start_from,
+                    "SELECT author_id, COUNT(author_id) as quote_count FROM quotes "
+                    "GROUP BY author_id ORDER BY quote_count DESC LIMIT 10 OFFSET $1",
+                    start_from,
             ):
                 author, quotes = result.values()
                 users += f"{start_from + current}. <@{author}> - {quotes}\n"
@@ -578,6 +578,12 @@ class Fun(Cog):
         await self.create_text_image(ctx, "AgentJBadHairDay", text)
 
     @command()
+    async def flowchart(self, ctx: Context):
+        """
+        Sends the image of the challenge solving flowchart.
+        """
+        await ctx.send("https://cdn.discordapp.com/attachments/411573884597436416/767122366521278474/trythis.png")
+
     async def cma(self, ctx: Context, *, section: int = None):
         """
         Returns a link to the Computer Misuse Act or a screenshot of one of the first three sections.
