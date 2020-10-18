@@ -9,13 +9,13 @@ jobs:
   displayName: 'Lint'
 
   pool:
-    vmImage: 'Ubuntu 18.04'
+    vmImage: 'ubuntu-20.04'
 
   steps:
   - task: UsePythonVersion@0
     displayName: 'Set Python version'
     inputs:
-      versionSpec: '3.8.x'
+      versionSpec: '3.9.x'
       addToPath: true
 
   - task: Cache@2
@@ -43,7 +43,7 @@ jobs:
   displayName: 'Build'
   
   pool:
-    vmImage: 'Ubuntu 18.04'
+    vmImage: 'ubuntu-20.04'
 
   steps:
   - task: Docker@1
@@ -56,7 +56,7 @@ jobs:
   displayName: Validate
 
   pool:
-    vmImage: 'Ubuntu 18.04'
+    vmImage: 'ubuntu-20.04'
 
   steps:
   - script: wget https://github.com/instrumenta/kubeval/releases/latest/download/kubeval-linux-amd64.tar.gz
