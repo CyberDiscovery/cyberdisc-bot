@@ -238,11 +238,6 @@ class Fun(Cog):
             )
         ):
             await message.add_reaction("\N{WAVING HAND SIGN}")
-        # Simple regex responses.
-        if ".hac" in message.content.lower():
-            await message.channel.send("Charging the Low Orbit Ion Canon, please stand by!")
-        elif ".dox" in message.content.lower():
-            await message.channel.send("OK, scraping their parent's public Facebook feed!")
 
     @Cog.listener()
     async def on_raw_reaction_add(self, raw_reaction: RawReactionActionEvent):
@@ -595,6 +590,20 @@ class Fun(Cog):
         Returns the "Try Harder" music video.
         """
         await ctx.send("https://www.youtube.com/watch?v=t-bgRQfeW64")
+
+    @command()
+    async def hac(self, ctx: Context):
+        """
+        Hacks the specified user.
+        """
+        await ctx.send("Charging the Low Orbit Ion Canon, please stand by!")
+
+    @command()
+    async def dox(self, ctx: Context):
+        """
+        Doxes the specified user.
+        """
+        await ctx.send("OK, scraping their parent's public Facebook feed!")
 
     @command()
     async def flowchart(self, ctx: Context):
