@@ -158,7 +158,7 @@ NICKNAME_PATTERNS = [
     r"(http(s)?:\/\/.)?(www\.)?[-a-zA-Z0-9@:%._\+~#=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_\+.~#?&//=]*)",  # hyperlinks
 ]
 
-# Emoji
+# Emoji Alphabet
 EMOJI_LETTERS = [
     "\U0001f1e6\U0001f170\U0001F359",  # A
     "\U0001f1e7\U0001f171",  # B
