@@ -590,7 +590,6 @@ class Fun(Cog):
         """
         Returns a link to the Computer Misuse Act or a screenshot of one of the first three sections.
         """
-
         if section is None:
             await ctx.send("https://www.legislation.gov.uk/ukpga/1990/18/contents")
         elif (CMA_URL := CMA_LINKS.get(section)) is not None:
