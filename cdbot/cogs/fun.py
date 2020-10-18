@@ -21,7 +21,7 @@ from discord import (
     Message,
     NotFound,
     RawReactionActionEvent,
-    embeds
+    embeds,
 )
 from discord.ext.commands import (
     Bot,
@@ -30,7 +30,7 @@ from discord.ext.commands import (
     Context,
     UserConverter,
     command,
-    cooldown
+    cooldown,
 )
 from discord.utils import get
 
@@ -40,6 +40,7 @@ from cdbot.constants import (
     FAKE_ROLE_ID,
     LOCAL_DEBUGGING,
     LOGGING_CHANNEL_ID,
+    PostgreSQL,
     QUOTES_BOT_ID,
     QUOTES_CHANNEL_ID,
     QUOTES_DELETION_QUOTA,
