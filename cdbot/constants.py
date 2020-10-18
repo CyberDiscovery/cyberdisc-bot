@@ -101,8 +101,8 @@ LOGGING_CHANNEL_ID = int(environ.get("LOGGING_CHANNEL_ID", "538494690601992212")
 WELCOME_BOT_ID = 155149108183695360
 
 # General constants
-WELCOME_MESSAGE = ("Welcome to the Cyber Discovery discussion discord! Please check the rules, roles and information in"
-                   " <#409853512185282561> to answer any questions, and before you begin.")
+WELCOME_MESSAGE = ("Welcome to the Cyber Discovery discussion discord! Before you begin, please check the "
+                   "rules, roles and information in <#409853512185282561> to answer any questions.")
 WELCOME_CHANNEL_ID = int(environ.get("WELCOME_CHANNEL_ID", "411573884597436416"))
 
 # Misc roles
