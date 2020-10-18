@@ -592,6 +592,9 @@ class Fun(Cog):
     # Polls
     @command()
     async def suggest(self, ctx: Context, *, poll_question: str):
+        """
+        Takes a poll question and creates a poll in #polls.
+        """
         confirm_msg = Embed(
             description=f":white_check_mark: Your suggestion has been sent to <#{POLL_CHANNEL_ID}> to be voted on.",
             color=0x6ABE6C)
