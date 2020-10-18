@@ -238,6 +238,11 @@ class Fun(Cog):
             )
         ):
             await message.add_reaction("\N{WAVING HAND SIGN}")
+        # Simple regex responses.
+        if ".hac" in message.content.lower():
+            await message.channel.send("Charging the Low Orbit Ion Canon, please stand by!")
+        elif ".dox" in message.content.lower():
+            await message.channel.send("OK, scraping their parent's public Facebook feed!")
 
     @Cog.listener()
     async def on_raw_reaction_add(self, raw_reaction: RawReactionActionEvent):
@@ -277,13 +282,6 @@ class Fun(Cog):
 
                 await reaction.message.delete()
                 await logs_channel.send(embed=embed)
-
-    @Cog.listener()
-    async def on_message(self, message: Message):
-        if ".hac" in message.content.lower():
-            await message.channel.send("Charging the Low Orbit Ion Canon, please stand by!")
-        elif ".dox" in message.content.lower():
-            await message.channel.send("OK, scraping their parent's public Facebook feed!")
 
     @command()
     async def lmgtfy(self, ctx: Context, *args: str):
