@@ -1,7 +1,9 @@
 """Initialise cdbot as a package for poetry."""
 
 import os
+
 import sentry_sdk
+
 from git import Repo
 from sentry_sdk.integrations.aiohttp import AioHttpIntegration
 
