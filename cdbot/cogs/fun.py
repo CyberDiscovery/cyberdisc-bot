@@ -11,44 +11,20 @@ from typing import List
 from urllib.parse import urlencode
 
 import asyncpg
-from PIL import Image, ImageDraw, ImageFont
 from aiohttp import ClientSession
-from discord import (
-    Colour,
-    Embed,
-    File,
-    HTTPException,
-    Message,
-    NotFound,
-    RawReactionActionEvent,
-    embeds,
-)
-from discord.ext.commands import (
-    Bot,
-    BucketType,
-    Cog,
-    Context,
-    UserConverter,
-    command,
-    cooldown,
-)
+from discord import (Colour, Embed, File, HTTPException, Message, NotFound,
+                     RawReactionActionEvent, embeds)
+from discord.ext.commands import (Bot, BucketType, Cog, Context, UserConverter,
+                                  command, cooldown)
 from discord.utils import get
+from PIL import Image, ImageDraw, ImageFont
 
-from cdbot.constants import (
-    CYBERDISC_ICON_URL,
-    EMOJI_LETTERS,
-    FAKE_ROLE_ID,
-    LOCAL_DEBUGGING,
-    LOGGING_CHANNEL_ID,
-    PostgreSQL,
-    QUOTES_BOT_ID,
-    QUOTES_CHANNEL_ID,
-    QUOTES_DELETION_QUOTA,
-    ROOT_ROLE_ID,
-    STAFF_ROLE_ID,
-    SUDO_ROLE_ID,
-    WELCOME_BOT_ID,
-)
+from cdbot.constants import (CYBERDISC_ICON_URL, EMOJI_LETTERS, FAKE_ROLE_ID,
+                             LOCAL_DEBUGGING, LOGGING_CHANNEL_ID,
+                             QUOTES_BOT_ID, QUOTES_CHANNEL_ID,
+                             QUOTES_DELETION_QUOTA, ROOT_ROLE_ID,
+                             STAFF_ROLE_ID, SUDO_ROLE_ID, WELCOME_BOT_ID,
+                             PostgreSQL)
 
 ascii_lowercase += " !?$()"
 
@@ -584,16 +560,20 @@ class Fun(Cog):
         """
         await ctx.send("https://cdn.discordapp.com/attachments/411573884597436416/767122366521278474/trythis.png")
 
-    async def cma(self, ctx: Context, *, section: int = None):
+    async def cma(self, ctx: Context, *, section: str = None):
         """
         Returns a link to the Computer Misuse Act or a screenshot of one of the first three sections.
         """
-        if section == 1:
+        if section == "1":
             await ctx.send("https://cdn.discordapp.com/attachments/450107193820446722/492649412560945164/unknown.png")
-        elif section == 2:
+        elif section == "2":
             await ctx.send("https://cdn.discordapp.com/attachments/450107193820446722/492649644623659014/unknown.png")
-        elif section == 3:
+        elif section == "3":
             await ctx.send("https://cdn.discordapp.com/attachments/450107193820446722/492649912035573770/unknown.png")
+        elif section == "3a":
+            await ctx.send("https://cdn.discordapp.com/attachments/450107193820446722/492650366454857737/unknown.png")
+        elif section == "3za":
+            await ctx.send("https://cdn.discordapp.com/attachments/450107193820446722/492650170656489472/unknown.png")
         elif section is None:
             await ctx.send("https://www.legislation.gov.uk/ukpga/1990/18/contents")
         else:
