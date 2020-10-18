@@ -582,6 +582,13 @@ class Fun(Cog):
         """
         await self.create_text_image(ctx, "AgentJBadHairDay", text)
 
+    @command()
+    async def flowchart(self, ctx: Context):
+        """
+        Sends the image of the challenge solving flowchart.
+        """
+        await ctx.send("https://cdn.discordapp.com/attachments/411573884597436416/767122366521278474/trythis.png")
+
     # Polls
     @command()
     async def suggest(self, ctx: Context, *, poll_question: str):

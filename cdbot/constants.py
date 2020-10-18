@@ -106,8 +106,8 @@ NEUTRAL_EMOJI = str(environ.get("NEUTRAL_EMOJI", "<:somewhatthis:639201446356713
 NEGATIVE_EMOJI = str(environ.get("NEGATIVE_EMOJI", "<:notthis:485489378999926794>"))
 
 # General constants
-WELCOME_MESSAGE = ("Welcome to the Cyber Discovery discussion discord! Please check the rules, roles and information in"
-                   " <#409853512185282561> to answer any questions, and before you begin.")
+WELCOME_MESSAGE = ("Welcome to the Cyber Discovery discussion discord! Before you begin, please check the "
+                   "rules, roles and information in <#409853512185282561> to answer any questions.")
 WELCOME_CHANNEL_ID = int(environ.get("WELCOME_CHANNEL_ID", "411573884597436416"))
 
 # Misc roles
