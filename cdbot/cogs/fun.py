@@ -2,7 +2,6 @@
 Set of bot commands designed for general leisure.
 """
 import asyncio
-from PIL import Image, ImageDraw, ImageFont
 import textwrap
 from io import BytesIO
 from math import ceil
@@ -12,6 +11,7 @@ from typing import List
 from urllib.parse import urlencode
 
 import asyncpg
+from PIL import Image, ImageDraw, ImageFont
 from aiohttp import ClientSession
 from discord import (
     Colour,
