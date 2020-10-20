@@ -99,6 +99,12 @@ QUOTES_CHANNEL_ID = int(environ.get("QUOTES_CHANNEL_ID", "463657120441696256"))
 QUOTES_BOT_ID = 292953664492929025
 LOGGING_CHANNEL_ID = int(environ.get("LOGGING_CHANNEL_ID", "538494690601992212"))
 WELCOME_BOT_ID = 155149108183695360
+CMA_LINKS = {"1": "https://cdn.discordapp.com/attachments/450107193820446722/492649412560945164/unknown.png",
+             "2": "https://cdn.discordapp.com/attachments/450107193820446722/492649644623659014/unknown.png",
+             "3": "https://cdn.discordapp.com/attachments/450107193820446722/492649912035573770/unknown.png",
+             "3a": "https://cdn.discordapp.com/attachments/450107193820446722/492650366454857737/unknown.png",
+             "3za": "https://cdn.discordapp.com/attachments/450107193820446722/492650170656489472/unknown.png",
+             }
 
 # General constants
 WELCOME_MESSAGE = ("Welcome to the Cyber Discovery discussion discord! Before you begin, please check the "
