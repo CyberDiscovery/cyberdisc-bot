@@ -386,7 +386,7 @@ class Fun(Cog):
             embed.set_footer(text=f"{message.guild.name} | #{message.channel}")
 
             await ctx.send(embed=message.embeds[0] if message.embeds else embed)
-        except (ValueError, NotFound):
+        except (ValueError, NotFound, AttributeError):
             # Error deletes after 10 seconds to keep #quotes clean.
             await ctx.send(":no_entry_sign: Uh oh, quote not found :(", delete_after=10)
         finally:
