@@ -104,7 +104,7 @@ class Fun(Cog):
         )
         .set_footer(
             text="To continue with the ping, react \N{THUMBS UP SIGN}, To delete this message and move on,"
-                 " react \N{THUMBS DOWN SIGN}"
+            " react \N{THUMBS DOWN SIGN}"
         )
         .add_field(
             name="Cyber Discovery staff will not provide help for challenges.",
@@ -232,10 +232,10 @@ class Fun(Cog):
 
         # Adds waving emoji when a new user joins.
         if all(
-                (
+            (
                 "Welcome to the Cyber Discovery" in message.content,
                 message.author.id == WELCOME_BOT_ID,
-                )
+            )
         ):
             await message.add_reaction("\N{WAVING HAND SIGN}")
 
@@ -471,9 +471,9 @@ class Fun(Cog):
                 return await ctx.send(":no_entry_sign: Invalid page number")
 
             for result in await connection.fetch(
-                    "SELECT author_id, COUNT(author_id) as quote_count FROM quotes "
-                    "GROUP BY author_id ORDER BY quote_count DESC LIMIT 10 OFFSET $1",
-                    start_from,
+                "SELECT author_id, COUNT(author_id) as quote_count FROM quotes "
+                "GROUP BY author_id ORDER BY quote_count DESC LIMIT 10 OFFSET $1",
+                start_from,
             ):
                 author, quotes = result.values()
                 users += f"{start_from + current}. <@{author}> - {quotes}\n"
