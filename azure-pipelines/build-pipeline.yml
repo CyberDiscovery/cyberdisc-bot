@@ -1,4 +1,4 @@
-r:
+pr:
   autoCancel: false
   branches:
     include:
