@@ -104,6 +104,12 @@ POLL_WEBHOOK_ID = int(getenv("POLL_WEBHOOK_ID"))
 POSITIVE_EMOJI = str(environ.get("POSITIVE_EMOJI", "🟥"))
 NEUTRAL_EMOJI = str(environ.get("NEUTRAL_EMOJI", "🟩"))
 NEGATIVE_EMOJI = str(environ.get("NEGATIVE_EMOJI", "🟨"))
+CMA_LINKS = {"1": "https://cdn.discordapp.com/attachments/450107193820446722/492649412560945164/unknown.png",
+             "2": "https://cdn.discordapp.com/attachments/450107193820446722/492649644623659014/unknown.png",
+             "3": "https://cdn.discordapp.com/attachments/450107193820446722/492649912035573770/unknown.png",
+             "3a": "https://cdn.discordapp.com/attachments/450107193820446722/492650366454857737/unknown.png",
+             "3za": "https://cdn.discordapp.com/attachments/450107193820446722/492650170656489472/unknown.png",
+             }
 
 # General constants
 WELCOME_MESSAGE = ("Welcome to the Cyber Discovery discussion discord! Before you begin, please check the "
