@@ -103,7 +103,7 @@ class Fun(Cog):
         )
         .set_footer(
             text="To continue with the ping, react \N{THUMBS UP SIGN}, To delete this message and move on,"
-                 " react \N{THUMBS DOWN SIGN}"
+            " react \N{THUMBS DOWN SIGN}"
         )
         .add_field(
             name="Cyber Discovery staff will not provide help for challenges.",
