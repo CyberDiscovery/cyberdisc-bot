@@ -30,7 +30,7 @@ jobs:
   - script: pip install -r requirements-ci.txt
     displayName: 'Install project using pip'
 
-  - script: python -m flake8 . | tee flake8.xml
+  - script: "python -m flake8 . | tee flake8.xml"
     displayName: 'Run linter'
 
   - task: PublishTestResults@2
