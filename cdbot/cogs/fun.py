@@ -103,7 +103,7 @@ class Fun(Cog):
         )
         .set_footer(
             text="To continue with the ping, react \N{THUMBS UP SIGN}, To delete this message and move on,"
-            " react \N{THUMBS DOWN SIGN}"
+                 " react \N{THUMBS DOWN SIGN}"
         )
         .add_field(
             name="Cyber Discovery staff will not provide help for challenges.",
@@ -158,9 +158,11 @@ class Fun(Cog):
     @Cog.listener()
     async def on_message(self, message: Message):
         # If a new quote is added, add it to the database.
-        if message.channel.id == QUOTES_CHANNEL_ID and (
-            message.author.id == QUOTES_BOT_ID or message.mentions is not None
-        ):
+        comparisons = [message.channel.id == QUOTES_CHANNEL_ID,
+                       "Uh oh, quote not found :(" not in message.content,
+                       message.author.id == QUOTES_BOT_ID,
+                       bool(message.mentions)]
+        if min(comparisons[:2]) and max(comparisons[2:]):
             await self.add_quote_to_db(message)
             print(f"Message #{message.id} added to database.")
 
@@ -232,10 +234,10 @@ class Fun(Cog):
 
         # Adds waving emoji when a new user joins.
         if all(
-            (
-                "Welcome to the Cyber Discovery" in message.content,
-                message.author.id == WELCOME_BOT_ID,
-            )
+                (
+                    "Welcome to the Cyber Discovery" in message.content,
+                    message.author.id == WELCOME_BOT_ID,
+                )
         ):
             await message.add_reaction("\N{WAVING HAND SIGN}")
 
@@ -243,10 +245,10 @@ class Fun(Cog):
     async def on_raw_reaction_add(self, raw_reaction: RawReactionActionEvent):
         thumbs_down = "\N{THUMBS DOWN SIGN}"
         if all(
-            (
-                str(raw_reaction.emoji) == thumbs_down,
-                raw_reaction.channel_id == QUOTES_CHANNEL_ID,
-            )
+                (
+                    str(raw_reaction.emoji) == thumbs_down,
+                    raw_reaction.channel_id == QUOTES_CHANNEL_ID,
+                )
         ):
             quotes_channel = self.bot.get_channel(QUOTES_CHANNEL_ID)
             logs_channel = self.bot.get_channel(LOGGING_CHANNEL_ID)
@@ -367,7 +369,7 @@ class Fun(Cog):
         await ctx.send(embed=comic)
 
     @command()
-    async def quote(self, ctx: Context, message_id: int, channel=None):
+    async def quote(self, ctx: Context, message_id: str, channel=None):
         """
         Quotes the specified message.
         """
@@ -375,7 +377,6 @@ class Fun(Cog):
             channel = ctx if channel is None else self.bot.get_channel(
                 int(channel[2:-1] if channel[0] == "<" else channel))
             message = await channel.fetch_message(int(message_id))
-
             embed = Embed(
                 description=f"{message.content}\n\n[Jump to message]({message.jump_url})",
                 colour=Colour.blue(),
@@ -387,7 +388,7 @@ class Fun(Cog):
             embed.set_footer(text=f"{message.guild.name} | #{message.channel}")
 
             await ctx.send(embed=message.embeds[0] if message.embeds else embed)
-        except NotFound:
+        except (ValueError, NotFound):
             await ctx.send(":no_entry_sign: Uh oh, quote not found :(",
                            delete_after=5 if ctx.channel.id == QUOTES_CHANNEL_ID else ...)
         finally:
@@ -472,9 +473,9 @@ class Fun(Cog):
                 return await ctx.send(":no_entry_sign: Invalid page number")
 
             for result in await connection.fetch(
-                "SELECT author_id, COUNT(author_id) as quote_count FROM quotes "
-                "GROUP BY author_id ORDER BY quote_count DESC LIMIT 10 OFFSET $1",
-                start_from,
+                    "SELECT author_id, COUNT(author_id) as quote_count FROM quotes "
+                    "GROUP BY author_id ORDER BY quote_count DESC LIMIT 10 OFFSET $1",
+                    start_from,
             ):
                 author, quotes = result.values()
                 users += f"{start_from + current}. <@{author}> - {quotes}\n"
