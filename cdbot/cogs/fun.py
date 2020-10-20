@@ -387,8 +387,8 @@ class Fun(Cog):
 
             await ctx.send(embed=message.embeds[0] if message.embeds else embed)
         except (ValueError, NotFound):
-            await ctx.send(":no_entry_sign: Uh oh, quote not found :(",
-                           delete_after=5 if ctx.channel.id == QUOTES_CHANNEL_ID else ...)
+            # Error deletes after 10 seconds to keep #quotes clean.
+            await ctx.send(":no_entry_sign: Uh oh, quote not found :(", delete_after=10)
         finally:
             if ctx.channel.id == QUOTES_CHANNEL_ID:
                 await ctx.message.delete()
