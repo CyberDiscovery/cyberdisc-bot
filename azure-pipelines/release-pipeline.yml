@@ -10,7 +10,7 @@ stages:
         displayName: Publish
 
         pool:
-          vmImage: Ubuntu 18.04
+          vmImage: 'ubuntu-20.04'
 
         steps:
         - task: Docker@2
@@ -32,7 +32,7 @@ stages:
         displayName: Sentry
 
         pool:
-          vmImage: Ubuntu 18.04
+          vmImage: 'ubuntu-20.04'
 
         steps:
           - script: curl -sL https://sentry.io/get-cli/ | bash
@@ -54,7 +54,7 @@ stages:
         displayName: Deploy
 
         pool:
-          vmImage: Ubuntu 18.04
+          vmImage: 'ubuntu-20.04'
 
         steps:
         - task: Kubernetes@1

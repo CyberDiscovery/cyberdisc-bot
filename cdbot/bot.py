@@ -3,7 +3,7 @@
 import logging
 from platform import release, system
 
-from discord import Game
+from discord import Game, Intents
 from discord.ext.commands import Bot, when_mentioned_or
 from sentry_sdk import configure_scope
 
@@ -11,7 +11,10 @@ from cdbot.log import DiscordHandler
 
 logger = logging.getLogger(__name__)
 
-bot = Bot(command_prefix=when_mentioned_or("...", ":"), activity=Game(name=":help"))
+intents = Intents.default()
+intents.members = True
+
+bot = Bot(command_prefix=when_mentioned_or("...", ":"), activity=Game(name=":help"), intents=intents)
 
 logger.addHandler(DiscordHandler(bot))
 logger.setLevel(logging.INFO)
