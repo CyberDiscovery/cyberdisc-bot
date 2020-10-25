@@ -52,7 +52,9 @@ from cdbot.constants import (
 
 ascii_lowercase += " !?$()"
 
-REACT_TRIGGERS = {"kali": "\N{ONCOMING POLICE CAR}", "duck": "\N{DUCK}"}
+EMOTES = ["\N{ONCOMING POLICE CAR}", "\N{DUCK}"]
+REACT_TRIGGERS = {"kali": EMOTES[0], "duck": EMOTES[1], "cybergame": "*CyberStart Game",
+                  "cyberstart access": "*CyberStart Assess", ".beano": "*grumbles*"}
 
 
 def convert_emoji(message: str) -> List[str]:
@@ -218,17 +220,17 @@ class Fun(Cog):
             # Don't react to valid commands
             return
 
-        for word in message.content.lower().split():
-            # Check if the message contains a trigger
-            if word in REACT_TRIGGERS:
-                to_react = REACT_TRIGGERS[word]
-
+        # Check if the message contains a trigger
+        if any((word := TRIGGER) in message.content.lower() for TRIGGER in REACT_TRIGGERS):
+            to_react = REACT_TRIGGERS[word]  # noqa: F821
+            if to_react in EMOTES:
                 if len(to_react) > 1:  # We have a string to react with
                     await emojify(message, to_react)
                 else:
                     await message.add_reaction(to_react)
-
-                return  # Only one auto-reaction per message
+            else:
+                await ctx.send(to_react)
+            return  # Only one auto-reaction per message
 
         # Adds waving emoji when a new user joins.
         if all(
