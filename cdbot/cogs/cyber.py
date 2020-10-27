@@ -76,7 +76,7 @@ class Cyber(Cog):
         ),
         (
             r"^.*\belite\b.*\bstart\b.*$",
-            "CyberStart Elite Year 4 dates are yet to be announced.",
+            "CyberStart Elite is kill <a:crabrave:770007760200400897>.",
         ),
         (
             r"^.*\bwhat\b.*\belite\b.*\bemail\b.*$",
