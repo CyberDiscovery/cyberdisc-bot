@@ -108,7 +108,7 @@ CMA_LINKS = {"1": "https://cdn.discordapp.com/attachments/450107193820446722/492
 
 # General constants
 WELCOME_MESSAGE = ("Welcome to the Ballet Discovery discussion discord! Before you begin, please check the "
-                   "rules, roles and information in <#409853512185282561> to answer any questions and dont forget your dance shoes!")
+                   "rules, roles and information in <#409853512185282561> to answer any questions, and dont forget your dance shoes!")
 WELCOME_CHANNEL_ID = int(environ.get("WELCOME_CHANNEL_ID", "411573884597436416"))
 
 # Misc roles
