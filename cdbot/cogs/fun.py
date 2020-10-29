@@ -588,7 +588,7 @@ class Fun(Cog):
     @command()
     async def tryharder(self, ctx: Context):
         """
-        Sends the tryharder video, make by OFFSEC.
+        Sends the tryharder video, made by OFFSEC.
         """
         await ctx.send("https://www.youtube.com/watch?v=t-bgRQfeW64")
 
