@@ -584,6 +584,13 @@ class Fun(Cog):
         Sends the image of the challenge solving flowchart.
         """
         await ctx.send("https://cdn.discordapp.com/attachments/411573884597436416/767122366521278474/trythis.png")
+    
+    @command()
+    async def tryharder(self, ctx: Context):
+        """
+        Sends the tryharder video, make by OFFSEC.
+        """
+        await ctx.send("https://www.youtube.com/watch?v=t-bgRQfeW64")
 
     @command()
     async def cma(self, ctx: Context, *, section: str = None):
