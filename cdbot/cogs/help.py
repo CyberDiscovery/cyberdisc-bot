@@ -1,10 +1,19 @@
-from discord import Colour, Embed
+from discord import Colour, Embed, utils
 from discord.ext import commands
 
 
 class EmbeddedHelpCommand(commands.HelpCommand):
     def __init__(self):
         super().__init__(command_attrs={'help': 'Gives detailed information about a command.'})
+
+    async def command_callback(self, ctx, *, command=None):
+        bot = ctx.bot
+        if command is not None:
+            if (cog := utils.find(lambda c: c.casefold() == command.casefold(), bot.cogs)) is None:
+                cog = command
+            await super().command_callback(ctx, command=cog)
+        else:
+            await super().command_callback(ctx, command=None)
 
     async def send_bot_help(self, mapping):
         ctx = self.context
