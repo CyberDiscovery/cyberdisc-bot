@@ -21,7 +21,7 @@ class EmbeddedHelpCommand(commands.HelpCommand):
 
         await ctx.author.send(embed=embed)
         if ctx.guild is not None:
-            await ctx.send(f"{ctx.author.mention} help info sent to DMs :)", delete_after=10)
+            await ctx.send(f"{ctx.author.mention} help info sent to DMs", delete_after=10)
             await ctx.message.delete()
 
     async def send_cog_help(self, cog):
@@ -37,7 +37,7 @@ class EmbeddedHelpCommand(commands.HelpCommand):
 
         await ctx.author.send(embed=embed)
         if ctx.guild is not None:
-            await ctx.send(f"{ctx.author.mention} help info sent to DMs :)", delete_after=10)
+            await ctx.send(f"{ctx.author.mention} help info sent to DMs", delete_after=10)
             await ctx.message.delete()
 
     async def send_command_help(self, command):
