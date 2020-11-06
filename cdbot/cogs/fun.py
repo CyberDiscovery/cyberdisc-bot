@@ -224,7 +224,7 @@ class Fun(Cog):
         # Check if the message contains a trigger
         for trigger in REACT_TRIGGERS:
             reg = WORD_MATCH_RE.format(trigger)
-            if re.search(reg, message.content):
+            if re.search(reg.lower(), message.content.lower()):
                 to_react = REACT_TRIGGERS[trigger]
                 if to_react in REACT_EMOTES:
                     for emote in to_react.split():
