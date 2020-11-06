@@ -224,7 +224,7 @@ class Fun(Cog):
         # Check if the message contains a trigger
         for trigger in REACT_TRIGGERS:
             reg = WORD_MATCH_RE.format(trigger)
-            if re.search(reg.lower(), message.content.lower()):
+            if re.search(reg, message.content, re.IGNORECASE):
                 to_react = REACT_TRIGGERS[trigger]
                 if to_react in REACT_EMOTES:
                     for emote in to_react.split():
@@ -611,6 +611,27 @@ class Fun(Cog):
         Doxes the specified user.
         """
         await ctx.send("OK, scraping their parent's public Facebook feed!")
+
+    @command()
+    async def theworstpunishmentwehave(self, ctx: Context):
+        """
+        Punishes a user.
+        """
+        await ctx.send("Ok, banning them from the Q&A server!")
+
+    @command()
+    async def suppressdissent(self, ctx: Context):
+        """
+        Returns a comment from the bot's inner eye.
+        """
+        await ctx.send("Let me call Theresa for ideas")
+
+    @command()
+    async def beano(self, ctx: Context):
+        """
+        Reminds you of the top dog.
+        """
+        await ctx.send("*grumbles*")
 
     @command()
     async def flowchart(self, ctx: Context):

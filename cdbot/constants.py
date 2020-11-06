@@ -105,13 +105,9 @@ CMA_LINKS = {"1": "https://cdn.discordapp.com/attachments/450107193820446722/492
              "3a": "https://cdn.discordapp.com/attachments/450107193820446722/492650366454857737/unknown.png",
              "3za": "https://cdn.discordapp.com/attachments/450107193820446722/492650170656489472/unknown.png",
              }
-REACT_EMOTES = ["\N{ONCOMING POLICE CAR}", "\N{DUCK}", "\U0001f645 \N{NO ENTRY} \N{CROSSED SWORDS}", "fuck"]
+REACT_EMOTES = ["\N{ONCOMING POLICE CAR}", "\N{DUCK}", "\U0001f645 \N{NO ENTRY} \N{CROSSED SWORDS}"]
 REACT_TRIGGERS = {"kali": REACT_EMOTES[0], "duck": REACT_EMOTES[1], "cybergame": "*CyberStart Game",
-                  "cyberstart access": "*CyberStart Assess", r"\b\.beano\b": "*grumbles*",
-                  r"\b!theworstpunishmentwehave\b": "Ok, banning them from the Q&A server!",
-                  r"\b!suppressdissent\b": "Let me call Theresa for ideas",
-                  "13.1": REACT_EMOTES[2], r"\b!l\b": REACT_EMOTES[3],
-                  "me": "dggdfdfggfd"}
+                  "cyberstart access": "*CyberStart Assess", "13.1": REACT_EMOTES[2]}
 WORD_MATCH_RE = r"^.*\b{}\b.*$"
 
 # General constants
