@@ -7,13 +7,8 @@ class EmbeddedHelpCommand(commands.HelpCommand):
         super().__init__(command_attrs={'help': 'Gives detailed information about a command.'})
 
     async def command_callback(self, ctx, *, command=None):
-        bot = ctx.bot
-        if command is not None:
-            if (cog := utils.find(lambda c: c.casefold() == command.casefold(), bot.cogs)) is None:
-                cog = command
-            await super().command_callback(ctx, command=cog)
-        else:
-            await super().command_callback(ctx, command=None)
+        await super().command_callback(
+            ctx, command=next((cog for cog in ctx.bot.cogs if str(command).casefold() == cog.casefold()), command))
 
     async def send_bot_help(self, mapping):
         ctx = self.context
@@ -26,7 +21,7 @@ class EmbeddedHelpCommand(commands.HelpCommand):
             if cog is not None:
                 if cog.get_commands():
                     embed.add_field(name=cog.qualified_name,
-                                    value=f"``{self.clean_prefix}help {cog.qualified_name}``")
+                                    value=f"``{self.clean_prefix}help {cog.qualified_name.lower()}``")
 
         await ctx.author.send(embed=embed)
         if ctx.guild is not None:
