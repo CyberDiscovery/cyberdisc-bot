@@ -112,10 +112,13 @@ class General(Cog):
 
         self.bot.log.exception(error, extra=extra_context)
 
-    @command()
+    @command(aliases=["rank", "role"])
     @cooldown(1, 10, BucketType.user)
     @commands.check(in_commands_channel)
-    async def rank(self, ctx: Context, *, rank: str):
+    async def join(self, ctx: Context, *, rank: str):
+        """
+        Join a rank.
+        """
         try:
             new_role = next((role for role in ctx.guild.roles if role.name.lower() == rank.lower()), None)
             if new_role.id in sum(JOINABLE_ROLES_IDS, []):
