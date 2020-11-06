@@ -6,6 +6,7 @@ import textwrap
 from io import BytesIO
 from math import ceil
 from random import randint
+import re
 from string import ascii_lowercase
 from typing import List
 from urllib.parse import urlencode
@@ -51,6 +52,7 @@ from cdbot.constants import (
     STAFF_ROLE_ID,
     SUDO_ROLE_ID,
     WELCOME_BOT_ID,
+    WORD_MATCH_RE,
 )
 
 ascii_lowercase += " !?$()"
@@ -220,18 +222,20 @@ class Fun(Cog):
             return
 
         # Check if the message contains a trigger
-        if any((word := TRIGGER) in message.content.lower() for TRIGGER in REACT_TRIGGERS):
-            to_react = REACT_TRIGGERS[word]  # noqa: F821
-            if to_react in REACT_EMOTES:
-                for emote in to_react.split():
+        for trigger in REACT_TRIGGERS:
+            reg = WORD_MATCH_RE.format(trigger)
+            if re.search(reg, message.content):
+                to_react = REACT_TRIGGERS[trigger]
+                if to_react in REACT_EMOTES:
+                    for emote in to_react.split():
 
-                    if len(emote) > 1:  # We have a string to react with
-                        await emojify(message, emote)
-                    else:
-                        await message.add_reaction(emote)
-            else:
-                await ctx.send(to_react)
-            return  # Only one auto-reaction per message
+                        if len(emote) > 1:  # We have a string to react with
+                            await emojify(message, emote)
+                        else:
+                            await message.add_reaction(emote)
+                else:
+                    await ctx.send(to_react)
+                return  # Only one auto-reaction per message
 
         # Adds waving emoji when a new user joins.
         if all(
