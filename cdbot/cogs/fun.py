@@ -45,6 +45,8 @@ from cdbot.constants import (
     QUOTES_BOT_ID,
     QUOTES_CHANNEL_ID,
     QUOTES_DELETION_QUOTA,
+    REACT_EMOTES,
+    REACT_TRIGGERS,
     ROOT_ROLE_ID,
     STAFF_ROLE_ID,
     SUDO_ROLE_ID,
@@ -52,10 +54,6 @@ from cdbot.constants import (
 )
 
 ascii_lowercase += " !?$()"
-
-EMOTES = ["\N{ONCOMING POLICE CAR}", "\N{DUCK}"]
-REACT_TRIGGERS = {"kali": EMOTES[0], "duck": EMOTES[1], "cybergame": "*CyberStart Game",
-                  "cyberstart access": "*CyberStart Assess", ".beano": "*grumbles*"}
 
 
 def convert_emoji(message: str) -> List[str]:
@@ -224,11 +222,13 @@ class Fun(Cog):
         # Check if the message contains a trigger
         if any((word := TRIGGER) in message.content.lower() for TRIGGER in REACT_TRIGGERS):
             to_react = REACT_TRIGGERS[word]  # noqa: F821
-            if to_react in EMOTES:
-                if len(to_react) > 1:  # We have a string to react with
-                    await emojify(message, to_react)
-                else:
-                    await message.add_reaction(to_react)
+            if to_react in REACT_EMOTES:
+                for emote in to_react.split():
+
+                    if len(emote) > 1:  # We have a string to react with
+                        await emojify(message, emote)
+                    else:
+                        await message.add_reaction(emote)
             else:
                 await ctx.send(to_react)
             return  # Only one auto-reaction per message
