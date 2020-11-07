@@ -7,8 +7,11 @@ class EmbeddedHelpCommand(commands.HelpCommand):
         super().__init__(command_attrs={'help': 'Gives detailed information about a command.'})
 
     async def command_callback(self, ctx, *, command=None):
-        await super().command_callback(
-            ctx, command=next((cog for cog in ctx.bot.cogs if str(command).casefold() == cog.casefold()), command))
+        for cog in ctx.bot.cogs:
+            if str(command).casefold() == cog.casefold():
+                command = cog
+                break
+        return await super().command_callback(ctx, command=command)
 
     async def send_bot_help(self, mapping):
         ctx = self.context
