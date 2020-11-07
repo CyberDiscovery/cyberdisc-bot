@@ -1,4 +1,4 @@
-from discord import Colour, Embed, utils
+from discord import Colour, Embed
 from discord.ext import commands
 
 
