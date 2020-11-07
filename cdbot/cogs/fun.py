@@ -6,6 +6,7 @@ import textwrap
 from io import BytesIO
 from math import ceil
 from random import randint
+import re
 from string import ascii_lowercase
 from typing import List
 from urllib.parse import urlencode
@@ -50,15 +51,16 @@ from cdbot.constants import (
     QUOTES_BOT_ID,
     QUOTES_CHANNEL_ID,
     QUOTES_DELETION_QUOTA,
+    REACT_EMOTES,
+    REACT_TRIGGERS,
     ROOT_ROLE_ID,
     STAFF_ROLE_ID,
     SUDO_ROLE_ID,
     WELCOME_BOT_ID,
+    WORD_MATCH_RE,
 )
 
 ascii_lowercase += " !?$()"
-
-REACT_TRIGGERS = {"kali": "\N{ONCOMING POLICE CAR}", "duck": "\N{DUCK}"}
 
 
 def convert_emoji(message: str) -> List[str]:
@@ -224,16 +226,20 @@ class Fun(Cog):
             # Don't react to valid commands
             return
 
-        for word in message.content.lower().split():
-            # Check if the message contains a trigger
-            if word in REACT_TRIGGERS:
-                to_react = REACT_TRIGGERS[word]
+        # Check if the message contains a trigger
+        for trigger in REACT_TRIGGERS:
+            reg = WORD_MATCH_RE.format(trigger)
+            if re.search(reg, message.content, re.IGNORECASE):
+                to_react = REACT_TRIGGERS[trigger]
+                if to_react in REACT_EMOTES:
+                    for emote in to_react.split():
 
-                if len(to_react) > 1:  # We have a string to react with
-                    await emojify(message, to_react)
+                        if len(emote) > 1:  # We have a string to react with
+                            await emojify(message, emote)
+                        else:
+                            await message.add_reaction(emote)
                 else:
-                    await message.add_reaction(to_react)
-
+                    await ctx.send(to_react)
                 return  # Only one auto-reaction per message
 
         # Adds waving emoji when a new user joins.
@@ -582,6 +588,55 @@ class Fun(Cog):
         Creates an image of Bald Agent J with the specified text.
         """
         await self.create_text_image(ctx, "AgentJBadHairDay", text)
+
+    @command()
+    async def neveragoodtime(self, ctx: Context):
+        """
+        Returns the "as always it's never a good time to pop in" quote.
+        """
+        await ctx.send("https://cdn.discordapp.com/attachments/450107193820446722/546655387886157824/unknown.png")
+
+    @command()
+    async def tryharder(self, ctx: Context):
+        """
+        Returns the "Try Harder" music video.
+        """
+        await ctx.send("https://www.youtube.com/watch?v=t-bgRQfeW64")
+
+    @command()
+    async def hac(self, ctx: Context):
+        """
+        Hacks the specified user.
+        """
+        await ctx.send("Charging the Low Orbit Ion Canon, please stand by!")
+
+    @command()
+    async def dox(self, ctx: Context):
+        """
+        Doxes the specified user.
+        """
+        await ctx.send("OK, scraping their parent's public Facebook feed!")
+
+    @command()
+    async def theworstpunishmentwehave(self, ctx: Context):
+        """
+        Punishes a user.
+        """
+        await ctx.send("Ok, banning them from the Q&A server!")
+
+    @command()
+    async def suppressdissent(self, ctx: Context):
+        """
+        Returns a comment from the bot's inner eye.
+        """
+        await ctx.send("Let me call Theresa for ideas")
+
+    @command()
+    async def beano(self, ctx: Context):
+        """
+        Reminds you of the top dog.
+        """
+        await ctx.send("*grumbles*")
 
     @command()
     async def flowchart(self, ctx: Context):
