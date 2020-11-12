@@ -48,7 +48,7 @@ class Cyber(Cog):
         ),
         (
             r"^.*\bassess\b.*\b(end|finish|close)\b.*$",
-            "CyberStart Assess ends on the 31st October 2020.",
+            "CyberStart Assess ended on the 31st October 2020.",
         ),
         # Game dates
         (
@@ -62,7 +62,7 @@ class Cyber(Cog):
         # Essentials dates
         (
             r"^.*\bessentials\b.*\b(start|begin|open)\b.*$",
-            "CyberStart Essentials begins on the 16th November 2020.",
+            "CyberStart Essentials begins on the 18th December 2020.",
         ),
         (
             r"^.*\bessentials\b.*\b(end|finish|close)\b.*$",
