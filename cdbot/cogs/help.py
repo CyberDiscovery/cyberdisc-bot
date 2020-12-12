@@ -19,9 +19,12 @@ class EmbeddedHelpCommand(commands.HelpCommand):
                     embed.add_field(name=cog.qualified_name,
                                     value=f"``{self.clean_prefix}help {cog.qualified_name}``")
 
-        await ctx.author.send(embed=embed)
+        dm = await ctx.author.send(embed=embed)
         if ctx.guild is not None:
-            await ctx.send(f"{ctx.author.mention} help info sent to DMs", delete_after=10)
+            embed = Embed(
+                description=f"[**Jump to DM**]({dm.jump_url})"
+            )
+            await ctx.send(f"{ctx.author.mention} help info sent to DMs", delete_after=10, embed=embed)
             await ctx.message.delete()
 
     async def send_cog_help(self, cog):
@@ -35,9 +38,12 @@ class EmbeddedHelpCommand(commands.HelpCommand):
         for command in cog.get_commands():
             embed.add_field(name=f"``{self.clean_prefix}{command.name}``", value=command.help)
 
-        await ctx.author.send(embed=embed)
+        dm = await ctx.author.send(embed=embed)
         if ctx.guild is not None:
-            await ctx.send(f"{ctx.author.mention} help info sent to DMs", delete_after=10)
+            embed = Embed(
+                description=f"[**Jump to DM**]({dm.jump_url})"
+            )
+            await ctx.send(f"{ctx.author.mention} help info sent to DMs", delete_after=10, embed=embed)
             await ctx.message.delete()
 
     async def send_command_help(self, command):
