@@ -23,6 +23,7 @@ from discord import (
     NotFound,
     RawReactionActionEvent,
     embeds,
+    TextChannel
 )
 from discord.ext.commands import (
     Bot,
@@ -373,14 +374,13 @@ class Fun(Cog):
         await ctx.send(embed=comic)
 
     @command()
-    async def quote(self, ctx: Context, message_id: str, channel=None):
+    async def quote(self, ctx: Context, message_id, channel: TextChannel = None):
         """
         Quotes the specified message.
         """
         in_quotes = ctx.channel.id == QUOTES_CHANNEL_ID
         try:
-            channel = ctx if channel is None else self.bot.get_channel(
-                int(channel[2:-1] if channel[0] == "<" else channel))
+            channel = ctx if channel is None else channel
             message = await channel.fetch_message(int(message_id))
             embed = Embed(
                 description=f"{message.content}\n\n[Jump to message]({message.jump_url})",
