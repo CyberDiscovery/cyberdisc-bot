@@ -376,34 +376,34 @@ class Fun(Cog):
         await ctx.send(embed=comic)
 
     @command(aliases=['mc'])
-    @cooldown(1, 15, BucketType.user) # rate limit for Mojang is 600 / 10 mins. So this makes sure we don't hit that
+    @cooldown(1, 20, BucketType.user) # rate limit for Mojang is 600 / 10 mins. So this makes sure we don't hit that
     async def mcstatus(self, ctx):
         """
-        Get information on the CD Minecraft server
+        Get information on the CD Minecraft server.
         """
         online_embed = Embed(
             title="CD Minecraft Server Status",
-            colour=Colour.orange()
+            colour=Colour.orange(),
+            description="**Loading...**"
         )
-        online_embed.add_field(name="Players Online", value="loading...", inline=True)
-        online_embed.add_field(name="Ping", value="loading...", inline=True)
-        online_embed.add_field(name="Player Names", value="loading...", inline=False)
-        online_embed.add_field(name="Server Address", value="loading...")
         loading_message = await ctx.send(embed=online_embed)
         try:
             server = MinecraftServer(MINECRAFT_HOSTNAME, 25565)
-            online = server.status().players.online
-            max_players = server.status().players.max
-            ping = round(server.status().latency)
+            status = server.status()
+            online = status.players.online
+            max_players = status.players.max
+            ping = round(status.latency)
+            version = status.raw['version']['name']
 
             online_embed = Embed(
                 title="CD Minecraft Server Status",
                 colour=Colour.green()
             )
 
-            online_embed.add_field(name="Players Online", value=f"{online}/{max_players}", inline=True)
+            online_embed.add_field(name="Server Address", value=MINECRAFT_HOSTNAME, inline=True)
+            online_embed.add_field(name="Server Version", value=version, inline=True)
             online_embed.add_field(name="Ping", value=f"{ping}ms", inline=True)
-            online_embed.add_field(name="Server Address", value=MINECRAFT_HOSTNAME)
+            online_embed.add_field(name="Players Online", value=f"{online}/{max_players}", inline=False)
 
             if online != 0:
                 names = ", ".join([user['name'] for user in server.status().raw['players']['sample']])
