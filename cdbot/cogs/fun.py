@@ -406,7 +406,9 @@ class Fun(Cog):
 
             if online != 0:
                 names = ", ".join([user['name'] for user in server.status().raw['players']['sample']])
-                online_embed.add_field(name="Player Names", value=f"{names}...", inline=False)
+                if online > 12:
+                    names = names + "..."
+                online_embed.add_field(name="Player Names", value=f"{names}", inline=False)
 
             await loading_message.edit(embed=online_embed)
         except (ConnectionRefusedError, OSError):
