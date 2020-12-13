@@ -43,6 +43,7 @@ from cdbot.constants import (
     FAKE_ROLE_ID,
     LOCAL_DEBUGGING,
     LOGGING_CHANNEL_ID,
+    MINECRAFT_IP,
     PostgreSQL,
     QUOTES_BOT_ID,
     QUOTES_CHANNEL_ID,
@@ -374,38 +375,48 @@ class Fun(Cog):
 
         await ctx.send(embed=comic)
 
-    @command()
-    async def mc(self, ctx):
-        embed = Embed(
-            title="CD MC Status",
-            colour=Colour.green()
+    @command(aliases=['mc'])
+    @cooldown(1, 15, BucketType.user) # rate limit for Mojang is 600 / 10 mins. So this makes sure we don't hit that
+    async def mcstatus(self, ctx):
+        """
+        Get information on the CD Minecraft server
+        """
+        online_embed = Embed(
+            title="CD Minecraft Server Status",
+            colour=Colour.orange()
         )
-        embed.add_field(name="Players online", value="loading...", inline=True)
-        embed.add_field(name="Ping", value="loading...", inline=True)
-        embed.add_field(name="Player names", value="loading...", inline=False)
-        l = await ctx.send(embed=embed)
-        embed2 = Embed(
-            title="CD MC Server is offline.",
-            description="Please come back another time",
-            colour=Colour.red()
-        )
+        online_embed.add_field(name="Players Online", value="loading...", inline=True)
+        online_embed.add_field(name="Ping", value="loading...", inline=True)
+        online_embed.add_field(name="Player Names", value="loading...", inline=False)
+        online_embed.add_field(name="Server Address", value="loading...")
+        loading_message = await ctx.send(embed=online_embed)
         try:
-            embed.clear_fields()
-            server = MinecraftServer("cultoflyne.com", 25565)
+            server = MinecraftServer(MINECRAFT_IP, 25565)
             online = server.status().players.online
-            max = server.status().players.max
+            max_players = server.status().players.max
             ping = round(server.status().latency)
 
-            embed.add_field(name="Players online", value=f"{online}/{max}", inline=True)
-            embed.add_field(name="Ping", value=f"{ping}ms", inline=True)
+            online_embed = Embed(
+                title="CD Minecraft Server Status",
+                colour=Colour.green()
+            )
+
+            online_embed.add_field(name="Players Online", value=f"{online}/{max_players}", inline=True)
+            online_embed.add_field(name="Ping", value=f"{ping}ms", inline=True)
+            online_embed.add_field(name="Server Address", value=MINECRAFT_IP)
 
             if online != 0:
                 names = ", ".join([user['name'] for user in server.status().raw['players']['sample']])
-                embed.add_field(name="Player names", value=names, inline=False)
+                online_embed.add_field(name="Player Names", value=names, inline=False)
 
-            await l.edit(embed=embed)
+            await loading_message.edit(embed=online_embed)
         except (ConnectionRefusedError, OSError):
-            await l.edit(embed=embed2)
+            offline_embed = Embed(
+                title="CD Minecraft Server Status",
+                description="The server is offline. Please come back another time",
+                colour=Colour.red()
+            )
+            await loading_message.edit(embed=offline_embed)
 
 
 
