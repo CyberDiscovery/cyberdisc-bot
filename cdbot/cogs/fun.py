@@ -376,7 +376,7 @@ class Fun(Cog):
         await ctx.send(embed=comic)
 
     @command(aliases=['mc'])
-    @cooldown(1, 20, BucketType.user) # rate limit for Mojang is 600 / 10 mins. So this makes sure we don't hit that
+    @cooldown(6, 60, BucketType.guild) # rate limit for Mojang is 600 / 10 mins. So this makes sure we don't hit that
     async def mcstatus(self, ctx):
         """
         Get information on the CD Minecraft server.
