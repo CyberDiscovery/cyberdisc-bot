@@ -391,7 +391,7 @@ class Fun(Cog):
         online_embed.add_field(name="Server Address", value="loading...")
         loading_message = await ctx.send(embed=online_embed)
         try:
-            server = MinecraftServer(MINECRAFT_IP, 25565)
+            server = MinecraftServer(MINECRAFT_HOSTNAME, 25565)
             online = server.status().players.online
             max_players = server.status().players.max
             ping = round(server.status().latency)
@@ -403,7 +403,7 @@ class Fun(Cog):
 
             online_embed.add_field(name="Players Online", value=f"{online}/{max_players}", inline=True)
             online_embed.add_field(name="Ping", value=f"{ping}ms", inline=True)
-            online_embed.add_field(name="Server Address", value=MINECRAFT_IP)
+            online_embed.add_field(name="Server Address", value=MINECRAFT_HOSTNAME)
 
             if online != 0:
                 names = ", ".join([user['name'] for user in server.status().raw['players']['sample']])
