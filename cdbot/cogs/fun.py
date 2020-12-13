@@ -43,7 +43,7 @@ from cdbot.constants import (
     FAKE_ROLE_ID,
     LOCAL_DEBUGGING,
     LOGGING_CHANNEL_ID,
-    MINECRAFT_IP,
+    MINECRAFT_HOSTNAME,
     PostgreSQL,
     QUOTES_BOT_ID,
     QUOTES_CHANNEL_ID,
