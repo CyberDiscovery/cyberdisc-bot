@@ -390,17 +390,19 @@ class Fun(Cog):
             colour=Colour.red()
         )
         try:
+            embed.clear_fields()
             server = MinecraftServer("cultoflyne.com", 25565)
             online = server.status().players.online
             max = server.status().players.max
-            names = ", ".join([user['name'] for user in server.status().raw['players']['sample']])
             ping = round(server.status().latency)
 
-            embed.clear_fields()
             embed.add_field(name="Players online", value=f"{online}/{max}", inline=True)
             embed.add_field(name="Ping", value=f"{ping}ms", inline=True)
+
             if online != 0:
+                names = ", ".join([user['name'] for user in server.status().raw['players']['sample']])
                 embed.add_field(name="Player names", value=names, inline=False)
+
             await l.edit(embed=embed)
         except (ConnectionRefusedError, OSError):
             await l.edit(embed=embed2)
