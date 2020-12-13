@@ -17,6 +17,7 @@ gitpython = "^3"
 httpx = "^0.16.1"
 html2markdown = "^0.1.7"
 aiocontextvars = "^0.2.2"
+mcstatus = "^4.1.0"
 
 [tool.poetry.dev-dependencies]
 flake8 = "^3.8.4"

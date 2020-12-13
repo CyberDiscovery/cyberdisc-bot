@@ -10,6 +10,7 @@ import re
 from string import ascii_lowercase
 from typing import List
 from urllib.parse import urlencode
+from mcstatus import MinecraftServer
 
 import asyncpg
 from PIL import Image, ImageDraw, ImageFont
@@ -372,6 +373,39 @@ class Fun(Cog):
         comic.add_field(name="Explanation:", value=f"https://explainxkcd.com/{number}")
 
         await ctx.send(embed=comic)
+
+    @command()
+    async def mc(self, ctx):
+        embed = Embed(
+            title="CD MC Status",
+            colour=Colour.green()
+        )
+        embed.add_field(name="Players online", value="loading...", inline=True)
+        embed.add_field(name="Ping", value="loading...", inline=True)
+        embed.add_field(name="Player names", value="loading...", inline=False)
+        l = await ctx.send(embed=embed)
+        embed2 = Embed(
+            title="CD MC Server is offline.",
+            description="Please come back another time",
+            colour=Colour.red()
+        )
+        try:
+            server = MinecraftServer("cultoflyne.com", 25565)
+            online = server.status().players.online
+            max = server.status().players.max
+            names = ", ".join([user['name'] for user in server.status().raw['players']['sample']])
+            ping = round(server.status().latency)
+
+            embed.clear_fields()
+            embed.add_field(name="Players online", value=f"{online}/{max}", inline=True)
+            embed.add_field(name="Ping", value=f"{ping}ms", inline=True)
+            if online != 0:
+                embed.add_field(name="Player names", value=names, inline=False)
+            await l.edit(embed=embed)
+        except (ConnectionRefusedError, OSError):
+            await l.edit(embed=embed2)
+
+
 
     @command()
     async def quotes(self, ctx: Context, member: FormerUser = None):
