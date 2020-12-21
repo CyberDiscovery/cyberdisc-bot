@@ -285,23 +285,6 @@ class Fun(Cog):
                 await reaction.message.delete()
                 await logs_channel.send(embed=embed)
 
-    @command()
-    async def lmgtfy(self, ctx: Context, *args: str):
-        """
-        Returns a LMGTFY URL for a given user argument.
-        """
-        # Creates a lmgtfy.com url for the given query.
-        request_data = {
-            "q": " ".join(arg for arg in args if not arg.startswith("-")),
-            "ie": int("-ie" in args),
-        }
-        url = "https://lmgtfy.com/?" + urlencode(request_data)
-
-        await ctx.send(url)
-
-        if "-d" in args:
-            await ctx.message.delete()
-
     # Ratelimit to one use per user every minute and 4 usages per minute per channel
     @command(aliases=["emojify"])
     @cooldown(1, 60, BucketType.user)
