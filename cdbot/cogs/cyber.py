@@ -31,7 +31,7 @@ from cdbot.constants import (
 
 async def generatebase64(seed: int) -> str:
     random.seed(seed)
-    letters = string.ascii_letters + string.digits + "+/="
+    letters = string.ascii_letters + string.digits + "+/"
     return "".join(random.choices(letters, k=20))
 
 
