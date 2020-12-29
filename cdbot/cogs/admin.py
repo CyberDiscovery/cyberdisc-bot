@@ -123,6 +123,9 @@ class Admin(Cog):
             title=f"Raid Protection {msgpart[raidon]}."
         )
         if raidon:
+            for invite in await ctx.channel.guild.invites():
+                await invite.delete()
+
             embed.description = ("Raid protection now ON - All invite "
                                  "links were deleted and members may not "
                                  "create new ones")
@@ -131,10 +134,6 @@ class Admin(Cog):
                                  "create new invite links")
         embed.set_author(name=ctx.author.name, icon_url=ctx.author.avatar_url)
         await logs_channel.send(embed=embed)
-
-        if raidon:
-            for invite in await ctx.channel.guild.invites():
-                await invite.delete()
 
 
 def setup(bot):
