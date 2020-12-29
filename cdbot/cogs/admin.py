@@ -1,7 +1,7 @@
 import re
 
 from discord import AuditLogAction, Member, Embed, Colour
-from discord.ext.commands import Bot, Cog, Context, command, has_role
+from discord.ext.commands import Bot, Cog, Context, command, has_any_role
 
 from cdbot.constants import (
     ADMIN_MENTOR_ROLE_ID,
@@ -11,6 +11,7 @@ from cdbot.constants import (
     PLACEHOLDER_NICKNAME,
     STATIC_NICKNAME_ROLE_ID,
     ROOT_ROLE_ID,
+    SUDO_ROLE_ID,
     LOGGING_CHANNEL_ID,
 )
 
@@ -92,7 +93,7 @@ class Admin(Cog):
             await member.edit(nick=PLACEHOLDER_NICKNAME)
 
     @command()
-    @has_role(ROOT_ROLE_ID)
+    @has_any_role(ROOT_ROLE_ID, SUDO_ROLE_ID)
     async def raidprotect(
         self,
         ctx: Context
