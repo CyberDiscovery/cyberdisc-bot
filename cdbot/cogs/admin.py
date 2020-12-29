@@ -1,7 +1,7 @@
 import re
 
-from discord import AuditLogAction, Member
-from discord.ext.commands import Bot, Cog
+from discord import AuditLogAction, Member, Embed, Colour
+from discord.ext.commands import Bot, Cog, Context, command, has_role
 
 from cdbot.constants import (
     ADMIN_MENTOR_ROLE_ID,
@@ -10,6 +10,8 @@ from cdbot.constants import (
     NICKNAME_PATTERNS,
     PLACEHOLDER_NICKNAME,
     STATIC_NICKNAME_ROLE_ID,
+    ROOT_ROLE_ID,
+    LOGGING_CHANNEL_ID,
 )
 
 
@@ -88,6 +90,50 @@ class Admin(Cog):
         if check_bad_name(username):  # bad username
             # assign placeholder nickname
             await member.edit(nick=PLACEHOLDER_NICKNAME)
+
+    @command()
+    @has_role(ROOT_ROLE_ID)
+    async def raidprotect(
+        self,
+        ctx: Context
+    ):
+        """
+        Allows an admin user to lock down the server in case of a raid.
+        This command toggles invite link generation for @everyone and
+        revokes all existing invite links.
+        """
+        everyone = ctx.channel.guild.default_role
+        perms = everyone.permissions
+        logs_channel = self.bot.get_channel(LOGGING_CHANNEL_ID)
+
+        if perms.create_instant_invite:
+            perms.update(create_instant_invite=False)
+            raidon = 1
+        else:
+            perms.update(create_instant_invite=True)
+            raidon = 0
+
+        msgpart = ("OFF", "ON")
+        msg = f"Toggled raid protection {msgpart[raidon]}."
+        await everyone.edit(reason=msg, permissions=perms)
+        await ctx.send(msg, delete_after=10)
+        embed = Embed(
+            color=Colour.blue(),
+            title=f"Raid Protection {msgpart[raidon]}."
+        )
+        if raidon:
+            embed.description = ("Raid protection now ON - All invite "
+                                 "links were deleted and members may not "
+                                 "create new ones")
+        else:
+            embed.description = ("Raid protection now OFF - Members can now "
+                                 "create new invite links")
+        embed.set_author(name=ctx.author.name, icon_url=ctx.author.avatar_url)
+        await logs_channel.send(embed=embed)
+
+        if raidon:
+            for invite in await ctx.channel.guild.invites():
+                await invite.delete()
 
 
 def setup(bot):
