@@ -8,7 +8,7 @@ from math import ceil
 from random import randint
 import re
 from string import ascii_lowercase
-from typing import List
+from typing import List, Optional
 from urllib.parse import urlencode
 
 import asyncpg
@@ -374,7 +374,7 @@ class Fun(Cog):
         await ctx.send(embed=comic)
 
     @command()
-    async def quote(self, ctx: Context, message_id, channel: TextChannel = None):
+    async def quote(self, ctx: Context, message_id, channel: Optional[TextChannel] = None):
         """
         Quotes the specified message.
         """
