@@ -42,8 +42,6 @@ class Admin(Cog):
             # if this entry was to the user in question, and was this specific nickname change
             if entry.target == member_before and entry.after.nick == member_after.nick:
                 corresponding_audit_entry = entry
-                print(entry.user)
-                print(entry.user.roles)
                 break
 
         if (
@@ -61,7 +59,6 @@ class Admin(Cog):
             )
             if not (admin_role_check or bot_role_check or mentor_role_check):
                 for i in member_after.roles:
-                    print(i.id)
                     if i.id == STATIC_NICKNAME_ROLE_ID:  # user has Static Name role
                         await member_after.edit(
                             nick=member_before.display_name
