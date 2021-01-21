@@ -1,18 +1,18 @@
 import re
 
-from discord import AuditLogAction, Member, Embed, Colour
+from discord import AuditLogAction, Colour, Embed, Member
 from discord.ext.commands import Bot, Cog, Context, command, has_any_role
 
 from cdbot.constants import (
     ADMIN_MENTOR_ROLE_ID,
     ADMIN_ROLES,
     CD_BOT_ROLE_ID,
+    LOGGING_CHANNEL_ID,
     NICKNAME_PATTERNS,
     PLACEHOLDER_NICKNAME,
-    STATIC_NICKNAME_ROLE_ID,
     ROOT_ROLE_ID,
-    SUDO_ROLE_ID,
-    LOGGING_CHANNEL_ID,
+    STATIC_NICKNAME_ROLE_ID,
+    SUDO_ROLE_ID
 )
 
 
