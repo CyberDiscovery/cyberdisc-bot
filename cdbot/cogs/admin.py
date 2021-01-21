@@ -94,46 +94,65 @@ class Admin(Cog):
 
     @command()
     @has_any_role(ROOT_ROLE_ID, SUDO_ROLE_ID)
-    async def raidprotect(
+    async def raid(
         self,
-        ctx: Context
+        ctx: Context,
+        operand: str = ""
     ):
         """
         Allows an admin user to lock down the server in case of a raid.
         This command toggles invite link generation for @everyone and
         revokes all existing invite links.
         """
+
         everyone = ctx.channel.guild.default_role
         perms = everyone.permissions
+        enabled = not perms.create_instant_invite
         logs_channel = self.bot.get_channel(LOGGING_CHANNEL_ID)
 
-        if perms.create_instant_invite:
-            perms.update(create_instant_invite=False)
-            raidon = 1
-        else:
-            perms.update(create_instant_invite=True)
-            raidon = 0
+        operand = operand.lower()
+        boolonoff = ("OFF", "ON")
 
-        msgpart = ("OFF", "ON")
-        msg = f"Toggled raid protection {msgpart[raidon]}."
-        await everyone.edit(reason=msg, permissions=perms)
-        await ctx.send(msg, delete_after=10)
-        embed = Embed(
-            color=Colour.blue(),
-            title=f"Raid Protection {msgpart[raidon]}."
-        )
-        if raidon:
-            for invite in await ctx.channel.guild.invites():
+        action = True
+        embed = None
+
+        if not operand:  # status query
+            await ctx.send(f"Raid protection currently {boolonoff[enabled]}. Use `:raid [on/off]` to toggle.")
+            action = False
+
+        elif operand in ("on", "yes") and not enabled:  # need to turn it on
+            enabled = True
+            perms.update(create_instant_invite=False)
+            embed = Embed(
+                color=Colour.blue(),
+                title="Raid Protection ON.",
+                description=("Raid protection now ON - All invite links were"
+                             " deleted and members may not create new ones")
+            )
+            for invite in await ctx.channel.guild.invites():  # delete links
                 await invite.delete()
 
-            embed.description = ("Raid protection now ON - All invite "
-                                 "links were deleted and members may not "
-                                 "create new ones")
-        else:
-            embed.description = ("Raid protection now OFF - Members can now "
-                                 "create new invite links")
-        embed.set_author(name=ctx.author.name, icon_url=ctx.author.avatar_url)
-        await logs_channel.send(embed=embed)
+        elif operand in ("off", "no") and enabled:
+            enabled = False
+            perms.update(create_instant_invite=True)
+            embed = Embed(
+                color=Colour.blue(),
+                title="Raid Protection OFF.",
+                description=("Raid protection now OFF - Members can now create"
+                             " new invite links")
+            )
+
+        else:  # no changes
+            await ctx.send(f"Raid protection {boolonoff[enabled]}, nothing was changed.")
+            action = False
+
+        if action:  # if we toggled it
+            msg = f"{ctx.author.name} toggled raid protection {boolonoff[enabled]}."
+            await everyone.edit(reason=msg, permissions=perms)  # make the perm change
+            await ctx.send(msg)  # direct response to invocation
+
+            embed.set_author(name=ctx.author.name, icon_url=ctx.author.avatar_url)
+            await logs_channel.send(embed=embed)  # log the event
 
 
 def setup(bot):
