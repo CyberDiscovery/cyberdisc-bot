@@ -108,7 +108,7 @@ CMA_LINKS = {"1": "https://cdn.discordapp.com/attachments/450107193820446722/492
 REACT_EMOTES = ["\N{ONCOMING POLICE CAR}", "\N{DUCK}", "\U0001f645 \N{NO ENTRY} \N{CROSSED SWORDS}"]
 REACT_TRIGGERS = {"kali": REACT_EMOTES[0], "duck": REACT_EMOTES[1], "cybergame": "*CyberStart Game",
                   "cyberstart access": "*CyberStart Assess", "13.1": REACT_EMOTES[2]}
-WORD_MATCH_RE = r"^.*\b{}\b.*$"
+WORD_MATCH_RE = r"^.*\b{}\b.*$" # noqa
 
 # General constants
 BOT_COMMAND_CHANNELS = [409860647170342919, 489217138020712478]
