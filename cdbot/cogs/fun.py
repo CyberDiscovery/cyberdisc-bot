@@ -7,6 +7,7 @@ from io import BytesIO
 from math import ceil
 from random import choice, randint
 import re
+from random import randint
 from string import ascii_lowercase
 from typing import List
 from urllib.parse import urlencode
