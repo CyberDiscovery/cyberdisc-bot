@@ -94,11 +94,26 @@ BOT_TOKEN = getenv("BOT_TOKEN")
 SENTRY_URL = getenv("SENTRY_URL")
 
 # Fun constants
-QUOTES_DELETION_QUOTA = 10
+QUOTES_DELETION_QUOTA = int(environ.get("QUOTES_DELETION_QUOTA", "10"))
 QUOTES_CHANNEL_ID = int(environ.get("QUOTES_CHANNEL_ID", "463657120441696256"))
 QUOTES_BOT_ID = 292953664492929025
 LOGGING_CHANNEL_ID = int(environ.get("LOGGING_CHANNEL_ID", "538494690601992212"))
 WELCOME_BOT_ID = 155149108183695360
+CMA_LINKS = {"1": "https://cdn.discordapp.com/attachments/450107193820446722/492649412560945164/unknown.png",
+             "2": "https://cdn.discordapp.com/attachments/450107193820446722/492649644623659014/unknown.png",
+             "3": "https://cdn.discordapp.com/attachments/450107193820446722/492649912035573770/unknown.png",
+             "3a": "https://cdn.discordapp.com/attachments/450107193820446722/492650366454857737/unknown.png",
+             "3za": "https://cdn.discordapp.com/attachments/450107193820446722/492650170656489472/unknown.png",
+             }
+REACT_EMOTES = ["\N{ONCOMING POLICE CAR}", "\N{DUCK}", "\U0001f645 \N{NO ENTRY} \N{CROSSED SWORDS}"]
+REACT_TRIGGERS = {"kali": REACT_EMOTES[0], "duck": REACT_EMOTES[1], "cybergame": "*CyberStart Game",
+                  "cyberstart access": "*CyberStart Assess", "13.1": REACT_EMOTES[2]}
+WORD_MATCH_RE = r"^.*\b{}\b.*$" # noqa
+
+# General constants
+WELCOME_MESSAGE = ("Welcome to the Cyber Discovery discussion discord! Before you begin, please check the "
+                   "rules, roles and information in <#409853512185282561> to answer any questions.")
+WELCOME_CHANNEL_ID = int(environ.get("WELCOME_CHANNEL_ID", "411573884597436416"))
 
 # Misc roles
 HUNDRED_PERCENT_ROLE_ID = 640481360766697482
@@ -114,7 +129,6 @@ ROOT_ROLE_ID = int(environ.get("ROOT_MEMBERS_ID", "450113490590629888"))
 SUDO_ROLE_ID = int(environ.get("SUDO_MEMBERS_ID", "450113682542952451"))
 ADMIN_ROLES = ("Root", "Sudo")
 BANNED_DOMAINS = ["discord.gg", "discord.com"]
-
 
 HINTS_LIMIT = 8
 CYBERDISC_ICON_URL = (
@@ -188,3 +202,5 @@ EMOJI_LETTERS = [
     "\U000021aa",  # (
     "\U000021a9",  # )
 ]
+
+CHEATING_VIDEO = "https://game.joincyberdiscovery.com/assets/videos/cheating_message.mp4?version=4.2.0"
