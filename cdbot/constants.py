@@ -22,7 +22,38 @@ class PostgreSQL:
 
 
 class Maths:
-    LATEX_RE = re.compile(r'\${1,2}(.*?)\${1,2}', re.DOTALL)
+    LATEX_RE = re.compile(r"\${1,2}(.*?)\${1,2}", re.DOTALL)
+    LATEX_RESPONSE_RE = re.compile(r"^([-]?\d+)\r?\n?(\S+)\s([-]?\d+)\s(\d+)\s(\d+)\r?\n?([\s\S]*)")
+
+    LATEX_PREAMBLE = (
+        "\\usepackage{amsmath}\n"
+        "\\usepackage{amssymb}\n"
+        "\\usepackage{amsthm}\n"
+        "\\usepackage{amsfonts}\n"
+        "\\usepackage{mathtools}\n"
+        "\\usepackage{stmaryrd}\n"
+        "\\usepackage[utf8]{inputenc}\n"
+        "\\usepackage{longtable}\n"
+        "\n"
+        "\\usepackage{graphicx}\n"
+        "\\usepackage{subcaption}\n"
+        "\\usepackage{caption}\n"
+        "\n"
+        "\\usepackage{booktabs}\n"
+        "\\usepackage[separate-uncertainty]{siunitx}\n"
+        "\\usepackage[version=4]{mhchem}\n"
+        "\\usepackage{mathabx}\n"
+        "\n"
+        "\\newtheorem{theorem}{Theorem}[section]\n"
+        "\\newtheorem{corollary}{Corollary}[theorem]\n"
+        "\\newtheorem{procedure}{Procedure}[section]\n"
+        "\\newtheorem{lemma}[theorem]{Lemma}\n"
+        "\n"
+        "\\theoremstyle{remark}\n"
+        "\\newtheorem*{remark}{Remark}\n"
+        "\n"
+        "\\theoremstyle{definition}\n"
+        "\\newtheorem{definition}{Definition}[section]")
 
     BLOCKED_CHANNELS = [411573884597436416]
 
@@ -37,29 +68,21 @@ class Maths:
 
 class Roles:
     class Elite:
-        MAIN = int(environ.get("ELITE_MEMBERS_ID", "580387468336037888"))
-
-        class London:
-            YOUNGER = int(environ.get("LDN_Y_MEMBERS_ID", "580387877385404428"))
-            OLDER = int(environ.get("LDN_O_MEMBERS_ID", "580387897644023811"))
-
-        class Birmingham:
-            YOUNGER = int(environ.get("BRM_Y_MEMBERS_ID", "580387895299276830"))
-            OLDER = int(environ.get("BRM_O_MEMBERS_ID", "580387899833581572"))
-
-        class Lancaster:
-            YOUNGER = int(environ.get("LAN_Y_MEMBERS_ID", "580387892853997578"))
-            OLDER = int(environ.get("LAN_O_MEMBERS_ID", "580387898973618176"))
+        class VET2018:
+            ATTENDEES = int(environ.get("2018_MEMBERS_ID", "453581429528461313"))
 
         class VET2019:
-            CYBERIST = int(
-                environ.get("2019_CYBERIST_MEMBERS_ID", "610387199300730900")
-            )
-            FORENSICATOR = int(
-                environ.get("2019_FORENSICATOR_MEMBERS_ID", "580387897644023811")
-            )
+            ATTENDEES = int(environ.get("2019_MEMBERS_ID", "580387468336037888"))
+            CYBERIST = int(environ.get("2019_CYBERIST_MEMBERS_ID", "610387199300730900"))
+            FORENSICATOR = int(environ.get("2019_FORENSICATOR_MEMBERS_ID", "580387897644023811"))
 
-        TALENTDEV = int(environ.get("TALENTDEV_MEMBERS_ID", "669927831031250954"))
+        class VET2020:
+            TALENTDEV = int(environ.get("TALENTDEV_MEMBERS_ID", "669927831031250954"))
+            ELITEONLINE = int(environ.get("2020_ONLINE_MEMBERS_ID", "715852962664153168"))
+            ELITE503 = int(environ.get("2020_503_MEMBERS_ID", "719957290039378022"))
+            ELITE504 = int(environ.get("2020_504_MEMBERS_ID", "719957222657884200"))
+            ELITE500 = int(environ.get("2020_500_MEMBERS_ID", "719957182308679822"))
+            ELITEEHF = int(environ.get("2020_EHF_MEMBERS_ID", "722188749378683020"))
 
     class Exchange:
         SHORTLIST = int(environ.get("EXCH_S_MEMBERS_ID", "582894164597932034"))
@@ -71,11 +94,26 @@ BOT_TOKEN = getenv("BOT_TOKEN")
 SENTRY_URL = getenv("SENTRY_URL")
 
 # Fun constants
-QUOTES_DELETION_QUOTA = 10
+QUOTES_DELETION_QUOTA = int(environ.get("QUOTES_DELETION_QUOTA", "10"))
 QUOTES_CHANNEL_ID = int(environ.get("QUOTES_CHANNEL_ID", "463657120441696256"))
 QUOTES_BOT_ID = 292953664492929025
 LOGGING_CHANNEL_ID = int(environ.get("LOGGING_CHANNEL_ID", "538494690601992212"))
 WELCOME_BOT_ID = 155149108183695360
+CMA_LINKS = {"1": "https://cdn.discordapp.com/attachments/450107193820446722/492649412560945164/unknown.png",
+             "2": "https://cdn.discordapp.com/attachments/450107193820446722/492649644623659014/unknown.png",
+             "3": "https://cdn.discordapp.com/attachments/450107193820446722/492649912035573770/unknown.png",
+             "3a": "https://cdn.discordapp.com/attachments/450107193820446722/492650366454857737/unknown.png",
+             "3za": "https://cdn.discordapp.com/attachments/450107193820446722/492650170656489472/unknown.png",
+             }
+REACT_EMOTES = ["\N{ONCOMING POLICE CAR}", "\N{DUCK}", "\U0001f645 \N{NO ENTRY} \N{CROSSED SWORDS}"]
+REACT_TRIGGERS = {"kali": REACT_EMOTES[0], "duck": REACT_EMOTES[1], "cybergame": "*CyberStart Game",
+                  "cyberstart access": "*CyberStart Assess", "13.1": REACT_EMOTES[2]}
+WORD_MATCH_RE = r"^.*\b{}\b.*$" # noqa
+
+# General constants
+WELCOME_MESSAGE = ("Welcome to the Cyber Discovery discussion discord! Before you begin, please check the "
+                   "rules, roles and information in <#409853512185282561> to answer any questions.")
+WELCOME_CHANNEL_ID = int(environ.get("WELCOME_CHANNEL_ID", "411573884597436416"))
 
 # Misc roles
 HUNDRED_PERCENT_ROLE_ID = 640481360766697482
@@ -90,14 +128,15 @@ ADMIN_MENTOR_ROLE_ID = 502238208747110411
 ROOT_ROLE_ID = int(environ.get("ROOT_MEMBERS_ID", "450113490590629888"))
 SUDO_ROLE_ID = int(environ.get("SUDO_MEMBERS_ID", "450113682542952451"))
 ADMIN_ROLES = ("Root", "Sudo")
-BANNED_DOMAINS = ["discord.gg"]
-
+BANNED_DOMAINS = ["discord.gg", "discord.com"]
 
 HINTS_LIMIT = 8
 CYBERDISC_ICON_URL = (
     "https://pbs.twimg.com/profile_images/921313066515615745/fLEl2Gfa_400x400.jpg"
 )
 ELITECOUNT_ENABLED = True
+
+LOCAL_DEBUGGING = bool(environ.get("LOCAL_DEBUGGING", False))
 
 # Readme command constants
 README_SEND_ALIASES = ["create", "push", "generate", "send", "make", "build", "upload"]
@@ -119,7 +158,7 @@ BASE_ALIASES = {
 # Admin Constants
 PLACEHOLDER_NICKNAME = "Valued server member"
 NICKNAME_PATTERNS = [
-    r"(discord\.gg/)",  # invite links
+    r"(discord\.gg/|discord\.com/invite/)",  # invite links
     r"(nigg|ligma|fag|nazi|hitler|\bpaki\b)",  # banned words
     r"(http(s)?:\/\/.)?(www\.)?[-a-zA-Z0-9@:%._\+~#=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_\+.~#?&//=]*)",  # hyperlinks
 ]
@@ -159,3 +198,5 @@ EMOJI_LETTERS = [
     "\U000021aa",  # (
     "\U000021a9",  # )
 ]
+
+CHEATING_VIDEO = "https://game.joincyberdiscovery.com/assets/videos/cheating_message.mp4?version=4.2.0"

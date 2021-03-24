@@ -5,6 +5,7 @@ import asyncio
 import textwrap
 from io import BytesIO
 from math import ceil
+import re
 from random import randint
 from string import ascii_lowercase
 from typing import List
@@ -35,22 +36,26 @@ from discord.ext.commands import (
 from discord.utils import get
 
 from cdbot.constants import (
+    CMA_LINKS,
     CYBERDISC_ICON_URL,
     EMOJI_LETTERS,
     FAKE_ROLE_ID,
+    LOCAL_DEBUGGING,
+    LOGGING_CHANNEL_ID,
     PostgreSQL,
     QUOTES_BOT_ID,
     QUOTES_CHANNEL_ID,
     QUOTES_DELETION_QUOTA,
+    REACT_EMOTES,
+    REACT_TRIGGERS,
     ROOT_ROLE_ID,
     STAFF_ROLE_ID,
     SUDO_ROLE_ID,
     WELCOME_BOT_ID,
+    WORD_MATCH_RE,
 )
 
 ascii_lowercase += " !?$()"
-
-REACT_TRIGGERS = {"kali": "\N{ONCOMING POLICE CAR}", "duck": "\N{DUCK}"}
 
 
 def convert_emoji(message: str) -> List[str]:
@@ -140,15 +145,15 @@ class Fun(Cog):
         if self.fake_staff_role is None:
             self.fake_staff_role = guild.get_role(FAKE_ROLE_ID)
 
-        self.bot.pool = await asyncpg.create_pool(
-            host=PostgreSQL.PGHOST,
-            port=PostgreSQL.PGPORT,
-            user=PostgreSQL.PGUSER,
-            password=PostgreSQL.PGPASSWORD,
-            database=PostgreSQL.PGDATABASE,
-        )
-
-        await self.migrate_quotes()
+        if not LOCAL_DEBUGGING:
+            self.bot.pool = await asyncpg.create_pool(
+                host=PostgreSQL.PGHOST,
+                port=PostgreSQL.PGPORT,
+                user=PostgreSQL.PGUSER,
+                password=PostgreSQL.PGPASSWORD,
+                database=PostgreSQL.PGDATABASE,
+            )
+            await self.migrate_quotes()
 
     @cooldown(1, 60, BucketType.user)
     @cooldown(4, 60, BucketType.channel)
@@ -216,16 +221,20 @@ class Fun(Cog):
             # Don't react to valid commands
             return
 
-        for word in message.content.lower().split():
-            # Check if the message contains a trigger
-            if word in REACT_TRIGGERS:
-                to_react = REACT_TRIGGERS[word]
+        # Check if the message contains a trigger
+        for trigger in REACT_TRIGGERS:
+            reg = WORD_MATCH_RE.format(trigger)
+            if re.search(reg, message.content, re.IGNORECASE):
+                to_react = REACT_TRIGGERS[trigger]
+                if to_react in REACT_EMOTES:
+                    for emote in to_react.split():
 
-                if len(to_react) > 1:  # We have a string to react with
-                    await emojify(message, to_react)
+                        if len(emote) > 1:  # We have a string to react with
+                            await emojify(message, emote)
+                        else:
+                            await message.add_reaction(emote)
                 else:
-                    await message.add_reaction(to_react)
-
+                    await ctx.send(to_react)
                 return  # Only one auto-reaction per message
 
         # Adds waving emoji when a new user joins.
@@ -247,16 +256,34 @@ class Fun(Cog):
             )
         ):
             quotes_channel = self.bot.get_channel(QUOTES_CHANNEL_ID)
+            logs_channel = self.bot.get_channel(LOGGING_CHANNEL_ID)
             message = await quotes_channel.fetch_message(raw_reaction.message_id)
             reaction = [
                 react for react in message.reactions if str(react.emoji) == thumbs_down
             ][0]
             if reaction.count >= QUOTES_DELETION_QUOTA:
-                async with self.bot.pool.acquire() as connection:
-                    await connection.execute(
-                        "DELETE FROM quotes WHERE quote_id = $1", reaction.message.id
-                    )
+                if not LOCAL_DEBUGGING:
+                    async with self.bot.pool.acquire() as connection:
+                        await connection.execute(
+                            "DELETE FROM quotes WHERE quote_id = $1", reaction.message.id
+                        )
+                mentions = ", ".join([user.mention async for user in reaction.users()])
+
+                embed = Embed(
+                    color=Colour.blue(),
+                    title="Quote Deleted"
+                )
+                if reaction.message.embeds:
+                    quote_embed = reaction.message.embeds[-1]  # Using last item has same effect as for loop
+                    embed.description = quote_embed.description
+                    embed.set_author(name=quote_embed.author.name, icon_url=quote_embed.author.icon_url)
+                else:  # message doesn't have an embed, MUST be from a user
+                    embed.description = message.content
+                    embed.set_author(name=message.author.name, icon_url=message.author.avatar_url)
+                embed.add_field(name="Deleted By", value=mentions)
+
                 await reaction.message.delete()
+                await logs_channel.send(embed=embed)
 
     @command()
     async def lmgtfy(self, ctx: Context, *args: str):
@@ -468,20 +495,21 @@ class Fun(Cog):
         else:
             author_id = quote.mentions[0].id if quote.mentions else None
 
-        async with self.bot.pool.acquire() as connection:
-            if author_id is not None:
-                await connection.execute(
-                    "INSERT INTO quotes(quote_id, author_id) VALUES($1, $2) ON CONFLICT DO NOTHING",
-                    quote.id,
-                    author_id,
-                )
-            else:
-                await connection.execute(
-                    "INSERT INTO quotes(quote_id) VALUES($1) ON CONFLICT DO NOTHING",
-                    quote.id,
-                )
+        if not LOCAL_DEBUGGING:
+            async with self.bot.pool.acquire() as connection:
+                if author_id is not None:
+                    await connection.execute(
+                        "INSERT INTO quotes(quote_id, author_id) VALUES($1, $2) ON CONFLICT DO NOTHING",
+                        quote.id,
+                        author_id,
+                    )
+                else:
+                    await connection.execute(
+                        "INSERT INTO quotes(quote_id) VALUES($1) ON CONFLICT DO NOTHING",
+                        quote.id,
+                    )
 
-        print(f"Quote ID: {quote.id} has been added to the database.")
+            print(f"Quote ID: {quote.id} has been added to the database.")
 
     async def create_text_image(self, ctx: Context, person: str, text: str):
         """
@@ -555,6 +583,75 @@ class Fun(Cog):
         Creates an image of Bald Agent J with the specified text.
         """
         await self.create_text_image(ctx, "AgentJBadHairDay", text)
+
+    @command()
+    async def neveragoodtime(self, ctx: Context):
+        """
+        Returns the "as always it's never a good time to pop in" quote.
+        """
+        await ctx.send("https://cdn.discordapp.com/attachments/450107193820446722/546655387886157824/unknown.png")
+
+    @command()
+    async def tryharder(self, ctx: Context):
+        """
+        Returns the "Try Harder" music video.
+        """
+        await ctx.send("https://www.youtube.com/watch?v=t-bgRQfeW64")
+
+    @command()
+    async def hac(self, ctx: Context):
+        """
+        Hacks the specified user.
+        """
+        await ctx.send("Charging the Low Orbit Ion Canon, please stand by!")
+
+    @command()
+    async def dox(self, ctx: Context):
+        """
+        Doxes the specified user.
+        """
+        await ctx.send("OK, scraping their parent's public Facebook feed!")
+
+    @command()
+    async def theworstpunishmentwehave(self, ctx: Context):
+        """
+        Punishes a user.
+        """
+        await ctx.send("Ok, banning them from the Q&A server!")
+
+    @command()
+    async def suppressdissent(self, ctx: Context):
+        """
+        Returns a comment from the bot's inner eye.
+        """
+        await ctx.send("Let me call Theresa for ideas")
+
+    @command()
+    async def beano(self, ctx: Context):
+        """
+        Reminds you of the top dog.
+        """
+        await ctx.send("*grumbles*")
+
+    @command()
+    async def flowchart(self, ctx: Context):
+        """
+        Sends the image of the challenge solving flowchart.
+        """
+        await ctx.send("https://cdn.discordapp.com/attachments/411573884597436416/767122366521278474/trythis.png")
+
+    @command()
+    async def cma(self, ctx: Context, *, section: str = None):
+        """
+        Returns a link to the Computer Misuse Act or a screenshot of one of the first three sections.
+        """
+        if section is None:
+            await ctx.send("https://www.legislation.gov.uk/ukpga/1990/18/contents")
+        elif (CMA_URL := CMA_LINKS.get(section)) is not None:
+            await ctx.send(CMA_URL)
+        else:
+            await ctx.send("That section is not in our database. The full Computer Misuse Act can be read at: "
+                           "https://www.legislation.gov.uk/ukpga/1990/18/contents")
 
 
 def setup(bot):

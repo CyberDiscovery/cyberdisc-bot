@@ -15,6 +15,7 @@ from discord.ext.commands import Bot, Cog, Context, command, has_role
 
 from cdbot.constants import (
     BASE_ALIASES,
+    CHEATING_VIDEO,
     CYBERDISC_ICON_URL,
     ELITECOUNT_ENABLED,
     END_README_MESSAGE,
@@ -30,7 +31,7 @@ from cdbot.constants import (
 
 async def generatebase64(seed: int) -> str:
     random.seed(seed)
-    letters = string.ascii_letters + string.digits + "+/="
+    letters = string.ascii_letters + string.digits + "+/"
     return "".join(random.choices(letters, k=20))
 
 
@@ -43,29 +44,29 @@ class Cyber(Cog):
         # Assess dates
         (
             r"^.*\bassess\b.*\b(start|begin|open)\b.*$",
-            "CyberStart Assess began on the 3rd September 2019.",
+            "CyberStart Assess began on the 2nd June 2020.",
         ),
         (
             r"^.*\bassess\b.*\b(end|finish|close)\b.*$",
-            "CyberStart Assess ended on the 25th October 2019.",
+            "CyberStart Assess ended on the 31st October 2020.",
         ),
         # Game dates
         (
             r"^.*\bgame\b.*\b(start|begin|open)\b.*$",
-            "CyberStart Game began on the 5th November 2019.",
+            "CyberStart Game began on the 2nd June 2020.",
         ),
         (
             r"^.*\bgame\b.*\b(end|finish|close)\b.*$",
-            "CyberStart Game ends on the 31st May 2020.",
+            "CyberStart Game ends on the 30th June 2021.",
         ),
         # Essentials dates
         (
             r"^.*\bessentials\b.*\b(start|begin|open)\b.*$",
-            "CyberStart Essentials began on the 16th December 2019.",
+            "CyberStart Essentials began on the 18th December 2020.",
         ),
         (
             r"^.*\bessentials\b.*\b(end|finish|close)\b.*$",
-            "CyberStart Essentials ends on the 31st May 2020.",
+            "CyberStart Essentials ends on the 30th June 2021.",
         ),
         # Elite questions
         (
@@ -75,13 +76,13 @@ class Cyber(Cog):
         ),
         (
             r"^.*\belite\b.*\bstart\b.*$",
-            "CyberStart Elite will run throughout 27th July - 8th August.",
+            "CyberStart Elite is kill <a:crabrave:770007760200400897>.",
         ),
         (
             r"^.*\bwhat\b.*\belite\b.*\bemail\b.*$",
             "**Quote from the Cyber Discovery Elite team: **"
             "We’re currently allocating students to their preferred locations so it’s an ongoing process! "
-            "We’ll send out details of your location as soon as we can. It shouldn’t be too long!",
+            "We’ll send out details of your course as soon as we can. It shouldn’t be too long!",
         ),
     ]
 
@@ -166,10 +167,17 @@ class Cyber(Cog):
             content = "13.1 is a No Flag Zone™ 🙅⛔⚔️"
         else:
             # Generates random, but unique and identical per challenge, base 64 "flag"
-            content = (
-                "The flag is:"
-                f"||{await generatebase64(ord(base[0]) + level_num + challenge_num)}||"
-            )
+            if random.randint(1, 5) == 5:
+
+                return await ctx.send(
+                    "The flag is: "
+                    f"||{CHEATING_VIDEO}||"
+                )
+            else:
+                content = (
+                    "The flag is:"
+                    f"||{await generatebase64(ord(base[0]) + level_num + challenge_num)}||"
+                )
 
         embed = Embed(
             title=(f"{base} - Level {level_num} Challenge {challenge_num}"),
@@ -377,7 +385,7 @@ class Cyber(Cog):
         Gets the date of, and days and months until, CyberStart Game
         """
 
-        await self.countdown("5th November 2019", "CyberStart Game", ctx)
+        await self.countdown("2nd June 2020", "CyberStart Game", ctx)
 
     @command()
     async def essentials(self, ctx: Context):
@@ -385,7 +393,7 @@ class Cyber(Cog):
         Gets the date of, and days and months until, CyberStart Essentials
         """
 
-        await self.countdown("16th December 2019", "CyberStart Essentials", ctx)
+        await self.countdown("15th September 2020", "CyberStart Essentials", ctx)
 
     @command()
     async def hundred(self, ctx: Context):
@@ -408,14 +416,24 @@ class Cyber(Cog):
         """
         if ELITECOUNT_ENABLED:
             preferences = {
+                "2018": {"Attendees": Roles.Elite.VET2018.ATTENDEES},
                 "2019": {
+                    "Attendees": Roles.Elite.VET2019.ATTENDEES,
                     "Cyberists": Roles.Elite.VET2019.CYBERIST,
                     "Forensicators": Roles.Elite.VET2019.FORENSICATOR,
+                },
+                "2020": {
+                    "Talent Development": Roles.Elite.VET2020.TALENTDEV,
+                    "Online": Roles.Elite.VET2020.ELITEONLINE,
+                    "SEC503": Roles.Elite.VET2020.ELITE503,
+                    "SEC504": Roles.Elite.VET2020.ELITE504,
+                    "FOR500": Roles.Elite.VET2020.ELITE500,
+                    "EHF": Roles.Elite.VET2020.ELITEEHF,
                 },
             }
 
             description = textwrap.dedent(
-                f"""
+                """
             **Camp Statistics**
             """
             )
@@ -434,12 +452,6 @@ class Cyber(Cog):
                     r = ctx.guild.get_role(role)
                     section += f"**{age}**: {len(r.members)}\n"
                 embed.add_field(name=location, value=section, inline=True)
-
-            embed.add_field(
-                name="Talent Development Programme",
-                value=f"**Participants**: {len(ctx.guild.get_role(Roles.Elite.TALENTDEV).members)}",
-                inline=True,
-            )
 
             await ctx.send(embed=embed)
         else:

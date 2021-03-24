@@ -4,6 +4,8 @@ from discord.ext import commands
 from discord.ext.commands import Bot, Cog
 from git import Repo
 
+from cdbot.constants import WELCOME_CHANNEL_ID, WELCOME_MESSAGE
+
 path = os.path.dirname(os.path.abspath(__file__))
 path = "/".join(path.split("/")[:-2])
 
@@ -33,6 +35,23 @@ class General(Cog):
             f"Latest commit: **[{message}]({link})**"
             f"\nAuthor: **{latest.author}** on {date}"
         )
+
+    @Cog.listener()
+    async def on_member_join(self, member):
+        join_msg_channel = self.bot.get_channel(WELCOME_CHANNEL_ID)
+        join_msg = await join_msg_channel.send(f"{member.mention}, {WELCOME_MESSAGE}")
+        await join_msg.add_reaction('👋')
+
+    @Cog.listener()
+    async def on_member_remove(self, member):
+        if member not in [ban.user for ban in await member.guild.bans()]:
+            leave_msg_channel = self.bot.get_channel(WELCOME_CHANNEL_ID)
+            await leave_msg_channel.send(f"**{member}** just left **Cyber Discovery**. Bye bye **{member}**...")
+
+    @Cog.listener()
+    async def on_member_ban(self, guild, user):
+        ban_msg_channel = self.bot.get_channel(WELCOME_CHANNEL_ID)
+        await ban_msg_channel.send(f"**{user}** was banned...")
 
     @Cog.listener()
     async def on_command_error(self, ctx, error):

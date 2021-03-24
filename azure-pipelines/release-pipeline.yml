@@ -10,7 +10,7 @@ stages:
         displayName: Publish
 
         pool:
-          vmImage: Ubuntu 18.04
+          vmImage: 'ubuntu-20.04'
 
         steps:
         - task: Docker@2
@@ -32,7 +32,7 @@ stages:
         displayName: Sentry
 
         pool:
-          vmImage: Ubuntu 18.04
+          vmImage: 'ubuntu-20.04'
 
         steps:
           - script: curl -sL https://sentry.io/get-cli/ | bash
@@ -54,7 +54,7 @@ stages:
         displayName: Deploy
 
         pool:
-          vmImage: Ubuntu 18.04
+          vmImage: 'ubuntu-20.04'
 
         steps:
         - task: Kubernetes@1
@@ -62,8 +62,8 @@ stages:
           inputs:
             kubernetesServiceEndpoint: 'Bot Environment-default-1568896840810'
             command: delete
-            arguments: 'deployment.extensions/cyberdisc-bot deployment.extensions/postgres'
-            versionSpec: 1.15.0
+            arguments: 'deployment.apps/cyberdisc-bot deployment.apps/postgres'
+            versionSpec: 1.18.6
 
         - task: Kubernetes@1
           displayName: 'Deploy to Google Kubernetes Engine'
@@ -74,4 +74,4 @@ stages:
             configuration: '$(System.DefaultWorkingDirectory)/deployment.yaml'
             secretType: generic
             forceUpdate: false
-            versionSpec: 1.15.0
+            versionSpec: 1.18.6
