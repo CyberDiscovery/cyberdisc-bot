@@ -31,7 +31,7 @@ from cdbot.constants import (
 
 async def generatebase64(seed: int) -> str:
     random.seed(seed)
-    letters = string.ascii_letters + string.digits + "+/="
+    letters = string.ascii_letters + string.digits + "+/"
     return "".join(random.choices(letters, k=20))
 
 
@@ -48,7 +48,7 @@ class Cyber(Cog):
         ),
         (
             r"^.*\bassess\b.*\b(end|finish|close)\b.*$",
-            "CyberStart Assess ends on the 31st October 2020.",
+            "CyberStart Assess ended on the 31st October 2020.",
         ),
         # Game dates
         (
@@ -57,16 +57,16 @@ class Cyber(Cog):
         ),
         (
             r"^.*\bgame\b.*\b(end|finish|close)\b.*$",
-            "CyberStart Game ends on the 31st March 2021.",
+            "CyberStart Game ends on the 30th June 2021.",
         ),
         # Essentials dates
         (
             r"^.*\bessentials\b.*\b(start|begin|open)\b.*$",
-            "CyberStart Essentials begins on the 16th November 2020.",
+            "CyberStart Essentials began on the 18th December 2020.",
         ),
         (
             r"^.*\bessentials\b.*\b(end|finish|close)\b.*$",
-            "CyberStart Essentials ends on the 31st March 2021.",
+            "CyberStart Essentials ends on the 30th June 2021.",
         ),
         # Elite questions
         (
