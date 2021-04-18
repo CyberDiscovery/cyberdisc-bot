@@ -107,8 +107,13 @@ CMA_LINKS = {"1": "https://cdn.discordapp.com/attachments/450107193820446722/492
              }
 REACT_EMOTES = ["\N{ONCOMING POLICE CAR}", "\N{DUCK}", "\U0001f645 \N{NO ENTRY} \N{CROSSED SWORDS}"]
 REACT_TRIGGERS = {"kali": REACT_EMOTES[0], "duck": REACT_EMOTES[1], "cybergame": "*CyberStart Game",
-                  "cyberstart access": "*CyberStart Assess", "13.1": REACT_EMOTES[2]}
-WORD_MATCH_RE = r"^.*\b{}\b.*$" # noqa
+                  "cyberstart access": "*CyberStart Assess", "cyberessentials": "*CyberStart Essentials",
+                  "cyberdiscovery game": "*CyberStart Game", "cyberdiscovery access": "*CyberStart Assess",
+                  "13.1": REACT_EMOTES[2], "bill gates": "Alan Turing?", "alan turing": "Bill Gates?",
+                  "sibelius": "https://i.imgur.com/PwgGWV8.png?1", "we are number one": "HEY!",
+                  "I can break these cuffs": "{mention}, you can't break those cuffs!",
+                  "ancestry.com": "https://i.imgur.com/DDqugBj.png"}
+WORD_MATCH_RE = r"^.*\b{}\b.*$"
 
 # General constants
 WELCOME_MESSAGE = ("Welcome to the Cyber Discovery discussion discord! Before you begin, please check the "
