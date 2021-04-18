@@ -144,6 +144,26 @@ class General(Cog):
         except AttributeError:
             await ctx.send("That rank does not exist.")
 
+    @command()
+    async def bbcnews(self, ctx: Context):
+        """
+        Returns a link to BBC News.
+        """
+        await ctx.send("https://www.bbc.co.uk/iplayer/live/bbcnews")
+
+    @command()
+    async def skynews(self, ctx: Context):
+        """
+        Returns a link to Sky News.
+        """
+        await ctx.send("https://www.youtube.com/watch?v=9Auq9mYxFEE")
+
+    @command()
+    async def tos(self, ctx: Context):
+        """
+        Returns a link to discord's terms of service.
+        """
+        await ctx.send("https://www.discord.com/terms")
 
 def setup(bot):
     bot.add_cog(General(bot))
