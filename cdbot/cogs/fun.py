@@ -217,12 +217,12 @@ class Fun(Cog):
 
         ctx = await self.bot.get_context(message)
 
-        if ctx.valid or message.author.id is self.bot.user.id:
-            # Don't react to valid commands or messages from the bot.
+        if ctx.valid or message.author.bot:
+            # Don't react to valid commands or messages from bots.
             return
 
-        # Check if the message contains a trigger and check user is not bot.
-        for trigger in REACT_TRIGGERS and not message.author.bot:
+        # Check if the message contains a trigger
+        for trigger in REACT_TRIGGERS:
             reg = WORD_MATCH_RE.format(trigger)
             if re.search(reg, message.content, re.IGNORECASE):
                 to_react = REACT_TRIGGERS[trigger]
