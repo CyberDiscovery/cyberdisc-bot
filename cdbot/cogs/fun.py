@@ -221,8 +221,8 @@ class Fun(Cog):
             # Don't react to valid commands or messages from the bot.
             return
 
-        # Check if the message contains a trigger
-        for trigger in REACT_TRIGGERS:
+        # Check if the message contains a trigger and check user is not bot.
+        for trigger in REACT_TRIGGERS and not message.author.bot:
             reg = WORD_MATCH_RE.format(trigger)
             if re.search(reg, message.content, re.IGNORECASE):
                 to_react = REACT_TRIGGERS[trigger]
