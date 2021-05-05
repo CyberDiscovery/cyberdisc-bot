@@ -16,6 +16,7 @@ from discord.ext.commands import Bot, Cog, Context, command, has_role
 from cdbot.constants import (
     BASE_ALIASES,
     CHEATING_VIDEO,
+    CMA_LINKS,
     CYBERDISC_ICON_URL,
     ELITECOUNT_ENABLED,
     END_README_MESSAGE,
@@ -490,6 +491,40 @@ class Cyber(Cog):
             f"{stage_name} begins on the {countdown_target_str}.\n"
             f"That's in {month_and_day_countdown}!"
         )
+
+    @command()
+    async def support(self, ctx: Context):
+        """
+        Returns the support email
+        """
+        await ctx.send("support@joincyberdiscovery.com")
+
+    @command()
+    async def meta(self, ctx: Context):
+        """
+        Returns the meta link.
+        """
+        await ctx.send("https://github.com/CyberDiscovery/meta")
+
+    @command()
+    async def cdtos(self, ctx: Context):
+        """
+        Returns the Cyber Discovery terms of service.
+        """
+        await ctx.send("https://www.joincyberdiscovery.com/terms")
+
+    @command()
+    async def cma(self, ctx: Context, *, section: str = None):
+        """
+        Returns a link to the Computer Misuse Act or a screenshot of one of the first three sections.
+        """
+        if section is None:
+            await ctx.send("https://www.legislation.gov.uk/ukpga/1990/18/contents")
+        elif (CMA_URL := CMA_LINKS.get(section)) is not None:
+            await ctx.send(CMA_URL)
+        else:
+            await ctx.send("That section is not in our database. The full Computer Misuse Act can be read at: "
+                           "https://www.legislation.gov.uk/ukpga/1990/18/contents")
 
     @Cog.listener()
     async def on_message(self, message: Message):

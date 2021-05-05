@@ -5,6 +5,7 @@ import asyncio
 import textwrap
 from io import BytesIO
 from math import ceil
+from random import choice, randint
 import re
 from random import randint
 from string import ascii_lowercase
@@ -38,7 +39,6 @@ from discord.ext.commands import (
 from discord.utils import get
 
 from cdbot.constants import (
-    CMA_LINKS,
     CYBERDISC_ICON_URL,
     EMOJI_LETTERS,
     FAKE_ROLE_ID,
@@ -218,8 +218,8 @@ class Fun(Cog):
 
         ctx = await self.bot.get_context(message)
 
-        if ctx.valid:
-            # Don't react to valid commands
+        if ctx.valid or message.author.bot:
+            # Don't react to valid commands or messages from bots.
             return
 
         # Check if the message contains a trigger
@@ -234,6 +234,9 @@ class Fun(Cog):
                             await emojify(message, emote)
                         else:
                             await message.add_reaction(emote)
+                elif "{mention}" in to_react:
+                    to_react = to_react.replace("{mention}", message.author.mention)
+                    await ctx.send(to_react)
                 else:
                     await ctx.send(to_react)
                 return  # Only one auto-reaction per message
@@ -649,18 +652,12 @@ class Fun(Cog):
         """
         await ctx.send("Ok, banning them from the Q&A server!")
 
-    @command()
+    @command(hidden=True)
     async def suppressdissent(self, ctx: Context):
-        """
-        Returns a comment from the bot's inner eye.
-        """
         await ctx.send("Let me call Theresa for ideas")
 
-    @command()
+    @command(hidden=True)
     async def beano(self, ctx: Context):
-        """
-        Reminds you of the top dog.
-        """
         await ctx.send("*grumbles*")
 
     @command()
@@ -671,17 +668,114 @@ class Fun(Cog):
         await ctx.send("https://cdn.discordapp.com/attachments/411573884597436416/767122366521278474/trythis.png")
 
     @command()
-    async def cma(self, ctx: Context, *, section: str = None):
+    async def unacceptable(self, ctx: Context):
         """
-        Returns a link to the Computer Misuse Act or a screenshot of one of the first three sections.
+        Deem something as unacceptable.
         """
-        if section is None:
-            await ctx.send("https://www.legislation.gov.uk/ukpga/1990/18/contents")
-        elif (CMA_URL := CMA_LINKS.get(section)) is not None:
-            await ctx.send(CMA_URL)
-        else:
-            await ctx.send("That section is not in our database. The full Computer Misuse Act can be read at: "
-                           "https://www.legislation.gov.uk/ukpga/1990/18/contents")
+        await ctx.send("https://media1.tenor.com/images/7a2aa50ab07e6e5d61ec7ef1a45bc64f/tenor.gif?itemid=16269937")
+
+    @command()
+    async def quotebait(self, ctx: Context):
+        """
+        Trick someone into quoting your message.
+        """
+        await ctx.send("haha boobs")
+
+    @command(hidden=True)
+    async def thot(self, ctx: Context):
+        await ctx.send("https://cdn.discordapp.com/attachments/543766802174443531/777203751227621466/thot.jpg")
+
+    @command(hidden=True)
+    async def subtler(self, ctx: Context):
+        await ctx.send("https://media.discordapp.net/attachments/463657120441696256/703333784073797632/unknown.png")
+
+    @command(hidden=True)
+    async def subtle(self, ctx: Context):
+        await ctx.send("https://cdn.discordapp.com/attachments/463657120441696256/560247422912167949/unknown.png")
+
+    @command()
+    async def whoarethecyberists(self, ctx: Context):
+        """
+        Returns a video explaining who the cyberists are.
+        """
+        await ctx.send("https://cdn.discordapp.com/attachments/458769653481865227/687638009427787791"
+                       "/WhoAreTheCyberists_1.mp4")
+
+    @command(aliases=['jibhatisnotinvolvedwiththat'], hidden=True)
+    async def jibhatisnotinvolvedinthat(self, ctx: Context):
+        """
+        It's time to stop.
+        """
+        await ctx.send("https://imgur.com/CoWZ05t")
+
+    @command()
+    async def whynotboth(self, ctx: Context):
+        """
+        Why not?
+        """
+        await ctx.send("https://giphy.com/gifs/yosub-girl-taco-why-not-both-3o85xIO33l7RlmLR4I")
+
+    @command()
+    async def simples(self, ctx: Context):
+        """
+        It's not that hard!
+        """
+        await ctx.send("https://thumbs.gfycat.com/DigitalGrandBrocketdeer-small.gif")
+
+    @command()
+    async def window(self, ctx: Context):
+        """
+        Returns the window gif.
+        """
+        await ctx.send("https://media.giphy.com/media/c6DIpCp1922KQ/giphy.gif")
+
+    @command(hidden=True, aliases=['boogie'])
+    async def dance(self, ctx: Context):
+        """
+        Dance Tom dance!
+        """
+        await ctx.send("https://cdn.discordapp.com/attachments/450107193820446722/484757289476030465/ezgif.com-video"
+                       "-to-gif3.gif")
+
+    @command()
+    async def thisisfine(self, ctx: Context):
+        """
+        There is nothing wrong here.
+        """
+        await ctx.send("https://media.giphy.com/media/z9AUvhAEiXOqA/giphy.gif")
+
+    @command()
+    async def inout(self, ctx: Context):
+        """
+        Returns the inout gif.
+        """
+        await ctx.send("https://media.giphy.com/media/11gC4odpiRKuha/giphy.gif")
+
+    @command(hidden=True)
+    async def zucc(self, ctx: Context):
+        await ctx.send("https://tenor.com/view/zuck-zuckerberg-drink-drinks-water-gif-11631267")
+
+    @command(hidden=True)
+    async def succ(self, ctx: Context):
+        await ctx.send("https://tenor.com/view/alex-jones-crying-silly-info-wars-gif-7295428")
+
+    @command(hidden=True)
+    async def shhh(self, ctx: Context):
+        await ctx.send("Just ordered this to help: http://webiconspng.com/wp-content/uploads/2017/09/Shovel-PNG-Image"
+                       "-95986.png")
+
+    @command()
+    async def suppressdissent(self, ctx: Context):
+        """
+        Suppress someone.
+        """
+        comments = ["It will be done my lord", "I guess we'll try the Trump approach this time",
+                    "I'll get the CIA on the phone then", "Give me a minute to reread 1984"]
+        await ctx.send(choice(comments))
+
+    @command(hidden=True)
+    async def murder(self, ctx: Context):
+        await ctx.send("rm -rf / --no-preserve-root")
 
 
 def setup(bot):
