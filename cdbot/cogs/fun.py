@@ -33,6 +33,7 @@ from discord.ext.commands import (
     UserConverter,
     command,
     cooldown,
+    MessageConverter
 )
 from discord.utils import get
 
@@ -374,7 +375,7 @@ class Fun(Cog):
         await ctx.send(embed=comic)
 
     @command()
-    async def quote(self, ctx: Context, message: Union[MessageConverter, int], channel: Optional[TextChannel):
+    async def quote(self, ctx: Context, message: Union[MessageConverter, int], channel: Optional[TextChannel]):
         """
         Quotes the specified message.
         """
