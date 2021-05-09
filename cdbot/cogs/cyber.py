@@ -20,6 +20,7 @@ from cdbot.constants import (
     CYBERDISC_ICON_URL,
     ELITECOUNT_ENABLED,
     END_README_MESSAGE,
+    GAMECOUNT_ENABLED,
     HINTS_LIMIT,
     HUNDRED_PERCENT_ROLE_ID,
     README_RECV_ALIASES,
@@ -458,6 +459,47 @@ class Cyber(Cog):
         else:
             await ctx.send(
                 ":no_entry_sign: This command is disabled because CyberStart Elite is done for this year"
+            )
+
+    @command()
+    async def completioncount(self, ctx: Context):
+        """
+        Gets the number of people who have done a base.
+        """
+        if GAMECOUNT_ENABLED:
+            basesections = {
+                "HQ": {"Jiaozi Slayers(completed HQ)": Roles.Base.HQ},
+                "MOON": {"Real Astronauts(completed moonbase)": Roles.Base.MOON},
+                "FORENSICS": {"Dedicated Strings Runners(completed forensics base)": Roles.Base.FORENSICS},
+                "VOLCANO": {"Professional Cyberists(completed volcano base)": Roles.Base.VOLCANO},
+                "FIELD MANUAL": {"Truly edited people(completed the field manual)": Roles.Base.FM},
+            }
+
+            description = textwrap.dedent(
+                """
+            **Completion Statistics**
+            """
+            )
+
+            embed = Embed(
+                title=f"CyberStart Game Completion",
+                description=description,
+                colour=Colour(0x2596be),
+            )  # Cyber Start blue???? i don't really know the colour
+
+            embed.set_thumbnail(url=CYBERDISC_ICON_URL)
+
+            for base, completionists in basesections.items():
+                section = ""
+                for completionists, role in basesections.items():
+                    r = ctx.guild.get_role(role)
+                    section += f"**{age}**: {len(r.members)}\n"
+                embed.add_field(name=base, value=section, inline=True)
+
+            await ctx.send(embed=embed)
+        else:
+            await ctx.send(
+                ":no_entry_sign: This command is disabled because CyberStart Game is done for this year"
             )
 
     async def countdown(self, countdown_target_str: str, stage_name: str, ctx: Context):

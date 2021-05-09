@@ -87,8 +87,12 @@ class Roles:
     class Exchange:
         SHORTLIST = int(environ.get("EXCH_S_MEMBERS_ID", "582894164597932034"))
         CONFIRMED = int(environ.get("EXCH_C_MEMBERS_ID", "585150522336608256"))
-
-
+    class Base:
+        HQ = int(environ.get("HQ_100_MEMBERS_ID", "640481696541704192"))
+        MOON = int(environ.get("MOON_100_MEMBERS_ID", "640481791479775242"))
+        FORENSICS = int(environ.get("FORENSICS_100_MEMBERS_ID", "640481859033366528"))
+        VOLCANO = int(environ.get("VOLCANO_100_MEMBERS_ID", "640481963102306304"))
+        FM = int(environ.get("FM_100_MEMBERS_ID", "730353444199727216"))
 # Cyber Constants
 BOT_TOKEN = getenv("BOT_TOKEN")
 SENTRY_URL = getenv("SENTRY_URL")
@@ -140,7 +144,7 @@ CYBERDISC_ICON_URL = (
     "https://pbs.twimg.com/profile_images/921313066515615745/fLEl2Gfa_400x400.jpg"
 )
 ELITECOUNT_ENABLED = True
-
+GAMECOUNT_ENABLED = True
 LOCAL_DEBUGGING = bool(environ.get("LOCAL_DEBUGGING", False))
 
 # Readme command constants
