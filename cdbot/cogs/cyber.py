@@ -462,7 +462,7 @@ class Cyber(Cog):
             )
 
     @command()
-    async def completioncount(self, ctx: Context):
+    async def gamecount(self, ctx: Context):
         """
         Gets the number of people who have done a base.
         """
