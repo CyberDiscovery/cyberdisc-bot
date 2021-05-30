@@ -83,6 +83,8 @@ class Roles:
             ELITE504 = int(environ.get("2020_504_MEMBERS_ID", "719957222657884200"))
             ELITE500 = int(environ.get("2020_500_MEMBERS_ID", "719957182308679822"))
             ELITEEHF = int(environ.get("2020_EHF_MEMBERS_ID", "722188749378683020"))
+        class VET2021:
+            SUMMERCAMP = int(environ.get("2021_SUMMERCAMP_MEMBERS_ID", "844211211553603654"))
 
     class Exchange:
         SHORTLIST = int(environ.get("EXCH_S_MEMBERS_ID", "582894164597932034"))

@@ -469,11 +469,10 @@ class Cyber(Cog):
         """
         if GAMECOUNT_ENABLED:
             basesections = {
-                "HQ": {"Jiaozi Slayers(completed HQ)": Roles.Base.HQ},
-                "MOON": {"Real Astronauts(completed moonbase)": Roles.Base.MOON},
-                "FORENSICS": {"Dedicated Strings Runners(completed forensics base)": Roles.Base.FORENSICS},
-                "VOLCANO": {"Professional Cyberists(completed volcano base)": Roles.Base.VOLCANO},
-                "FIELD MANUAL": {"Truly edited people(completed the field manual)": Roles.Base.FM},
+                "HQ": {"Completed HQ": Roles.Base.HQ},
+                "MOON": {"Completed Moon Base": Roles.Base.MOON},
+                "FORENSICS": {"Completed Forensics Base)": Roles.Base.FORENSICS},
+                "VOLCANO": {"Completed Volcano Base": Roles.Base.VOLCANO},
             }
 
             description = textwrap.dedent(
@@ -486,7 +485,7 @@ class Cyber(Cog):
                 title=f"CyberStart Game Completion",
                 description=description,
                 colour=Colour(0x2596be),
-            )  # Cyber Start blue???? i don't really know the colour
+            )
 
             embed.set_thumbnail(url=CYBERDISC_ICON_URL)
 
