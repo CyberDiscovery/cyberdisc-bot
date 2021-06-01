@@ -217,8 +217,8 @@ class Fun(Cog):
 
         ctx = await self.bot.get_context(message)
 
-        if ctx.valid or message.author.id is self.bot.user.id:
-            # Don't react to valid commands or messages from the bot.
+        if ctx.valid or message.author.bot:
+            # Don't react to valid commands or messages from bots.
             return
 
         # Check if the message contains a trigger
