@@ -2,7 +2,7 @@ import os
 
 from discord import Colour, Embed
 from discord.ext import commands
-from discord.ext.commands import Bot, Cog
+from discord.ext.commands import Bot, Cog, command, Context
 from git import Repo
 
 from cdbot.constants import WELCOME_CHANNEL_ID, WELCOME_MESSAGE
@@ -124,6 +124,26 @@ class General(Cog):
 
         self.bot.log.exception(error, extra=extra_context)
 
+    @command()
+    async def bbcnews(self, ctx: Context):
+        """
+        Returns a link to BBC News.
+        """
+        await ctx.send("https://www.bbc.co.uk/iplayer/live/bbcnews")
+
+    @command()
+    async def skynews(self, ctx: Context):
+        """
+        Returns a link to Sky News.
+        """
+        await ctx.send("https://www.youtube.com/watch?v=9Auq9mYxFEE")
+
+    @command()
+    async def tos(self, ctx: Context):
+        """
+        Returns a link to discord's terms of service.
+        """
+        await ctx.send("https://www.discord.com/terms")
 
 def setup(bot):
     bot.add_cog(General(bot))
