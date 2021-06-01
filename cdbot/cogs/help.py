@@ -44,7 +44,8 @@ class EmbeddedHelpCommand(commands.HelpCommand):
                         f"``{self.clean_prefix}help [category]`` for more info on a different category."
         )
         for command in cog.get_commands():
-            embed.add_field(name=f"``{self.clean_prefix}{command.name}``", value=command.help)
+            if command.hidden is not True:
+                embed.add_field(name=f"``{self.clean_prefix}{command.name}``", value=command.help)
 
         dm = await ctx.author.send(embed=embed)
         if ctx.guild is not None:
@@ -56,16 +57,17 @@ class EmbeddedHelpCommand(commands.HelpCommand):
 
     async def send_command_help(self, command):
         ctx = self.context
-        embed = Embed(
-            color=Colour.blue(),
-            title=f"``{self.clean_prefix}{command.name}``",
-            description=command.help
-        )
-        embed.add_field(name="Usage", value=f"``{self.clean_prefix}{command.name} {command.signature}``", inline=False)
-        if command.aliases:
-            embed.add_field(name="Aliases", value=", ".join(f'``:{alias}``' for alias in command.aliases), inline=False)
+        if command.hidden is not True:
+            embed = Embed(
+                color=Colour.blue(),
+                title=f"``{self.clean_prefix}{command.name}``",
+                description=command.help
+            )
+            embed.add_field(name="Usage", value=f"``{self.clean_prefix}{command.name} {command.signature}``", inline=False)
+            if command.aliases:
+                embed.add_field(name="Aliases", value=", ".join(f'``:{alias}``' for alias in command.aliases), inline=False)
 
-        await ctx.send(embed=embed)
+            await ctx.send(embed=embed)
 
 
 class Help(commands.Cog):
