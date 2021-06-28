@@ -85,6 +85,15 @@ class Cyber(Cog):
             "We’re currently allocating students to their preferred locations so it’s an ongoing process! "
             "We’ll send out details of your course as soon as we can. It shouldn’t be too long!",
         ),
+        # RACTF Questions
+        (
+            r"^.*\bractf\b.*\b(start|begin|open)\b.*$",
+            "RACTF 2021 begins on the 13th August 2021 at 19:00 GMT.",
+        ),
+        (
+            r"^.*\bractf\b.*\b(end|finish|close)\b.*$",
+            "RACTF 2021 will end on the 16th August 2021 at 19:00 GMT.",
+        ),
     ]
 
     def __init__(self, bot: Bot):
