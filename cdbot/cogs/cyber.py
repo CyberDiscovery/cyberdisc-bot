@@ -440,6 +440,7 @@ class Cyber(Cog):
                     "FOR500": Roles.Elite.VET2020.ELITE500,
                     "EHF": Roles.Elite.VET2020.ELITEEHF,
                 },
+                "2021": {"Attendees": Roles.Elite.VET2021.ATTENDEES},
             }
 
             description = textwrap.dedent(
