@@ -58,7 +58,7 @@ class Cyber(Cog):
         ),
         (
             r"^.*\bgame\b.*\b(end|finish|close)\b.*$",
-            "CyberStart Game ends on the 30th June 2021.",
+            "CyberStart Game ended on the 30th June 2021.",
         ),
         # Essentials dates
         (
@@ -67,23 +67,17 @@ class Cyber(Cog):
         ),
         (
             r"^.*\bessentials\b.*\b(end|finish|close)\b.*$",
-            "CyberStart Essentials ends on the 30th June 2021.",
+            "CyberStart Essentials ended on the 30th June 2021.",
         ),
         # Elite questions
         (
             r"^.*\bhow\b.*\bget\b.*\belite\b.*$",
             "**Quote from the @CyberDiscUK Twitter: **"
-            "Selection for CyberStart Elite will be based on a combination of Game and Essentials results.",
+            "Selection for CyberStart Elite was based on a combination of Game and Essentials results.",
         ),
         (
             r"^.*\belite\b.*\bstart\b.*$",
             "CyberStart Elite is kill <a:crabrave:770007760200400897>.",
-        ),
-        (
-            r"^.*\bwhat\b.*\belite\b.*\bemail\b.*$",
-            "**Quote from the Cyber Discovery Elite team: **"
-            "We’re currently allocating students to their preferred locations so it’s an ongoing process! "
-            "We’ll send out details of your course as soon as we can. It shouldn’t be too long!",
         ),
         # RACTF Questions
         (
