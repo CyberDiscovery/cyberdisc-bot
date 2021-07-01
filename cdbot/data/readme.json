@@ -1,6 +1,6 @@
 {
     "part1": {
-        "content": "**Welcome to the Cyber Discovery Discord Server!** This is a place to discuss all things Cyber Discovery (and a few things tangentially related as well), to meet like-minded people, and to learn more about cyber security!\nAlthough this server is set up for the UK Cyber Discovery programme, we welcome participants from sister programmes such as the US Cyber FastTrack programme. While we do not have specific channels or roles set up for other programmes, feel free to use <#509080315369881600> for discussion or to ask for help at any time.\nPermanent invite link: <https://discord.cyberdiscoverycommunity.uk>"
+        "content": "**Welcome to the Cyber Discovery: Legacy Discord Server!** This was once the place where people would congregate to discuss the Cyber Discovery program, but since Her Majesty's Department for Digital, Culture, Media, and Sport killed that we now just come here to chat and screw with the American CyberStart programs. Come in, sit a while, and hear stories of a happier time. A time where UK-based 13-18 year olds would learn Cyber Security skills 10% through the program and 90% through Googling the terms from memes. A time where discussing the Cult of Lyne was a socially acceptable thing to do, and a time where no CTF was too big to dominate the leaderboard of. A better time. But that's gone now, so this is all you're getting. If you're here from one of the other CyberStart programs and have no idea what I'm talking about, don't question it and go to <#509080315369881600>.\nPermanent invite link: <https://discord.cyberdiscoverycommunity.uk>"
     },
     "part2": {
         "content": "What follows is an explanation of some of the **roles** and their purposes on this server. If you qualify for one of these roles, please ask a member of @Root or Sudo (explained below!); for certain roles, we may ask you to DM proof for verification.",
@@ -33,44 +33,8 @@
                     "value": "Made significant contributions to the [community GitHub projects](https://github.com/CyberDiscovery)"
                 },
                 {
-                    "name": "True 100%",
-                    "value": "Completed all of CyberStart Assess, Game, and Essentials"
-                },
-                {
-                    "name": "100 Percent",
-                    "value": "Completed all of CyberStart Game"
-                },
-                {
-                    "name": "Veteran - 2018/2019",
-                    "value": "Qualified for CyberStart Elite in 2018/2019"
-                },
-                {
-                    "name": "Forensicator",
-                    "value": "Completed GCFE"
-                },
-                {
-                    "name": "Cyberist",
-                    "value": "Completed GCIH"
-                },
-                {
-                    "name": "Elite Talent Development",
-                    "value": "Participating in the Elite Talent Development Programme"
-                },
-                {
-                    "name": "HQ",
-                    "value": "Completed the headquarters base from CyberStart Game"
-                },
-                {
-                    "name": "Moonbase",
-                    "value": "Completed moon base from CyberStart Game"
-                },
-                {
-                    "name": "Forensics",
-                    "value": "Completed forensics base from CyberStart Game"
-                },
-                {
-                    "name": "Volcano",
-                    "value": "Completed volcano base from CyberStart Game"
+                    "name": "Veteran - 2018/2019/2020/2021",
+                    "value": "Qualified for CyberStart Elite in 2018/2019/2020/2021"
                 },
                 {
                     "name": "Quote Czar",
@@ -91,10 +55,6 @@
                 {
                     "name": "Trusted",
                     "value": "Can use external emoji and control Rythm"
-                },
-                {
-                    "name": "Club Leader",
-                    "value": "Restricted access for [Cyber Discovery](https://joincyberdiscovery.com/) club leaders"
                 },
                 {
                     "name": "Muted",

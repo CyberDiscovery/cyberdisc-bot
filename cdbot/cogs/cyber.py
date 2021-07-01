@@ -16,6 +16,7 @@ from discord.ext.commands import Bot, Cog, Context, command, has_role
 from cdbot.constants import (
     BASE_ALIASES,
     CHEATING_VIDEO,
+    CMA_LINKS,
     CYBERDISC_ICON_URL,
     ELITECOUNT_ENABLED,
     END_README_MESSAGE,
@@ -57,7 +58,7 @@ class Cyber(Cog):
         ),
         (
             r"^.*\bgame\b.*\b(end|finish|close)\b.*$",
-            "CyberStart Game ends on the 30th June 2021.",
+            "CyberStart Game ended on the 30th June 2021.",
         ),
         # Essentials dates
         (
@@ -66,23 +67,26 @@ class Cyber(Cog):
         ),
         (
             r"^.*\bessentials\b.*\b(end|finish|close)\b.*$",
-            "CyberStart Essentials ends on the 30th June 2021.",
+            "CyberStart Essentials ended on the 30th June 2021.",
         ),
         # Elite questions
         (
             r"^.*\bhow\b.*\bget\b.*\belite\b.*$",
             "**Quote from the @CyberDiscUK Twitter: **"
-            "Selection for CyberStart Elite will be based on a combination of Game and Essentials results.",
+            "Selection for CyberStart Elite was based on a combination of Game and Essentials results.",
         ),
         (
             r"^.*\belite\b.*\bstart\b.*$",
             "CyberStart Elite is kill <a:crabrave:770007760200400897>.",
         ),
+        # RACTF Questions
         (
-            r"^.*\bwhat\b.*\belite\b.*\bemail\b.*$",
-            "**Quote from the Cyber Discovery Elite team: **"
-            "We’re currently allocating students to their preferred locations so it’s an ongoing process! "
-            "We’ll send out details of your course as soon as we can. It shouldn’t be too long!",
+            r"^.*\bractf\b.*\b(start|begin|open)\b.*$",
+            "RACTF 2021 begins on the 13th August 2021 at 19:00 GMT.",
+        ),
+        (
+            r"^.*\bractf\b.*\b(end|finish|close)\b.*$",
+            "RACTF 2021 will end on the 16th August 2021 at 19:00 GMT.",
         ),
     ]
 
@@ -430,6 +434,7 @@ class Cyber(Cog):
                     "FOR500": Roles.Elite.VET2020.ELITE500,
                     "EHF": Roles.Elite.VET2020.ELITEEHF,
                 },
+                "2021": {"Attendees": Roles.Elite.VET2021.ATTENDEES},
             }
 
             description = textwrap.dedent(
@@ -490,6 +495,40 @@ class Cyber(Cog):
             f"{stage_name} begins on the {countdown_target_str}.\n"
             f"That's in {month_and_day_countdown}!"
         )
+
+    @command()
+    async def support(self, ctx: Context):
+        """
+        Returns the support email
+        """
+        await ctx.send("support@joincyberdiscovery.com")
+
+    @command()
+    async def meta(self, ctx: Context):
+        """
+        Returns the meta link.
+        """
+        await ctx.send("https://github.com/CyberDiscovery/meta")
+
+    @command()
+    async def cdtos(self, ctx: Context):
+        """
+        Returns the Cyber Discovery terms of service.
+        """
+        await ctx.send("https://www.joincyberdiscovery.com/terms")
+
+    @command()
+    async def cma(self, ctx: Context, *, section: str = None):
+        """
+        Returns a link to the Computer Misuse Act or a screenshot of one of the first three sections.
+        """
+        if section is None:
+            await ctx.send("https://www.legislation.gov.uk/ukpga/1990/18/contents")
+        elif (CMA_URL := CMA_LINKS.get(section)) is not None:
+            await ctx.send(CMA_URL)
+        else:
+            await ctx.send("That section is not in our database. The full Computer Misuse Act can be read at: "
+                           "https://www.legislation.gov.uk/ukpga/1990/18/contents")
 
     @Cog.listener()
     async def on_message(self, message: Message):
