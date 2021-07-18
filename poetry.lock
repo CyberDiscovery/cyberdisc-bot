@@ -217,7 +217,7 @@ flake8 = "*"
 
 [[package]]
 name = "flake8-tidy-imports"
-version = "4.2.1"
+version = "4.3.0"
 description = "A flake8 plugin that helps you write tidier imports."
 category = "dev"
 optional = false
@@ -610,8 +610,8 @@ flake8-string-format = [
     {file = "flake8_string_format-0.3.0-py2.py3-none-any.whl", hash = "sha256:812ff431f10576a74c89be4e85b8e075a705be39bc40c4b4278b5b13e2afa9af"},
 ]
 flake8-tidy-imports = [
-    {file = "flake8-tidy-imports-4.2.1.tar.gz", hash = "sha256:52e5f2f987d3d5597538d5941153409ebcab571635835b78f522c7bf03ca23bc"},
-    {file = "flake8_tidy_imports-4.2.1-py3-none-any.whl", hash = "sha256:76e36fbbfdc8e3c5017f9a216c2855a298be85bc0631e66777f4e6a07a859dc4"},
+    {file = "flake8-tidy-imports-4.3.0.tar.gz", hash = "sha256:e66d46f58ed108f36da920e7781a728dc2d8e4f9269e7e764274105700c0a90c"},
+    {file = "flake8_tidy_imports-4.3.0-py3-none-any.whl", hash = "sha256:d6e64cb565ca9474d13d5cb3f838b8deafb5fed15906998d4a674daf55bd6d89"},
 ]
 flake8-todo = [
     {file = "flake8-todo-0.7.tar.gz", hash = "sha256:6e4c5491ff838c06fe5a771b0e95ee15fc005ca57196011011280fc834a85915"},
