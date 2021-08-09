@@ -535,7 +535,7 @@ class Cyber(Cog):
         # Check the current command context
         ctx = await self.bot.get_context(message)
         # If message is a command, ignore regex responses.
-        if ctx.valid:
+        if ctx.valid or message.author.bot:
             return
 
         # Check if the message matches any of the pre-baked regexes
