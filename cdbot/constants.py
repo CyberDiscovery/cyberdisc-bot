@@ -68,28 +68,10 @@ class Maths:
 
 class Roles:
     class Elite:
-        class VET2018:
-            ATTENDEES = int(environ.get("2018_MEMBERS_ID", "453581429528461313"))
-
-        class VET2019:
-            ATTENDEES = int(environ.get("2019_MEMBERS_ID", "580387468336037888"))
-            CYBERIST = int(environ.get("2019_CYBERIST_MEMBERS_ID", "610387199300730900"))
-            FORENSICATOR = int(environ.get("2019_FORENSICATOR_MEMBERS_ID", "580387897644023811"))
-
-        class VET2020:
-            TALENTDEV = int(environ.get("TALENTDEV_MEMBERS_ID", "669927831031250954"))
-            ELITEONLINE = int(environ.get("2020_ONLINE_MEMBERS_ID", "715852962664153168"))
-            ELITE503 = int(environ.get("2020_503_MEMBERS_ID", "719957290039378022"))
-            ELITE504 = int(environ.get("2020_504_MEMBERS_ID", "719957222657884200"))
-            ELITE500 = int(environ.get("2020_500_MEMBERS_ID", "719957182308679822"))
-            ELITEEHF = int(environ.get("2020_EHF_MEMBERS_ID", "722188749378683020"))
-
-        class VET2021:
-            ATTENDEES = int(environ.get("2021_MEMBERS_ID", "844211211553603654"))
-
-    class Exchange:
-        SHORTLIST = int(environ.get("EXCH_S_MEMBERS_ID", "582894164597932034"))
-        CONFIRMED = int(environ.get("EXCH_C_MEMBERS_ID", "585150522336608256"))
+        VET2018 = int(environ.get("2018_MEMBERS_ID", "453581429528461313"))
+        VET2019 = int(environ.get("2019_MEMBERS_ID", "580387468336037888"))
+        VET2020 = int(environ.get("2020_MEMBERS_ID", "715852962664153168"))
+        VET2021 = int(environ.get("2021_MEMBERS_ID", "844211211553603654"))
 
 
 # Cyber Constants

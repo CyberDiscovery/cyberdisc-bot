@@ -420,21 +420,10 @@ class Cyber(Cog):
         """
         if ELITECOUNT_ENABLED:
             preferences = {
-                "2018": {"Attendees": Roles.Elite.VET2018.ATTENDEES},
-                "2019": {
-                    "Attendees": Roles.Elite.VET2019.ATTENDEES,
-                    "Cyberists": Roles.Elite.VET2019.CYBERIST,
-                    "Forensicators": Roles.Elite.VET2019.FORENSICATOR,
-                },
-                "2020": {
-                    "Talent Development": Roles.Elite.VET2020.TALENTDEV,
-                    "Online": Roles.Elite.VET2020.ELITEONLINE,
-                    "SEC503": Roles.Elite.VET2020.ELITE503,
-                    "SEC504": Roles.Elite.VET2020.ELITE504,
-                    "FOR500": Roles.Elite.VET2020.ELITE500,
-                    "EHF": Roles.Elite.VET2020.ELITEEHF,
-                },
-                "2021": {"Attendees": Roles.Elite.VET2021.ATTENDEES},
+                "2018": Roles.Elite.VET2018,
+                "2019": Roles.Elite.VET2019,
+                "2020": Roles.Elite.VET2020,
+                "2021": Roles.Elite.VET2021,
             }
 
             description = textwrap.dedent(
@@ -451,12 +440,10 @@ class Cyber(Cog):
 
             embed.set_thumbnail(url=CYBERDISC_ICON_URL)
 
-            for location, ages in preferences.items():
-                section = ""
-                for age, role in ages.items():
-                    r = ctx.guild.get_role(role)
-                    section += f"**{age}**: {len(r.members)}\n"
-                embed.add_field(name=location, value=section, inline=True)
+            for location, role in preferences.items():
+                print(location, role)
+                role = ctx.guild.get_role(role)
+                embed.add_field(name=location, value=f"**Attendees**: {len(role.members)}", inline=True)
 
             await ctx.send(embed=embed)
         else:
