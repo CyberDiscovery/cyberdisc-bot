@@ -441,7 +441,6 @@ class Cyber(Cog):
             embed.set_thumbnail(url=CYBERDISC_ICON_URL)
 
             for location, role in preferences.items():
-                print(location, role)
                 role = ctx.guild.get_role(role)
                 embed.add_field(name=location, value=f"**Attendees**: {len(role.members)}", inline=True)
 
