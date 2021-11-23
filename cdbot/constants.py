@@ -139,6 +139,7 @@ END_README_MESSAGE = (
 )
 
 BASE_ALIASES = {
+    "Intern": ["intern", "i"],
     "Headquarters": ["headquarters", "main", "hq", "h"],
     "Moonbase": ["moonbase", "python", "moon", "m"],
     "Forensics": ["forensics", "f"],
