@@ -1,13 +1,96 @@
 {
-  "Headquarters": [
+  "Intern": [
     [
       {
-        "title": "Secret Caesar",
-        "description": "Our agents have been reviewing some documents they recovered from one of The Slootmaekers bike shops and they came across an order form for a set of six bikes which looks a little odd.\n\nWe think the six bike reference numbers might be encrypted with a caesar cipher (which is where the letters are shifted along by a certain offset, e.g. if the letter is A and the offset is 2 it will become C), and we've got some intel that one of them contains a code that starts with the word \"BAR\". We've worked out that the offset for each code is determined by the order quantity. See if you can use that to break the encryption and find the hidden code.",
+        "title": "Hello World",
+        "description": "We've found a profile page of a known hacker that we need to get in contact with but most of the information visible on the page is useless to us. However, there is one secret real way to contact him that he's managed to inject on the page - a hidden email address. Intern, we need you to find his email address!",
         "tips": [
-          "Tip: The decrypted reference number containing the word BAR is the flag."
+          "Tip: The email address is the flag."
         ]
       },
+      {
+        "title": "Mixed Up Messages",
+        "description": "We've been informed that a group of hackers are communicating cryptically on a social media site.\n\nTheir messages have been getting increasingly cryptic; so much so that all of the posts now look jumbled up and don't seem to make any sense!\n\nWe've found one post that we believe contains an important secret, and we need you to find out what that secret is so we can be ready to stop a possible cyber attack!",
+        "tips": [
+          "Tip: The secret is the flag."
+        ]
+      },
+      {
+        "title": "Social Engineering",
+        "description": "Permission has been granted to try and log into the Chirp social media account of a hacker who goes by the name of D4YDR3AM. Luckily for us. they've been clumsy with their personal information. We know their dog's name is Barkley and they were born in 1993. Can you use what we know about them to guess their password and get us into their account?",
+        "tips": [
+          "Tip: Get the flag by guessing the correct password to sign into the account."
+        ]
+      },
+      {
+        "title": "Lazy Locked Login",
+        "description": "Our Dutch office recently bought a new Internet of Things (IoT) connected fridge. However, the temperature settings have been widely fluctuating as of late. All agents are currently out in the field and too busy to fix the problem.\n\nWe know there is a remotely accessible technician's page where fridge settings can be modified, and that the fridge's login page isn't very secure. It was easy enough to find the username and password, but the form still has some very lazy extra protection. Intern, can you see if the rumours are true, fix our fridge, and help us verify this reported security vulnerability?",
+        "tips": [
+          "Tip: Successfully login to get the flag."
+        ]
+      }
+    ],
+    [
+      {
+        "title": "610enC0de'd Password",
+        "description": "Agents believe they have found a server belonging to a gang called the Yakoottees. If we can get access to it who knows what information we can gather on them! So far the Yakoottees have been very successful hiding their activities by encoding everything they do. We've found their server but don't have the password and so can't login. Can you help, intern?",
+        "tips": [
+          "Tip: Login to the server to get the flag."
+        ]
+      },
+      {
+        "title": "Spinlock",
+        "description": "A large bank has refitted all of their vaults with the new SpinLock Extreme. As fancy as it sounds we believe it has a rather critical vulnerability, one we think the Yakoottees have been exploiting in a series of recent bank robberies.\n\nThe physical vault itself requires a special keycard to be inserted which, after checking the authenticity of the card, re-aligns the circular locking mechanism to unlock it and updates the interface to show it's unlocked. However, we believe that the organisation has been remote accessing the interface on the vault, and unlocking the vault by doing it in reverse: getting the interface to unlock, which unlocks the physical vault itself. If we can confirm the method, we'll be one step closer to understanding how this cyber gang operates!",
+        "tips": [
+          "Tip: Unlock the vault to get the flag."
+        ]
+      },
+      {
+        "title": "Traffic Jam",
+        "description": "Can you believe it, we think the Yakoottees are now planning to disrupt the flow of traffic in a major city! We need to find the URL of a forum they're using to communicate with each other. Can you figure out what the URL is?",
+        "tips": [
+          "Tip: Find the url of the forum to get the flag."
+        ]
+      },
+      {
+        "title": "Start-Up Troubles",
+        "description": "A successful new start-up that sells electric scooters has discovered a handful of their customers' accounts have been hacked! And guess who we believe might be behind it? Yep, you've guessed it, the Yakoottees. Having only just entered the market and keen to maintain their otherwise excellent reputation, this business needs our help to run a security audit of their login system. Can you spot any security holes?",
+        "tips": [
+          "Tip: Successfully login to get the flag."
+        ]
+      }
+    ],
+    [
+      {
+        "title": "Hextraordinary",
+        "description": "Intern, the agency have been in contact with a rival hacker to a new, secretive gang of hackers who goes by the name \"ROXy\". She specializes in short, cryptic, hard to decipher secret codes.",
+        "tips": [
+          "Tip: The flag is the secret code."
+        ]
+      },
+      {
+        "title": "Maths at Light Speed",
+        "description": "Intern, I hope you know how to use a calculator? Of course you do. So, in theory you should be able to bypass a security gateway to a warehouse we believe holds clues to the whereabouts of a gang we are in hot pursuit of. The thing is, the gateway was created by someone who loves doing everything super fast! That means you only get 0.1 seconds to answer the question asked by the gateway. Can you find a way around it?",
+        "tips": [
+          "Tip: Bypass the calculator lock to get the flag."
+        ]
+      },
+      {
+        "title": "Off Balance",
+        "description": "We're hot on the heels of catching this cyber gang but the closer we get the more damage they try to inflict onto the Barcelona tourism industry! This time, they've hacked into a large international bank's mobile application. Customers of the bank are complaining they can't see their current balance. Intern, help customers retrieve their balances so they can continue to spend their money during their well-earned holidays!",
+        "tips": []
+      },
+      {
+        "title": "The Final Countdown",
+        "description": "The main tourism website for Barcelona has been hacked. They've devised a program that changes the content of the website based on a timer. You can imagine the confusion this has been causing the sites visitors! Can you figure out how we can get the secret code to stop this program from running?",
+        "tips": [
+          "Tip: The characters at the 5 URLs change quickly, but computers can be far quicker than humans, especially when getting data!"
+        ]
+      }
+    ]
+  ],
+  "Headquarters": [
+    [
       {
         "title": "Social Secret",
         "description": "Agent, we think we might have a way to log into a social media account of one of the gang using the site's password reset form. We have two key pieces of information: his username and his favourite color. We just need his age and we'll be able to log in - can you guess it from the information we already have?",
@@ -17,9 +100,9 @@
       },
       {
         "title": "Broken Banks",
-        "description": "Agent, it looks like the gang are trying to raise some money to fund their plans - and they're doing so by sending fake banking emails to the customers of their bike shop to try and defraud them. Take a look at these four emails we intercepted, all are seemingly from well known banks, but can you spot the one which is fake?",
+        "description": "Agent, it looks like the gang are trying to raise some money to fund their plans - and they're doing so by sending fake banking emails to the customers of their bike shop to try and defraud them. Take a look at this email we intercepted, it's seemingly from a well known bank, but can you spot anything suspicious with it?",
         "tips": [
-          "Tip: Click on the part of the dodgy email that makes you think it's fake and you'll get the flag."
+          "Tip: Click on the part of the suspicious email that makes you think it's fake and you'll get the flag."
         ]
       },
       {
@@ -31,37 +114,16 @@
       },
       {
         "title": "Race To Where",
-        "description": "Here's an interesting one for you agent - at the weekend the gang released what looks like a one page website advertising an upcoming bike race they're organising. Being cyber detectives we're naturally curious that things might not be as they seem. Have a look at the site - it looks like there are just two images on the page, a logo and the poster, can you find anything suspicious, maybe some text?",
+        "description": "Here's an interesting one for you agent - on the weekend the gang released what looks like a one page website advertising an upcoming bike race they're organising. Being cyber detectives we're naturally curious that things might not be as they seem. Have a look at the site - it looks like there are just two images on the page, a logo and the poster, can you find anything suspicious, maybe some text?",
         "tips": [
           "Tip: Find the hidden clue and it'll lead you to the flag."
         ]
       },
       {
-        "title": "Tower of Wheels",
-        "description": "So, this is strange - our undercover agent noticed that one of the gang has left a set of bike wheels set up in his workshop like a Tower of Hanoi puzzle. We think it's wired up to his computer and might reveal something if our agent can complete the puzzle.\n\nWe've mocked up the puzzle for you to try using javascript. You can move the wheels by entering the following command: move(, ), where the src or dst values can be \"left\", \"mid\", or \"right\". For example, to move a wheel from the middle lane to the left lane you need to type: move(\"mid\", \"left\"). If you get stuck type \"reset \"to start again.",
-        "tips": [
-          "Tip: Complete the puzzle to get the flag."
-        ]
-      },
-      {
-        "title": "Horrible Hats",
-        "description": "One of our agents has noticed something a little strange that she thought you might be able to look into. The Slootmaekers have a cycle hat creator tool on their website which allows you to select a combination of up to eight colors to go into a custom hat design. The tool itself didn't seem strange until we noticed the gang were sending each other links to hat color combinations they'd created on a regular basis that were a bit dull and had no other comment. It seems a little odd and we think they might be using it to hide secret messages.\n\nWe've managed to get hold of an example output page which we think contains a secret code word the gang are using in other communications. If we could figure out that word it would really help us discover what their bigger plans are.",
-        "tips": [
-          "Tip: See if you can convert the color RGB numbers into letters using the included ASCII table to get the flag."
-        ]
-      },
-      {
         "title": "Mixed Messages",
-        "description": "Our team have been monitoring some text message chatter between two of the senior gang members over the last week. There was nothing interesting of note until suddenly all their messages started coming through mixed up.\n\nAt first we thought it might be a technical problem, but then it occured to us that they might be deliberately encoding the messages somehow.\n\nI've had one of the agents forward you one of the messages, see if you can decode it.",
+        "description": "Our team have been monitoring some text message chatter between two of the senior gang members over the last week. There was nothing interesting of note until suddenly all their messages started coming through mixed up.\n\nAt first we thought it might be a technical problem, but then it occurred to us that they might be deliberately encoding the messages somehow.\n\nI've had one of the agents forward you one of the messages, see if you can decode it.",
         "tips": [
           "Tip: Decode the message, we think it mentions two colors, combine them (e.g. redgreen) and that's the flag."
-        ]
-      },
-      {
-        "title": "Bike Fan",
-        "description": "Quick task for you agent, one of the gang, Lars De Vries, has a site where he posts pictures of bikes he likes. Recently we've noticed some of the images are broken and he hasn't fixed it. Seems odd. Take a look at this page and see if you can get the image to show, perhaps take a look at the source code of the page and see if anything doesn't look right.",
-        "tips": [
-          "Tip: Find a way to get the image to show and you'll find the flag."
         ]
       },
       {
@@ -72,6 +134,13 @@
         ]
       },
       {
+        "title": "Secret Caesar",
+        "description": "Our agents have been reviewing some documents they recovered from one of The Slootmaekers bike shops and they came across an order form for a set of six bikes which looks a little odd.\n\nWe think the six bike reference numbers might be encrypted with a Caesar Cipher (which is where the letters are shifted along by a certain offset, e.g. if the letter is A and the offset is 2 it will become C), and we've got some intel that one of them contains a code that starts with the word \"BAR\". We've worked out that the offset for each code is determined by the order quantity. See if you can use that to break the encryption and find the hidden code.",
+        "tips": [
+          "Tip: The decrypted reference number containing the word BAR is the flag."
+        ]
+      },
+      {
         "title": "Hidden Report",
         "description": "One of the ways we've been investigating the gang and their bike shop is by actually buying products from them online. We've spotted a piece of functionality that we think might be exploitable, allowing us to get more information on other customers (some of which we think might actually be helping them with their plans to steal the eBikes).\n\nHave a look at our account page on the site, it allows you to generate a report of your transactions. See if you can find a way to view a transaction report for the very first user of the site.",
         "tips": [
@@ -79,8 +148,29 @@
         ]
       },
       {
+        "title": "Bike Fan",
+        "description": "Quick task for you agent, one of the gang, Lars De Vries, has a site where he posts pictures of bikes he likes. Recently we've noticed some of the images are broken and he hasn't fixed it. Seems odd. Take a look at this page and see if you can get the image to show, perhaps take a look at the source code of the page and see if anything doesn't look right.",
+        "tips": [
+          "Tip: Find a way to get the image to show and you'll find the flag."
+        ]
+      },
+      {
+        "title": "Horrible Hats",
+        "description": "One of our agents has noticed something a little strange that she thought you might be able to look into. The Slootmaekers have a cycle hat creator tool on their website which allows you to select a combination of up to eight colors to go into a custom hat design. The tool itself didn't seem strange until we noticed the gang were sending each other links to hat color combinations they'd created on a regular basis that were a bit dull and had no other comment. It seems a little odd and we think they might be using it to hide secret messages.\n\nWe've managed to get hold of an example output page which we think contains a secret code word the gang are using in other communications. If we could figure out that word it would really help us discover what their bigger plans are.",
+        "tips": [
+          "Tip: See if you can convert the color RGB numbers into letters using the included ASCII table to get the flag."
+        ]
+      },
+      {
+        "title": "Tower of Wheels",
+        "description": "So, this is strange - our undercover agent noticed that one of the gang has left a set of bike wheels set up in his workshop like a Tower of Hanoi puzzle. We think it's wired up to his computer and might reveal something if our agent can complete the puzzle.\n\nWe've mocked up the puzzle for you to try using JavaScript. You can move the wheels by entering the following command: move(<src>, <dst>), where the <src> or <dst> values can be \"left\", \"mid\", or \"right\". For example, to move a wheel from the middle lane to the left lane you need to type: move(\"mid\", \"left\"). If you get stuck type \"reset\" to start again.",
+        "tips": [
+          "Tip: Complete the puzzle to get the flag."
+        ]
+      },
+      {
         "title": "Binary Bike Lock",
-        "description": "Well, this gang love their technology and bikes so much that they've combined them to make a custom bike lock!\n\nWe're concerned they're going to use this lock technology as part of the bigger bike heist, so it's worth us taking the time to try and figure out how to crack them now.\n\nTake a look at this lock and see if you can unlock it.",
+        "description": "Well, this gang loves their technology and bikes so much that they've combined them to make a custom bike lock!\n\nWe're concerned they're going to use this lock technology as part of the bigger bike heist, so it's worth us taking the time to try and figure out how to crack them now.\n\nTake a look at this lock and see if you can unlock it.",
         "tips": [
           "Tip: Unlock the bike lock to get the flag."
         ]
@@ -88,31 +178,10 @@
     ],
     [
       {
-        "title": "User Who",
-        "description": "Urgent request - one of our agents is currently at a Slootmaeker hideout and we know the rest of the gang are on their way back there. He's found a computer they've been using and managed to gain access to their linux server through the use of an exploit - but we don't know which user he's been able to log in as, and we need to know before he runs out of time. We've patched you in to his screen - see if you can find out.",
-        "tips": [
-          "Tip: Get the username, that's the flag."
-        ]
-      },
-      {
-        "title": "Secret Pages",
-        "description": "You're now well aware of the Slootmaekers supposedly legit business, the Bike Factory. Evidence is mounting up that the business, and especially its website, have quite a few things to hide. We've just had a tip off that there's a secret page on the website with some interesting information about when the gang plan to attempt the eBike heist. Problem is, it seems to be restricted. Can you get access?",
-        "tips": [
-          "Tip: Get access to the page to get the flag."
-        ]
-      },
-      {
-        "title": "Encrypted Message",
-        "description": "We have an undercover agent in one of the Slootmaekers bike shops, posing as a bike mechanic. We need to send him an urgent message but the only phone he has is one the gang gave him and may be monitoring. We have a specific substitution cipher we can use - quickly encode the message and send it.",
-        "tips": [
-          "Tip: Correctly encrypt the message and send it to get the flag."
-        ]
-      },
-      {
         "title": "Decryption Ring",
-        "description": "Things are really starting to get busy - the Slootmaekers seem to be in the final stages of preparing the heist, we need to move quickly! We've just received a message back from one of our undercover agents with details of where they're planning to attack first. It's encrypted with a caesar cipher, but we can't remember what he said he was going to use as the offset and can't seem to get hold of him again. We've put the message into our caesar cipher decryption tool, see if you can use it to decrypt the text and read the message.",
+        "description": "Things are really starting to get busy - the Slootmaekers seem to be in the final stages of preparing the heist, we need to move quickly! We've just received a message back from one of our undercover agents with details of where they're planning to start their heist. It's encrypted with a Caesar Cipher, but we can't remember what he said he was going to use as the offset and can't seem to get hold of him again. We've put the message into our Caesar Cipher decryption tool, see if you can use it to decrypt the text and read the message.",
         "tips": [
-          "Tip: Decrypt the message, the flag is the name of the street."
+          "Tip: Decrypt the message by dragging the green slider, the flag is the name of the bike manufacturer."
         ]
       },
       {
@@ -123,8 +192,29 @@
         ]
       },
       {
+        "title": "Secret Pages",
+        "description": "You're now well aware of the Slootmaekers supposedly legit business, the Bike Factory. Evidence is mounting up that the business, and especially its website, have quite a few things to hide. We've just had a tip-off that there's a secret page on the website with some interesting information about when the gang plan to attempt the eBike heist. Problem is, it seems to be restricted. Can you get access?",
+        "tips": [
+          "Tip: Get access to the page to get the flag."
+        ]
+      },
+      {
+        "title": "Too Much Text",
+        "description": "Ok, this is really weird, one of the gang just emailed every other gang member a HUGE text file with loads of random Latin text in it. There must be a secret code hidden in it, right?",
+        "tips": [
+          "Tip: Find the secret code, that's the flag."
+        ]
+      },
+      {
+        "title": "More Broken Bicycles",
+        "description": "Remember Lars cycling fan site from the last floor? Well, we thought we'd figured out what the issue was with the broken images on the site, but on this page that we've just come across all the images already have file extensions, but one is still broken. Can you see what's wrong?",
+        "tips": [
+          "Tip: Get the image to show to get the flag."
+        ]
+      },
+      {
         "title": "Broken Click",
-        "description": "Here's a weird one agent, there's a link on the Slootmaekers login page for an admin login. We wanted to take a look but the link doesn't seem to work. Can you figure out how to get to it?",
+        "description": "Here's a weird one agent, there's now a link on the Slootmaekers login page for an admin login. We wanted to take a look but the link doesn't seem to work. Can you figure out how to get to it?",
         "tips": [
           "Tip: Get to the admin login page to get the flag."
         ]
@@ -133,14 +223,14 @@
         "title": "Hard Hash",
         "description": "Agent D from our cryptography department has just sent me this hash she intercepted from an exchange between two Slootmaeker gang members. She thought it might be a good task for a smart agent like yourself to figure out.",
         "tips": [
-          "Tip: Unhash it to get the flag."
+          "Tip: Maybe someone has already figured out what this is a hash of. Sometimes the work of the CPA starts with an internet search."
         ]
       },
       {
-        "title": "More Broken Bicycles",
-        "description": "Remember Lars cycling fan site from the last floor? Well, we thought we'd figured out what the issue was with the broken images on the site, but on this page that we've just come across all the images already have file extensions, but one is still broken. Can you see what's wrong?",
+        "title": "Encrypted Message",
+        "description": "We have an undercover agent in one of the Slootmaekers bike shops, posing as a bike mechanic. We need to send him an urgent message but the only phone he has is one the gang gave him and may be monitoring. We have a specific Substitution Cipher we can use - quickly encode the message and send it.",
         "tips": [
-          "Tip: Get the image to show to get the flag."
+          "Tip: Correctly encrypt the message and send it to get the flag."
         ]
       },
       {
@@ -158,38 +248,73 @@
         ]
       },
       {
-        "title": "Too Much Text",
-        "description": "Ok, this is really weird, one of the gang just emailed every other gang member a HUGE text file with loads of random latin text in it. There must be a secret code hidden in it, right?",
+        "title": "Under Attack",
+        "description": "It looks like part of the heist is underway, they're trying to hack the Amsterdam City Bike Initiative servers as we speak! We need to help them out, see if you can change the server configuration settings to make the server login rules more secure.",
         "tips": [
-          "Tip: Find the secret code, that's the flag."
+          "Tip: Change the settings correctly to get the flag."
         ]
       },
       {
-        "title": "Under Attack",
-        "description": "It looks like part of the heist is underway, they're hacking the Amsterdam City Bike Initiative servers as we speak! We need to help them out, see if you can change the server configuration settings to kick the hackers out of the server.",
+        "title": "User Who",
+        "description": "Urgent request - one of our agents is currently at a Slootmaeker hideout and we know the rest of the gang are on their way back there. He's found a computer they've been using and managed to gain access to their Linux server through the use of an exploit - but we don't know which user he's been able to log in as, and we need to know before he runs out of time. We've patched you in to his screen - see if you can find out.",
         "tips": [
-          "Tip: Change the settings correctly to get the flag."
+          "Tip: Get the username, that's the flag."
         ]
       }
     ],
     [
       {
+        "title": "A Secret Rendezvous",
+        "description": "Yesterday we intercepted some code passed between two Chopper gang members - Ibert and Dante. We believe it mentions the location of a secret meeting to discuss plans to hack into their competitors' computers.\n\nFortunately, we know it uses the Columnar Transposition Cipher and have a CPA tool to help you crack it. We've loaded the code into the tool. Give it a try and see if you can decrypt the message.",
+        "tips": [
+          "Tip: The flag is the city they will be meeting in."
+        ]
+      },
+      {
+        "title": "Lucky Throw",
+        "description": "Whilst taking a look around The Choppers' intranet site, one of our agents found a game that gang members like to play to pass a little time. We need you to find out how the game is won so we can better assess the capabilities of gang members problem solving skills.",
+        "tips": [
+          "Tip: If you figure it out and you're persistent enough, you'll see the flag!"
+        ]
+      },
+      {
         "title": "Chopper Check-in",
-        "description": "For this assignment we need your help keeping an eye on the gang. One of our agents wants to remotely access their computers but only when they are not around to see.\n\nWe've discovered that today is their Christmas party but we don't know where it is. If we knew we could send an agent along to check they were all there.\n\nOne of the gang, Sannfred, uses a location check-in site called Circle. Perhaps you could take a look at his profile to see where the party is?",
+        "description": "For this assignment we need your help keeping an eye on the gang. One of our agents wants to remotely access their computers but only when they are not around to see.\n\nWe've discovered that today is one of the gang member's birthday party but we don't know where it is. If we knew we could send an agent along to check they were all there.\n\nOne of the gang, Sannfred, uses a location check-in site called Circle. Perhaps you could take a look at his profile to see where the party is?",
         "tips": [
           "Tip: The challenge flag is the number of the building."
         ]
       },
       {
-        "title": "Password Postulation",
-        "description": "One of our agents was recently able to get hold of a username and password that one of The Chopper gang uses to access their company intranet. However, before he was able to use it to log in they implemented a change in their password policy.\n\nThe old password is \"evergreen\", and we've heard the new password policy requires a capital letter and number. Perhaps you could guess what he changed it to and help us get access?",
+        "title": "Confused",
+        "description": "Recruit, we've intercepted some chatter between Chopper gang members talking about one of their competitor's machines. They all have unique identifiers and we think one of those identifiers is hidden in some code we found. One of the other agents has emailed it to you. Take a look and see if you can find the identifier.",
         "tips": [
-          "Tip: To get the challenge flag you need to successfully login."
+          "Tip: The identifier is the flag you need."
         ]
       },
       {
         "title": "Secret Source",
         "description": "It looks like the gang has a lot of information we might find useful on their intranet; probably details of how they intend to break into their competitors' computer systems to look for the plans to their better felling machine. It would be especially useful if we could log in as their main developer, Aksel.\n\nSometimes developers can be a little bit lazy and leave information in the source code of a page that might be revealing. Perhaps you could take a look and see if there's anything Aksel left that might help you log in.",
+        "tips": [
+          "Tip: To get the challenge flag you need to successfully login."
+        ]
+      },
+      {
+        "title": "Corrupted",
+        "description": "An agent in the field managed to get access to an XML file that he believes belonged to one of The Chopper gang members. It looks corrupted so he's sent it to us for analysis.\n\nHave a look in the file and see if you can get it working.",
+        "tips": [
+          "Tip: The flag to complete the challenge is on the last line of the file."
+        ]
+      },
+      {
+        "title": "Route into the Router",
+        "description": "Good news, we've managed to get access to the login page for one of the gang's home routers. Useful... if only we knew the username and password. I wonder if they've been lazy and left the router's default username and password active? The router is just a standard Nethub 5000.",
+        "tips": [
+          "Tip: Find the correct username and password then login, to get the flag."
+        ]
+      },
+      {
+        "title": "Password Postulation",
+        "description": "One of our agents was recently able to get hold of a username and password that one of The Chopper gang uses to access their company intranet. However, before he was able to use it to log in they implemented a change in their password policy.\n\nThe old password is \"evergreen\", and we've heard the new password policy requires a capital letter and number. Perhaps you could guess what he changed it to and help us get access?",
         "tips": [
           "Tip: To get the challenge flag you need to successfully login."
         ]
@@ -202,38 +327,17 @@
         ]
       },
       {
-        "title": "Corrupted",
-        "description": "An agent in the field managed to get access to an XML file that he believes belonged to one of The Chopper gang members. It looks corrupted so he's sent it to us for analysis.\n\nHave a look at the file and see if you can get it working.",
-        "tips": [
-          "Tip: The flag to complete the challenge is on the last line of the file."
-        ]
-      },
-      {
         "title": "The Competitor Revealed",
-        "description": "We've intercepted some encrypted text from one of the gang members, which we think might include the name of the competitor company that they intend to target.\n\nLuckily, we also know it uses a letter substitution cipher and CPA has our very own tool for breaking this kind of encryption. Use it to try and work out what the text says.",
+        "description": "We've intercepted some encrypted text from one of the gang members, which we think might include the name of the competitor company that they intend to target.\n\nLuckily, we also know it uses a letter Substitution Cipher and CPA has our very own tool for breaking this kind of encryption. Use it to try and work out what the text says.",
         "tips": [
           "Tip: The flag is the name of the competitor company."
         ]
       },
       {
-        "title": "A Secret Rendezvous",
-        "description": "Yesterday we intercepted some code passed between two Chopper gang members - Ibert and Dante. We believe it mentions the location of a secret meeting to discuss plans to hack into their competitors' computers.\n\nFortunately, we know it uses columnar transposition and have a CPA tool to help you crack it. We've loaded the code into the tool. Give it a try and see if you can decrypt the message.",
-        "tips": [
-          "Tip: The flag is the city they will be meeting in."
-        ]
-      },
-      {
-        "title": "Route into the Router",
-        "description": "Good news, we've managed to get access to the login page for one of the gang's home routers. Useful... if only we knew the username and password. I wonder if they've been lazy and left the router's default username and password active? The router is just a standard Nethub 5000.",
-        "tips": [
-          "Tip: Find the correct username and password to get the flag."
-        ]
-      },
-      {
         "title": "Big Transfer",
-        "description": "Agent, we've just intercepted a message between two of The Choppers talking about how they intend to steal money from the bank account of a different competitor to fund their plans.\n\nIt said they've found a weakness in the money transfer tool on the Global Bank website. We've just successfully put through a test transfer, can you see any way to hack it?",
+        "description": "Agent, we've just intercepted a message between two of The Choppers talking about how they intend to steal money from the bank account of a different competitor to fund their plans.\n\nIt said they've found a weakness in the money transfer tool on the Global Bank website. We've just successfully put through a test transfer, can you prove it's vulnerable by transferring 1000 to a bank account called cpatestreceiver from cpatestsender.",
         "tips": [
-          "Tip: Transfer 1000 to a bank account called cpatestreceiver from cpatestsender to get the flag."
+          "Tip: Sometimes URLs can be manipulated to bypass security."
         ]
       },
       {
@@ -242,63 +346,35 @@
         "tips": [
           "Tip: Run the program from the command line; the flag will be in the output."
         ]
-      },
-      {
-        "title": "Wheel Spin",
-        "description": "Whilst taking a look around The Choppers' intranet site, one of our agents found a rather odd page. It just has two numbers on it. Take a look and see if you can figure out what's going on.",
-        "tips": [
-          "Tip: If you figure it out and you're persistent enough, you'll see the flag!"
-        ]
-      },
-      {
-        "title": "Confused",
-        "description": "Recruit, we've intercepted some chatter between Chopper gang members talking about one of their competitor's machines. They all have unique identifiers and we think one of those identifiers is hidden in some code we found. One of the other agents has emailed it to you. Take a look and see if you can find the identifier.",
-        "tips": [
-          "Tip: The identifier is the flag you need."
-        ]
       }
     ],
     [
       {
+        "title": "A Helping Hand",
+        "description": "This morning I received a message from my counterpart in another agency. It seems they've been monitoring The Choppers too.\n\nHelpfully they've sent us over an extract from a report one of their agents wrote, which they thought might be of use to us. Unhelpfully it's a PDF and much of the sensitive information has been redacted. Maybe you could find a way to see what it says.",
+        "tips": [
+          "Tip: We think it contains one of the gang's passwords - that's the flag."
+        ]
+      },
+      {
         "title": "Arnold Chopper?",
-        "description": "A few days ago one of our field agents, who is now working undercover for The Choppers, found two pages of a book ripped out and left on a table.\n\nWe weren't sure if it meant anything, but then today we intercepted an email containing some cryptic code. It looks like the gang is getting smarter with its encrypted messages and is now using Arnold ciphers.\n\nSee if you can use the intercepted code and the two pages of the book to discover what it means.",
+        "description": "A few days ago one of our field agents, who is now working undercover for The Choppers, found two pages of a book ripped out and left on a table.\n\nWe weren't sure if it meant anything, but then today we intercepted an email containing some cryptic code. It looks like the gang is getting smarter with its encrypted messages and is now using Arnold Ciphers.\n\nSee if you can use the intercepted code and the two pages of the book to discover what it means.",
         "tips": [
           "Tip: We believe the message contains a code, that's the flag."
         ]
       },
       {
-        "title": "Maggie's File",
-        "description": "Our field agent has managed to get some login details from one of the gang, Magdalina. We believe she uses the details to SSH into a remote server to view a particular file that might be important.\n\nThese are the details we have:\n\nIP address: 192.162.132.199\nUsername: maggie\nPassword: ubersecurepw\n\nWhy don't you try it yourself using the secure terminal we've provided and see what you find.",
-        "tips": [
-          "Tip: The terminal uses non-default implementation of OpenSSH and only accepts common formats. The flag is the name of the file."
-        ]
-      },
-      {
-        "title": "Cookie Jar",
-        "description": "Now that we've gained access to The Choppers' intranet site it has dawned on us that they might have more than one level of user. If we could log in as an admin user it might allow us to see much more.\n\nSometimes you can change the session cookie to achieve that, and admins often have an ID of 0. Why don't you give it a try?",
-        "tips": [
-          "Tip: If you're able to change your access to admin level the code will appear."
-        ]
-      },
-      {
         "title": "Photobomb",
-        "description": "Our team have been monitoring The Choppers' web traffic and it seems they've been spending a lot of time on a photo-sharing site, especially one particular page. Have you ever heard of steganography? It's the practice of hiding a file or message in another file. Maybe one of the images on the photo-sharing site contains a hidden message. Why don't you take a look and see if you can find out?",
+        "description": "Our team have been monitoring The Choppers' web traffic and it seems they've been spending a lot of time on a photo-sharing site, especially one particular page. Did you know you can hide a message inside a file? Maybe this image contains a hidden message. Why don't you take a look and see if you can find out?",
         "tips": [
           "Tip: The flag is in the image."
         ]
       },
       {
         "title": "Upgrades? Paaa!",
-        "description": "It looks like The Choppers know they need to improve their security set-up, as recently we've been unable to log in to their intranet and they've been making a few changes to their security.\n\nThey have rewritten their login form to use slightly improved javascript, but it doesn't seem to be much more secure. Maybe you could change some of the javascript on the login page to see if you can log us back in.",
+        "description": "It looks like The Choppers know they need to improve their security set-up, as recently we've been unable to log in to their intranet and they've been making a few changes to their security.\nThey have rewritten their login form to use slightly improved JavaScript, but it doesn't seem to be much more secure. Maybe you could change some of the JavaScript on the login page to see if you can log us back in.\nTip: Log in successfully to get the flag.\n\nThey have rewritten their login form to use slightly improved JavaScript, but it doesn't seem to be much more secure. Maybe you could change some of the JavaScript on the login page to see if you can log us back in.\nTip: Log in successfully to get the flag.",
         "tips": [
-          "Tip: Log in successfully to get the flag."
-        ]
-      },
-      {
-        "title": "A Helping Hand",
-        "description": "This morning I received a message from my counterpart in another agency. It seems they've been monitoring The Choppers too.\n\nHelpfully they've sent us over an extract from a report one of their agents wrote, which they thought might be of use to us. Unhelpfully it's a PDF and much of the sensitive information has been redacted. Maybe you could find a way to see what it says.",
-        "tips": [
-          "Tip: We think it contains one of the gang's passwords - that's the flag."
+          "Tip: Log in successfully to get the flag.\n"
         ]
       },
       {
@@ -309,10 +385,10 @@
         ]
       },
       {
-        "title": "Bad Kitty",
-        "description": "For weeks now The Chopper gang members have been passing animated gifs of kittens backwards and forwards in a chat room app called KittyLitter. We thought they were just messing around, until one of our agents noticed something interesting in one of the gifs.\n\nTake a look at the gifs in this message thread and see if you can figure out what it is. Oh, by the way, one of the agents mentioned something about a browser plugin to help you with your investigation.",
+        "title": "Maggie's File",
+        "description": "Our field agent has managed to get some login details from one of the gang, Magdalina. We believe she uses the details to SSH into a remote server to view a particular file that might be important.\n\nThese are the details we have:\n\nIP address: 192.162.132.199\nUsername: maggie\nPassword: ubersecurepw\n\nWhy don't you try it yourself using the secure terminal we've provided and see what you find.",
         "tips": [
-          "Tip: The flag is what you discover!"
+          "Tip: The terminal uses non-default implementation of OpenSSH and only accepts common formats. The flag is the name of the file."
         ]
       },
       {
@@ -324,46 +400,81 @@
       },
       {
         "title": "Phishing For Flemming",
-        "description": "In our background research on one of the gang members, Flemming, we discovered their profile page on Ansikt, a Norwegian social media site.\n\nLuckily he's written all the details in English. We thought we might use them to create a phishing email and send it to him to try and get some further information, like his home address.\n\nTake a look at the profile, then create the phishing email with the right details, hit \"send\", and see if he sends anything back.",
+        "description": "In our background research on one of the gang members, Flemming, we discovered their profile page on Ansikt, a Norwegian social media site.\n\nLuckily he's written all the details in English. We thought we might use them to create a phishing email and send it to him to try and get some further information, like his home address.\n\nTake a look at the profile, then create the phishing email with the right details, hit \"Send email\", and see if he sends anything back.",
         "tips": [
           "Tip: Get all the details right, otherwise you can't send the email. When you do, you'll get the flag."
         ]
       },
       {
+        "title": "Lockdown",
+        "description": "It looks like The Choppers might know we're trying to get into their intranet.\n\nThey've currently got it locked down by disabling the login form. We still have a correct username and password - can you find a way to get in?\n\nTip: Log in successfully and you'll get the flag.",
+        "tips": [
+          "Tip: Log in successfully and you'll get the flag."
+        ]
+      },
+      {
         "title": "Lost But Not Forgotten",
-        "description": "We've recovered a bunch of .gif files from an old hard drive one of the gang members threw out. We thought they were innocent enough until we started wondering whether they were all actually gif files.\n\nCheck your email, download the files and see if you can find out what's going on.",
+        "description": "We've recovered a bunch of .gif files from an old hard drive one of the gang members threw out. We thought they were innocent enough until we started wondering whether they were all actually GIF files.\n\nCheck your email, download the files and see if you can find out what's going on.",
         "tips": [
           "Tip: The flag is in one of the files."
         ]
       },
       {
-        "title": "Lockdown",
-        "description": "It looks like The Choppers might know we're trying to get in to their intranet.\n\nThey've currently got it locked down by disabling the login form. We still have a correct username and password - can you find a way to get in?",
+        "title": "Cookie Jar",
+        "description": "Now that we've gained access to The Choppers' intranet site it has dawned on us that they might have more than one level of user. If we could log in as an admin user it might allow us to see much more.\n\nSometimes you can change the session cookie to achieve that, and admins often have an ID of 0. Why don't you give it a try?",
         "tips": [
-          "Tip: Log in successfully and you'll get the flag."
+          "Tip: Use the browser extension to help modify the cookie. If you're able to change your access to admin level the code will appear."
+        ]
+      },
+      {
+        "title": "Bad Kitty",
+        "description": "For weeks now The Chopper gang members have been passing animated gifs of kittens backwards and forwards in a chat room app called KittyLitter. We thought they were just messing around, until one of our agents noticed something interesting in one of the GIFs.\n\nTake a look at the gifs in this message thread and see if you can figure out what it is. Oh, by the way, one of the agents mentioned there are websites and online tools to help you investigate fast-moving GIF files.",
+        "tips": [
+          "Tip: The flag is what you discover!"
         ]
       }
     ],
     [
       {
+        "title": "Perplexed By Pixels",
+        "description": "The Yakoottees love their cars. And so you'd expect that they might send each other car photos, images and even art. But recently we intercepted something strange: a pixel drawing of a car. What's strange about it? One of the gang, Kanako, sent two copies of it to another gang member. After some initial analysis we noticed some slight variations in colour in a selection of pixels.\n\nOne of the team has already built a comparison tool but he's just been reassigned to another urgent project. Perhaps you could take a look at what he's built and finish the analysis.",
+        "tips": [
+          "Tip: Calculate the differences, convert it with the ASCII table, and that's your flag."
+        ]
+      },
+      {
         "title": "Word On The Street",
-        "description": "We've been monitoring the Yakoottees for a while now, ever since we first came across one of their team trying to hack into large car manufacturers. Two of the gang members have recently started sending each other emails containing what we thought were Word documents. But here's the thing, the emails don't contain any words and we can't seem to open the files. Why don't you take you take a look?",
+        "description": "We've been monitoring the Yakoottees for a while now, ever since we first came across one of their team trying to hack into large car manufacturers. Two of the gang members have recently started sending each other emails containing what we thought were zip files. But here's the thing, the emails don't contain any words and we can't seem to open the files. Why don't you take a look?",
         "tips": [
           "Tip: Open the file to get the flag."
         ]
       },
       {
-        "title": "Dangerous Comment",
-        "description": "One of the Yakoottees, Haruka, recently created a site where she posts photos of her favourite cars. We think it might be a front to store files containing their plans to break in to the Superspin factory. Each page has a form on it where you can post comments. Try and use the form on this particular page to use command injection and find any files hidden in the same directory. Remember, to inject code you need to include two commands by including a semi-colon.",
+        "title": "Shinji's Drone",
+        "description": "Yesterday we spotted a Yakoottees gang member checking out the Superspin HQ, seemingly on a reconnaissance mission. He was seen flying a drone around the building with a video camera attached to it and we've since discovered that he put that video up on his personal site to share with other gang members. We know his username is \"shinji\" - if we could get in and take a look at the video, we might know better where they intend to target.\n\nCheck out the login page on his site and see if you can break in.",
         "tips": [
-          "Tip: One of the files has the flag in it."
+          "Tip: Log in successfully to get the flag."
         ]
       },
       {
         "title": "Out Of Sight",
-        "description": "Well, that's a bit of luck. We've managed to get our hands on some details that allowed us to SSH into one of the Yakoottees private servers. They're a sophisticated gang, so they've probably hidden a few files in there. We've passed you the connection so have a look and see if you can find anything.",
+        "description": "Well, that's a bit of luck. We've managed to get our hands on some details that allowed us to SSH into one of the Yakoottees private servers. They're a sophisticated gang, so they've probably hidden a few files in there. We've got you into their server, have a look and see if you can find anything.",
         "tips": [
           "Tip: The flag is in a file somewhere on the server."
+        ]
+      },
+      {
+        "title": "Zapped",
+        "description": "The gang have been using a lesser-known chat app called ChatZap to communicate. We know one of the usernames (kanako) but not the password. If we could get access we might be able to see what they're saying.\n\nIt's not a great site and the security is average at best. Look at the login page - they do SHA1 hash their passwords but leave them in plain sight in the source code. See if you can use that to get in.",
+        "tips": [
+          "Tip: Gain access to get the flag."
+        ]
+      },
+      {
+        "title": "File Found",
+        "description": "Whilst monitoring one of the gang, Ryosuke, we came across a file that he posted online. The problem is, the file doesn't seem to be opening. Take a look and see if you can work it out.",
+        "tips": [
+          "Tip: The flag is in the file."
         ]
       },
       {
@@ -374,45 +485,17 @@
         ]
       },
       {
-        "title": "Shinji's Drone",
-        "description": "Yesterday one of our field agents spotted Shinji, one of the Yakoottees low-level gang members, checking out the Superspin HQ, seemingly on a reconnaissance mission. He was seen flying a drone around the building with a video camera attached to it. We've since discovered that he put that video up on his personal site to share with other gang members. If we could get in and take a look at the video we might know better where they intend to target.\n\nCheck out the login page on his site and see if you can break in.",
-        "tips": [
-          "Tip: Log in successfully to get the flag."
-        ]
-      },
-      {
-        "title": "Zapped",
-        "description": "The gang have been using a lesser-known chat app called Chatzap to communicate. We know one of the usernames (kanako) but not the password. If we could get access we might be able to see what they're saying.\n\nIt's not a great site and the security is average at best. Look at the login page - they do SHA1 hash their passwords but leave them in plain sight in the source code. See if you can use that to get in.",
-        "tips": [
-          "Tip: Gain access to get the flag."
-        ]
-      },
-      {
-        "title": "Yakoo Cars",
-        "description": "The Yakoottees aren't just a criminal gang, they're also a group of talented car engineers. Their organisation has a front - a high-end car repair shop called Yakoo Cars.\n\nNaturally, we took a thorough look through their website to see if we could find anything interesting. One thing we found was a little strange: an empty page. Empty, apart from a message saying \"Error. Cookie user expected.\". Ordinarily we wouldn't think anything of it, but the page name is \"Secret\", so we should investigate.\n\nWe think only the boss Yaka Matsu should have access. Take a look and see if you can get around the cookie issue.",
-        "tips": [
-          "Tip: Get past the issue to get the flag."
-        ]
-      },
-      {
-        "title": "Perplexed By Pixels",
-        "description": "The Yakoottees love their cars. And so you'd expect that they might send each other car photos, images and even art. But recently we intercepted something strange: a pixel drawing of a car. What's strange about it? One of the gang, Kanako, sent two copies of it to another gang member. After some initial analysis we noticed some slight variations in colour in a selection of pixels.\n\nOne of the team has already built a comparison tool but he's just been reassigned to another urgent project. Perhaps you could take a look at what he's built and finish the analysis.",
-        "tips": [
-          "Tip: Calculate the differences, convert it with the ASCII table, and that's your flag."
-        ]
-      },
-      {
-        "title": "Baffled By Browsers",
-        "description": "Whilst monitoring the gang's web traffic, we noticed they've been visiting one particular page quite a lot. When we try we get rejected immediately without it even asking for a username or password.\n\nOur field agent, who is working for the The Yakoottees undercover, thinks it might be something to do with a particular browser that the gang built themselves called \"Orion\". Time for you to investigate. Maybe try looking for a browser plugin to help you out.",
-        "tips": [
-          "Tip: To get the flag, get access to the page!"
-        ]
-      },
-      {
         "title": "Rattlesnake",
         "description": "Well, one thing is for sure, the Yakoottees' scripting language of choice is Python. We've intercepted a lot of Python files from all over the place. So many, in fact, that we need someone to look at them and see what they do. Can have a look at this one to find out what it does?",
         "tips": [
           "Tip: The flag is in the file."
+        ]
+      },
+      {
+        "title": "Yakoo Cars",
+        "description": "The Yakoottees aren't just a criminal gang, they're also a group of talented car engineers. Their organisation has a front - a high-end car repair shop called Yakoo Cars.\n\nNaturally, we took a thorough look through their website to see if we could find anything interesting. One thing we found was a little strange: an empty page. Empty, apart from a message saying \"Error. Cookie `user` expected.\". Ordinarily we wouldn't think anything of it, but the page name is \"Secret\", so we should investigate.\n\nWe think only the boss Yaka Matsu should have access. Take a look and see if you can get around the cookie issue.",
+        "tips": [
+          "Tip: Use the browser extension to help add a new cookie."
         ]
       },
       {
@@ -423,63 +506,21 @@
         ]
       },
       {
-        "title": "File Found",
-        "description": "Whilst monitoring one of the gang, Ryosuke, we came across a file that he posted online. The problem is, we can't seem to figure out what type of file it is. Take a look and see if you can work it out.",
+        "title": "Baffled By Browsers",
+        "description": "Whilst monitoring the gang's web traffic, we noticed they've been visiting one particular page quite a lot. When we try we get rejected immediately without it even asking for a username or password.\n\nOur field agent, who is working for the Yakoottees undercover, thinks it might be something to do with a particular browser that the gang built themselves called \"Orion\". Time for you to investigate. Try looking for a developer tool in the browser to help you out.",
         "tips": [
-          "Tip: The flag is in the file."
+          "Tip: To get the flag, get access to the page!"
+        ]
+      },
+      {
+        "title": "Dangerous Comment",
+        "description": "One of the Yakoottees, Haruka, recently created a site where she posts photos of her favourite cars. We think it might be a front to store files containing their plans to break into the Superspin factory. Each page has a form on it where you can post comments. Try and use the form on this particular page to use command injection and find any files hidden in the same directory. Remember, to inject code you need to include two commands by including a semi-colon.",
+        "tips": [
+          "Tip: One of the files has the flag in it."
         ]
       }
     ],
     [
-      {
-        "title": "Hush Fund",
-        "description": "It looks like The Yakoottees are preparing for an attack and the senior members of the gang seem to be providing the funds. We've intercepted a message containing what we think are bank details, but they're encrypted. If you could decrypt them, we'd have a better idea of who is behind the plan.",
-        "tips": [
-          "Tip: The decrypted bank account number is the flag."
-        ]
-      },
-      {
-        "title": "Heroka's DB",
-        "description": "In the previous level you may have been part of the investigation into Heroka. She recently created a site where she posts photos of her favourite cars. That investigation revealed that the site was vulnerable to injection and that she's been hiding details about their plans there.\n\nWe think that some results from a search of the site are also hidden unless you're logged in. We don't have any login details, so perhaps you could use SQL injection to get all the results. Think about which SQL query is run when you submit the search form.",
-        "tips": [
-          "Tip: Get the full results and then you'll get the flag!"
-        ]
-      },
-      {
-        "title": "Still Hiding",
-        "description": "Were you involved in the previous level when we needed someone to SSH into one of The Yakoottees' servers and take a look around? Well, we need to do it again. It seems they're becoming a little smarter about hiding their files. Take a look and see what you can find.",
-        "tips": [
-          "Tip: The flag is in a file somewhere on the server."
-        ]
-      },
-      {
-        "title": "Brute Strength",
-        "description": "Great news, recruit. Thanks to your work we've been able to recover a zip file from the Yakoottees' private server. We're pretty sure it contains blueprints of the Superspin HQ and details of how they plan to get in.\n\nThe zip file is password protected, so we set one of our engineers on writing a script to brute force it. Unfortunately, he was called away onto a special project for a team on another level. Perhaps you could make the final few alterations to his script to get it working.",
-        "tips": [
-          "Tip: Change the script and open up the zip file to get the flag. Oh, and don't forget you can use your local terminal to help."
-        ]
-      },
-      {
-        "title": "Running Man",
-        "description": "The Yakoottees are preparing their break-in, so we're doing a full review of everything they have running. We found a service running on the server services.cyberprotection.agency, port 8203. Connect to the service and find what is on there to see if it's related.",
-        "tips": [
-          "Tip: Connect and look at the banner for the flag."
-        ]
-      },
-      {
-        "title": "Custom Plates",
-        "description": "We've just had some new intel. The Yakoottees are planning to change the supercar's numberplates to British plates when they steal it. For some reason, rather than create their own, they've ordered some from a site online called CoolPlates. We want to see which plates they've ordered and where they're being sent.\n\nSee if you can get in to the site so we can find out. We don't have a username and password but we think it uses some simple javascript security checks.",
-        "tips": [
-          "Tip: Log in to get the flag."
-        ]
-      },
-      {
-        "title": "Junya Who?",
-        "description": "Recruit, I need a favour. We've just had some intel about one of the gang members. His first name is Junya, but we can't find his surname. We know we have it on record but it could be in any one of a huge set of files. Perhaps you could SSH into our server and see if you can find his surname for me?",
-        "tips": [
-          "Tip: Find \"Junya\" mentioned in the files and his surname will follow. That's the flag."
-        ]
-      },
       {
         "title": "Rezapped",
         "description": "Remember ChatZap from a previous challenge? We need to get back in but it looks like they've changed their security. Take a look.",
@@ -488,17 +529,17 @@
         ]
       },
       {
-        "title": "Meeting Momoko",
-        "description": "Our field agents decided to make a move and pick up one of the Yakoottees, Momoko. We believe she was in charge of picking up some equipment that the gang needed to break in.\n\nUnfortunately, when they got there she'd gone. But they did find a post-it note with a cryptic code on it. On reviewing the surveillance tapes, it seems someone stuck it on her door a few minutes before she left. We think it might be a meet-up location. Can you crack the code for us?",
+        "title": "Truck Stop",
+        "description": "Recruit, we're sending you into the field for the first time! We think you're ready, so don't let us down.\n\nHere's the situation. We know a group of the Yakoottees are heading to a nearby depot to steal a truck, which they are going to use to transport the supercar prototype without anyone seeing. We want to get in to the depot first and wait for them. However, we can't get hold of the depot's owners and the front gate uses a sophisticated locking system.\n\nWe know the Yakoottees have the code already, we need to crack it fast!",
         "tips": [
-          "Tip: Crack the code, it's the flag! Note: The flag is in lowercase!"
+          "Tip: Crack the code for the flag."
         ]
       },
       {
-        "title": "QR.gif",
-        "description": "Remember the QR code that the Yakoottees printed on a T-shirt? You might have been assigned to investigate it on the previous level. Well, it looks like they're using QR codes again and they've gone one step further by embedding them in a gif file. We think the combined output is important, so get straight on it recruit.",
+        "title": "Meeting Momoko",
+        "description": "Our field agents decided to make a move and pick up one of the Yakoottees, Momoko. We believe she was in charge of picking up some equipment that the gang needed to break in.\n\nUnfortunately, when they got there she'd gone. But they did find a post-it note with a cryptic code on it. On reviewing the surveillance tapes, it seems someone stuck it on her door a few minutes before she left. We think it might be a meet-up location. Can you crack the code for us?",
         "tips": [
-          "Tip: Work out the QR codes and put them together for the flag."
+          "Tip: Crack the code, it's the flag!\n            "
         ]
       },
       {
@@ -509,26 +550,68 @@
         ]
       },
       {
-        "title": "Truck Stop",
-        "description": "Recruit, we're sending you into the field for the first time! We think you're ready, so don't let us down.\n\nHere's the situation. We know a group of the Yakoottees are heading to a nearby depot to steal a truck, which they are going to use to transport the supercar prototype without anyone seeing. We want to get in to the depot first and wait for them. However, we can't get hold of the depot's owners and the front gate uses a sophisticated locking system.\n\nWe know the Yakoottees have the code already but we're going to need to crack it.",
+        "title": "Running Man",
+        "description": "The Yakoottees are preparing their break-in, so we're doing a full review of everything they have running. We found a service running on the server services.cyberprotection.agency, port 8203. Connect to the service and find what is on there to see if it's related.",
         "tips": [
-          "Tip: Crack the code for the flag."
+          "Tip: Connect and look at the banner for the flag."
+        ]
+      },
+      {
+        "title": "Heroka's DB",
+        "description": "In the previous level you may have been part of the investigation into Heroka. She recently created a site where she posts photos of her favourite cars. That investigation revealed that the site was vulnerable to injection and that she's been hiding details about their plans there.\n\nWe think that some results from a search of the site are also hidden unless you're logged in. We don't have any login details, so perhaps you could use SQL injection to get all the results. Think about which SQL query is run when you submit the search form.",
+        "tips": [
+          "Tip: Get the full results and then you'll get the flag!"
+        ]
+      },
+      {
+        "title": "Hush Fund",
+        "description": "It looks like the Yakoottees are preparing for an attack and the senior members of the gang seem to be providing the funds. We've intercepted a message containing what we think are bank details, but they're encrypted. If you could decrypt them, we'd have a better idea of who is behind the plan.",
+        "tips": [
+          "Tip: The decrypted bank account number is the flag."
+        ]
+      },
+      {
+        "title": "Junya Who?",
+        "description": "Recruit, I need a favour. We've just had some intel about one of the gang members. His first name is Junya, but we can't find his surname. We know we have it on record, but it could be in any one of a huge set of files. Perhaps you could SSH into our server and see if you can find his surname for me?",
+        "tips": [
+          "Tip: Find \"Junya\" mentioned in the files and his surname will follow. That's the flag."
+        ]
+      },
+      {
+        "title": "QR.gif",
+        "description": "Remember the QR code that the Yakoottees printed on a T-shirt? You might have been assigned to investigate it on the previous level. Well, it looks like they're using QR codes again and they've gone one step further by embedding them in a GIF file. We think the combined output is important, so get straight on it recruit.",
+        "tips": [
+          "Tip: Work out the QR codes and put them together for the flag."
+        ]
+      },
+      {
+        "title": "Custom Plates",
+        "description": "We've just had some new intel. The Yakoottees are planning to change the supercar's numberplates to British plates when they steal it. For some reason, rather than create their own, they've ordered some from a site online called CoolPlates. We want to see which plates they've ordered and where they're being sent.\n\nSee if you can get into the site so we can find out. We don't have a username and password but we think it uses some simple JavaScript security checks.",
+        "tips": [
+          "Tip: Log in to get the flag."
+        ]
+      },
+      {
+        "title": "Still Hiding",
+        "description": "Were you involved in the previous level when we needed someone to SSH into one of the Yakoottees' servers and take a look around? Well, we need to do it again. It seems they're becoming a little smarter about hiding their files. Take a look and see what you can find.",
+        "tips": [
+          "Tip: The flag is in a file somewhere on the server."
+        ]
+      },
+      {
+        "title": "Brute Strength",
+        "description": "Great news, recruit. Thanks to your work we've been able to recover a zip file from the Yakoottees' private server. We're looking for blueprints of the Superspin HQ and details of how they plan to get in. Hopefully, the zip contents will lead us to that.\n\nThe zip file is password protected, so we set one of our engineers on writing a script to brute force it. Unfortunately, he was called away onto a special project for a team on another level. Perhaps you could make the final few alterations to his script to get it working.",
+        "tips": [
+          "Tip: Change the script and open up the zip file to get the flag. Oh, and don't forget you can use your local terminal to help."
         ]
       }
     ],
     [
       {
-        "title": "All Zipped Up",
-        "description": "Recruit, we need your scripting skills again. One of our field agents has managed to turn one of the Chiquitoos' to act as an informant. He has obtained access to a zip file from one of the senior gang members but it's password protected and he doesn't know the password (although we're pretty sure it starts with \"Cola\"). We've got a Python script that might help us brute force it but we think it needs some modifications.",
+        "title": "Dot Dot Dash",
+        "description": "It's time to go old-school, recruit.\n\nWe think the Chiquitoos have an insider that works on the ships carrying the shipping containers full of Cola. Obviously they don't want to be found out while passing details to the gang members on the nearby reconnaissance boats, so they've resorted to using Morse code to communicate. We've tapped into the frequency they're using and funnelled the code into our Morse code tool. Decipher the message and see what they're saying.",
         "tips": [
-          "Tip: Open the zip file to get the flag. And don't forget you can use your local terminal to help."
-        ]
-      },
-      {
-        "title": "Docking Port",
-        "description": "We have come across a site, which we believe is run by one of the Chiquitoo gang members, that sends information out on the port 1337. We've got a terminal tool you can use that is restricted to do just what you need. See if you can use it to get the information so we can find out what the site is being used for.",
-        "tips": [
-          "Tip: Get the information to get the flag."
+          "Tip: In the message they mention a ship name; that's the flag."
         ]
       },
       {
@@ -539,31 +622,24 @@
         ]
       },
       {
-        "title": "Pedro's Password",
-        "description": "Recruit, we've had access to a server used by one of the Chiquitoos' side businesses for a while and have an idea that one of the gang members, Pedro, might have moved his user account from an old version of Linux. SSH in and see if you can find his hashed password.",
+        "title": "Docking Port",
+        "description": "We have come across a site, which we believe is run by one of the Chiquitoo gang members, that sends information out on the port 1337. We've got a terminal tool you can use that is restricted to do just what you need. See if you can use it to get the information so we can find out what the site is being used for.",
         "tips": [
-          "Tip: The flag is the hashed password."
+          "Tip: Get the information to get the flag."
         ]
       },
       {
-        "title": "Dot Dot Dash",
-        "description": "It's time to go old-school, recruit.\n\nWe think the Chiquitoos have an insider that works on the ships carrying the shipping containers full of Cola. Obviously they don't want to be found out while passing details to the gang members on the nearby reconnaissance boats, so they've resorted to using Morse code to communicate. We've tapped into the frequency they're using and funnelled the code into our Morse code tool. Decipher the message and see what they're saying.",
+        "title": "Pedro's Password",
+        "description": "Recruit, we've had access to a server used by one of the Chiquitoos' side businesses for a while and have an idea that one of the gang members, Pedro, might have moved his user account from an old version of Linux. SSH in and see if you can find his hashed password.",
         "tips": [
-          "Tip: In the message they mention a ship name; that's the flag."
+          "Tip: The flag is in the same file as the password."
         ]
       },
       {
         "title": "Quick Drop",
-        "description": "Recruit, we need your help urgently.\n\nThere's a package drop between two gang members about to happen; we have agents following them both. The first gang member has dropped off a briefcase at a discreet location and has left. We have an agent following the other one and he's just 4 minutes away from the pick up point.\n\nOur first agent has intercepted the package, it's a briefcase with two four digit number combinations required to get in. We have no idea what the unlock number is but the case has a post-it stuck to it with an encrypted code written on it.\n\nCan you decipher it in time to get the number combination? We've patched you in to the instant chat with the field agent - tell him the code before the time elapses.\n\nYou only get one chance per day to complete this timed challenge. Reload the page to try again.",
+        "description": "Recruit, we need your help urgently.\n\nThere's a package drop between two gang members about to happen; we have agents following them both. The first gang member has dropped off a briefcase at a discreet location and has left. We have an agent following the other one and he's just 4 minutes away from the pick up point.\nOur first agent has intercepted the package, it's a briefcase with two four digit number combinations required to get in. We have no idea what the unlock number is but the case has a post-it stuck to it with an encrypted code written on it.\nCan you decipher it in time to get the number combination? We've patched you in to the instant chat with the field agent - tell him the code before the time elapses.\nYou only get one chance per day to complete this timed challenge. Reload the page to try again.\nTip: If you get the right code, the agent will give you the flag.\n\nThere's a package drop between two gang members about to happen; we have agents following them both. The first gang member has dropped off a briefcase at a discreet location and has left. We have an agent following the other one and he's just 4 minutes away from the pick up point.\n\nOur first agent has intercepted the package, it's a briefcase with two four digit number combinations required to get in. We have no idea what the unlock number is but the case has a post-it stuck to it with an encrypted code written on it.\n\nCan you decipher it in time to get the number combination? We've patched you in to the instant chat with the field agent - tell him the code before the time elapses.\n\nYou only get one chance per day to complete this timed challenge. Reload the page to try again.",
         "tips": [
           "Tip: If you get the right code, the agent will give you the flag."
-        ]
-      },
-      {
-        "title": "Secret Spreadsheet",
-        "description": "Recruit, we've stumbled upon something. We think it might really help in getting us closer to the Chiquitoos' plan to steal the shipment of Cola. They've created a spreadsheet listing all the containers they intend to target. Luckily for us, they've posted it online for other gang members to see and update. But, of course, being the clever cyber criminals they are, they've put it behind a particularly clever password system.\n\nIf you visit the page where it exists the ciphered password is there but it changes every two seconds; too fast for us to decipher and use. One of our engineers has been working on a Python script to try and get around it. Have a look at the script and see if you can make some changes to get it working.",
-        "tips": [
-          "Tip: Run the correct script to get the flag."
         ]
       },
       {
@@ -574,8 +650,15 @@
         ]
       },
       {
+        "title": "Developer Disaster",
+        "description": "Recruit, quick job for you. We've been using the shipping company website to keep an eye on which ships have been coming in and out of port. However, it looks like their developer pushed an update to the site, which has broken it and then he went home for the day!\n\nThere's an error message on the site. See if you can find a way around it to get us back in.",
+        "tips": [
+          "Tip: Get back in to get the flag."
+        ]
+      },
+      {
         "title": "Breaking Bottles",
-        "description": "Recruit, we think we now know how the Chiquitoos' plan to distribute the Cola they steal. One of the gangs supposedly legitimate businesses is actually a bottling plant... and one of the things they bottle is Cola. We think they might be planning to re-label the bottles they steal as another brand they already bottle, making a huge mark-up and meaning the stolen Cola will effectively just disappear! Clever.\n\nWe think we might have a way in. The bottling plant has a website and there is a form where you can request a price list for their bottling services. We think it might be vulnerable to command injection, and there's a text file we believe you could access with \"recipe\" in the file name, which actually includes details about their plan. But here's the issue - they've added a filter to the form, which prevents the use of semi-colons. See if you can find a way around it.",
+        "description": "Recruit, we think we now know how the Chiquitoos' plan to distribute the Cola they steal. One of the gang's supposedly legitimate businesses is actually a bottling plant... and one of the things they bottle is Cola. We think they might be planning to re-label the bottles they steal as another brand they already bottle, making a huge mark-up and meaning the stolen Cola will effectively just disappear! Clever.\n\nWe think we might have a way in. The bottling plant has a website and there is a form where you can request a price list for their bottling services. We think it might be vulnerable to command injection, and there's a text file we believe you could access with \"recipe\" in the file name, which actually includes details about their plan. But here's the issue - they've added a filter to the form, which prevents the use of semi-colons. See if you can find a way around it.",
         "tips": [
           "Tip: Open the file to get the flag."
         ]
@@ -588,31 +671,31 @@
         ]
       },
       {
-        "title": "Password Pickle",
-        "description": "Hmm, these Chiquitoos are clever. We've intercepted a program that takes a password in and generates a one-time password. We found the correct password (it's \"password\") but it still won't let us in. The other agents are stumped. Can you take a look and see if you can figure out how to get the one-time password?",
+        "title": "All Zipped Up",
+        "description": "Recruit, we need your scripting skills again. One of our field agents has managed to turn one of the Chiquitoos' to act as an informant. He has obtained access to a zip file from one of the senior gang members but it's password protected and he doesn't know the password (although we're pretty sure it starts with \"Cola\"). We've got a Python script that might help us brute force it but we think it needs some modifications.",
         "tips": [
-          "Tip: Get it right and you get the flag."
+          "Tip: Open the zip file to get the flag. And don't forget you can use your local terminal to help."
         ]
       },
       {
-        "title": "Developer Disaster",
-        "description": "Recruit, quick job for you. We've been using the shipping company website to keep an eye on which ships have been coming in and out of port. However, it looks like their developer pushed an update to the site, which has broken it and then he went home for the day!\n\nThere's an error message on the site. See if you can find a way around it to get us back in.",
+        "title": "Secret Spreadsheet",
+        "description": "Recruit, we've stumbled upon something. We think it might really help in getting us closer to the Chiquitoos' plan to steal the shipment of Cola. They've created a spreadsheet listing all the containers they intend to target. Luckily for us, they've posted it online for other gang members to see and update. But, of course, being the clever cyber criminals they are, they've put it behind a particularly clever password system.\n\nIf you visit the page where it exists the ciphered password is there but it changes every two seconds; too fast for us to decipher and use. One of our engineers has been working on a Python script to try and get around it. Have a look at the script and see if you can make some changes to get it working.",
         "tips": [
-          "Tip: Get back in to get the flag."
+          "Tip: Run the correct script to get the flag."
+        ]
+      },
+      {
+        "title": "Password Pickle",
+        "description": "Hmm, these Chiquitoos are clever. We've intercepted a program that takes a password in and generates some output. We found the correct password (it's \"password\") but it still won't let us in. The other agents are stumped. Can you take a look and see if you can figure out how to get the output?",
+        "tips": [
+          "Tip: Get it right and you get the flag."
         ]
       }
     ],
     [
       {
-        "title": "Wake Up Alarm",
-        "description": "Recruit, it's time for you to get back in the field. We want to do a test run of one of the ship's onboard security systems. Take a look at the online control panel to the ship's security. Can you find a way to turn the alarms off? If you can, then maybe The Chiquitoos' can too!\n\nBy the way, our intel tells us that there used to actually be a button called \"Turn Off Alarms\", which the ship's security team removed to try and make it more secure. Maybe start with that.",
-        "tips": [
-          "Tip: Turn off the alarms to get the flag."
-        ]
-      },
-      {
         "title": "Locked Doors",
-        "description": "Recruit, another piece of field work for you.\n\nWe want to test the internal door locks on the ship - and how better than to let one of our most promising agents (you!) try and hack into it!\n\nTake a look at this lock. It has some encrypted numbers which you need to decrypt to get in.",
+        "description": "Recruit, another piece of field work for you.\n\nWe want to test the internal door locks on the ship - and how better than to let one of our most promising agents (you!) try and hack into it!\n\nTake a look at this lock. It has some binary numbers, can you figure out how to get in?",
         "tips": [
           "Tip: Break through the lock to get the flag."
         ]
@@ -625,24 +708,17 @@
         ]
       },
       {
+        "title": "Boat Missing",
+        "description": "Recruit, we've lost sight of one The Chiquitoo boats! We think it's heading out to intercept the ship they are targeting but we can't find it.\n\nWe know one of the gang members onboard, Arturo: he frequently posts photos from his phone to Picster, a social media site. Perhaps you can take a look at his latest photos and see if you can figure out where they are.",
+        "tips": [
+          "Tip: The flag is the absolute latitude and longitude degrees added together!"
+        ]
+      },
+      {
         "title": "Barcode Bonanza",
         "description": "Intel just in!\n\nOn doing a routine review of all the boxes of Cola on one of the ships, we found four boxes with additional barcode stickers on them. Nobody can account for how they got there or what they mean. It must be The Chiquitoos on the inside sending each other messages about which boxes to target.\n\nSee if you can read the barcodes, decode the output and put them in the right order to get the message.",
         "tips": [
           "Tip: The flag is in the decrypted message."
-        ]
-      },
-      {
-        "title": "Filtered Cola",
-        "description": "Hey recruit, back on the previous level you might have been involved with the team that was looking into one of The Chiquitoos' side businesses: the bottling plant. We found their price list request form was vulnerable to command injection and we think the site must also be open to SQL injection.\n\nOn the site there's a page where you can search through a list of all the orders they are planning to fulfil over the next month and we've got you access to it. We think that some of the results are hidden and only available to the senior gang members. We need that extra list so we can see when they are planning to re-label the stolen Cola as a different brand.\n\nOne of our other agents has already tried but, unfortunately, it looks like there is a filter being applied to prevent certain phrases being used in the form. Can you bypass it?",
-        "tips": [
-          "Tip: Get the full list and you'll also get the flag. The flag is the name of the handler on the last result marked \"secret\"."
-        ]
-      },
-      {
-        "title": "Boat Missing",
-        "description": "Recruit, we've lost sight of one The Chiquitoo boats! We think it's heading out to intercept the ship they are targeting but we can't find it.\n\nWe know one of the gang members onboard, Arturo: he frequently posts photos from his phone to Picster, a social media site. Perhaps you can take a look at his latest photos and see if you can figure out where they are.",
-        "tips": [
-          "Tip: The flag is the latitude and longitude degrees added together!"
         ]
       },
       {
@@ -653,10 +729,31 @@
         ]
       },
       {
+        "title": "Wake Up Alarm",
+        "description": "Recruit, it's time for you to get back in the field. We want to do a test run of one of the ship's onboard security systems. Take a look at the online control panel to the ship's security. Can you find a way to turn the alarms off? If you can, then maybe The Chiquitoos' can too!\n\nBy the way, our intel tells us that there used to actually be a button called \"Turn Off Alarms\", which the ship's security team removed to try and make it more secure. Maybe start with that.",
+        "tips": [
+          "Tip: Turn off the alarms to get the flag."
+        ]
+      },
+      {
+        "title": "Filtered Cola",
+        "description": "Hey recruit, back on the previous level you might have been involved with the team that was looking into one of The Chiquitoos' side businesses: the bottling plant. We found their price list request form was vulnerable to command injection and we think the site must also be open to SQL injection.\n\nOn the site there's a page where you can search through a list of all the orders they are planning to fulfil over the next month and we've got you access to it. We think that some of the results are hidden and only available to the senior gang members. We need that extra list so we can see when they are planning to re-label the stolen Cola as a different brand.\n\nOne of our other agents has already tried but, unfortunately, it looks like there is a filter being applied to prevent certain phrases being used in the form. Can you bypass it?",
+        "tips": [
+          "Tip: Get the full list and you'll also get the flag. The flag is the name of the handler on the last result marked \"secret\"."
+        ]
+      },
+      {
         "title": "Float to the Top",
         "description": "Recruit, we're close to foiling The Chiquitoos' plans, but to do so our guy on the inside needs access to the senior members of the gang. The only way he can do that is to pass one of their tests to see if he's got what it takes.\n\nThe good news is that we know what the test is. He needs to bypass the security check on a file called \"OverflowedBuffer\". We've got hold of the file and the test is tonight. Can you do it for him?",
         "tips": [
           "Tip: Pass the security check to get the flag."
+        ]
+      },
+      {
+        "title": "Secret Messages",
+        "description": "Crikey, every time we think we're getting one step ahead of The Chiquitoos, they do something that proves how good they are.\n\nIt seems they now know we've been intercepting some of their messages, so they've started encoding them all. Our agents are looking at them now to try and figure it out. Why don't you take a look too and see if you can figure it out first. It probably won't harm your promotion prospects if you do!",
+        "tips": [
+          "Tip: Decode the message to get the flag."
         ]
       },
       {
@@ -674,13 +771,6 @@
         ]
       },
       {
-        "title": "Secret Messages",
-        "description": "Crikey, every time we think we're getting one step ahead of The Chiquitoos, they do something that proves how good they are.\n\nIt seems they now know we've been intercepting some of their messages, so they've started encoding them all. Our agents are looking at them now to try and figure it out. Why don't you take a look too and see if you can figure it out first. It probably won't harm your promotion prospects if you do!",
-        "tips": [
-          "Tip: Decrypt the message to get the flag."
-        ]
-      },
-      {
         "title": "Hidra",
         "description": "Well, this is interesting. We've finally been able to get access to a messaging app (called Hidra) that The Chiquitoo gang is using to communicate. Within an hour of looking at the messages, they've already given us some great intel.\n\nFor example, FTP login details to the gang's main server! One small issue: they mention the address and the username but not the password. See if you can find a way in.",
         "tips": [
@@ -690,27 +780,6 @@
     ],
     [
       {
-        "title": "Cold File",
-        "description": "Agent, quick task for you if you have a few minutes to spare. We have an old program one of our previous agents used that we can't get into. Can you get into it for me?",
-        "tips": [
-          "Tip: Run the program, find the password, input it into the program to get the flag."
-        ]
-      },
-      {
-        "title": "Code Attack",
-        "description": "We need your programming skills agent, and from what you've demonstrated so far we think you're definitely up for the challenge.\n\nYou need to write a simple script from scratch to crack into another program that takes an argument (a 4 digit numerical pin code) and outputs a result.",
-        "tips": [
-          "Tip: If you enter the right argument into the program you get the flag."
-        ]
-      },
-      {
-        "title": "Bunsen Burners",
-        "description": "Agent, we've been looking into the different ways the Spetzners have been communicating with each other about their plans, and one of them is a science forum called Bunsen Burners. We want to see if the site is vulnerable in such a way that would allow us to serve our own JavaScript to one of the gang when they view it.\n\nWe've created an account for you and made a test forum page called \"Hack Trick\". See if you can get an alert box to appear on the page saying \"Kaboom!\".",
-        "tips": [
-          "Tip: Get the alert to show with the right text and you'll get the flag!"
-        ]
-      },
-      {
         "title": "Centrifuge Exposed",
         "description": "Agent, here's a test for you to show the rest of the team you deserve to be on this level.\n\nOne of the Spetzners associates, Alexei, runs a science equipment ecommerce site called Centrifuge. Our team knows that he's secretly been using it to sell the Spetzners mad scientists the equipment they need for their schemes, so we've been trying to get access for weeks, to no avail.\n\nWe've just had a bit of good news. When making an update to the site Alexei made a mistake which, for a few hours last night, left some of the sites PHP code exposed. We managed to grab the code when it was there. Take a look and see if you can use it to find a way in to the site.",
         "tips": [
@@ -718,10 +787,10 @@
         ]
       },
       {
-        "title": "Mission Extension",
-        "description": "Agent, those Spetzners are really trying to test our patience! We have someone on the inside that managed to quickly take a copy of one of the gangs hard drives. But just to make it really hard to figure out what they're doing they've removed all file extensions - from every file!\nWe know there's a jpg in there somewhere with an image of the particular EMP they're trying to steal, but it's taking the team forever to find it. Can you think of a quicker way?",
+        "title": "Cold File",
+        "description": "Agent, quick task for you if you have a few minutes to spare. We have an old program one of our previous agents used that we can't get into. Can you get into it for me?",
         "tips": [
-          "Tip: Find the jpg, it contains a serial number (SN), that's the flag!"
+          "Tip: Run the program, find the password, input it into the program to get the flag."
         ]
       },
       {
@@ -732,6 +801,27 @@
         ]
       },
       {
+        "title": "Bunsen Burners",
+        "description": "Agent, we've been looking into the different ways the Spetzners have been communicating with each other about their plans, and one of them is a science forum called Bunsen Burners. We want to see if the site is vulnerable in such a way that would allow us to serve our own JavaScript to one of the gang when they view it.\n\nWe've created an account for you and made a test forum page called \"Hack Trick\". See if you can get an alert box to appear on the page saying \"Kaboom!\".",
+        "tips": [
+          "Tip: Get the alert to show with the right text and you'll get the flag!"
+        ]
+      },
+      {
+        "title": "Hayka",
+        "description": "Remember we said the Spetzners were mad scientists? Well, one of the gang, Vladimir, is an actual scientist, and runs an official scientific paper submission site called Hayka. But here's the thing - the server he runs the site from is his own, and we think he's also using it to store the gang's secret plans.\n\nWe want you to take a look at the scientific paper upload page, we think it might be vulnerable. See if you can upload a PHP file which will output the code word \"b1n4ry\" to the screen when you visit the page.",
+        "tips": [
+          "Tip: Upload the correct file and visit the file page to get the flag."
+        ]
+      },
+      {
+        "title": "Mission Extension",
+        "description": "Agent, those Spetzners are really trying to test our patience! We have someone on the inside that managed to quickly take a copy of one of the gang's hard drives. But just to make it really hard to figure out what they're doing they've removed all file extensions - from every file!\n\nWe know there's a Jpeg in there somewhere with an image of the particular EMP they're trying to steal, but it's taking the team forever to find it. Can you think of a quicker way?",
+        "tips": [
+          "Tip: Find the Jpeg, it contains a serial number (SN), that's the flag!"
+        ]
+      },
+      {
         "title": "Grand Old Ruble",
         "description": "Ok, we need you to step into the shoes of the Spetzners best hackers for a while. We've received some intel that the gang have identified a vulnerability on the Grand Ruble Bank's website that allows them to perform actions only an admin should be able to.\n\nTake a look and see if you can do the same so we can help the bank fix their security.",
         "tips": [
@@ -739,24 +829,31 @@
         ]
       },
       {
-        "title": "Hayka",
-        "description": "Remember we said the Spetzners were mad scientists? Well, one of the gang, Vladimir, is an actual scientist, and runs an official scientific paper submission site called Hayka. But here's the thing - the server he runs the site from is his own, and we think he's also using it to store the gangs secret plans.\n\nWe want you to take a look at the scientific paper upload page, we think it might be vulnerable. See if you can upload a PHP file which will output the code word \"b1n4ry\" to the screen when you visit the page.",
+        "title": "Bogdan's Data",
+        "description": "Agent, a possible breakthrough that we need your help with. We've found a server run by the gang, it's at services.cyberprotection.agency:3166 and it seems to be protecting some data. The gang member who we think administers it, Bogdan, is one of the key members behind the plans to steal the EMP. We think it might have even been his suggestion in the first place. In short, we need access to the data on that server.\n\nFortunately we've been able to recover some source code for it. Take a look at the source code and see if you can get access to the server.",
         "tips": [
-          "Tip: Upload the correct file and visit the file page to get the flag."
+          "Tip: Get access to the server to get the flag."
+        ]
+      },
+      {
+        "title": "File Hunt",
+        "description": "Agent, we have SSH access to one of the gang's servers that contains lots of files and we need to find one in particular.\n\nOne of the gang, Stanislav, created the file on 22 Nov 2015 at 8.00pm (we know because we were monitoring him!). Can you find that particular file, we think it contains important information concerning the whereabouts of several gang members.",
+        "tips": [
+          "Tip: Find the file, it contains the flag."
+        ]
+      },
+      {
+        "title": "Code Attack",
+        "description": "We need your programming skills agent, and from what you've demonstrated so far we think you're definitely up for the challenge.\n\nYou need to write a simple script from scratch to crack into another program that takes an argument (a 4 digit numerical pin code) and outputs a result.",
+        "tips": [
+          "Tip: If you enter the right argument into the program you get the flag."
         ]
       },
       {
         "title": "Tayga Bears",
-        "description": "One of the Spetzners lives in Tayga, a heavily forested area with a lot of bears! So it's no surprise that he spends some of his spare time taking photographs of them and posting them to a nature site called \u043c\u0435\u0434\u0432\u0435\u0434\u044c \u0441\u043b\u0435\u0434\u0438\u0442\u044c (which is Russian for Bear Watch). We thought it was fairly innocent until one of the agents spotted something weird about one of the images.\n\nTake a look at them and see if you can spot what it is.",
+        "description": "One of the Spetzners lives in Tayga, a heavily forested area with a lot of bears! So it's no surprise that he spends some of his spare time taking photographs of them and posting them to a nature site called \u043c\u0435\u0434\u0432\u0435\u0434\u044c \u0441\u043b\u0435\u0434\u0438\u0442\u044c (which is Russian for \"Bear Watch\"). We thought it was fairly innocent until one of the agents spotted something weird about one of the images.\n\nTake a look at them and see if you can spot what it is.",
         "tips": [
           "Tip: There's a hidden file, open it to get the flag."
-        ]
-      },
-      {
-        "title": "Bogdan's Data",
-        "description": "Agent, a possible breakthrough that we need your help with. We've found a server run by the gang, it's at services.cyberprotection.agency:3166 and it seems to be protecting some data. The gang member who we think administers it, Bogdan, is one of the key members behind the plans to steal the EMP. We think it might have even been his suggestion in the first place. In short, we need access to the the data on that server.\n\nFortunately we've been able to recover some source code for it. Take a look at the source code and see if you can get access to the server.",
-        "tips": [
-          "Tip: Get access to the server to get the flag."
         ]
       },
       {
@@ -765,70 +862,35 @@
         "tips": [
           "Tip: Bypass the login form to get the flag."
         ]
-      },
-      {
-        "title": "File Hunt",
-        "description": "Agent, we have SSH access to one of the gangs servers that contains lots of files and we need to find one in particular.\nOne of the gang, Stanislav, created the file on 22 Nov 2015 at 8.00pm (we know because we were monitoring him!). Can you find that particular file, we think it contains important information concerning the whereabouts of several gang members.",
-        "tips": [
-          "Tip: Find the file, it contains the flag."
-        ]
       }
     ],
     [
       {
-        "title": "Odd File",
-        "description": "Hmm, this is an interesting one for you recruit. We have a file that the Spetzners have been sending back and forth between them for a while. We have no idea what it is or how to get access. We've tried running it and answering the question it asks but to no avail.\n\nWhy don't you give it a try and see if you can get access.",
-        "tips": [
-          "Tip: Get access to the file to get the flag."
-        ]
-      },
-      {
         "title": "Overflow Egor",
-        "description": "Right recruit, it's time we tested your skills against the Spetzners finest.\n\nOne of their gang, Egor, is a master scientist and skilled programmer. He's written a program which we think is vulnerable to buffer overflow. See if you can crack it.",
+        "description": "Right, recruit, it's time we tested your skills against the Spetzners finest.\n\nOne of their gang, Egor, is a master scientist and skilled programmer. He's written a program which we think is vulnerable to buffer overflow. See if you can crack it.",
         "tips": [
           "Tip: Overflow the buffer to get the flag."
         ]
       },
       {
-        "title": "Hidden Bear",
-        "description": "It seems the Spetzners will find any way possible to keep their secrets from us. And we think they know we're on to them, so they're doubling down with strange new ways to hide their messages.\n\nHere's a good example, you may remember the Bear Watch site from the previous level? Well we've been looking at one of the images from that site for days and can't seem to crack what it's hiding. Take a look and see if you can find it.",
-        "tips": [
-          "Tip: Manipulate the image in some way to get the flag."
-        ]
-      },
-      {
-        "title": "Text and Text",
-        "description": "Recruit, yesterday one of our field agents was able to snoop on a meeting between several gang members planning out their attack on the weapons facility.\n\nOne of them mentioned to the other that he'd send over the lock code to one of the doors on the facility. If we knew the code we'd know how they got it (because the codes are only given to certain people) and where exactly on the facility they planned to get access.\n\nWell, this morning we intercepted an email between the two expecting to see the code, but instead they just sent over two large text files. Weird. Can you find the code?",
-        "tips": [
-          "Tip: Find the code, that's the flag."
-        ]
-      },
-      {
-        "title": "Perilous Pencils",
-        "description": "Agent, we've just had an interesting piece of intel. It seems the gang know we're monitoring their own sites and servers, and have therefore started removing anything incriminating. But they still intend to implement their plans to steal the EMP and so need a new way of sharing information.\n\nIn what we thought was an unrelated piece of intel, one of our field agents monitoring the gang reported this morning that he noticed one of them looking at a site which sells pencils. The Spetzners, being geeky science types, do love their pencils, but we think it's a little more sinister than that - it seems they might have hacked the site and started adjusting the images on it to contain hidden messages! If we hadn't noticed them using the site we would never have known. Clever.\n\nHave a look at this page in particular which the gang member was looking at. Anything strange about it?",
-        "tips": [
-          "Tip: The flag is in one of the images! Oh, and for password protected files don't attempt to drag and drop them."
-        ]
-      },
-      {
         "title": "Calling Yaroslav",
-        "description": "Agent, we know the gang are attacking soon, so it's time to start bringing them in. This morning our agents picked up one of the gangs henchmen, Yaroslav, because we knew he had the time and date of the attack on his phone. The trouble is, we've looked at his phone and it contains a sophisticated eight digit pin locking system. It's based on a math problem, and we want you to crack it.\n\nHere's what we know: when the phone was first started the pin code code to log in was 4096. Every time we enter the pin code the number of times the pin code has been entered correctly in the past is added to the value of the pin code, to get the new pin. We know the system has been used 5520 times before. What will the pin code be this time?",
+        "description": "Agent, we know the gang are attacking soon, so it's time to start bringing them in. This morning our agents picked up one of the gang's henchmen, Yaroslav, because we knew he had the time and date of the attack on his phone. The trouble is, we've looked at his phone and it contains a sophisticated eight-digit pin locking system. It's based on a math problem, and we want you to crack it.\n\nHere's what we know: when the phone was first started the pin code code to log in was 4096. Every time we enter the pin code, the number of times the pin code has been entered correctly in the past is added to the value of the pin code, to get the new pin. We know the system has been used 5520 times before. What will the pin code be this time?",
         "tips": [
           "Tip: Get the right pin code to get the flag. All we know at the moment is that it's definitely eight digits long."
         ]
       },
       {
-        "title": "Chatz with Semyon",
-        "description": "Agent, we need your urgent help.\n\nOne of the gang, Semyon, has been using a Skype equivalent called Chirp to make calls. We know he made a call this morning to an associate of the gang that's planning to help as a getaway driver when they steal the EMP. We want to pick him before he can help, so we need to know his phone number (which will help give us his location).\n\nSee if you can crack into the Chirp site. If you do you'll see the calls Semyon made today, we're looking for the one to Yury. Oh, and luckily one of the other agents has managed to get the PHP source code to the page, that might help.",
+        "title": "Text and Text",
+        "description": "Recruit, yesterday one of our field agents was able to snoop on a meeting between several gang members planning out their attack on the weapons facility.\n\nOne of them mentioned to the other that he'd send over the lock code to one of the doors on the facility. If we knew the code, we'd know how they got it (because the codes are only given to certain people) and where exactly on the facility they planned to get access.\n\nWell, this morning we intercepted an email between the two expecting to see the code, but instead they just sent over two large text files. Weird. Can you find the code?",
         "tips": [
-          "Tip: The flag is Yury's phone number."
+          "Tip: Find the code, that's the flag."
         ]
       },
       {
-        "title": "Junk Decryption",
-        "description": "Agent, we've just received a bunch of files from one of our field agents taken from one of senior gang members hard drives, and our team is having trouble putting it all together. Maybe you can help?\n\nHere's what we have: a decryption program which takes a string as an argument, but when we run it we just get junk back; some encrypted text, and; a weird image file of a calendar. A bizarre combination, take a look and see if you can figure it out.",
+        "title": "Hidden Bear",
+        "description": "It seems the Spetzners will find any way possible to keep their secrets from us. And we think they know we're on to them, so they're doubling down with strange new ways to hide their messages.\n\nHere's a good example: you may remember the Bear Watch site from the previous level? Well, we've been looking at one of the images from that site for days and can't seem to crack what it's hiding. Take a look and see if you can find it.",
         "tips": [
-          "Tip: Run the correct string through the decryption program to get the flag."
+          "Tip: Manipulate the image in some way to get the flag."
         ]
       },
       {
@@ -839,22 +901,50 @@
         ]
       },
       {
-        "title": "Snakes in Motion",
-        "description": "Ok, it looks like the gang are in motion. They're meeting at a particular street in an hour and we think we know how to get the street name. The only problem is the street name is encrypted.\n\nSo, we have the encrypted text, a dictionary file and a python script to help you. Unfortunately the python script is incomplete. Can you finish it off so that it runs each line in the dictionary against the encrypted text to decrypt it? You better hurry.",
+        "title": "Chatz with Semyon",
+        "description": "Agent, we need your urgent help.\n\nOne of the gang, Semyon, has been using a Skype equivalent called Chirp to make calls. We know he made a call this morning to an associate of the gang that's planning to help as a getaway driver when they steal the EMP. We want to pick him up before he can help, so we need to know his phone number (which will help give us his location).\n\nSee if you can crack into the Chirp site. If you do you'll see the calls Semyon made today, we're looking for the one to Yury. Oh, and luckily one of the other agents has managed to get the PHP source code to the page, that might help.",
         "tips": [
-          "Tip: Decrypt the text, that's the flag."
+          "Tip: The flag is Yury's phone number."
         ]
       },
       {
         "title": "Kapa's Hidden Secrets",
-        "description": "Agent, you may have already come across the pencil selling ecommerce site Kapa that the gang hacked into and have been using to exchange messages. Well, it seems they're using it for something else too - to hide files.\n\nLuckily for us we think the site is vulnerable to command injection. See if you can use the comment form to get access and find a file, we think it has a list of the gang members involved in the planned robbery and their particular role in the attack, so it's vital we get our hands on it right away.",
+        "description": "In what we thought was an unrelated piece of intel, one of our field agents monitoring the gang reported this morning that he noticed one of them looking at a site which sells pencils. Well, it seems they're using it for something else too - to hide files.\n\nLuckily for us, we think the site is vulnerable to command injection. See if you can use the comment form to get access and find a file, we think it has a list of the gang members involved in the planned robbery and their particular role in the attack, so it's vital we get our hands on it right away.",
         "tips": [
           "Tip: Find the file, it contains the flag."
         ]
       },
       {
+        "title": "Odd File",
+        "description": "Hmm, this is an interesting one for you, recruit. We have a file that the Spetzners have been sending back and forth between them for a while. We have no idea what it is or how to get access. We've tried running it and answering the question it asks but to no avail.\n\nWhy don't you give it a try and see if you can get access.",
+        "tips": [
+          "Tip: Get access to the file to get the flag."
+        ]
+      },
+      {
+        "title": "Junk Decryption",
+        "description": "Agent, we've just received a bunch of files from one of our field agents taken from one of the senior gang members hard drives, and our team is having trouble putting it all together. Maybe you can help?\n\nHere's what we have: a decryption program which takes a string as an argument, but when we run it we just get junk back; some encrypted text, and; a weird image file of a calendar. A bizarre combination, take a look and see if you can figure it out.",
+        "tips": [
+          "Tip: Run the correct string through the decryption program to get the flag."
+        ]
+      },
+      {
+        "title": "Snakes in Motion",
+        "description": "Agents have intercepted some vital information we'd like you to look at. We've sent you an email with some encrypted text, a dictionary file and a Python script to help you extract what we believe might be the password to a cloud storage solution the Spetzners use to store their criminal documents. One problem, unfortunately, the Python script is incomplete.\n\nCan you finish it off so that it runs each line in the dictionary against the encrypted text to decrypt it? Hurry agent, the Spetzners might know we are on to them and could transfer their documents elsewhere!",
+        "tips": [
+          "Tip: Decrypt the text, that's the flag."
+        ]
+      },
+      {
+        "title": "Perilous Pencils",
+        "description": "Agent, we've just had an interesting piece of intel. It seems the gang know we're monitoring their own sites and servers, and have therefore started removing anything incriminating. But they still intend to implement their plans to steal the EMP and so need a new way of sharing information.\n\nYou may have already come across the pencil selling e-commerce site Kapa that the gang hacked into and have been using to exchange messages. The Spetzners, being geeky science types, do love their pencils, but we think it's a little more sinister than that - it seems they might have hacked the site and started adjusting the images on it to contain hidden messages! If we hadn't noticed them using the site, we would never have known. Clever.\n\nHave a look at this page in particular which the gang member was looking at. Anything strange about it?",
+        "tips": [
+          "Tip: The flag is in one of the images! Oh, and for password protected files don't attempt to drag and drop them."
+        ]
+      },
+      {
         "title": "Dear John",
-        "description": "Ok, really important task for you recruit. We need access to the main Spetzner database! We think it's the only way to not only bring the gang down, but also gather the amount of incriminating evidence we'll need to prosecute.\n\nWe have a word list and a binary. The binary takes in a word list and attempts to break the password on their database server. Unfortunately the word list doesn't have the password on there, we think it may be a similar word though. Another agent mentioned a program called \"john\" which can alter word lists to make minor changes, can you look into that and see if you can use it to get access to the database?",
+        "description": "Ok, a really important task for you, recruit. We need access to the main Spetzner database! We think it's the only way to not only bring the gang down, but also gather the amount of incriminating evidence we'll need to prosecute.\n\nWe have a word list and a binary. The binary takes in a word list and attempts to break the password on their database server. Unfortunately, the word list doesn't have the password on there, we think it may be a similar word though. Another agent mentioned a program called \"john\" which can alter word lists to make minor changes, can you look into that and see if you can use it to get access to the database?",
         "tips": [
           "Tip: Get access to the database to get the flag!"
         ]
@@ -862,10 +952,17 @@
     ],
     [
       {
-        "title": "Art Thief",
-        "description": "Agent, we've been doing some research on Barry Brigley, one of the Bulldogs and a notorious art thief. We've managed to get access to a site he uses to post images of the art he's stolen which are for sale on the black market, but he's hiding the images somehow so we don't know what he's stolen. If we knew it would help us track his movements over the past few months (we think the art comes from a variety of galleries all over Europe).\n\nTake a look at the site and the images. You can download the images, they're in a common image format, see if you can recover them.",
+        "title": "Port of Call",
+        "description": "Quick job for you Agent. We think the gang have a port running between 14000 and 15000 that might expose some interesting information about them, we've temporarily pointed our domain services.cyberprotection.agency to their server. Use that address to find the service and connect to it.",
         "tips": [
-          "Tip: The flag is in one of the images."
+          "Tip: Connect to the port to get the flag."
+        ]
+      },
+      {
+        "title": "Nightclub Rendezvous",
+        "description": "Agent, this one is urgent. Our team have just intercepted some chatter between two gang members and it's confirmed they are holding a meeting tonight at a nightclub somewhere in London. Unfortunately there are a lot of nightclubs in London and they didn't mention which one. Then, 10 minutes after the conversation ended, one of them posted up a cryptic piece of text on his social media account. We think it contains the time and exact location of the meeting. We have every agent on the ninth floor working to decode the text, can you get there first?\n\nHere's what we know about it so far: each character in the text was converted into a decimal number (according to the ASCII chart), then each number had the same number subtracted from it (a number between 1 and 10). Then each number was written to a new line of the text.",
+        "tips": [
+          "Tip: The flag is the name of the nightclub."
         ]
       },
       {
@@ -876,10 +973,24 @@
         ]
       },
       {
-        "title": "Nightclub Rendezvous",
-        "description": "Agent, this one is urgent. Our team have just intercepted some chatter between two gang members and it's confirmed they are holding a meeting tonight at a nightclub somewhere in London. Unfortunately there are a lot of nightclubs in London and they didn't mention which one. Then, 10 minutes after the conversation ended, one of them posted up a cryptic piece of text on his social media account. We think it contains the time and exact location of the meeting. We have every agent on the ninth floor working to decode the text, can you get there first?\n\nHere's what we know about it so far: each character in the text was converted into a decimal number (according to the ASCII chart), then each number had the same number subtracted from it (a number between 1 and 10). Then each number was written to a new line of the text.",
+        "title": "Binary Battle",
+        "description": "Agent, it looks like we might need your programming skills again. We've intercepted a binary that we want you to take a look at. It takes a password as an argument and produces a result if you get it correct. We think writing a script which uses strings might be the best way to crack it, but none of the other agents have been able to so far.\n\nThe file was taken from the hard drive of the gang member we think has been doing reconnaissance on the bank, so it could contain some extremely important information.",
         "tips": [
-          "Tip: The flag is the name of the nightclub."
+          "Tip: Input the right password to get the flag."
+        ]
+      },
+      {
+        "title": "Art Thief",
+        "description": "Agent, we've been doing some research on Barry Brigley, one of the Bulldogs and a notorious art thief. We've managed to get access to a site he uses to post images of the art he's stolen which are for sale on the black market, but he's hiding the images somehow so we don't know what he's stolen. If we knew it would help us track his movements over the past few months (we think the art comes from a variety of galleries all over Europe).\n\nTake a look at the site and the images. You can download the images, they're in a common image format, see if you can recover them.",
+        "tips": [
+          "Tip: The flag is in one of the images."
+        ]
+      },
+      {
+        "title": "Benjamin the Brute",
+        "description": "Agent, one of the gang, Benjamin Goldleaf, was yesterday overheard by our inside undercover agent talking about posting notices on a secret message board that the gang use to communicate meeting times.\n\nWith a bit of detective work we've managed to find the message board and get Bens user details. We want to post a fake message using the API to try and draw one of the more senior gang members out, but we can't get it to work. See if you can.",
+        "tips": [
+          "Tip: Successfully post a notice on the board to get the flag."
         ]
       },
       {
@@ -897,17 +1008,17 @@
         ]
       },
       {
-        "title": "Binary Battle",
-        "description": "Agent, it looks like we might need your programming skills again. We've intercepted a binary that we want you to take a look at. It takes a password as an argument and produces a result if you get it correct. We think writing a script which uses strings might be the best way to crack it, but none of the other agents have been able to so far.\n\nThe file was taken from the hard drive of the gang member we think has been doing reconnaissance on the bank, so it could contain some extremely important information.",
-        "tips": [
-          "Tip: Input the right password to get the flag."
-        ]
-      },
-      {
         "title": "Vicious Voicemail",
         "description": "Agent, once again we need you to step up and show us your skills. This time you need to stand in for Agent V, our resident audio expert, as he's been called up to help the team on the next level with a special mission.\n\nBefore he went he was able to get access to the private voicemail system the Bulldogs were using. He got access by logging in as one of the gang members, Terry Turner, and we can see there are a set of voicemails on there for him. Agent V didn't have chance to analyse them before he went, can you do it for him? We think there might be hidden messages in the audio files.",
         "tips": [
           "Tip: Find the hidden message to get the flag."
+        ]
+      },
+      {
+        "title": "Exposure",
+        "description": "One of the Bulldogs, Lara Mindsay, is a surveillance expert and we think she's been using advanced drones to take high resolution photos of the bank from different angles.\n\nShe also runs a small legit side project, a photo site which allows anyone to create an account and upload photos. We think she's using it herself to store the bank surveillance photos and so we want to see if it's vulnerable. We've been penetration testing the site but have not had any success so far, then this morning one of the other agents sent me a tip - CVE-2012-2399. Take a look and see if you can use it to see if the site is vulnerable.",
+        "tips": [
+          "Tip: Find the vulnerability to get the flag."
         ]
       },
       {
@@ -919,74 +1030,25 @@
       },
       {
         "title": "Open Box",
-        "description": "It looks like Billy Johnson, one of the gangs enforcers, is using a cloud storage service to keep his files secure. We know he has an account and we know his password, but we don't know his account name.\n\nOur team have created an account with the service and logged in. See if you can find a way to trick the site into giving you a list of accounts.",
+        "description": "It looks like Billy Johnson, one of the gang's enforcers, is using a cloud storage service to keep his files secure. We know he has an account and we know his password, but we don't know his account name.\n\nOur team have created an account with the service and logged in. See if you can find a way to trick the site into giving you a list of accounts.",
         "tips": [
           "Tip: Billy Johnson's account name is the flag."
-        ]
-      },
-      {
-        "title": "Benjamin the Brute",
-        "description": "Agent, one of the gang, Benjamin Goldleaf, was yesterday overheard by our inside undercover agent talking about posting notices on a secret message board that the gang use to communicate meeting times.\n\nWith a bit of detective work we've managed to find the message board and get Bens user details. We want to post a fake message using the API to try and draw one of the more senior gang members out, but we can't get it to work. See if you can.",
-        "tips": [
-          "Tip: Successfully post a notice on the board to get the flag."
-        ]
-      },
-      {
-        "title": "Exposure",
-        "description": "One of the Bulldogs, Lara Mindsay, is a surveillance expert and we think she's been using advanced drones to take high resolution photo's of the bank from different angles.\n\nShe also runs a small legit side project, a photo site which allows anyone to create an account and upload photo's. We think she's using it herself to store the bank surveillance photo's and so we want to see if it's vulnerable. We've been penetration testing the site but have not had any success so far, then this morning one of the other agents sent me a tip - CVE-2012-2399. Take a look and see if you can use it to see if the site is vulnerable.",
-        "tips": [
-          "Tip: Find the vulnerability to get the flag."
-        ]
-      },
-      {
-        "title": "Port of Call",
-        "description": "Quick job for you Agent. We think the gang have a port running between 12000 and 15000 that might expose some interesting information about them, we've temporarily pointed our domain services.cyberprotection.agency to their server. Use that address to find the service and connect to it.",
-        "tips": [
-          "Tip: Connect to the port to get the flag."
         ]
       }
     ],
     [
       {
-        "title": "Remote Unlock",
-        "description": "Agent, because of your great work on the previous level the gang have struggled to find a way to get physical access to the bank. So it looks like they are testing ways to get a package containing a small robot into the building which they can unlock remotely.\n\nThey seem to be testing it with a server (which we've pointed services.cyberprotection.agency at, port 9999), which has a service running on it. When you connect it starts a timer and gives you three numbers. We think to unlock it you need to multiply the first two numbers together and then divide the result by the third number. But the result has to be sent to the server in under 0.1 seconds to gain access to the remote package. We haven't been able to find a way to do it. Can you?",
+        "title": "Spam Robot",
+        "description": "Agent, because of your great work on the previous level the gang have struggled to find a way to get physical access to the bank. So it looks like they are testing ways to get a package containing a small robot into the building which they can use remotely.\n\nThey plan to send it to one of the senior management as a gift from a friend (who the manager is unaware belongs to the Bulldog gang). When the manager plugs it into his computer to charge up via USB, it will hijack the computer and access his email. With this access, the gang will send a specific spam email, which the robot will use as a trigger to start an attack on the banks servers from the inside!\n\nTo help narrow our investigative efforts, we need to know which gang member is behind this new idea of theirs. Agents have managed to recover a log file and a mail queue of pending outgoing email spam messages. See if you can match up the ESMTPA ID from the messages to the log file and get the login details of the gang member. We can then stop him sending the email.",
         "tips": [
-          "Tip: Send the right answer in time to get the flag."
+          "Tip: The flag is the username of the gang member sending the spam."
         ]
       },
       {
-        "title": "Coffee Robot",
-        "description": "It seems the gang are indeed building some kind of physical robotic trojan horse that they plan to sneak into the bank. Luckily our inside agent has told us Charlie Hampton, one of the gangs smartest engineers, has been making detailed notes, instructions and schematic drawings of the robot and keeping them on one of his servers. Getting access to those drawings would really help us know what we're looking for.\n\nThe problem is, we don't know which server he's keeping the plans on. All we do know is that Charlie owns a legit business, a coffee shop in East London, which he uses as a cover for his gang activities. It's a long shot but we do know they run a small server in the basement of the shop which controls their on-demand coffee ordering service. Go to the coffee ordering site, see if it's vulnerable. If it is see if you can find anything useful on the server.",
+        "title": "Nosey Robot",
+        "description": "Agent, thanks to your efforts in finding the gang member leading the effort to send a robot to the bank, we've managed to recover some C code we think might be used by the robot to take photos, but we can't be sure because running it currently returns a segmentation fault. Another agent has rigged up the code to a camera interface. See if you can fix the code, get it to run and take a photo.",
         "tips": [
-          "Tip: Find the drawings file to get the flag."
-        ]
-      },
-      {
-        "title": "Change of Plan",
-        "description": "Our Agent on the inside has just received an email from one of the senior gang members. It looks like it was an email to the whole gang and we think it's letting everyone know about the change of plans, from a physical robbery to the new plan to access the bank remotely with some kind of robotic trojan horse.\n\nWe really need to confirm that, but at the moment we can't because the email came in the form of some encrypted text. We've had an agent working on it, and he's created a dictionary file and an unfinished python script to try and crack it. He seems to have hit a dead end, maybe you could pick it up and finish breaking the encryption.",
-        "tips": [
-          "Tip: Crack the encryption to get the flag."
-        ]
-      },
-      {
-        "title": "Multiple Boxes",
-        "description": "Remember Filebox, the cloud storage site Bulldog gang member Billy Johnson was using to store his files? Well, it seems he's not the only gang member to store his secret files there.\n\nAs we know it's vulnerable we want to look at other ways to find the gangs files. We think files can be exposed with directory traversal and there are some two levels up from the account page. See if you can get access to them.",
-        "tips": [
-          "Tip: Find the file to get the flag."
-        ]
-      },
-      {
-        "title": "The Robot Speaks",
-        "description": "Agent, we have more details about the Bulldogs trojan horse robot. Apparently there's a gang member very high up in the organisation that is actually friends with one of the banks senior management. The gang are planning to send him the robot as a pretend birthday gift! On the face of it the robot doesn't do anything fancy, it moves around and has an LCD display for messages. But of course, being the Bulldogs they obviously have something more sinister in mind.\n\nWe think the LCD display might be used as a way to display secret messages and access codes to someone in the bank. We've managed to get hold of the program, written in assembly code, that outputs the messages to the display. But it seems to have bad instruction and fails to run. See if you can patch it.",
-        "tips": [
-          "Tip: Edit the code and run it, the robots confirmation message will show the flag."
-        ]
-      },
-      {
-        "title": "Fork in the Road",
-        "description": "Agent, it's time we went on the offensive! We know the Bulldogs are putting their trojan horse robot plan into action, and whilst we're continuing to work specifically on stopping that we also want to disrupt as many of the Bulldogs operations as possible, to keep them distracted and slow them down.\n\nHere's one example we want your help with specifically. Remember the encryption tool Cryptonite that one of the Bulldogs created from the previous level? It uses server side commands to handle the encryption and we want you to use some kind of command injection to send the command for a fork bomb to DoS the website and take down the tool.",
-        "tips": [
-          "Tip: Crash the website to get the flag!"
+          "Tip: Take the photo, the robots confirmation message will show the flag."
         ]
       },
       {
@@ -997,17 +1059,45 @@
         ]
       },
       {
+        "title": "Change of Plan",
+        "description": "Our Agent on the inside has just received an email from one of the senior gang members. We think it's regarding a date being set for when the robot should arrive at the banks address - it's our belief that they know we are into them and so they would like to speed up their efforts in sending the robot to the bank!\n\nWe really need to confirm the exact date they want to send it, but at the moment we can't because the email came in the form of some encrypted text. We've had an agent working on it, and he's created a dictionary file and an unfinished Python script to try and crack it. He seems to have hit a dead end, maybe you could pick it up and finish breaking the encryption.",
+        "tips": [
+          "Tip: Crack the encryption to get the flag."
+        ]
+      },
+      {
+        "title": "The Robot Speaks",
+        "description": "Agent, we have more details about the Bulldogs trojan horse robot. The gang are planning to send the robot to a senior manager as a pretend birthday gift! On the face of it the robot doesn't do anything fancy, it moves around and has an LCD display for messages. But of course, being the Bulldogs they obviously have something more sinister in mind.\n\nWe think the LCD display might be used as a way to display secret messages and access codes to someone in the bank. We've managed to get hold of the program, written in Assembly code, that outputs the messages to the display. But it seems to have bad instruction and fails to run. See if you can patch it.",
+        "tips": [
+          "Tip: Edit the code and run it, the robots confirmation message will show the flag."
+        ]
+      },
+      {
+        "title": "Remote Unlock",
+        "description": "Agent, it seems the robot the gang want to send to the bank will first need to undergo a series of tests which we are hoping will reveal more information about how they will activate the robot once it arrives at the bank.\n\nThey seem to be testing it with a server (which we've pointed services.cyberprotection.agency at, port 9999), which has a service running on it. When you connect it starts a timer and gives you three numbers. We think to unlock it you need to multiply the first two numbers together and then divide the result by the third number. But the integer result has to be sent to the server in under 1 second to gain access to the remote package. We haven't been able to find a way to do it. Can you?",
+        "tips": [
+          "Tip: Send the right answer in time to get the flag."
+        ]
+      },
+      {
+        "title": "Coffee Robot",
+        "description": "An inside agent has told us Charlie Hampton, one of the gang's smartest engineers, has been making detailed notes, instructions and schematic drawings of the robot and keeping them on one of his servers. Getting access to those drawings would really help us understand how this robot will operate.\n\nThe problem is, we don't know which server he's keeping the plans on. All we do know is that Charlie owns a legit business, a coffee shop in East London, which he uses as a cover for his gang activities. It's a long shot but we do know they run a small server in the basement of the shop which controls their on-demand coffee ordering service. Go to the coffee ordering site, see if it's vulnerable. If it is see if you can find anything useful on the server.",
+        "tips": [
+          "Tip: Find the drawings file to get the flag."
+        ]
+      },
+      {
+        "title": "Fork in the Road",
+        "description": "Agent, it's time we went on the offensive! We know the Bulldogs are putting their trojan horse robot plan into action, and whilst we're continuing to work specifically on stopping that we also want to disrupt as many of the Bulldogs operations as possible, to keep them distracted and slow them down.\n\nHere's one example we want your help with specifically. Remember the encryption tool Cryptonite that one of the Bulldogs created from the previous level? It uses server side commands to handle the encryption and we want you to use some kind of command injection to send the command for a fork bomb to DoS the website and take down the tool.",
+        "tips": [
+          "Tip: Crash the website to get the flag!"
+        ]
+      },
+      {
         "title": "Open Port",
         "description": "Agent, it looks like we're having an effect on the morale of the Bulldogs with all the chaos we've been causing! Our inside agent has just picked up some chatter from a small group of the Bulldogs that are planning to splinter off and form their own gang! There's a possibility they might be planning to hijack the trojan horse idea and steal the gold bullion for themselves, so we need to find out what they're up to.\n\nWe believe they've set up a port running on an IP address that we've pointed services.cyberprotection.agency at, between ports 19000 and 20000. See if you can connect to it and help us find out what they're up to.",
         "tips": [
           "Tip: Connect to the port to get the flag."
-        ]
-      },
-      {
-        "title": "Nosey Robot",
-        "description": "Agent, we've been doing some analysis of the trojan horse robot we think the gang are planning to plant in the bank, trying to figure out what it's there to do.\n\nWe've recovered some C code, and we think it might be used by the robot to take photos, but we can't be sure because running it currently returns a segmentation fault. Another agent has rigged up the code to a camera interface. See if you can fix the code, get it to run and take a photo.",
-        "tips": [
-          "Tip: Take the photo, the robots confirmation message will show the flag."
         ]
       },
       {
@@ -1019,170 +1109,160 @@
       },
       {
         "title": "Stop and Search",
-        "description": "Agent, we've been continuing to work with the bank to improve their security. Now that we've identified there could be someone (or something, like the trojan horse robot!) on the inside they want us to penetration test all their internal systems. We've identified a possible XSS flaw in their contact management system, in the \"search contact\" field to be specific.\n\nHere's a javascript payload, see if you can get it to work in the search field.\n\n<script>alert('Search this!!!')</script>\n\nTip:Submit the payload correctly to get the flag.",
-        "tips": []
+        "description": "Agent, with all of the knowledge we have gathered about the trojan robot and the gang's plans for it we have been working with the bank to improve their security. We're currently doing penetration tests on all their internal systems and we've identified a possible XSS flaw in their contact management system, in the \"search contact\" field to be specific.\n\nHere's a javascript payload, see if you can get it to work in the search field.\n\n<script>alert('Search this!!!')</script>\n\nOnce this flaw has been fixed we are confident that the trojan robot the gang have been planning to send will have no effect on the banks system therefor rendering it useless! Good luck!",
+        "tips": [
+          "Tip: Submit the payload correctly to get the flag."
+        ]
       },
       {
-        "title": "Spam Robot",
-        "description": "It looks like we may know how the trojan horse robot is going to be used to steal the banks money! The gang are sending it to one of the senior management, who is a friend of a senior gang member (although the manager doesn't know he belongs to the Bulldog gang). Being a friend he doesn't suspect the robot is malicious, so when it needs charging up (which it does via USB) it will hijack the bank managers computer and access his email.\n\nWhen the gang are ready to attack and they have the relevant security details they are going to send the manager an email disguised as spam, which the robot will pick up and use to start an attack on the banks servers from the inside!\n\nOne way we're going to stop them, and get the gang member responsible in the process, is to find out who is going to be sending that email. We've recovered a log file and a mail queue of pending outgoing email spam messages. See if you can match up the ESMTPA ID from the messages to the log file and get the login details of the gang member. We can then stop him sending the email.",
+        "title": "Multiple Boxes",
+        "description": "Could this be the icing on the cake? Remember Filebox, the cloud storage site Bulldog gang member Billy Johnson was using to store his files? Well, it seems he's not the only gang member to store his secret files there.\n\nAs we know it's vulnerable we want to look at other ways to find the gang's files. We think the files can be exposed with directory traversal and there are some two levels up from the account page. See if you can get access to them.",
         "tips": [
-          "Tip: The flag is the username of the gang member sending the spam."
+          "Tip: Find the file to get the flag."
         ]
       }
     ],
     [
       {
-        "title": "String Cruncher",
-        "description": "We've discovered a web page used by the gang which seems to just generate some strings, but we're not sure why. They all seem to be random but we have a feeling, given the technical sophistication of this gang, that things might not be as they seem. Take a look.",
+        "title": "Spam For Dinner",
+        "description": "Agent, we're trying to distract the gang whilst we try and gain access to their primary server and we think we've found a target for you.\n\nWe want to spam the booking form for their restaurants, if we can create at least 5 incorrect bookings that'll make a real mess to keep them distracted. The problem is the form is protected by a Captcha. You may be able to bypass the Captcha by tricking the form into using the same data every time you submit.",
         "tips": [
-          "Tip: Find the right value, that's the flag."
-        ]
-      },
-      {
-        "title": "Silver Service",
-        "description": "Good news agent, we've found a TCP service used by the gang, it's services.cyberprotection.agency on port 13222. Take a look and see what you can find.",
-        "tips": [
-          "Tip: You'll find the flag somewhere in the service."
+          "Tip: How are strings sometimes generated?"
         ]
       },
       {
         "title": "Bypass",
         "description": "Agent, we've found a TCP service the gang are using, but we can't seem to get access. It's services.cyberprotection.agency on port 13880 See if you can bypass the login screen.",
         "tips": [
-          "Tip: Get in and find the flag."
-        ]
-      },
-      {
-        "title": "Trial by File",
-        "description": "Agent, we've got what we think might be your toughest test yet. We've intercepted a file which was sent to the gangs boss, so we know it's important, but none of our agents can exploit it. Time for you to show us what you're made of.",
-        "tips": [
-          "Tip: The flag is in the file."
-        ]
-      },
-      {
-        "title": "Memories",
-        "description": "Agent, we've intercepted a file sent between two gang members and it's confused our agents. When you execute the program it will give you a memory address for a function. See if you can exploit the binary to run the function.",
-        "tips": [
-          "Tip: Run the function to get the flag."
-        ]
-      },
-      {
-        "title": "Server Strike",
-        "description": "Breakthrough - we have gained access to the gangs primary server! We found out because we recently took down a hacker from a rival gang that has previously managed to gain access to the system.\n\nWe think he left an exploit on the server. SSH in and see if you can use it to exploit the server.",
-        "tips": [
-          "Tip: Exploit the server to get the flag.",
-          "Warning: Make sure to back up any files you are about to modify. There are no second chances!"
+          "Tip: Good LUKS"
         ]
       },
       {
         "title": "Run Server Run",
         "description": "Quick task for you, we've obtained details of another TCP server the gang are using (details are services.cyberprotection.agency on port 13777) - we just need you to connect to it. Should be easy, right?",
         "tips": [
-          "Tip: Connect to the server to get the flag."
+          "Tip: Files are made of data"
+        ]
+      },
+      {
+        "title": "Server Strike",
+        "description": "Breakthrough - we have gained access to the gang's primary server! We found out because we recently took\n    down a hacker from a rival gang that has previously managed to gain access to the system.\n\nWe think he left an exploit on the server. SSH in and see if you can use it to exploit the server.",
+        "tips": [
+          "Tip: weird.",
+          "Warning: Make sure to back up any files you are about to modify. There\n    are no second chances!"
+        ]
+      },
+      {
+        "title": "Memories",
+        "description": "Agent, we've intercepted a file sent between two gang members and it's confused our agents. When you execute the program it will give you a memory address for a function. See if you can exploit the binary to run the function.",
+        "tips": [
+          "Tip: Use a cyclic pattern tool."
         ]
       },
       {
         "title": "Binary Memories",
-        "description": "Ok, this is annoying. Our undercover agent has just sent us a file he managed to take from the gangs primary server, so we think it's important, but when we run it nothing happens. We think it might be loading something into memory, any ideas?",
+        "description": "Ok, this is annoying. Our undercover agent has just sent us a file he managed to take from the gang's primary server, so we think it's important, but when we run it nothing happens. We think it might be loading something into memory, any ideas?",
         "tips": [
-          "Tip: Run the file and get the flag!"
-        ]
-      },
-      {
-        "title": "Encrypted",
-        "description": "Good news agent, another intercepted file for you to analyse that we think contains the access code to a safe the gang have on their boat - our undercover agent thinks he can get physical access to it, so we need the code as soon as possible.\n\nWe've tried executing the file and it loads the encrypted access code into memory. That's as far as we've got, give it a try and see if you can decrypt the code.",
-        "tips": [
-          "Tip: The decrypted code is the flag."
+          "Tip: gdb unscramble"
         ]
       },
       {
         "title": "Seashell",
         "description": "We've just made a big discovery agent, it seems the gang have more than one ship! We know because we've intercepted a message sent between them. Trouble is we can't figure out what the message is. Take a look.",
         "tips": [
-          "Tip: Figure out the message to get the flag."
-        ]
-      },
-      {
-        "title": "Spam For Dinner",
-        "description": "Agent, we're trying to distract the gang whilst we try and gain access to their primary server and we think we've found a target for you.\n\nWe want to spam the booking form for their restaurants, if we can create enough incorrect bookings that'll make a real mess to keep them distracted. The problem is the form is protected by a captcha.",
-        "tips": [
-          "Tip: Find a way to bypass the captcha",
-          "Tip: Prove you can bypass it by tricking the form into using the same captcha every time you submit the form.",
-          "Tip: After submitting the form with the same captcha several times in a row, you will be given the flag."
+          "Tip: Code is just data."
         ]
       },
       {
         "title": "Hash'em",
         "description": "Agent, we've managed to get physical access to a router the gang are using on their ship. We want you to use that access to get the username and password for SSH.",
         "tips": [
-          "Tip: Send the username and password to our undercover by text to get the flag. The message should be in the format: username / password."
+          "Tip: RCE? You'll crack it! Then, send in format: username / password."
+        ]
+      },
+      {
+        "title": "Encrypted",
+        "description": "Good news agent, another intercepted file for you to analyse that we think contains the access code to a safe the gang have on their boat - our undercover agent thinks he can get physical access to it, so we need the code as soon as possible.\n\nWe've tried executing the file and it loads the encrypted access code into memory. That's as far as we've got, give it a try and see if you can decrypt the code.",
+        "tips": [
+          "Tip: strings, gdb, try to catch a break."
+        ]
+      },
+      {
+        "title": "Silver Service",
+        "description": "Good news agent, we've found a TCP service used by the gang, it's services.cyberprotection.agency on port 13222. Take a look and see what you can find.",
+        "tips": [
+          "Tip: Decrypt all the things! Are you sure the first line is fully decrypted?"
+        ]
+      },
+      {
+        "title": "String Cruncher",
+        "description": "We've discovered a web page used by the gang which seems to just generate some strings, but we're not sure why. They all seem to be random but we have a feeling, given the technical sophistication of this gang, that things might not be as they seem. Take a look.",
+        "tips": [
+          "Tip: One of these is not like the others... when you find the odd one out, it will lead you to the flag."
+        ]
+      },
+      {
+        "title": "Trial by File",
+        "description": "Agent, we've got what we think might be your toughest test yet. We've intercepted a file which was sent to the gang's boss, so we know it's important, but none of our agents can exploit it. Time for you to show us what you're made of.",
+        "tips": [
+          "Tip: Control @ n"
         ]
       }
     ]
   ],
-  "Moonbase": [
+  "Moon": [
     [
       {
         "title": "Programming 101",
-        "description": "Good morning agent, welcome to your first day of training on the Moon Base. Our goal on this level is to teach you some programming basics. We use a programming language called Python at the CPA and today we're going to start with a simple task - teaching you a few simple things like code comments and using the print function.\n\nWe have an interactive code editor for you to learn on, the CPA MoonCoder. Simply change the code in the editor on the left side and click the green \"Submit code\" button to make it run. You'll then see the output of your code (along with a flag to submit if you get it correct) on the right side.\n\nAnd don't forget, if you get stuck you can click \"Need a hint?. Whilst you're in training you won't lose any points for doing so.",
-        "tips": [
-        ]
+        "description": "Good morning agent, welcome to your first day of training on the Moon Base. Our goal on this level is to teach you some programming basics. We use a programming language called Python at the CPA and today we're going to start with a simple task - teaching you a few simple things like code comments and using the print function.\n\nWe have an interactive code editor for you to learn on, the CPA MoonCoder. Simply change the code in the editor on the left side and click the green \"Submit code\" button to make it run. You'll then see the output of your code (along with a flag to submit if you get it correct) on the right side.\n\nAnd don't forget, if you get stuck you can click \"Use a hint\". Whilst you're in training you won't lose any points for doing so.",
+        "tips": []
       },
       {
         "title": "Handy Variables",
         "description": "Next, let's take a look at something called variables, a really simple programming concept (it's just a box with a label that can hold something), but a thing you'll find very useful as you go on to do more advanced things.",
-        "tips": [
-        ]
+        "tips": []
       },
       {
         "title": "Converting for Fun",
         "description": "I hope you've been making notes agent as with this challenge you'll need to take what you've just learnt about variables and try converting the types of data they contain.\n\nOh, handy tip, if you make a bit of a mess with your code editor you can always click the reset button on the bottom right. It'll refresh the editor and put back the original text so you can start again.",
-        "tips": [
-        ]
+        "tips": []
       },
       {
         "title": "Maths in Code",
         "description": "Are you any good at maths agent? Well, computers certainly are, and you can use programming to do all kinds of clever things. Let's start you off with the basics, using programming to do some simple calculations.",
-        "tips": [
-        ]
+        "tips": []
       },
       {
         "title": "Super Strings",
         "description": "So you've already learnt about strings, but did you know there are some other really useful things you can do with them? Things like concatenation and using string specifiers. Take a look.",
-        "tips": [
-        ]
+        "tips": []
       }
     ],
     [
       {
         "title": "Flow with Conditionals",
         "description": "Now you know the basics it's time to teach you one of the most useful things in programming, conditionals. Using \"if statements\" you can get a program to be dynamic and flow the way you want it to based on the information it receives. If you're ready, let's go!",
-        "tips": [
-        ]
+        "tips": []
       },
       {
         "title": "Logical",
         "description": "So now you know all about conditionals it's time to supercharge them with logic! This is where we get to the very core of how a computer thinks, using simple binary, 1 and 0, True and False. Once you master this they'll be no holding you back!",
-        "tips": [
-        ]
+        "tips": []
       },
       {
         "title": "Let's Get Functional",
         "description": "You may be thinking by now that programming means typing and retyping lots of things all the time, but actually there's a handy way we can reuse some of the code you're writing so you don't have to do that. They're called functions and they're simply little blocks of code that we can call on again and again to do useful things.",
-        "tips": [
-        ]
+        "tips": []
       },
       {
         "title": "Hooray for Arrays",
         "description": "If you thought functions were useful just wait until you learn about arrays! They're simple things, just collections of data, but they're really handy for programming. In this lesson you'll learn how to create them, add and remove things and more.",
-        "tips": [
-        ]
+        "tips": []
       },
       {
         "title": "Going Loopy",
         "description": "Hello agent. I've just received a message from another agent letting me know something strange is going on - we may have intercepted an alien signal! It's time to accelerate your training and make sure you're ready for your role as an agent on the Moon Base. And what better way to do that than introduce you to loops!",
-        "tips": [
-        ]
+        "tips": []
       }
     ],
     [
@@ -1193,7 +1273,7 @@
       },
       {
         "title": "Sockets and Servers",
-        "description": "So agent, now the Moon Base is on high alert it's time to start teaching you some slightly more challenging topics. You'll need them to help the other CPA agents deal with whatever is sending us those strange signals!\nLet's start with sockets, a way of sending data over a network.",
+        "description": "So agent, now the Moon Base is on high alert it's time to start teaching you some slightly more challenging topics. You'll need them to help the other CPA agents deal with whatever is sending us those strange signals!\n\nLet's start with sockets, a way of sending data over a network.",
         "tips": []
       },
       {
@@ -1229,21 +1309,21 @@
       },
       {
         "title": "Broken Robot",
-        "description": "We have a problem. Yesterday we sent out our remote tracking robot to collect some samples, but it's got a little lost and we need it back so we can send it back out to the alien landing site if they decide to land on the moon. Can you get it back to base?\nSome instructions to help you:\nGood luck agent!",
+        "description": "We have a problem. Yesterday we sent out our remote tracking robot to collect some samples, but it's got a little lost and we need it back so we can send it back out to the alien landing site if they decide to land on the moon. Can you get it back to base?\n\nSome instructions to help you:\n\nGood luck agent!",
         "tips": [
           "Tip: Navigate the robot back to base to get the flag."
         ]
       },
       {
         "title": "Unlocking the Message",
-        "description": "Agent, we're using a simple web API to listen for the alien signals, but we need to find a way to get past a numerical API key that's required to get a response. See if you can manage it.",
+        "description": "Agent, we're using a simple web API to listen for the alien signals, but we need to find a way to get past a numerical API key that's required to get a response. See if you can manage it.\n\nSome instructions:",
         "tips": [
           "Tip: Write a script which runs each possible combination until you get a response to get the flag."
         ]
       },
       {
         "title": "Alien Server",
-        "description": "So, it seems the aliens are using what looks like human technology and we've identified they're running a server. We need you to try and connect to the server and see what's going on.",
+        "description": "So, it seems the aliens are using what looks like human technology and we've identified they're running a server. We need you to try and connect to the server and see what's going on.\n\nInstructions:",
         "tips": [
           "Tip: Get access to the server using the above instructions to get the flag."
         ]
@@ -1252,7 +1332,7 @@
     [
       {
         "title": "Listen Up",
-        "description": "The aliens seem to be trying to make direct contact, so it's time for us to properly listen. We need you to write a server that accepts incoming connections and monitors the commands sent to it.",
+        "description": "The aliens seem to be trying to make direct contact, so it's time for us to properly listen. We need you to write a server that accepts incoming connections and monitors the commands sent to it.\n\nSome instructions for you:",
         "tips": [
           "Tip: Listen correctly to get the flag."
         ]
@@ -1266,21 +1346,21 @@
       },
       {
         "title": "Alien Zip",
-        "description": "Wow, things are getting crazy, the aliens have flooded us with cryptic zip files and we've no idea what's inside them or, for that matter, how and why they seem to be using human technology in their communications with us.\nAnyway, we've started organising the files to try and make sense of them, but they're all locked with a numerical three-digit passcode. See if you can write a script to get into this example file alien-zip-2092.zip and read the text file inside which we think is named whatever the zip is (so in this case alien-zip-2092.txt). Oh, by the way, files should be extracted to the /tmp/ directory.",
+        "description": "Wow, things are getting crazy, the aliens have flooded us with cryptic zip files and we've no idea what's inside them or, for that matter, how and why they seem to be using human technology in their communications with us.\n\nAnyway, we've started organising the files to try and make sense of them, but they're all locked with a numerical three-digit passcode. See if you can write a script to get into this example file alien-zip-2092.zip and read the text file inside which we think is named whatever the zip is (so in this case alien-zip-2092.txt). Oh, by the way, files should be extracted to the /tmp/ directory.",
         "tips": [
           "Tip: Extract the file to the /tmp/ directory to get the flag. Make sure to break out of the loop when you hit the correct password, otherwise you will override the correct file with a blank one with the same name."
         ]
       },
       {
         "title": "Passphrase Panic",
-        "description": "So, things are moving quickly and one of our agents has just pointed out to me that we should probably get on the defensive and make sure all our files are locked and have secure passphrases. We need your help to generate those passphrases.\nWe've already created a script that generates 3 random numbers that correspond to the position of words that can be found in the /tmp/words.txt file. You will find those numbers in the wordNumbers array.",
+        "description": "So, things are moving quickly and one of our agents has just pointed out to me that we should probably get on the defensive and make sure all our files are locked and have secure passphrases. We need your help to generate those passphrases.\n\nWe've already created a script that generates 3 random numbers that correspond to the position of words that can be found in the /tmp/words.txt file. You will find those numbers in the wordNumbers array.\n\nInstructions:",
         "tips": [
           "Tip: Generate a passphrase to get the flag."
         ]
       },
       {
         "title": "Jovian Tweets",
-        "description": "This is a bit weird, but looking at the files the aliens are sending would suggest they are trying to find a way to post messages on social media back on Earth. Maybe it's part of a co-ordinate attack to spread panic. We better figure out how they are doing it, and the best way is probably to try it yourself using the protocols they seem to be using.",
+        "description": "This is a bit weird, but looking at the files the aliens are sending would suggest they are trying to find a way to post messages on social media back on Earth. Maybe it's part of a co-ordinate attack to spread panic. We better figure out how they are doing it, and the best way is probably to try it yourself using the protocols they seem to be using.\n\nSome instructions:",
         "tips": [
           "Tip: Read the response to get the flag."
         ]
@@ -1296,28 +1376,28 @@
       },
       {
         "title": "Watched by the Eye",
-        "description": "The aliens have got on to our Moon Base network, we don't know how but we know they're watching what we're doing.\nWe need to keep communicating in a secret way. See if you can write a script to hide some text in an image file /tmp/image.gif by appending it to the end of the image. That way we can send random images back and forth to communicate without them knowing.",
+        "description": "The aliens have got on to our Moon Base network, we don't know how but we know they're watching what we're doing.\n\nWe need to keep communicating in a secret way. See if you can write a script to hide some text in an image file /tmp/image.gif by appending it to the end of the image. That way we can send random images back and forth to communicate without them knowing.",
         "tips": [
           "Tip: Hide the text \"alieneye\" in the file to get the flag."
         ]
       },
       {
         "title": "A Way Back In",
-        "description": "Agent, we need to start fighting back, and we think we have a way in. See if you can write a script that will start a connection to the below IP address, which we think is what the alien probe ship is using, giving us the ability to run commands on their machine and see the results. Once in, read the files on the system in the /tmp directory.\nIP: 127.0.0.1 port 10000",
+        "description": "Agent, we need to start fighting back, and we think we have a way in. See if you can write a script that will start a connection to the below IP address, which we think is what the alien probe ship is using, giving us the ability to run commands on their machine and see the results. Once in, read the files on the system in the /tmp directory.\n\nIP: 127.0.0.1 port 10000",
         "tips": [
           "Tip: The flag will be sent when you send the correct command."
         ]
       },
       {
         "title": "Tough Zip",
-        "description": "So, remember those zip files from the previous level? Well, they're still sending them, thousands of them, and it looks like they've improved the password protection on them.\nSee if you can write a script to brute force one of the zip files, alien-sample-42.zip and read the extracted file alien-sample-42.txt.",
+        "description": "So, remember those zip files from the previous level? Well, they're still sending them, thousands of them, and it looks like they've improved the password protection on them.\n\nSee if you can write a script to brute force one of the zip files, alien-sample-42.zip and read the extracted file alien-sample-42.txt.\n\nWe will provide a list of potential passwords:",
         "tips": [
           "Tip: Extract the file to the /tmp/ directory to get the flag."
         ]
       },
       {
         "title": "Server Key",
-        "description": "Ok, the excellent team on the next level have identified another alien server on a second alien probe ship that's moved down to the moon, but it's protected in a more sophisticated way than the last one. We need you to write a python script which downloads a key, reverses it and then sends it back. Note that the key changes based on a timer.",
+        "description": "Ok, the excellent team on the next level have identified another alien server on a second alien probe ship that's moved down to the moon, but it's protected in a more sophisticated way than the last one. We need you to write a python script which downloads a key, reverses it and then sends it back. Note that the key changes based on a timer.\n\nInstructions:",
         "tips": [
           "Tip: Successfully send back the key in time to get the flag."
         ]
@@ -1333,28 +1413,28 @@
       },
       {
         "title": "Cookie Cutter",
-        "description": "Remember on the last level you helped the team identify the aliens web servers? Well now we want to attack the alien users who are logged in to that server. To do that we need to identify which are logged in.\nSee if you can write a script that can guess cookie values and send them to the url http://127.0.0.1:8082/cookiestore. The cookie to be sent is alien_id.",
+        "description": "Remember on the last level you helped the team identify the aliens' web servers? Well now we want to attack the alien users who are logged in to that server. To do that we need to identify which are logged in.\n\nSee if you can write a script that can guess cookie values and send them to the url http://127.0.0.1:8082/cookiestore. The cookie to be sent is alien_id.",
         "tips": [
           "Tip: Read the response to the right cookie value to get the flag."
         ]
       },
       {
         "title": "Alien Transfer",
-        "description": "We've noticed that the aliens are sending messages between their ships, we think they're using XOR to encrypt the messages, and we've intercepted a key.\nSet up a server listening on (\"localhost\", 10000) to intercept one of the alien messages. When you do perform a bitwise XOR on the message with the key \"attackthehumans\" and then respond with the encrypted data.",
+        "description": "We've noticed that the aliens are sending messages between their ships, we think they're using XOR to encrypt the messages, and we've intercepted a key.\n\nSet up a server listening on (\"localhost\", 10000) to intercept one of the alien messages. When you do perform a bitwise XOR on the message with the key \"attackthehumans\" and then respond with the encrypted data.",
         "tips": [
           "Tip: Read the response to get the flag."
         ]
       },
       {
         "title": "Hidden Messages",
-        "description": "One of the agents has intercepted a file from the aliens that we're worried about - it's called destroymoonbase.gif, so we really need to see what it is! Unfortunately we're struggling to make any sense of. It could be because it contains lots of symbols.\nWrite a script that will read the file, it's at /tmp/destroymoonbase.gif, then strip out all the characters that are not letters or numbers.",
+        "description": "One of the agents has intercepted a file from the aliens that we're worried about - it's called destroymoonbase.gif, so we really need to see what it is! Unfortunately we're struggling to make any sense of. It could be because it contains lots of symbols.\n\nWrite a script that will read the file, it's at /tmp/destroymoonbase.gif, then strip out all the characters that are not letters or numbers.",
         "tips": [
           "Tip: Strip out the file correctly to get the flag."
         ]
       },
       {
         "title": "Alien Email",
-        "description": "Breakthrough! We've discovered that the aliens have an insider back on Earth, and they've been contacting each other by... email?!\nWe've managed to get hold of an email between the insider and Zultron, who we think might be the alien leader, with details about attack timings. We want to send another email with something different to try and confuse them.\nWrite a script that will connect to an SMTP server to send an email. Use the SMTP server at \"127.0.0.1\", port 1025, with a from address of bob-roswell-1947@gmail.com and a to address of zultron@thebigeye.com.",
+        "description": "Breakthrough! We've discovered that the aliens have an insider back on Earth, and they've been contacting each other by... email?!\n\nWe've managed to get hold of an email between the insider and Zultron, who we think might be the alien leader, with details about attack timings. We want to send another email with something different to try and confuse them.\n\nWrite a script that will connect to an SMTP server to send an email. Use the SMTP server at \"127.0.0.1\", port 1025, with a from address of bob-roswell-1947@gmail.com and a to address of zultron@thebigeye.com.",
         "tips": [
           "Tip: Send the email correctly to get the flag."
         ]
@@ -1363,35 +1443,35 @@
     [
       {
         "title": "New Line of Communication",
-        "description": "When you were on the last level we discovered the aliens had been communicating with a human insider back on Earth, and by email of all things! Well, it seems that may have been a bit of a decoy as they're also exchanging secret encrypted messages from a server on one of the probe ships.\nWe need you to write a script which can connect over TCP to the following server (\"localhost\", 10000) and send GET to retrieve the encoded messages, then send them back split by \\n. We think you'll receive 3 sentences and they're encrypted with a caesar cipher that has a different random offset per sentence.",
+        "description": "When you were on the last level we discovered the aliens had been communicating with a human insider back on Earth, and by email of all things! Well, it seems that may have been a bit of a decoy as they're also exchanging secret encrypted messages from a server on one of the probe ships.\n\nWe need you to write a script which can connect over TCP to the following server (\"localhost\", 10000) and send GET to retrieve the encoded messages, then send them back split by \\n. We think you'll receive 3 sentences and they're encrypted with a caesar cipher that has a different random offset per sentence.",
         "tips": [
           "Tip: Decrypt and send back the sentences to get the flag."
         ]
       },
       {
         "title": "Vulnerable String",
-        "description": "Agent, we're upping our attack on the probe ship servers. We've identified a server that holds a compressed string (which we think might be some kind of unlock code to the mothership's entry system).\nWrite a script which can connect to the server (\"localhost\", 10000) over TCP, and send GET_KEY to download the string. The string is compressed using what we think is a very common form of compression used by many websites on Earth, so you'll need to uncompress.",
+        "description": "Agent, we're upping our attack on the probe ship servers. We've identified a server that holds a compressed string (which we think might be some kind of unlock code to the mothership's entry system).\n\nWrite a script which can connect to the server (\"localhost\", 10000) over TCP, and send GET_KEY to download the string. The string is compressed using what we think is a very common form of compression used by many websites on Earth, so you'll need to uncompress.",
         "tips": [
           "Tip: Download, uncompress and print the string to get the flag."
         ]
       },
       {
         "title": "Getting Access",
-        "description": "Ok, now things are getting serious. We have agents onboard a probe and they've used a key we have to gain physical access to the mothership. Now inside they've been able to connect to a page on the motherships main server which controls all the human technology they've been using. We think it's vulnerable to directory traversal, and we want to use that vulnerability to gain root access.\nThe page is at http://127.0.0.1:8082/humantechconfig?file=human.conf, write a script which will attempt various levels of directory traversal to give you access to the root directory.",
+        "description": "Ok, now things are getting serious. We have agents onboard a probe and they've used a key we have to gain physical access to the mothership. Now inside they've been able to connect to a page on the motherships main server which controls all the human technology they've been using. We think it's vulnerable to directory traversal, and we want to use that vulnerability to gain root access.\n\nThe page is at http://127.0.0.1:8082/humantechconfig?file=human.conf, write a script which will attempt various levels of directory traversal to give you access to the root directory.",
         "tips": [
           "Tip: Get to the root directory and the HTTP response will be the flag."
         ]
       },
       {
         "title": "Unlocking the Mothership",
-        "description": "Agent, it looks like the aliens insider back on earth is someone with a good understanding of technology. The aliens have left him a very complicated backdoor into the ships control system, but we need your expertise to figure it out and break in. If we can do that we think we might be able to set the alien ship to self-destruct!\nWrite a script which connects to the server controlling the entry to the aliens tech over TCP (\"localhost\", 10000) and send some random data. We've already tried it and it sends back a bunch of random word codes. There's also a file called backdoor.txt containing some random text. Use your script to encrypt a message using that text and the word codes. Each word is represented by (paragraph_number, line_number, word_number). We think sending the encrypted message back is what will unlock the server and give us access to the alien tech!\nThe server expects all the words in one transmission. The words should be stripped of punctuation and sent over separated by newline characters. (\\n)",
+        "description": "Agent, it looks like the aliens' insider back on earth is someone with a good understanding of technology. The aliens have left him a very complicated backdoor into the ships control system, but we need your expertise to figure it out and break in. If we can do that we think we might be able to set the alien ship to self-destruct!\n\nWrite a script which connects to the server controlling the entry to the aliens' tech over TCP (\"localhost\", 10000) and send some random data. We've already tried it and it sends back a bunch of random word codes. There's also a file called backdoor.txt containing some random text. Use your script to encrypt a message using that text and the word codes. Each word is represented by (paragraph_number, line_number, word_number). We think sending the encrypted message back is what will unlock the server and give us access to the alien tech!\n\nThe server expects all the words in one transmission. The words should be stripped of punctuation and sent over separated by newline characters. (\\n)",
         "tips": [
           "Tip: Send the encrypted message back to the server to get the flag."
         ]
       },
       {
         "title": "Self Destruct",
-        "description": "Ok agent, one more challenge for you to finally defeat these aliens. We now have access to the core part of the alien mothership and have figured out how to set the ship to self-destruct. The only way the aliens can turn off the self-destruct is to get a million miles away from earth, so if you can do this we think they'll be in a hurry to leave!\nYou need to write a script which makes HTTP requests to the server http://127.0.0.1:8082/selfdestruct. That site randomly generates two numbers with a small chance of the numbers matching. To turn on the self-destruct you need to make those two numbers match!",
+        "description": "Ok agent, one more challenge for you to finally defeat these aliens. We now have access to the core part of the alien mothership and have figured out how to set the ship to self-destruct. The only way the aliens can turn off the self-destruct is to get a million miles away from earth, so if you can do this we think they'll be in a hurry to leave!\n\nYou need to write a script which makes HTTP requests to the server http://127.0.0.1:8082/selfdestruct. That site randomly generates two numbers with a small chance of the numbers matching. To turn on the self-destruct you need to make those two numbers match!",
         "tips": [
           "Tip: Make the numbers match and read the response, that's the flag!"
         ]
@@ -1446,7 +1526,7 @@
       },
       {
         "title": "Picture in Picture",
-        "description": "When our team gained access to the photographer's photos we found a folder called 'Private' with some photos in it, but oddly the photos seem to be pretty uninteresting from a quick look. Have a look at them yourself and see if you can find anything interesting.",
+        "description": "When our team gained access to the photographer's photos we found a folder with some photos in it, but the photos seem to be pretty uninteresting from a quick look. Have a look at them yourself and see if you can find anything interesting.",
         "tips": [
           "Tip: The flag is in the image."
         ]
@@ -1460,7 +1540,7 @@
       },
       {
         "title": "Remote Access",
-        "description": "After we initially spoke to the owner of the small business as part of our team's initial recon he has been back in touch to let us know that some other strange things have been happening on one of the office PC's outside of normal business hours. We think sometime around the 1st September the photographer logged onto the business network remotely. Take a look at the log files we have for login events and see what you can find.",
+        "description": "After we initially spoke to the owner of the small business as part of our team's initial recon he has been back in touch to let us know that some other strange things have been happening on one of the office PC's outside of normal business hours. We think sometime around the 1st of September the photographer logged onto the business network remotely. Take a look at the log files we have for login events and see what you can find.",
         "tips": [
           "Tip: The name of the account the photographer used to log in is the flag."
         ]
@@ -1552,7 +1632,7 @@
     [
       {
         "title": "Start Line Setback",
-        "description": "Well, that wasn't a promising start. On our very first review, we found an image file on one of the companies servers which doesn't look quite right. We think whoever left it there has used a tool to add a passphrase to it and hide something inside. Take a look and see what you think.",
+        "description": "Well, that wasn't a promising start. On our very first review, we found an image file on one of the company's servers which doesn't look quite right. We think whoever left it there has used a tool to add a passphrase to it and hide something inside. Take a look and see what you think.",
         "tips": [
           "Tip: Open the file to find the flag."
         ]
@@ -1697,227 +1777,5 @@
         ]
       }
     ]
-  ],
-  "Volcano": [
-   [
-      {
-         "title":"Recon",
-         "description":"See if you can find any backup files from http://contacts.nootrino-laboratory.com.",
-         "tips":[
-            "Tip: The flag is the admin access code."
-         ]
-      },
-      {
-         "title":"Easy Access",
-         "description":"Nootrino Labs have a public-facing contacts systems accessible at http://contacts.nootrino-laboratory.com. As a first step, see if you can access the database behind it, gathering the username and password. We're sure that information will be useful later on.",
-         "tips":[
-            "Tip: The flag is the password of Professor Julie Bywater."
-         ]
-      },
-      {
-         "title":"Backdoor",
-         "description":"See if you can find a backdoor somewhere on the network and gain access through it.",
-         "tips":[
-            "Tip: The flag is the file path of the backdoor."
-         ]
-      },
-      {
-         "title":"To the Source",
-         "description":"Now you have access to the reactor system see if you can get access to its source code - we think that's where the gang went next as it contains lots of potentially useful information for them.",
-         "tips":[
-            "Tip: The flag is the database password."
-         ]
-      },
-      {
-         "title":"Cracked Window",
-         "description":"One of our agents thinks the gang must have had an employee username and access code to get to certain systems. Our best guess about where they got that information from is a Windows system on the network. See if you can exploit it.",
-         "tips":[
-            "Tip: The flag is the employee access token."
-         ]
-      },
-      {
-         "title":"Melting Core",
-         "description":"Time is not on our side, agent. The core is melting and needs to be shut down using the control panel. With the information you've gathered so far see if you can regain access and shut it down!",
-         "tips":[
-            "Tip: Get access to get the flag."
-         ]
-      }
-   ],
-   [
-      {
-         "title":"Targets",
-         "description":"Find a list of potential targets for the finalfrontier.agency domain.",
-         "tips":[
-            "Tip: The flag is one of the target domains."
-         ]
-      },
-      {
-         "title":"Password Hunt",
-         "description":"Visit their ||[redacted]|| directory at http://[redacted].finalfrontier.agency and see if you can recover the hashed user passwords.",
-         "tips":[
-            "Tip: The flag is one of the hashed passwords."
-         ]
-      },
-      {
-         "title":"SAHAdmin",
-         "description":"One of their ||[redacted]|| teams built a small holding site intended to eventually become a wiki. We think the server it's on might be vulnerable. Visit http://[redacted].finalfrontier.agency and attempt to recover the server's admin user password and get the plaintext version of the password.",
-         "tips":[
-            "Tip: The password is the flag."
-         ]
-      },
-      {
-         "title":"Terminal Trouble",
-         "description":"Visit their ||[redacted]|| teams internal site at http://redacted.finalfrontier.agency and attempt to gain access to the file system.",
-         "tips":[
-            "Tip: The flag is the subdomain of the hidden vhost in format subdomain.domain.tld."
-         ]
-      },
-      {
-         "title":"Route to Nowhere",
-         "description":"Access the site on the hidden vhost using what you already know.",
-         "tips":[
-            "Tip: The flag is the basic auth challenge message."
-         ]
-      },
-      {
-         "title":"Ready to Launch",
-         "description":"This is the final test for this client. Can we get access to their most important site, the mission control centre, available from the hidden vhost you found previously? It requires the highest admin access level.",
-         "tips":[
-            "Tip: Get access to get the flag."
-         ]
-      }
-   ],
-   [
-      {
-         "title":"Bad Config",
-         "description":"There is a site at http://configuration.securegov-test.com. See if you can find any interesting file paths.",
-         "tips":[
-            "Tip: The flag is the file path to an important shell script."
-         ]
-      },
-      {
-         "title":"Fishing for Files",
-         "description":"See if you can find a way to retrieve the files you found in the previous challenge.",
-         "tips":[
-            "Tip: The flag is the MD5 checksum of the binary file."
-         ]
-      },
-      {
-         "title":"Vulnerable Service",
-         "description":"We think there is a vulnerable service running on the network. See if you can find and exploit it.",
-         "tips":[
-            "Tip: The flag is the username of the user you gain access as after exploiting the target."
-         ]
-      },
-      {
-         "title":"Database Dumping",
-         "description":"Find a way to access a dump of the database that your existing user may not have access to.",
-         "tips":[
-            "Tip: The filename of the database dump is the flag. Look at existing functions in the binary to help you."
-         ]
-      },
-      {
-         "title":"Corrupted User",
-         "description":"The database you were able to dump seems to be corrupted. Find a way to recover the user information from it.",
-         "tips":[
-            "Tip: The flag is a password in the database."
-         ]
-      },
-      {
-         "title":"Secret Service",
-         "description":"See if you can find a sql database service that could contain useful data. Connect to it using the information you've gathered in the previous challenges.",
-         "tips":[
-            "Tip: The flag is a piece of personal client information."
-         ]
-      }
-   ],
-   [
-      {
-         "title":"Unauthenticated",
-         "description":"The networking team at Pencil Factory Investments have a site they can sign in to with an interface for monitoring network uptime at http://uptime.pencilfactoryinvestments.com. It should be secure, but see if you can log in as the administrator.",
-         "tips":[
-            "Tip: The flag is the database password."
-         ]
-      },
-      {
-         "title":"Range Finding",
-         "description":"Based on the work you did in the previous challenge, see if you can find a way to discover the intranet subnet range.",
-         "tips":[
-            "Tip: The flag is the ip address of the web server on the intranet subnet."
-         ]
-      },
-      {
-         "title":"Heading Home",
-         "description":"So you have the intranet subnet range, but can you find the intranet home page?",
-         "tips":[
-            "Tip: Find the home page URL to get the flag."
-         ]
-      },
-      {
-         "title":"Subnet",
-         "description":"The internal site you discovered previously has a protected debug interface, see if there is any way to exploit it.",
-         "tips":[
-            "Tip: The flag is the secret used by the hashing algorithm. A number between 40 and 50 will help you in solving this challenge."
-         ]
-      },
-      {
-         "title":"Going Up",
-         "description":"There is a private network segment containing Pencil Factory's private site. Access the network and exploit the site.",
-         "tips":[
-            "Tip: The flag is the last quarter earnings from the financial report exactly as written in the document."
-         ]
-      },
-      {
-         "title":"Final Report",
-         "description":"It's time to put together the final report for the Pencil Factory Investments senior management team. You should have all the information you need to finish it off.",
-         "tips":[
-            "Tip: Complete the report to get the flag. The secret project is the one that sounds the most suspicious."
-         ]
-      }
-   ],
-   [
-      {
-         "title":"Free Files",
-         "description":"Visit http://files.granitewallsecurity.com and see if you can access the file sharing part of their intranet.",
-         "tips":[
-            "Tip: The flag is the file name of the zip containing the ||[redacted]|| config."
-         ]
-      },
-      {
-         "title":"Open Intranet",
-         "description":"The ||[redacted]|| you discovered previously seems to be encrypted somehow. Decrypt it and gain access to the company intranet.",
-         "tips":[
-            "Tip: The flag is the key used to encrypt the file."
-         ]
-      },
-      {
-         "title":"FTP",
-         "description":"There is an FTP server on the intranet. See if you can find a way to access it.",
-         "tips":[
-            "Tip: The flag is the name of a file served by the FTP server."
-         ]
-      },
-      {
-         "title":"Network Service",
-         "description":"See if you can find an exploitable network service running on the network and then exploit it.",
-         "tips":[
-            "Tip: Exploit the network service to find the flag in flag.txt."
-         ]
-      },
-      {
-         "title":"Web Service",
-         "description":"Try and find the web service accessible from the previous target and exploit it.",
-         "tips":[
-            "Tip: The flag is the MD5 hash of the executable file."
-         ]
-      },
-      {
-         "title":"Missile Launch",
-         "description":"Now you have the missile schematics file you might as well see if you can recover it.",
-         "tips":[
-            "Tip: Get into the file to get the flag."
-         ]
-      }
-   ]
-]
+  ]
 }
