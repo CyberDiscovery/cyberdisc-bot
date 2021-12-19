@@ -190,4 +190,4 @@ EMOJI_LETTERS = [
     "\U000021a9",  # )
 ]
 
-CHEATING_VIDEO = "https://game.joincyberdiscovery.com/assets/videos/cheating_message.mp4?version=4.2.0"
+CHEATING_VIDEO = "https://cdn.discordapp.com/attachments/409860647170342919/922204571575660614/cheating_message.mp4"
