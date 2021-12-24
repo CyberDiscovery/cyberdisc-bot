@@ -164,6 +164,8 @@ class Fun(Cog):
         if message.channel.id == QUOTES_CHANNEL_ID and (
             message.author.id == QUOTES_BOT_ID or message.mentions is not None
         ):
+            await message.add_reaction("\N{THUMBS UP SIGN}")
+            await message.add_reaction("\N{THUMBS DOWN SIGN}")
             await self.add_quote_to_db(message)
             print(f"Message #{message.id} added to database.")
 
