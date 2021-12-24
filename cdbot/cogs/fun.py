@@ -264,7 +264,7 @@ class Fun(Cog):
             logs_channel = self.bot.get_channel(LOGGING_CHANNEL_ID)
             message = await quotes_channel.fetch_message(raw_reaction.message_id)
             reaction = [
-                react for react in message.reactions if str(react.emoji) == thumbs_down
+                react for react in message.reactions if str(react.emoji) == thumbs_down and if not react.me
             ][0]
             if reaction.count >= QUOTES_DELETION_QUOTA:
                 if not LOCAL_DEBUGGING:
