@@ -10,7 +10,7 @@ jobs:
       uses: actions/checkout@v2
 
     - name: Build Docker Container
-      run: docker build -t cyberdiscovery/cdbot:${{ steps.branch.outputs.name }} -t ghcr.io/cyberdiscovery/cdbot:${{ steps.branch.outputs.name }} -t ractf/core:latest -t ghcr.io/ractf/core:latest .
+      run: docker build -t cyberdiscovery/cdbot:latest -t ghcr.io/cyberdiscovery/cdbot:latest .
 
     - name: Create Sentry release
       uses: getsentry/action-release@v1
