@@ -1,6 +1,6 @@
 # Cyber Discovery Discord Bot
 
-[![Build Docker Container](https://github.com/CyberDiscovery/cyberdisc-bot/actions/workflows/build.yml/badge.svg)](https://github.com/CyberDiscovery/cyberdisc-bot/actions/workflows/build.yml) [![Discord](https://img.shields.io/discord/409851296116375565)](https://discord.cyberdiscoverycommunity.uk) [![Lint](https://github.com/CyberDiscovery/cyberdisc-bot/actions/workflows/lint.yml/badge.svg)](https://github.com/CyberDiscovery/cyberdisc-bot/actions/workflows/lint.yml) [![GitHub](https://img.shields.io/github/license/cyberdiscovery/cyberdisc-bot)](https://github.com/CyberDiscovery/cyberdisc-bot/blob/master/LICENSE) ![Python 3.8.x](https://img.shields.io/badge/python-3.9.x-yellow.svg)
+[![Build Docker Container](https://github.com/CyberDiscovery/cyberdisc-bot/actions/workflows/build.yml/badge.svg)](https://github.com/CyberDiscovery/cyberdisc-bot/actions/workflows/build.yml) [![Discord](https://img.shields.io/discord/409851296116375565)](https://discord.cyberdiscoverycommunity.uk) [![Lint](https://github.com/CyberDiscovery/cyberdisc-bot/actions/workflows/lint.yml/badge.svg)](https://github.com/CyberDiscovery/cyberdisc-bot/actions/workflows/lint.yml) [![GitHub](https://img.shields.io/github/license/cyberdiscovery/cyberdisc-bot)](https://github.com/CyberDiscovery/cyberdisc-bot/blob/master/LICENSE) ![Python 3.9.x](https://img.shields.io/badge/python-3.9.x-yellow.svg)
 
 The bot for the Cyber Discovery [Community Discord Server](https://discord.cyberdiscoverycommunity.uk)!
 
