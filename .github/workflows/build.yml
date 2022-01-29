@@ -25,7 +25,7 @@ jobs:
       if: github.ref == 'refs/heads/master'
 
     - name: Login to Github Container Registry
-      run: echo ${{ secrets.ghtoken }} | docker login ghcr.io -u ${{ secrets.github_username }} --password-stdin
+      run: echo ${{ secrets.ghtoken }} | docker login ghcr.io -u ${{ secrets.ghusername }} --password-stdin
       if: github.ref == 'refs/heads/master'
 
     - name: Push to Docker Hub

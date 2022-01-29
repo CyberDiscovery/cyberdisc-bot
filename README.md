@@ -1,6 +1,6 @@
 # Cyber Discovery Discord Bot
 
-[![Build Status](https://dev.azure.com/cyberdiscovery/Cyber%20Discovery%20Discord%20Bot/_apis/build/status/Build%20Pipeline?branchName=master)](https://dev.azure.com/cyberdiscovery/Cyber%20Discovery%20Discord%20Bot/_build/latest?definitionId=2&branchName=master) [![Build Status](https://dev.azure.com/cyberdiscovery/Cyber%20Discovery%20Discord%20Bot/_apis/build/status/Release%20Pipeline?branchName=master)](https://dev.azure.com/cyberdiscovery/Cyber%20Discovery%20Discord%20Bot/_build/latest?definitionId=7&branchName=master) [![Discord](https://img.shields.io/discord/409851296116375565)](https://discord.cyberdiscoverycommunity.uk) [![GitHub](https://img.shields.io/github/license/cyberdiscovery/cyberdisc-bot)](https://github.com/CyberDiscovery/cyberdisc-bot/blob/master/LICENSE) ![Python 3.8.x](https://img.shields.io/badge/python-3.8.x-yellow.svg)
+[![Build Docker Container](https://github.com/CyberDiscovery/cyberdisc-bot/actions/workflows/build.yml/badge.svg)](https://github.com/CyberDiscovery/cyberdisc-bot/actions/workflows/build.yml) [![Discord](https://img.shields.io/discord/409851296116375565)](https://discord.cyberdiscoverycommunity.uk) [![Lint](https://github.com/CyberDiscovery/cyberdisc-bot/actions/workflows/lint.yml/badge.svg)](https://github.com/CyberDiscovery/cyberdisc-bot/actions/workflows/lint.yml) [![GitHub](https://img.shields.io/github/license/cyberdiscovery/cyberdisc-bot)](https://github.com/CyberDiscovery/cyberdisc-bot/blob/master/LICENSE) ![Python 3.8.x](https://img.shields.io/badge/python-3.9.x-yellow.svg)
 
 The bot for the Cyber Discovery [Community Discord Server](https://discord.cyberdiscoverycommunity.uk)!
 
@@ -17,21 +17,14 @@ You should then get the client ID of your bot and put it into this URL to join i
 https://discordapp.com/oauth2/authorize?&client_id=<insert client id here>&scope=bot&
 ```
 
-### Kubernetes
+### Docker Compose
 
-Kubernetes is the intended environment for running the Bot, as it allows for the deployment of a pre-configured environment which can be defined in [code](deployment.yaml). To run Kubernetes on your computer you can use [Minikube](https://github.com/kubernetes/minikube) or deploy Kubernetes properly on a server.
+You can run Cyber Discovery Bot most easily with Docker Compose. Just set the following environment variables and run `docker-compose up -d`.
 
-Once you have installed Kubernetes you need to create the secret which will contain the bot token and database credentials.
-
-```bash
-kubectl create secret generic creds --from-literal BOT_TOKEN=<Discord Bot Token> --from-literal PGHOST=postgres --from-literal PGPORT=5432 --from-literal PGDATABASE=cyberdisc-db --from-literal PGUSER=postgres --from-literal PGPASSWORD=<Postgres Password> --from-literal SENTRY_URL=<Sentry URL> --from-literal DEPLOY=<Anything>
-```
-
-These settings will then be distributed to the containers when you create them like this:
-
-```bash
-kubectl apply -f https://raw.githubusercontent.com/CyberDiscovery/cyberdisc-bot/master/deployment.yaml
-```
+* `BOT_TOKEN`
+* `QUOTES_BOT_ID`
+* `QUOTES_CHANNEL_ID`
+* `LOGGING_CHANNEL_ID`
 
 ### Bare Metal
 
