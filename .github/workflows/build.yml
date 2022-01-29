@@ -1,0 +1,41 @@
+name: Build Docker Container
+
+on: push
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v2
+
+    - name: Build Docker Container
+      run: docker build -t cyberdiscovery/cdbot:latest -t ghcr.io/cyberdiscovery/cdbot:latest .
+
+    - name: Create Sentry release
+      uses: getsentry/action-release@v1
+      if: github.ref == 'refs/heads/master'
+      env:
+        SENTRY_AUTH_TOKEN: ${{ secrets.SENTRY_AUTH_TOKEN }}
+        SENTRY_ORG: ${{ secrets.SENTRY_ORG }}
+        SENTRY_PROJECT: ${{ secrets.SENTRY_PROJECT }}
+
+    - name: Login to Docker Hub
+      run: docker login --username ${{ secrets.docker_username }} --password ${{ secrets.docker_password }}
+      if: github.ref == 'refs/heads/master'
+
+    - name: Login to Github Container Registry
+      run: echo ${{ secrets.ghtoken }} | docker login ghcr.io -u ${{ secrets.ghusername }} --password-stdin
+      if: github.ref == 'refs/heads/master'
+
+    - name: Push to Docker Hub
+      run: docker push cyberdiscovery/cdbot:latest
+      if: github.ref == 'refs/heads/master'
+
+    - name: Push to Github Container Registry
+      run: docker push ghcr.io/cyberdiscovery/cdbot:latest
+      if: github.ref == 'refs/heads/master'
+
+    - name: Trigger restart
+      run: curl -s ${{ secrets.release_url }}
+      if: github.ref == 'refs/heads/master'

@@ -1,7 +1,7 @@
 import os
 
 from discord.ext import commands
-from discord.ext.commands import Bot, Cog, command, Context
+from discord.ext.commands import Bot, Cog, Context, command
 from git import Repo
 
 from cdbot.constants import WELCOME_CHANNEL_ID, WELCOME_MESSAGE
@@ -129,6 +129,7 @@ class General(Cog):
         Returns a link to discord's terms of service.
         """
         await ctx.send("https://www.discord.com/terms")
+
 
 def setup(bot):
     bot.add_cog(General(bot))
