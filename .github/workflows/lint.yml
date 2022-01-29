@@ -39,7 +39,8 @@ jobs:
     - name: Run flake8
       run: python -m flake8 . | tee flake8.xml
 
-    - name: Publish Unit Test Results
-      uses: EnricoMi/publish-unit-test-result-action@v1
+    - name: Upload JUnit
+      uses: actions/upload-artifact@v2
       with:
-        files: flake8.xml
+        name: Event File
+        path: flake8.xml
