@@ -2,12 +2,11 @@
 Set of bot commands designed for general leisure.
 """
 import asyncio
+import re
 import textwrap
 from io import BytesIO
 from math import ceil
 from random import choice, randint
-import re
-from random import randint
 from string import ascii_lowercase
 from typing import List
 from urllib.parse import urlencode
@@ -625,10 +624,6 @@ class Fun(Cog):
         await ctx.send("Ok, banning them from the Q&A server!")
 
     @command(hidden=True)
-    async def suppressdissent(self, ctx: Context):
-        await ctx.send("Let me call Theresa for ideas")
-
-    @command(hidden=True)
     async def beano(self, ctx: Context):
         await ctx.send("*grumbles*")
 
@@ -742,7 +737,8 @@ class Fun(Cog):
         Suppress someone.
         """
         comments = ["It will be done my lord", "I guess we'll try the Trump approach this time",
-                    "I'll get the CIA on the phone then", "Give me a minute to reread 1984"]
+                    "I'll get the CIA on the phone then", "Give me a minute to reread 1984",
+                    "Let me call Theresa for ideas"]
         await ctx.send(choice(comments))
 
     @command(hidden=True)

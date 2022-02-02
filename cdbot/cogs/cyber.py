@@ -103,7 +103,7 @@ class Cyber(Cog):
         Returns a link to the field manual
         """
 
-        await ctx.send("https://game.joincyberdiscovery.com/manual")
+        await ctx.send("https://play.cyberstart.com/field-manual")
 
     @command(aliases=["l", "lc"])
     async def level(

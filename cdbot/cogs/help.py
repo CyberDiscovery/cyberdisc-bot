@@ -18,7 +18,8 @@ class EmbeddedHelpCommand(commands.HelpCommand):
         ctx = self.context
         embed = Embed(
             color=Colour.blue(),
-            description=f"Type ``{self.clean_prefix}help [command]`` for more info on a command.\n""You can also type "
+            description=f"Type ``{self.clean_prefix}help [command]`` for more info on a command.\n"
+                        "You can also type "
                         f"``{self.clean_prefix}help [category]`` for more info on a category."
         )
         for cog in mapping.keys():
@@ -63,9 +64,13 @@ class EmbeddedHelpCommand(commands.HelpCommand):
                 title=f"``{self.clean_prefix}{command.name}``",
                 description=command.help
             )
-            embed.add_field(name="Usage", value=f"``{self.clean_prefix}{command.name} {command.signature}``", inline=False)
+            embed.add_field(name="Usage",
+                            value=f"``{self.clean_prefix}{command.name} {command.signature}``",
+                            inline=False)
             if command.aliases:
-                embed.add_field(name="Aliases", value=", ".join(f'``:{alias}``' for alias in command.aliases), inline=False)
+                embed.add_field(name="Aliases",
+                                value=", ".join(f'``:{alias}``' for alias in command.aliases),
+                                inline=False)
 
             await ctx.send(embed=embed)
 

@@ -1,0 +1,46 @@
+name: Lint
+
+on: push
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v2
+
+    - uses: actions/setup-python@v2
+      with:
+        python-version: '3.9'
+
+    - name: Cache Python modules
+      uses: actions/cache@v1
+      env:
+        cache-name: cache-node-modules
+      with:
+        path: ~/.pip
+        key: ${{ runner.os }}-build-${{ env.cache-name }}-${{ hashFiles('**/poetry.lock') }}
+        restore-keys: |
+          ${{ runner.os }}-build-${{ env.cache-name }}-
+          ${{ runner.os }}-build-
+          ${{ runner.os }}-
+
+    - name: Install Poetry
+      run: curl -sSL https://raw.githubusercontent.com/python-poetry/poetry/master/get-poetry.py | python
+
+    - name: Disable Virtualenvs
+      run: $HOME/.poetry/bin/poetry config virtualenvs.create false
+
+    - name: Install Python Dependencies
+      run: $HOME/.poetry/bin/poetry install --no-interaction --no-ansi
+      env:
+        PIP_CACHE_DIR: ~/.pip
+
+    - name: Run flake8
+      run: python -m flake8 . | tee flake8.xml
+
+    - name: Upload JUnit
+      uses: actions/upload-artifact@v2
+      with:
+        name: Event File
+        path: flake8.xml
