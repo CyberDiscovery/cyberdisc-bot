@@ -147,6 +147,9 @@ class Maths(Cog):
         return await ctx.send(embed=embed)
 
     @command()
+    @cooldown(1, 60, BucketType.user)
+    @cooldown(4, 60, BucketType.channel)
+    @cooldown(6, 3600, BucketType.guild)
     async def latex(self, ctx: Context, *, expression: str):
         """
         Render a LaTeX expression with https://quicklatex.com/
