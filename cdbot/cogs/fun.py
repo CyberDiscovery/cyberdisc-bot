@@ -744,8 +744,8 @@ class Fun(Cog):
         await ctx.send("rm -rf / --no-preserve-root")
 
 
-def setup(bot):
+async def setup(bot):
     """
     Required boilerplate for adding functionality of cog to bot.
     """
-    bot.add_cog(Fun(bot))
+    await bot.add_cog(Fun(bot))

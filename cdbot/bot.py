@@ -2,6 +2,7 @@
 
 import logging
 from platform import release, system
+from os import listdir
 
 from discord import Game, Intents
 from discord.ext.commands import Bot, when_mentioned_or
@@ -13,6 +14,7 @@ logger = logging.getLogger(__name__)
 
 intents = Intents.default()
 intents.members = True
+intents.message_content = True
 
 bot = Bot(command_prefix=when_mentioned_or("...", ":"), activity=Game(name=":help"), intents=intents)
 
@@ -46,10 +48,8 @@ async def block_muted(ctx):
     return ctx.author.id not in bot.muted
 
 
-# Load cogs
-bot.load_extension("cdbot.cogs.general")
-bot.load_extension("cdbot.cogs.cyber")
-bot.load_extension("cdbot.cogs.fun")
-bot.load_extension("cdbot.cogs.admin")
-bot.load_extension("cdbot.cogs.maths")
-bot.load_extension("cdbot.cogs.help")
+async def load_extensions():
+    for filename in listdir("./cdbot/cogs"):
+        if filename.endswith(".py"):
+            # cut off the .py from the file name
+            await bot.load_extension(f"cdbot.cogs.{filename[:-3]}")

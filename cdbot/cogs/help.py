@@ -18,15 +18,15 @@ class EmbeddedHelpCommand(commands.HelpCommand):
         ctx = self.context
         embed = Embed(
             color=Colour.blue(),
-            description=f"Type ``{self.clean_prefix}help [command]`` for more info on a command.\n"
+            description=f"Type ``:help [command]`` for more info on a command.\n"
                         "You can also type "
-                        f"``{self.clean_prefix}help [category]`` for more info on a category."
+                        f"``:help [category]`` for more info on a category."
         )
         for cog in mapping.keys():
             if cog is not None:
                 if cog.get_commands():
                     embed.add_field(name=cog.qualified_name,
-                                    value=f"``{self.clean_prefix}help {cog.qualified_name.lower()}``")
+                                    value=f"``:help {cog.qualified_name.lower()}``")
 
         dm = await ctx.author.send(embed=embed)
         if ctx.guild is not None:
@@ -41,12 +41,12 @@ class EmbeddedHelpCommand(commands.HelpCommand):
         embed = Embed(
             color=Colour.blue(),
             title=cog.description,
-            description=f"Type ``{self.clean_prefix}help [command]`` for more info on a command.\n You can also type "
-                        f"``{self.clean_prefix}help [category]`` for more info on a different category."
+            description=f"Type ``:help [command]`` for more info on a command.\n You can also type "
+                        f"``:help [category]`` for more info on a different category."
         )
         for command in cog.get_commands():
             if command.hidden is not True:
-                embed.add_field(name=f"``{self.clean_prefix}{command.name}``", value=command.help)
+                embed.add_field(name=f"``:{command.name}``", value=command.help)
 
         dm = await ctx.author.send(embed=embed)
         if ctx.guild is not None:
@@ -61,11 +61,11 @@ class EmbeddedHelpCommand(commands.HelpCommand):
         if command.hidden is not True:
             embed = Embed(
                 color=Colour.blue(),
-                title=f"``{self.clean_prefix}{command.name}``",
+                title=f"``:{command.name}``",
                 description=command.help
             )
             embed.add_field(name="Usage",
-                            value=f"``{self.clean_prefix}{command.name} {command.signature}``",
+                            value=f"``:{command.name} {command.signature}``",
                             inline=False)
             if command.aliases:
                 embed.add_field(name="Aliases",
@@ -86,5 +86,5 @@ class Help(commands.Cog):
         self.bot.help_command = self.bot._original_help_command
 
 
-def setup(bot):
-    bot.add_cog(Help(bot))
+async def setup(bot):
+    await bot.add_cog(Help(bot))
