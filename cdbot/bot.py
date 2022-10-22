@@ -1,8 +1,8 @@
 """Main script to define bot methods, and start the bot."""
 
 import logging
-from platform import release, system
 from os import listdir
+from platform import release, system
 
 from discord import Game, Intents
 from discord.ext.commands import Bot, when_mentioned_or

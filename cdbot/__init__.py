@@ -17,5 +17,3 @@ async def main():
     )
     await load_extensions()
     await bot.start(BOT_TOKEN)
-
-    #bot.run(BOT_TOKEN)

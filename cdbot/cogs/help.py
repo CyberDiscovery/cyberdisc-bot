@@ -18,9 +18,9 @@ class EmbeddedHelpCommand(commands.HelpCommand):
         ctx = self.context
         embed = Embed(
             color=Colour.blue(),
-            description=f"Type ``:help [command]`` for more info on a command.\n"
+            description="Type ``:help [command]`` for more info on a command.\n"
                         "You can also type "
-                        f"``:help [category]`` for more info on a category."
+                        "``:help [category]`` for more info on a category."
         )
         for cog in mapping.keys():
             if cog is not None:
@@ -41,8 +41,8 @@ class EmbeddedHelpCommand(commands.HelpCommand):
         embed = Embed(
             color=Colour.blue(),
             title=cog.description,
-            description=f"Type ``:help [command]`` for more info on a command.\n You can also type "
-                        f"``:help [category]`` for more info on a different category."
+            description="Type ``:help [command]`` for more info on a command.\n You can also type "
+                        "``:help [category]`` for more info on a different category."
         )
         for command in cog.get_commands():
             if command.hidden is not True:
